@@ -22,6 +22,9 @@ import { Weather, UserStatus, GreetingConditional } from "./components/07-condit
 {/* 08-styling-components */ }
 import { StyledCard, ProfileCard, IconComponent } from "./components/08-styling-components";
 
+{/* 09-mastering-useState */ }
+import { Counter, TodoList, Profile, ShoppingList } from "./components/09-mastering-useState";
+
 export default function Home() {
   return (
     <div>
@@ -54,9 +57,15 @@ export default function Home() {
       <GreetingConditional timeOfDay="morning" /> */}
 
       {/* 08-styling-components */}
-      <StyledCard />
+      {/* <StyledCard />
       <ProfileCard />
-      <IconComponent />
+      <IconComponent /> */}
+
+      {/* 09-mastering-useState */}
+      <Counter />
+      <TodoList />
+      <Profile />
+      <ShoppingList />
     </div>
   );
 }
