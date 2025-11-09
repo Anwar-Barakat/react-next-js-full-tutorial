@@ -7,6 +7,9 @@ import { Header, MainContent, Footer } from "./components/02-multiple-components
 {/* 03-jsx-rules */ }
 import { JSXRules } from "./components/03-jsx-rules";
 
+{/* 04-dynamic-content */ }
+import { Greeting, ProductInfo } from "./components/04-dynamic-content";
+
 export default function Home() {
   return (
     <div>
@@ -19,7 +22,11 @@ export default function Home() {
       <Footer /> */}
 
       {/* 03-jsx-rules */}
-      <JSXRules />
+      {/* <JSXRules /> */}
+
+      {/* 04-dynamic-content */}
+      <Greeting />
+      <ProductInfo />
     </div>
   );
 }
