@@ -34,6 +34,9 @@ import { UserProvider, UserProfile, UpdateUser } from "./components/11-context-u
 {/* 12-using-useRef */ }
 import { FocusInput, Timer } from "./components/12-using-useRef";
 
+{/* 13-custom-hook-fetch */ }
+import { FetchDataComponent } from "./components/13-custom-hook-fetch";
+
 export default function Home() {
   return (
     <div>
@@ -88,8 +91,11 @@ export default function Home() {
       </UserProvider> */}
 
       {/* 12-using-useRef */}
-      <FocusInput />
-      <Timer />
+      {/* <FocusInput />
+      <Timer /> */}
+
+      {/* 13-custom-hook-fetch */}
+      <FetchDataComponent />
     </div>
   );
 }
