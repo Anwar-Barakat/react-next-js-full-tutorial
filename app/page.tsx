@@ -23,7 +23,7 @@ import { Weather, UserStatus, GreetingConditional } from "./components/07-condit
 import { StyledCard, ProfileCard, IconComponent } from "./components/08-styling-components";
 
 {/* 09-mastering-useState */ }
-import { Counter, TodoList, Profile, ShoppingList } from "./components/09-mastering-useState";
+import { Counter, TodoList as TodoList09, Profile, ShoppingList } from "./components/09-mastering-useState";
 
 {/* 10-understanding-useEffect */ }
 import { BasicEffect, CounterEffect, FetchDataEffect } from "./components/10-understanding-useEffect";
@@ -36,6 +36,9 @@ import { FocusInput, Timer } from "./components/12-using-useRef";
 
 {/* 13-custom-hook-fetch */ }
 import { FetchDataComponent } from "./components/13-custom-hook-fetch";
+
+{/* 14-todo-list-crud */ }
+import { TodoList } from "./components/14-todo-list-crud";
 
 export default function Home() {
   return (
@@ -75,7 +78,7 @@ export default function Home() {
 
       {/* 09-mastering-useState */}
       {/* <Counter />
-      <TodoList />
+      <TodoList09 />
       <Profile />
       <ShoppingList /> */}
 
@@ -95,7 +98,10 @@ export default function Home() {
       <Timer /> */}
 
       {/* 13-custom-hook-fetch */}
-      <FetchDataComponent />
+      {/* <FetchDataComponent /> */}
+
+      {/* 14-todo-list-crud */}
+      <TodoList />
     </div>
   );
 }
