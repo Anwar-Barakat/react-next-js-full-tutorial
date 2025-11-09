@@ -10,6 +10,9 @@ import { JSXRules } from "./components/03-jsx-rules";
 {/* 04-dynamic-content */ }
 import { Greeting, ProductInfo } from "./components/04-dynamic-content";
 
+{/* 05-rendering-lists */ }
+import { UserList, ProductList } from "./components/05-rendering-lists";
+
 export default function Home() {
   return (
     <div>
@@ -25,8 +28,12 @@ export default function Home() {
       {/* <JSXRules /> */}
 
       {/* 04-dynamic-content */}
-      <Greeting />
-      <ProductInfo />
+      {/* <Greeting />
+      <ProductInfo /> */}
+
+      {/* 05-rendering-lists */}
+      <UserList />
+      <ProductList />
     </div>
   );
 }
