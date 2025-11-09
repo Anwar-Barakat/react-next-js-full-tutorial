@@ -1,5 +1,5 @@
 {/* 01-greet-component */ }
-import Greet from "./components/01-greet-component/Greet";
+import { Greet } from "./components/01-greet-component";
 
 {/* 02-multiple-components */ }
 import { Header, MainContent, Footer } from "./components/02-multiple-components";
@@ -13,6 +13,9 @@ import { Greeting, ProductInfo } from "./components/04-dynamic-content";
 {/* 05-rendering-lists */ }
 import { UserList, ProductList } from "./components/05-rendering-lists";
 
+{/* 06-using-props */ }
+import { Person, Product } from "./components/06-using-props";
+
 export default function Home() {
   return (
     <div>
@@ -22,7 +25,7 @@ export default function Home() {
       {/* 02-multiple-components */}
       {/* <Header />
       <MainContent />
-      <Footer /> */}
+      {/* <Footer /> */}
 
       {/* 03-jsx-rules */}
       {/* <JSXRules /> */}
@@ -32,8 +35,12 @@ export default function Home() {
       <ProductInfo /> */}
 
       {/* 05-rendering-lists */}
-      <UserList />
-      <ProductList />
+      {/* <UserList />
+      <ProductList /> */}
+
+      {/* 06-using-props */}
+      <Person name="Alice" age={30} />
+      <Product name="Laptop" price="$1200" />
     </div>
   );
 }
