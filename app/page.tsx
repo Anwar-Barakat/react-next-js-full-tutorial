@@ -28,6 +28,9 @@ import { Counter, TodoList, Profile, ShoppingList } from "./components/09-master
 {/* 10-understanding-useEffect */ }
 import { BasicEffect, CounterEffect, FetchDataEffect } from "./components/10-understanding-useEffect";
 
+{/* 11-context-useContext */ }
+import { UserProvider, UserProfile, UpdateUser } from "./components/11-context-useContext";
+
 export default function Home() {
   return (
     <div>
@@ -71,9 +74,15 @@ export default function Home() {
       <ShoppingList /> */}
 
       {/* 10-understanding-useEffect */}
-      <BasicEffect />
+      {/* <BasicEffect />
       <CounterEffect />
-      <FetchDataEffect />
+      <FetchDataEffect /> */}
+
+      {/* 11-context-useContext */}
+      <UserProvider>
+        <UserProfile />
+        <UpdateUser />
+      </UserProvider>
     </div>
   );
 }
