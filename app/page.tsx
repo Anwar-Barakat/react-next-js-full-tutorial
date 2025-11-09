@@ -19,36 +19,45 @@ import { Person, Product } from "./components/06-using-props";
 {/* 07-conditional-rendering */ }
 import { Weather, UserStatus, GreetingConditional } from "./components/07-conditional-rendering";
 
+{/* 08-styling-components */ }
+import { StyledCard, ProfileCard, IconComponent } from "./components/08-styling-components";
+
 export default function Home() {
   return (
     <div>
-      {/* 01-greet-component */ }
+      {/* 01-greet-component */}
       {/* <Greet /> */}
 
-      {/* 02-multiple-components */ }
+      {/* 02-multiple-components */}
       {/* <Header />
       <MainContent />
       <Footer /> */}
 
-      {/* 03-jsx-rules */ }
+      {/* 03-jsx-rules */}
       {/* <JSXRules /> */}
 
-      {/* 04-dynamic-content */ }
+      {/* 04-dynamic-content */}
       {/* <Greeting />
       <ProductInfo /> */}
 
-      {/* 05-rendering-lists */ }
+      {/* 05-rendering-lists */}
       {/* <UserList />
       <ProductList /> */}
 
-      {/* 06-using-props */ }
+      {/* 06-using-props */}
       {/* <Person name="Alice" age={30} />
       <Product name="Laptop" price="200" /> */}
 
-      {/* 07-conditional-rendering */ }
-      <Weather temperature={20} />
+      {/* 07-conditional-rendering */}
+      {/* <Weather temperature={20} />
       <UserStatus loggedIn={true} isAdmin={true} />
-      <GreetingConditional timeOfDay="morning" />
+      <GreetingConditional timeOfDay="morning" /> */}
+
+      {/* 08-styling-components */}
+      <StyledCard />
+      <ProfileCard />
+      <IconComponent />
     </div>
   );
 }
+
