@@ -31,6 +31,9 @@ import { BasicEffect, CounterEffect, FetchDataEffect } from "./components/10-und
 {/* 11-context-useContext */ }
 import { UserProvider, UserProfile, UpdateUser } from "./components/11-context-useContext";
 
+{/* 12-using-useRef */ }
+import { FocusInput, Timer } from "./components/12-using-useRef";
+
 export default function Home() {
   return (
     <div>
@@ -79,10 +82,14 @@ export default function Home() {
       <FetchDataEffect /> */}
 
       {/* 11-context-useContext */}
-      <UserProvider>
+      {/* <UserProvider>
         <UserProfile />
         <UpdateUser />
-      </UserProvider>
+      </UserProvider> */}
+
+      {/* 12-using-useRef */}
+      <FocusInput />
+      <Timer />
     </div>
   );
 }
