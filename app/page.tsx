@@ -25,6 +25,9 @@ import { StyledCard, ProfileCard, IconComponent } from "./components/08-styling-
 {/* 09-mastering-useState */ }
 import { Counter, TodoList, Profile, ShoppingList } from "./components/09-mastering-useState";
 
+{/* 10-understanding-useEffect */ }
+import { BasicEffect, CounterEffect, FetchDataEffect } from "./components/10-understanding-useEffect";
+
 export default function Home() {
   return (
     <div>
@@ -62,10 +65,15 @@ export default function Home() {
       <IconComponent /> */}
 
       {/* 09-mastering-useState */}
-      <Counter />
+      {/* <Counter />
       <TodoList />
       <Profile />
-      <ShoppingList />
+      <ShoppingList /> */}
+
+      {/* 10-understanding-useEffect */}
+      <BasicEffect />
+      <CounterEffect />
+      <FetchDataEffect />
     </div>
   );
 }
