@@ -25,7 +25,7 @@ export default function Home() {
       {/* 02-multiple-components */}
       {/* <Header />
       <MainContent />
-      {/* <Footer /> */}
+      <Footer /> */}
 
       {/* 03-jsx-rules */}
       {/* <JSXRules /> */}
