@@ -40,6 +40,9 @@ import { FetchDataComponent } from "./components/13-custom-hook-fetch";
 {/* 14-todo-list-crud */ }
 import { TodoList } from "./components/14-todo-list-crud";
 
+{/* 15-fetching-meals-axios */ }
+import { MealList } from "./components/15-fetching-meals-axios";
+
 export default function Home() {
   return (
     <div>
@@ -101,7 +104,10 @@ export default function Home() {
       {/* <FetchDataComponent /> */}
 
       {/* 14-todo-list-crud */}
-      <TodoList />
+      {/* <TodoList /> */}
+
+      {/* 15-fetching-meals-axios */}
+      <MealList />
     </div>
   );
 }
