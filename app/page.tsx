@@ -46,6 +46,9 @@ import { MealList } from "./components/15-fetching-meals-axios";
 {/* 16-calculator */ }
 import { Calculator } from "./components/16-calculator";
 
+{/* 17-toggle-bg-color */ }
+import { ToggleBgColor } from "./components/17-toggle-bg-color";
+
 export default function Home() {
   return (
     <div>
@@ -113,7 +116,10 @@ export default function Home() {
       {/* <MealList /> */}
 
       {/* 16-calculator */}
-      <Calculator />
+      {/* <Calculator /> */}
+
+      {/* 17-toggle-bg-color */}
+      <ToggleBgColor />
     </div>
   );
 }
