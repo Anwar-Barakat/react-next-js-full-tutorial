@@ -43,6 +43,9 @@ import { TodoList } from "./components/14-todo-list-crud";
 {/* 15-fetching-meals-axios */ }
 import { MealList } from "./components/15-fetching-meals-axios";
 
+{/* 16-calculator */ }
+import { Calculator } from "./components/16-calculator";
+
 export default function Home() {
   return (
     <div>
@@ -107,7 +110,10 @@ export default function Home() {
       {/* <TodoList /> */}
 
       {/* 15-fetching-meals-axios */}
-      <MealList />
+      {/* <MealList /> */}
+
+      {/* 16-calculator */}
+      <Calculator />
     </div>
   );
 }
