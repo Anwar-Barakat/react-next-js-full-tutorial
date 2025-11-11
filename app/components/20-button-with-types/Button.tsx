@@ -1,28 +1,17 @@
-'use client';
 import React from 'react';
 
-interface ButtonProps {
-  label: string;
-  onClick: () => void;
-  disabled?: boolean; // Optional prop
-}
+type ButtonProps = {
+  variant: 'primary' | 'secondary';
+  children: React.ReactNode;
+} & Omit<React.ComponentProps<'button'>, 'children'>;
 
-export const Button: React.FC<ButtonProps> = ({ label, onClick, disabled = false }) => {
-  const buttonStyle = {
-    padding: '10px 20px',
-    fontSize: '1rem',
-    cursor: disabled ? 'not-allowed' : 'pointer',
-    borderRadius: '5px',
-    border: '1px solid #007bff',
-    backgroundColor: disabled ? '#cccccc' : '#007bff',
-    color: 'white',
-    margin: '5px',
-    opacity: disabled ? 0.6 : 1,
-  };
+export const Button = ({ variant, children, ...rest }: ButtonProps) => {
+  const baseClasses = 'px-4 py-2 rounded-md text-white';
+  const variantClasses = variant === 'primary' ? 'bg-blue-500 hover:bg-blue-600' : 'bg-gray-500 hover:bg-gray-600';
 
   return (
-    <button onClick={onClick} disabled={disabled} style={buttonStyle}>
-      {label}
+    <button className={`${baseClasses} ${variantClasses}`} {...rest}>
+      {children}
     </button>
   );
 };
