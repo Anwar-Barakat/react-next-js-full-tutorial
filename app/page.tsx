@@ -49,6 +49,9 @@ import { Calculator } from "./components/16-calculator";
 {/* 17-toggle-bg-color */ }
 import { ToggleBgColor } from "./components/17-toggle-bg-color";
 
+{/* 18-testimonials-gallery */ }
+import { Testimonials, Gallery } from "./components/18-testimonials-gallery";
+
 export default function Home() {
   return (
     <div>
@@ -119,7 +122,11 @@ export default function Home() {
       {/* <Calculator /> */}
 
       {/* 17-toggle-bg-color */}
-      <ToggleBgColor />
+      {/* <ToggleBgColor /> */}
+
+      {/* 18-testimonials-gallery */}
+      <Testimonials />
+      <Gallery />
     </div>
   );
 }
