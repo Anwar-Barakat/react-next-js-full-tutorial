@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 const images = [
   'https://picsum.photos/seed/1/600/400',
@@ -14,49 +15,6 @@ const images = [
 ];
 
 const IMAGES_PER_VIEW = 3;
-
-const galleryContainerStyle = {
-  padding: '20px',
-  textAlign: 'center' as const,
-  position: 'relative' as const,
-  maxWidth: '900px',
-  margin: '0 auto',
-};
-
-const slideWrapperStyle = {
-  overflow: 'hidden',
-};
-
-const slideStyle = {
-  display: 'flex',
-  gap: '15px',
-};
-
-const imageWrapperStyle = {
-  minWidth: `calc(100% / ${IMAGES_PER_VIEW} - 10px)`,
-  overflow: 'hidden',
-  borderRadius: '8px',
-  boxShadow: '0 4px 8px rgba(0,0,0,0.1)',
-};
-
-const imageStyle = {
-  width: '100%',
-  display: 'block',
-  objectFit: 'cover' as const,
-};
-
-const navigationButtonStyle = {
-  position: 'absolute' as const,
-  top: '50%',
-  transform: 'translateY(-50%)',
-  backgroundColor: 'rgba(0, 0, 0, 0.5)',
-  color: 'white',
-  border: 'none',
-  padding: '10px',
-  cursor: 'pointer',
-  fontSize: '1.5rem',
-  zIndex: 1,
-};
 
 export const Gallery = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
@@ -78,19 +36,19 @@ export const Gallery = () => {
   };
 
   return (
-    <div style={galleryContainerStyle}>
-      <h2 style={{ marginBottom: '20px', color: '#eee' }}>Our Gallery</h2>
-      <button onClick={handleBack} style={{ ...navigationButtonStyle, left: '-10px' }}>&#10094;</button>
-      <div style={slideWrapperStyle}>
-        <div style={slideStyle}>
+    <div className="p-5 text-center relative max-w-4xl mx-auto">
+      <h2 className="mb-5 text-gray-200">Our Gallery</h2>
+      <button onClick={handleBack} className="absolute top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white border-none p-2.5 cursor-pointer text-2xl z-10 left-[-10px]">&#10094;</button>
+      <div className="overflow-hidden">
+        <div className="flex gap-4">
           {getImagesForView().map((src, index) => (
-            <div key={index} style={imageWrapperStyle}>
-              <img src={src} alt={`Gallery image ${index + 1}`} style={imageStyle} />
+            <div key={index} className={`min-w-[calc(100%/${IMAGES_PER_VIEW}-10px)] overflow-hidden rounded-lg shadow-lg`}>
+              <Image src={src} alt={`Gallery image ${index + 1}`} className="w-full block object-cover" width={600} height={400}/>
             </div>
           ))}
         </div>
       </div>
-      <button onClick={handleNext} style={{ ...navigationButtonStyle, right: '-10px' }}>&#10095;</button>
+      <button onClick={handleNext} className="absolute top-1/2 -translate-y-1/2 bg-black bg-opacity-50 text-white border-none p-2.5 cursor-pointer text-2xl z-10 right-[-10px]">&#10095;</button>
     </div>
   );
 };

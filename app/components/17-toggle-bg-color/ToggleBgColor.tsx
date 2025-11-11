@@ -13,39 +13,16 @@ export const ToggleBgColor = () => {
     setSearchTerm(event.target.value);
   };
 
-  const containerStyle = {
-    backgroundColor: isDarkMode ? '#333' : '#f0f0f0',
-    color: isDarkMode ? '#fff' : '#333',
-    padding: '2rem',
-    borderRadius: '8px',
-    minHeight: '200px',
-    display: 'flex',
-    flexDirection: 'column' as const,
-    alignItems: 'center',
-    justifyContent: 'center',
-    transition: 'background-color 0.3s ease, color 0.3s ease',
-  };
-
-  const buttonStyle = {
-    padding: '10px 20px',
-    fontSize: '1rem',
-    cursor: 'pointer',
-    borderRadius: '5px',
-    border: '1px solid #ccc',
-    marginBottom: '20px',
-  };
-
-  const searchInputStyle = {
-    padding: '10px',
-    fontSize: '1rem',
-    width: '300px',
-    borderRadius: '5px',
-    border: '1px solid #ccc',
-  };
+  const containerClasses = isDarkMode
+    ? 'bg-gray-800 text-white'
+    : 'bg-gray-100 text-gray-800';
 
   return (
-    <div style={containerStyle}>
-      <button onClick={handleToggle} style={buttonStyle}>
+    <div className={`p-8 rounded-lg min-h-[200px] flex flex-col items-center justify-center transition-colors duration-300 ${containerClasses}`}>
+      <button
+        onClick={handleToggle}
+        className="px-5 py-2.5 text-base cursor-pointer rounded-md border border-gray-300 mb-5"
+      >
         Toggle {isDarkMode ? 'Light' : 'Dark'} Mode
       </button>
       <input
@@ -53,9 +30,9 @@ export const ToggleBgColor = () => {
         placeholder="Search..."
         value={searchTerm}
         onChange={handleSearchChange}
-        style={searchInputStyle}
+        className="p-2.5 text-base w-[300px] rounded-md border border-gray-300"
       />
-      {searchTerm && <p style={{ marginTop: '20px' }}>Searching for: {searchTerm}</p>}
+      {searchTerm && <p className="mt-5">Searching for: {searchTerm}</p>}
     </div>
   );
 };

@@ -55,6 +55,9 @@ import { Testimonials, Gallery } from "./components/18-testimonials-gallery";
 {/* 19-validation-form */ }
 import { ValidationForm } from "./components/19-validation-form";
 
+{/* 20-button-with-types */ }
+import { UsageExample } from "./components/20-button-with-types";
+
 export default function Home() {
   return (
     <div>
@@ -128,11 +131,14 @@ export default function Home() {
       {/* <ToggleBgColor /> */}
 
       {/* 18-testimonials-gallery */}
-      {/* <Testimonials />
-      <Gallery /> */}
+      {/* <Testimonials /> */}
+      {/* <Gallery /> */}
 
       {/* 19-validation-form */}
-      <ValidationForm />
+      {/* <ValidationForm /> */}
+
+      {/* 20-button-with-types */}
+      <UsageExample />
     </div>
   );
 }

@@ -2,39 +2,10 @@
 
 import React, { useState } from 'react';
 
-const buttonStyles = {
-  width: '60px',
-  height: '60px',
-  fontSize: '1.5rem',
-  margin: '5px',
-  borderRadius: '8px',
-  border: '1px solid #555',
-  cursor: 'pointer',
-  backgroundColor: '#444',
-  color: '#eee',
-};
-
-const displayStyles = {
-  width: '270px',
-  height: '60px',
-  backgroundColor: '#333',
-  color: '#fff',
-  textAlign: 'right' as const,
-  padding: '10px',
-  fontSize: '2rem',
-  marginBottom: '10px',
-  borderRadius: '8px',
-  border: '1px solid #555',
-  boxSizing: 'border-box' as const,
-};
-
-const calculatorStyles = {
-  border: '1px solid #555',
-  borderRadius: '10px',
-  padding: '20px',
-  display: 'inline-block',
-  backgroundColor: '#222',
-};
+const buttonClasses = "w-16 h-16 text-2xl m-1 rounded-lg border border-gray-600 cursor-pointer bg-gray-700 text-gray-200";
+const operatorButtonClasses = "bg-yellow-600";
+const clearButtonClasses = "bg-red-700";
+const equalButtonClasses = "bg-green-700";
 
 export const Calculator = () => {
   const [display, setDisplay] = useState('0');
@@ -105,38 +76,38 @@ export const Calculator = () => {
     setWaitingForOperand(false);
   };
 
-  const renderButton = (value: string, onClick: () => void, extraStyles = {}) => (
-    <button style={{ ...buttonStyles, ...extraStyles }} onClick={onClick}>
+  const renderButton = (value: string, onClick: () => void, extraClasses = "") => (
+    <button className={`${buttonClasses} ${extraClasses}`} onClick={onClick}>
       {value}
     </button>
   );
 
   return (
-    <div style={calculatorStyles}>
-      <div style={displayStyles}>{display}</div>
+    <div className="border border-gray-600 rounded-lg p-5 inline-block bg-gray-800">
+      <div className="w-full h-16 bg-gray-900 text-white text-right p-2.5 text-4xl mb-2.5 rounded-lg border border-gray-600 box-border">{display}</div>
       <div>
         {renderButton('7', () => handleNumberClick('7'))}
         {renderButton('8', () => handleNumberClick('8'))}
         {renderButton('9', () => handleNumberClick('9'))}
-        {renderButton('/', () => handleOperatorClick('/'), { backgroundColor: '#e69a00' })}
+        {renderButton('/', () => handleOperatorClick('/'), operatorButtonClasses)}
       </div>
       <div>
         {renderButton('4', () => handleNumberClick('4'))}
         {renderButton('5', () => handleNumberClick('5'))}
         {renderButton('6', () => handleNumberClick('6'))}
-        {renderButton('*', () => handleOperatorClick('*'), { backgroundColor: '#e69a00' })}
+        {renderButton('*', () => handleOperatorClick('*'), operatorButtonClasses)}
       </div>
       <div>
         {renderButton('1', () => handleNumberClick('1'))}
         {renderButton('2', () => handleNumberClick('2'))}
         {renderButton('3', () => handleNumberClick('3'))}
-        {renderButton('-', () => handleOperatorClick('-'), { backgroundColor: '#e69a00' })}
+        {renderButton('-', () => handleOperatorClick('-'), operatorButtonClasses)}
       </div>
       <div>
         {renderButton('0', () => handleNumberClick('0'))}
-        {renderButton('C', handleClearClick, { backgroundColor: '#c9302c' })}
-        {renderButton('=', handleEqualClick, { backgroundColor: '#449d44' })}
-        {renderButton('+', () => handleOperatorClick('+'), { backgroundColor: '#e69a00' })}
+        {renderButton('C', handleClearClick, clearButtonClasses)}
+        {renderButton('=', handleEqualClick, equalButtonClasses)}
+        {renderButton('+', () => handleOperatorClick('+'), operatorButtonClasses)}
       </div>
     </div>
   );

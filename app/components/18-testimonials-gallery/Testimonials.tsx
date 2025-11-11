@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from 'react';
+import Image from 'next/image';
 
 const testimonials = [
   {
@@ -22,48 +23,6 @@ const testimonials = [
   },
 ];
 
-const testimonialCardStyle = {
-  backgroundColor: '#444',
-  color: '#eee',
-  border: '1px solid #555',
-  borderRadius: '8px',
-  padding: '20px',
-  margin: '10px',
-  maxWidth: '400px',
-  boxShadow: '0 2px 4px rgba(0,0,0,0.3)',
-  display: 'flex',
-  alignItems: 'center',
-  position: 'relative' as const,
-};
-
-const avatarStyle = {
-  width: '60px',
-  height: '60px',
-  borderRadius: '50%',
-  marginRight: '20px',
-};
-
-const textContainerStyle = {
-  fontStyle: 'italic',
-};
-
-const authorStyle = {
-  fontWeight: 'bold',
-  marginTop: '10px',
-  textAlign: 'right' as const,
-};
-
-const navigationButtonStyle = {
-  padding: '8px 16px',
-  fontSize: '1rem',
-  cursor: 'pointer',
-  borderRadius: '5px',
-  border: '1px solid #555',
-  backgroundColor: '#333',
-  color: '#eee',
-  margin: '0 10px',
-};
-
 export const Testimonials = () => {
   const [currentIndex, setCurrentIndex] = useState(0);
 
@@ -78,20 +37,20 @@ export const Testimonials = () => {
   const currentTestimonial = testimonials[currentIndex];
 
   return (
-    <div style={{ padding: '20px', textAlign: 'center' }}>
-      <h2 style={{ marginBottom: '20px', color: '#eee' }}>What Our Clients Say</h2>
-      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center' }}>
-        <div style={testimonialCardStyle}>
-          <img src={currentTestimonial.avatar} alt={`Avatar of ${currentTestimonial.author}`} style={avatarStyle} />
+    <div className="p-5 text-center">
+      <h2 className="mb-5 text-gray-200">What Our Clients Say</h2>
+      <div className="flex justify-center items-center">
+        <div className="bg-gray-700 text-gray-200 border border-gray-600 rounded-lg p-5 m-2.5 max-w-md shadow-md flex items-center relative">
+          <Image src={currentTestimonial.avatar} alt={`Avatar of ${currentTestimonial.author}`} className="w-16 h-16 rounded-full mr-5" width={150} height={150}/>
           <div>
-            <p style={textContainerStyle}>{currentTestimonial.text}</p>
-            <p style={authorStyle}>- {currentTestimonial.author}</p>
+            <p className="italic">{currentTestimonial.text}</p>
+            <p className="font-bold mt-2.5 text-right">- {currentTestimonial.author}</p>
           </div>
         </div>
       </div>
-      <div style={{ marginTop: '20px' }}>
-        <button onClick={handleBack} style={navigationButtonStyle}>Back</button>
-        <button onClick={handleNext} style={navigationButtonStyle}>Next</button>
+      <div className="mt-5">
+        <button onClick={handleBack} className="py-2 px-4 text-base cursor-pointer rounded-md border border-gray-600 bg-gray-800 text-gray-200 m-2.5">Back</button>
+        <button onClick={handleNext} className="py-2 px-4 text-base cursor-pointer rounded-md border border-gray-600 bg-gray-800 text-gray-200 m-2.5">Next</button>
       </div>
     </div>
   );

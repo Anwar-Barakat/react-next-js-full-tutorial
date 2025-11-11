@@ -1,15 +1,8 @@
 const StyledCard = () => {
   return (
-    <div
-      style={{
-        backgroundColor: 'lightblue',
-        padding: '20px',
-        borderRadius: '10px',
-        color: 'darkblue',
-      }}
-    >
+    <div className="bg-blue-200 p-5 rounded-lg text-blue-800">
       <h2>Styled Card</h2>
-      <p>This card is styled with inline styles.</p>
+      <p>This card is styled with Tailwind CSS.</p>
     </div>
   );
 };
