@@ -62,7 +62,10 @@
 // import { UsageExample } from "./components/21-typing-useState";
 
 {/* 22-form-using-ref */ }
-import { FormWithRef } from "./components/22-form-using-ref";
+// import { FormWithRef } from "./components/22-form-using-ref";
+
+{/* 23-react-typescript-event-handler */ }
+import { UsageExample } from "./components/23-react-typescript-event-handler";
 
 export default function Home() {
   return (
@@ -150,7 +153,10 @@ export default function Home() {
       {/* <UsageExample /> */}
 
       {/* 22-form-using-ref */}
-      <FormWithRef />
+      {/* <FormWithRef /> */}
+
+      {/* 23-react-typescript-event-handler */}
+      <UsageExample />
     </div>
   );
 }
