@@ -56,7 +56,10 @@
 // import { ValidationForm } from "./components/19-validation-form";
 
 {/* 20-button-with-types */ }
-import { UsageExample } from "./components/20-button-with-types";
+// import { UsageExample } from "./components/20-button-with-types";
+
+{/* 21-typing-useState */ }
+import { UsageExample } from "./components/21-typing-useState";
 
 export default function Home() {
   return (
@@ -138,6 +141,9 @@ export default function Home() {
       {/* <ValidationForm /> */}
 
       {/* 20-button-with-types */}
+      {/* <UsageExample /> */}
+
+      {/* 21-typing-useState */}
       <UsageExample />
     </div>
   );
