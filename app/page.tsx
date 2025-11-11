@@ -59,7 +59,10 @@
 // import { UsageExample } from "./components/20-button-with-types";
 
 {/* 21-typing-useState */ }
-import { UsageExample } from "./components/21-typing-useState";
+// import { UsageExample } from "./components/21-typing-useState";
+
+{/* 22-form-using-ref */ }
+import { FormWithRef } from "./components/22-form-using-ref";
 
 export default function Home() {
   return (
@@ -144,7 +147,10 @@ export default function Home() {
       {/* <UsageExample /> */}
 
       {/* 21-typing-useState */}
-      <UsageExample />
+      {/* <UsageExample /> */}
+
+      {/* 22-form-using-ref */}
+      <FormWithRef />
     </div>
   );
 }
