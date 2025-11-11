@@ -65,7 +65,10 @@
 // import { FormWithRef } from "./components/22-form-using-ref";
 
 {/* 23-react-typescript-event-handler */ }
-import { UsageExample } from "./components/23-react-typescript-event-handler";
+// import { UsageExample } from "./components/23-react-typescript-event-handler";
+
+{/* 24-react-context-api */ }
+import { UsageExample } from "./components/24-react-context-api";
 
 export default function Home() {
   return (
@@ -156,6 +159,9 @@ export default function Home() {
       {/* <FormWithRef /> */}
 
       {/* 23-react-typescript-event-handler */}
+      {/* <UsageExample /> */}
+
+      {/* 24-react-context-api */}
       <UsageExample />
     </div>
   );
