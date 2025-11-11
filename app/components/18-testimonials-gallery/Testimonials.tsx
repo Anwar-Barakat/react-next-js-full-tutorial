@@ -84,7 +84,7 @@ export const Testimonials = () => {
         <div style={testimonialCardStyle}>
           <img src={currentTestimonial.avatar} alt={`Avatar of ${currentTestimonial.author}`} style={avatarStyle} />
           <div>
-            <p style={textContainerStyle}>"{currentTestimonial.text}"</p>
+            <p style={textContainerStyle}>{currentTestimonial.text}</p>
             <p style={authorStyle}>- {currentTestimonial.author}</p>
           </div>
         </div>
