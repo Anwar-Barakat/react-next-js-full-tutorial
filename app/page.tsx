@@ -52,6 +52,9 @@ import { ToggleBgColor } from "./components/17-toggle-bg-color";
 {/* 18-testimonials-gallery */ }
 import { Testimonials, Gallery } from "./components/18-testimonials-gallery";
 
+{/* 19-validation-form */ }
+import { ValidationForm } from "./components/19-validation-form";
+
 export default function Home() {
   return (
     <div>
@@ -125,8 +128,11 @@ export default function Home() {
       {/* <ToggleBgColor /> */}
 
       {/* 18-testimonials-gallery */}
-      <Testimonials />
-      <Gallery />
+      {/* <Testimonials />
+      <Gallery /> */}
+
+      {/* 19-validation-form */}
+      <ValidationForm />
     </div>
   );
 }
