@@ -230,7 +230,7 @@ export default function Home() {
       {/* <TodoList /> */}
 
       {/* 26-useReducer-counter */}
-      <Counter />
+      {/* <Counter /> */}
 
       {/* 27-user-registration-react-hook-form */}
       {/* <UserRegistrationForm /> */}
