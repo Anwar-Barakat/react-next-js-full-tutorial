@@ -68,7 +68,10 @@
 // import { UsageExample } from "./components/23-react-typescript-event-handler";
 
 {/* 24-react-context-api */ }
-import { UsageExample } from "./components/24-react-context-api";
+// import { UsageExample } from "./components/24-react-context-api";
+
+{/* 25-reducer-using-typescript */ }
+import { TodoList } from "./components/25-reducer-using-typescript";
 
 export default function Home() {
   return (
@@ -162,7 +165,10 @@ export default function Home() {
       {/* <UsageExample /> */}
 
       {/* 24-react-context-api */}
-      <UsageExample />
+      {/* <UsageExample /> */}
+
+      {/* 25-reducer-using-typescript */}
+      <TodoList />
     </div>
   );
 }
