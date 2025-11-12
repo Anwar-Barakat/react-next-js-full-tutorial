@@ -80,6 +80,9 @@
 // import { UserRegistrationForm } from "./components/27-user-registration-form";
 
 
+{/* 28-use-hook-instead-of-useContext */ }
+import { UseHookDemo } from "./components/28-use-hook-instead-of-useContext";
+
 
 export default function Home() {
 
@@ -234,6 +237,9 @@ export default function Home() {
 
       {/* 27-user-registration-react-hook-form */}
       {/* <UserRegistrationForm /> */}
+
+      {/* 28-use-hook-instead-of-useContext */}
+      <UseHookDemo />
 
     </div>
 
