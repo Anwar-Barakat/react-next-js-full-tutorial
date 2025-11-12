@@ -1,0 +1,71 @@
+{
+  "window.zoomLevel": 1,
+  "files.autoSave": "afterDelay",
+  "git.autofetch": true,
+  "git.enableSmartCommit": true,
+  "breadcrumbs.enabled": false,
+  "editor.stickyScroll.enabled": false,
+  "editor.minimap.enabled": false,
+  "workbench.iconTheme": "a-file-icon-vscode",
+  "editor.lineHeight": 2.5,
+  "workbench.productIconTheme": "a-file-icon-vscode-product-icon-theme",
+  "workbench.colorTheme": "Dracula Theme",
+  "git.confirmSync": false,
+  "editor.gotoLocation.multipleDefinitions": "goto",
+  "php.validate.executablePath": "",
+  "workbench.settings.applyToAllProfiles": [],
+  "[typescriptreact]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "editor.fontFamily": "Fira Code",
+  "editor.codeLensFontFamily": "Fira Code",
+  "editor.fontLigatures": true,
+  "[vue]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode",
+    "editor.formatOnSave": true,
+    "editor.tabSize": 2
+  },
+  "vetur.validation.template": false,
+  "vetur.validation.style": false,
+  "vetur.validation.script": false,
+  "vetur.experimental.templateInterpolationService": true,
+  "editor.formatOnSave": true,
+  "wrap.with.session": {
+    "label": "@session",
+    "description": "@session()...@endsession",
+    "disabled": false,
+    "snippet": "@session ('${1:key}') \n\t$TM_SELECTED_TEXT\n@endsession$0"
+  },
+  "vetur.completion.scaffoldSnippetSources": {
+    "workspace": "💼",
+    "user": "🗒️",
+    "vetur": "✌"
+  },
+  "[javascript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "files.associations": {
+    "*.vue": "vue"
+  },
+  "vetur.ignoreProjectWarning": true,
+  "[jsonc]": {
+    "editor.defaultFormatter": "esbenp.prettier-vscode"
+  },
+  "tabnine.experimentalAutoImports": true,
+  "[typescript]": {
+    "editor.defaultFormatter": "vscode.typescript-language-features"
+  },
+  "typescript.updateImportsOnFileMove.enabled": "always",
+  "[php]": {
+    "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
+  },
+  "terminal.integrated.defaultProfile.osx": "zsh",
+  "githubPullRequests.createOnPublishBranch": "never",
+  "biome.suggestInstallingGlobally": false,
+  "diffEditor.ignoreTrimWhitespace": false,
+  "Codegeex.SidebarUI.LanguagePreference": "English",
+  "Codegeex.License": "",
+  "editor.largeFileOptimizations": false,
+  "git.openRepositoryInParentFolders": "never",
+  "Codegeex.Privacy": true
+}
