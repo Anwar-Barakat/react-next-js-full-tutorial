@@ -77,7 +77,8 @@
 
 import { TodoList } from "./components/25-reducer-using-typescript";
 
-
+{/* 26-useReducer-counter */ }
+// import { Counter } from "./components/26-useReducer-counter";
 
 {/* 27-user-registration-form */ }
 
@@ -233,7 +234,8 @@ export default function Home() {
       {/* 25-reducer-using-typescript */}
       {/* <TodoList /> */}
 
-
+      {/* 26-useReducer-counter */}
+      {/* <Counter /> */}
 
       {/* 27-user-registration-react-hook-form */}
       {/* <UserRegistrationForm /> */}
