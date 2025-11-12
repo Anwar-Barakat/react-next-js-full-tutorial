@@ -92,195 +92,150 @@ export default function Home() {
     <div>
 
       {/* 01-greet-component */}
-
       {/* <Greet /> */}
 
 
 
       {/* 02-multiple-components */}
-
       {/* <Header />
-
       <MainContent />
-
       <Footer /> */}
 
 
 
       {/* 03-jsx-rules */}
-
       {/* <JSXRules /> */}
 
 
 
       {/* 04-dynamic-content */}
-
       {/* <Greeting />
-
       <ProductInfo /> */}
 
 
 
       {/* 05-rendering-lists */}
-
       {/* <UserList />
-
       <ProductList /> */}
 
 
 
       {/* 06-using-props */}
-
       {/* <Person name="Alice" age={30} />
-
       <Product name="Laptop" price="200" /> */}
 
 
 
       {/* 07-conditional-rendering */}
-
       {/* <Weather temperature={20} />
-
       <UserStatus loggedIn={true} isAdmin={true} />
-
       <GreetingConditional timeOfDay="morning" /> */}
 
 
 
       {/* 08-styling-components */}
-
       {/* <StyledCard />
-
       <ProfileCard />
-
       <IconComponent /> */}
 
 
 
       {/* 09-mastering-useState */}
-
       {/* <Counter />
-
       <TodoList09 />
-
       <Profile />
-
       <ShoppingList /> */}
 
 
 
       {/* 10-understanding-useEffect */}
-
       {/* <BasicEffect />
-
       <CounterEffect />
-
       <FetchDataEffect /> */}
 
 
 
       {/* 11-context-useContext */}
-
       {/* <UserProvider>
-
         <UserProfile />
-
         <UpdateUser />
-
       </UserProvider> */}
 
 
 
       {/* 12-using-useRef */}
-
       {/* <FocusInput />
-
       <Timer /> */}
 
 
 
       {/* 13-custom-hook-fetch */}
-
       {/* <FetchDataComponent /> */}
 
 
 
       {/* 14-todo-list-crud */}
-
       {/* <TodoList /> */}
 
 
 
       {/* 15-fetching-meals-axios */}
-
       {/* <MealList /> */}
 
 
 
       {/* 16-calculator */}
-
       {/* <Calculator /> */}
 
 
 
       {/* 17-toggle-bg-color */}
-
       {/* <ToggleBgColor /> */}
 
 
 
       {/* 18-testimonials-gallery */}
-
       {/* <Testimonials /> */}
-
       {/* <Gallery /> */}
 
 
 
       {/* 19-validation-form */}
-
       {/* <ValidationForm /> */}
 
 
 
       {/* 20-button-with-types */}
-
       {/* <UsageExample /> */}
 
 
 
       {/* 21-typing-useState */}
-
       {/* <UsageExample /> */}
 
 
 
       {/* 22-form-using-ref */}
-
       {/* <FormWithRef /> */}
 
 
 
       {/* 23-react-typescript-event-handler */}
-
       {/* <UsageExample /> */}
 
 
 
-      {/* 24-react-context-api */ }
-
+      {/* 24-react-context-api */}
       {/* <UsageExample /> */}
 
 
 
       {/* 25-reducer-using-typescript */}
-
-      <TodoList />
-
+      {/* <TodoList /> */}
 
 
-      {/* 27-user-registration-form */}
 
+      {/* 27-user-registration-react-hook-form */}
       {/* <UserRegistrationForm /> */}
 
     </div>
