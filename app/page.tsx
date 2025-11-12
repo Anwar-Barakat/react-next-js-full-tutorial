@@ -68,20 +68,15 @@
 // import { UsageExample } from "./components/23-react-typescript-event-handler";
 
 {/* 24-react-context-api */ }
-
 // import { UsageExample } from "./components/24-react-context-api";
 
-
-
 {/* 25-reducer-using-typescript */ }
-
-import { TodoList } from "./components/25-reducer-using-typescript";
+// import { TodoList } from "./components/25-reducer-using-typescript";
 
 {/* 26-useReducer-counter */ }
 // import { Counter } from "./components/26-useReducer-counter";
 
 {/* 27-user-registration-form */ }
-
 // import { UserRegistrationForm } from "./components/27-user-registration-form";
 
 
@@ -235,7 +230,7 @@ export default function Home() {
       {/* <TodoList /> */}
 
       {/* 26-useReducer-counter */}
-      {/* <Counter /> */}
+      <Counter />
 
       {/* 27-user-registration-react-hook-form */}
       {/* <UserRegistrationForm /> */}
