@@ -1,7 +1,7 @@
 'use client';
 import { Button } from './Button';
 
-export const UsageExample = () => {
+export const ButtonDemo = () => {
   return (
     <div className="p-4">
       <h2 className="text-2xl font-bold mb-4">Button Usage Example</h2>

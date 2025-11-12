@@ -4,7 +4,7 @@ import { ClickEventHandler } from './ClickEventHandler';
 import { ChangeEventHandler } from './ChangeEventHandler';
 import { SubmitEventHandler } from './SubmitEventHandler';
 
-export const UsageExample: React.FC = () => {
+export const EventHandlersDemo: React.FC = () => {
   return (
     <div className="p-6 space-y-8 bg-gray-100 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-gray-100">
       <h2 className="text-3xl font-bold text-center mb-8">React TypeScript Event Handlers</h2>

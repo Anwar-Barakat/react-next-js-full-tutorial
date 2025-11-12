@@ -1,9 +1,9 @@
 'use client';
 import React from "react";
-import { useMyContext } from "./MyContext";
+import { useCounter } from "./CounterContext";
 
 export const Counter: React.FC = () => {
-  const { count, increment, decrement } = useMyContext();
+  const { count, increment, decrement } = useCounter();
 
   return (
     <div className="p-6 border border-gray-300 dark:border-gray-700 rounded-lg shadow-md dark:bg-gray-800 text-gray-800 dark:text-white text-center">
