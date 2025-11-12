@@ -1,0 +1,1 @@
+export { DataFetchingDemo } from './DataFetchingDemo';

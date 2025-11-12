@@ -79,9 +79,11 @@
 {/* 27-user-registration-form */ }
 // import { UserRegistrationForm } from "./components/27-user-registration-form";
 
+// 28-use-hook-instead-of-useContext
+// import { UseHookDemo } from "./components/28-use-hook-instead-of-useContext";
 
-{/* 28-use-hook-instead-of-useContext */ }
-import { UseHookDemo } from "./components/28-use-hook-instead-of-useContext";
+// 29-use-vs-useEffect-for-fetching
+import { DataFetchingDemo } from "./components/29-use-vs-useEffect-for-fetching";
 
 
 export default function Home() {
@@ -191,7 +193,10 @@ export default function Home() {
       {/* <UserRegistrationForm /> */}
 
       {/* 28-use-hook-instead-of-useContext */}
-      <UseHookDemo />
+      {/* <UseHookDemo /> */}
+
+      {/* 29-use-vs-useEffect-for-fetching */}
+      <DataFetchingDemo />
 
     </div>
 
