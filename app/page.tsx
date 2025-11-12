@@ -101,8 +101,6 @@ export default function Home() {
       {/* 03-jsx-rules */}
       {/* <JSXRules /> */}
 
-
-
       {/* 04-dynamic-content */}
       {/* <Greeting />
       <ProductInfo /> */}
@@ -186,14 +184,11 @@ export default function Home() {
       {/* 25-reducer-using-typescript */}
       {/* <TodoList /> */}
 
-
       {/* 26-useReducer-counter */}
       {/* <Counter /> */}
 
-
       {/* 27-user-registration-react-hook-form */}
       {/* <UserRegistrationForm /> */}
-
 
       {/* 28-use-hook-instead-of-useContext */}
       <UseHookDemo />
