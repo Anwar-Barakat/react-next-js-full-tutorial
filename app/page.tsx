@@ -83,7 +83,10 @@
 // import { UseHookDemo } from "./components/28-use-hook-instead-of-useContext";
 
 // 29-use-vs-useEffect-for-fetching
-import { DataFetchingDemo } from "./components/29-use-vs-useEffect-for-fetching";
+// import { DataFetchingDemo } from "./components/29-use-vs-useEffect-for-fetching";
+
+// 30-react-typescript-project-1
+import { App } from "./components/30-react-typescript-project-1";
 
 
 export default function Home() {
@@ -196,7 +199,10 @@ export default function Home() {
       {/* <UseHookDemo /> */}
 
       {/* 29-use-vs-useEffect-for-fetching */}
-      <DataFetchingDemo />
+      {/* <DataFetchingDemo /> */}
+
+      {/* 30-react-typescript-project-1 */}
+      <App />
 
     </div>
 
