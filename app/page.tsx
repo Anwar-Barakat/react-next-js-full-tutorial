@@ -92,7 +92,10 @@
 // import { App } from "./components/31-blog-platform-project";
 
 // 32-client-table
-import { Dashboard } from "./components/32-client-table";
+// import { Dashboard } from "./components/32-client-table";
+
+// 33-framer-motion-fundamentals
+import { FramerMotionDemo } from "./components/33-framer-motion-fundamentals";
 
 
 export default function Home() {
@@ -214,7 +217,10 @@ export default function Home() {
       {/* <App /> */}
 
       {/* 32-dashboard */}
-      <Dashboard />
+      {/* <Dashboard /> */}
+
+      {/* 33-framer-motion-fundamentals */}
+      <FramerMotionDemo />
 
     </div>
 
