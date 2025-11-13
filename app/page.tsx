@@ -89,7 +89,10 @@
 // import { App as Project1App } from "./components/30-react-typescript-project-1";
 
 // 31-blog-platform-project
-import { App } from "./components/31-blog-platform-project";
+// import { App } from "./components/31-blog-platform-project";
+
+// 32-client-table
+import { Dashboard } from "./components/32-client-table";
 
 
 export default function Home() {
@@ -208,7 +211,10 @@ export default function Home() {
       {/* <Project1App /> */}
 
       {/* 31-blog-platform-project */}
-      <App />
+      {/* <App /> */}
+
+      {/* 32-dashboard */}
+      <Dashboard />
 
     </div>
 
