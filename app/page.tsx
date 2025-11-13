@@ -86,7 +86,10 @@
 // import { DataFetchingDemo } from "./components/29-use-vs-useEffect-for-fetching";
 
 // 30-react-typescript-project-1
-import { App } from "./components/30-react-typescript-project-1";
+// import { App as Project1App } from "./components/30-react-typescript-project-1";
+
+// 31-blog-platform-project
+import { App } from "./components/31-blog-platform-project";
 
 
 export default function Home() {
@@ -202,6 +205,9 @@ export default function Home() {
       {/* <DataFetchingDemo /> */}
 
       {/* 30-react-typescript-project-1 */}
+      {/* <Project1App /> */}
+
+      {/* 31-blog-platform-project */}
       <App />
 
     </div>
