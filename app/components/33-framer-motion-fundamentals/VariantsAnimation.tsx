@@ -1,0 +1,47 @@
+'use client';
+import { motion } from 'framer-motion';
+import React from 'react';
+
+const VariantsAnimation = () => {
+  const container = {
+    hidden: { opacity: 1, scale: 0 },
+    visible: {
+      opacity: 1,
+      scale: 1,
+      transition: {
+        delayChildren: 0.3,
+        staggerChildren: 0.2,
+      },
+    },
+  };
+
+  const item = {
+    hidden: { y: 20, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+    },
+  };
+
+  return (
+    <div className="p-8 bg-muted/30 rounded-lg shadow-md">
+      <h3 className="text-xl font-bold text-white mb-4">Variants Animation</h3>
+      <motion.ul
+        className="flex justify-center items-center h-32 space-x-4"
+        variants={container}
+        initial="hidden"
+        animate="visible"
+      >
+        {[0, 1, 2, 3].map((index) => (
+          <motion.li
+            key={index}
+            className="w-12 h-12 bg-yellow-500 rounded-full"
+            variants={item}
+          />
+        ))}
+      </motion.ul>
+    </div>
+  );
+};
+
+export default VariantsAnimation;
