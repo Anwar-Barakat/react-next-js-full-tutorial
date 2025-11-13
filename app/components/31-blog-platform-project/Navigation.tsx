@@ -5,20 +5,23 @@ import { FaSearch, FaUserCircle } from "react-icons/fa";
 
 const Navigation = () => {
   return (
-    <nav className="bg-white dark:bg-gray-800 shadow-md p-4 flex justify-between items-center">
+    <nav className="bg-[var(--card)]/95 backdrop-blur-md shadow-[var(--shadow-lg)] p-4 md:p-6 flex justify-between items-center border-b border-[var(--border)] sticky top-0 z-40">
       {/* Left section: Search input */}
-      <div className="flex items-center bg-gray-100 dark:bg-gray-700 rounded-full px-4 py-2">
-        <FaSearch className="text-gray-500 dark:text-gray-400 mr-2" />
+      <div className="flex items-center bg-gradient-to-r from-[var(--muted)] to-[var(--muted)]/80 rounded-full px-5 py-3 shadow-[var(--shadow-sm)] hover:shadow-[var(--shadow-md)] transition-shadow duration-300">
+        <FaSearch className="text-[var(--muted-foreground)] mr-3" />
         <input
           type="text"
-          placeholder="Search..."
-          className="bg-transparent outline-none text-gray-900 dark:text-gray-50 placeholder-gray-500 dark:placeholder-gray-400 w-48"
+          placeholder="Search blogs..."
+          className="bg-transparent outline-none text-[var(--foreground)] placeholder-[var(--muted-foreground)] w-48 md:w-64 focus:ring-2 focus:ring-[var(--primary)]/50 rounded-full transition-all"
         />
       </div>
 
       {/* Right section: User profile */}
       <section className="flex items-center">
-        <FaUserCircle className="text-gray-500 dark:text-gray-400 text-3xl cursor-pointer hover:text-gray-700 dark:hover:text-gray-300" />
+        <div className="relative group">
+          <FaUserCircle className="text-[var(--muted-foreground)] text-3xl cursor-pointer hover:text-[var(--primary)] transition-all duration-300 hover:scale-110" />
+          <div className="absolute -top-1 -right-1 w-3 h-3 bg-[var(--accent)] rounded-full border-2 border-[var(--card)] opacity-0 group-hover:opacity-100 transition-opacity"></div>
+        </div>
       </section>
     </nav>
   );

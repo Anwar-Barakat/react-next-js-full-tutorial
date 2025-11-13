@@ -49,18 +49,18 @@ export const FetchWithUseEffect: React.FC<FetchWithUseEffectProps> = ({ triggerE
   }, [triggerError]); // Re-run effect if triggerError changes
 
   return (
-    <div className="border border-gray-300 p-4 rounded-lg shadow-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-50">
-      <h3 className="text-xl font-semibold mb-3 text-blue-600 dark:text-blue-400">Fetch with `useEffect`</h3>
-      {loading && <p className="text-yellow-600 dark:text-yellow-400">Loading data...</p>}
-      {error && <p className="text-red-600 dark:text-red-400">Error: {error}</p>}
+    <div className="border border-[var(--border)] p-4 rounded-[var(--radius)] shadow-[var(--shadow-md)] bg-[var(--card)] text-[var(--foreground)]">
+      <h3 className="text-xl font-semibold mb-3 text-[var(--primary)]">Fetch with `useEffect`</h3>
+      {loading && <p className="text-[var(--accent)]">Loading data...</p>}
+      {error && <p className="text-[var(--secondary)]">Error: {error}</p>}
       {data && (
-        <div>
-          <p><strong>ID:</strong> {data.id}</p>
-          <p><strong>Name:</strong> {data.name}</p>
-          <p><strong>Value:</strong> {data.value}</p>
+        <div className="space-y-2">
+          <p className="text-[var(--muted-foreground)]"><strong className="text-[var(--foreground)]">ID:</strong> {data.id}</p>
+          <p className="text-[var(--muted-foreground)]"><strong className="text-[var(--foreground)]">Name:</strong> {data.name}</p>
+          <p className="text-[var(--muted-foreground)]"><strong className="text-[var(--foreground)]">Value:</strong> {data.value}</p>
         </div>
       )}
-      {!loading && !error && !data && <p className="text-gray-500 dark:text-gray-400">Click "Fetch Data" to load.</p>}
+      {!loading && !error && !data && <p className="text-[var(--muted-foreground)]">Click "Fetch Data" to load.</p>}
     </div>
   );
 };

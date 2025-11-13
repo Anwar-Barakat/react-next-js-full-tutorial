@@ -37,20 +37,34 @@ export const Testimonials = () => {
   const currentTestimonial = testimonials[currentIndex];
 
   return (
-    <div className="p-5 text-center">
-      <h2 className="mb-5 text-gray-200">What Our Clients Say</h2>
-      <div className="flex justify-center items-center">
-        <div className="bg-gray-700 text-gray-200 border border-gray-600 rounded-lg p-5 m-2.5 max-w-md shadow-md flex items-center relative">
-          <Image src={currentTestimonial.avatar} alt={`Avatar of ${currentTestimonial.author}`} className="w-16 h-16 rounded-full mr-5" width={150} height={150}/>
-          <div>
-            <p className="italic">{currentTestimonial.text}</p>
-            <p className="font-bold mt-2.5 text-right">- {currentTestimonial.author}</p>
+    <div className="center-content py-12 px-4">
+      <div className="max-w-2xl w-full">
+        <h2 className="mb-8 text-3xl md:text-4xl font-bold text-[var(--foreground)] center-text">
+          What Our Clients Say
+        </h2>
+        <div className="flex justify-center items-center mb-6">
+          <div className="bg-[var(--card)] text-[var(--foreground)] border border-[var(--border)] rounded-[var(--radius)] p-6 max-w-md shadow-[var(--shadow-lg)] flex items-center relative">
+            <Image src={currentTestimonial.avatar} alt={`Avatar of ${currentTestimonial.author}`} className="w-16 h-16 rounded-full mr-5" width={150} height={150}/>
+            <div>
+              <p className="italic text-[var(--muted-foreground)]">{currentTestimonial.text}</p>
+              <p className="font-bold mt-2.5 text-right text-[var(--foreground)]">- {currentTestimonial.author}</p>
+            </div>
           </div>
         </div>
-      </div>
-      <div className="mt-5">
-        <button onClick={handleBack} className="py-2 px-4 text-base cursor-pointer rounded-md border border-gray-600 bg-gray-800 text-gray-200 m-2.5">Back</button>
-        <button onClick={handleNext} className="py-2 px-4 text-base cursor-pointer rounded-md border border-gray-600 bg-gray-800 text-gray-200 m-2.5">Next</button>
+        <div className="center-content gap-3">
+          <button 
+            onClick={handleBack} 
+            className="py-2 px-6 text-base cursor-pointer rounded-[var(--radius)] border border-[var(--border)] bg-[var(--primary)] text-white hover:bg-[var(--primary-hover)] transition-colors duration-200 font-semibold shadow-[var(--shadow-sm)]"
+          >
+            Back
+          </button>
+          <button 
+            onClick={handleNext} 
+            className="py-2 px-6 text-base cursor-pointer rounded-[var(--radius)] border border-[var(--border)] bg-[var(--primary)] text-white hover:bg-[var(--primary-hover)] transition-colors duration-200 font-semibold shadow-[var(--shadow-sm)]"
+          >
+            Next
+          </button>
+        </div>
       </div>
     </div>
   );

@@ -2,9 +2,15 @@ import React from 'react';
 
 const ProfileCard = () => {
   return (
-    <div className="bg-gray-200 p-4 rounded-lg text-black">
-      <h2>Profile Card</h2>
-      <p>This card is styled with Tailwind CSS.</p>
+    <div className="center-content py-12 px-4">
+      <div className="max-w-2xl w-full bg-[var(--card)] border border-[var(--border)] rounded-[var(--radius)] p-6 md:p-8 shadow-[var(--shadow-md)]">
+        <h2 className="text-3xl md:text-4xl font-bold text-[var(--foreground)] mb-4 center-text">
+          Profile Card
+        </h2>
+        <p className="text-lg text-[var(--muted-foreground)] center-text">
+          This card is styled with Tailwind CSS.
+        </p>
+      </div>
     </div>
   );
 };

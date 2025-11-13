@@ -9,15 +9,23 @@ const CounterEffect = () => {
   }, [count]);
 
   return (
-    <div className="p-4 border border-gray-300 rounded-lg mt-4">
-      <h2 className="text-2xl font-bold mb-2">Counter Effect</h2>
-      <p className="mb-2">Current count: {count}</p>
-      <button 
-        onClick={() => setCount(count + 1)}
-        className="px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600"
-      >
-        Increment
-      </button>
+    <div className="center-content py-12 px-4">
+      <div className="max-w-2xl w-full bg-[var(--card)] border border-[var(--border)] rounded-[var(--radius)] p-6 md:p-8 shadow-[var(--shadow-md)]">
+        <h2 className="text-3xl md:text-4xl font-bold text-[var(--foreground)] mb-6 center-text">
+          Counter Effect
+        </h2>
+        <p className="text-2xl font-semibold text-[var(--accent)] mb-6 center-text">
+          Current count: {count}
+        </p>
+        <div className="center-content">
+          <button 
+            onClick={() => setCount(count + 1)}
+            className="btn btn-accent"
+          >
+            Increment
+          </button>
+        </div>
+      </div>
     </div>
   );
 };

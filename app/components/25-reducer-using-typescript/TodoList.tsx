@@ -19,51 +19,51 @@ export const TodoList: React.FC = () => {
   };
 
   return (
-    <div className="p-6 bg-gray-100 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-gray-100">
-      <div className="max-w-2xl mx-auto bg-white dark:bg-gray-800 rounded-lg shadow-lg p-6">
-        <h2 className="text-3xl font-bold text-center mb-6">Todo List with useReducer</h2>
+    <div className="center-content py-12 px-4 min-h-screen bg-[var(--background)]">
+      <div className="max-w-2xl w-full bg-[var(--card)] rounded-[var(--radius)] shadow-[var(--shadow-lg)] p-6 md:p-8 border border-[var(--border)]">
+        <h2 className="text-3xl md:text-4xl font-bold center-text mb-6 text-[var(--foreground)]">Todo List with useReducer</h2>
 
         {/* Input for new todo */}
-        <div className="flex mb-4">
+        <div className="flex mb-6 gap-2">
           <input
             type="text"
             value={newTodoText}
             onChange={(e) => setNewTodoText(e.target.value)}
             onKeyDown={(e) => e.key === 'Enter' && handleAddTodo()}
             placeholder="Add a new task..."
-            className="flex-grow p-2 border border-gray-300 dark:border-gray-600 rounded-l-md bg-gray-50 dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+            className="input flex-1"
           />
           <button
             onClick={handleAddTodo}
-            className="px-4 py-2 bg-blue-500 text-white rounded-r-md hover:bg-blue-600 transition-colors duration-200"
+            className="btn btn-primary"
           >
             Add
           </button>
         </div>
 
         {/* List of todos */}
-        <ul>
+        <ul className="space-y-2">
           {state.map(todo => (
             <li
               key={todo.id}
-              className="flex items-center justify-between p-3 mb-2 bg-gray-50 dark:bg-gray-700 rounded-md"
+              className="flex items-center justify-between p-4 border border-[var(--border)] rounded-[var(--radius)] bg-[var(--muted)] hover:bg-[var(--muted)]/80 transition-colors"
             >
               <div className="flex items-center">
                 <input
                   type="checkbox"
                   checked={todo.completed}
                   onChange={() => dispatch({ type: 'TOGGLE_TODO', payload: todo.id })}
-                  className="h-5 w-5 rounded border-gray-300 text-blue-600 focus:ring-blue-500"
+                  className="h-5 w-5 rounded border-[var(--border)] text-[var(--primary)] focus:ring-[var(--primary)]"
                 />
                 <span
-                  className={`ml-3 text-lg ${todo.completed ? 'line-through text-gray-500 dark:text-gray-400' : ''}`}
+                  className={`ml-3 text-lg ${todo.completed ? 'line-through text-[var(--muted-foreground)]' : 'text-[var(--foreground)]'}`}
                 >
                   {todo.text}
                 </span>
               </div>
               <button
                 onClick={() => dispatch({ type: 'DELETE_TODO', payload: todo.id })}
-                className="px-3 py-1 bg-red-500 text-white text-xs font-bold rounded-full hover:bg-red-600 transition-colors duration-200"
+                className="btn btn-danger btn-sm rounded-full"
               >
                 X
               </button>

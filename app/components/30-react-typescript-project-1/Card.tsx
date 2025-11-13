@@ -28,7 +28,7 @@ const Card: FC<CardProps> = ({ title, description, image, link, imageAlt }) => {
   const altText = imageAlt || `${title} image`;
 
   return (
-    <article className="max-w-sm mx-auto m-3 rounded-lg shadow-md overflow-hidden bg-white dark:bg-gray-800 text-gray-800 dark:text-gray-200 transition-transform duration-200 hover:shadow-lg hover:scale-105">
+    <article className="max-w-sm mx-auto m-3 rounded-[var(--radius)] shadow-[var(--shadow-md)] overflow-hidden bg-[var(--card)] text-[var(--foreground)] border border-[var(--border)] transition-transform duration-200 hover:shadow-[var(--shadow-lg)] hover:scale-105">
       <div className="relative w-full h-48 overflow-hidden">
         <img
           src={image}
@@ -42,12 +42,12 @@ const Card: FC<CardProps> = ({ title, description, image, link, imageAlt }) => {
         />
       </div>
       <div className="p-6">
-        <h2 className="text-2xl font-bold mb-2">{title}</h2>
-        <p className="mb-4 text-gray-600 dark:text-gray-400">{description}</p>
+        <h2 className="text-2xl font-bold mb-2 text-[var(--foreground)]">{title}</h2>
+        <p className="mb-4 text-[var(--muted-foreground)]">{description}</p>
         {link && (
           <a
             href={link}
-            className="inline-block text-blue-500 dark:text-blue-400 hover:text-blue-600 dark:hover:text-blue-300 hover:underline focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 rounded transition-colors duration-200"
+            className="inline-block text-[var(--primary)] hover:text-[var(--primary-hover)] hover:underline focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2 rounded-[var(--radius)] transition-colors duration-200"
             target={isExternalLink ? "_blank" : undefined}
             rel={isExternalLink ? "noopener noreferrer" : undefined}
             aria-label={`Learn more about ${title}`}

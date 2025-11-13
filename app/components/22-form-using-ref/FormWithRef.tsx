@@ -37,46 +37,50 @@ export const FormWithRef = () => {
   };
 
   return (
-    <div className="bg-white dark:bg-gray-800 p-8 rounded-lg shadow-lg max-w-md mx-auto my-8">
-      <h2 className="text-2xl font-bold text-center mb-6 text-gray-800 dark:text-white">Form with useRef</h2>
-      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          ref={nameRef}
-          className="p-2 text-base rounded-md border-2 w-full bg-gray-50 dark:bg-gray-700 dark:text-white border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          ref={emailRef}
-          className="p-2 text-base rounded-md border-2 w-full bg-gray-50 dark:bg-gray-700 dark:text-white border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          ref={passwordRef}
-          className="p-2 text-base rounded-md border-2 w-full bg-gray-50 dark:bg-gray-700 dark:text-white border-gray-300 dark:border-gray-600 focus:outline-none focus:ring-2 focus:ring-blue-500"
-        />
-        <button
-          type="submit"
-          className="py-2 px-4 text-base rounded-md border-none bg-blue-600 text-white cursor-pointer hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-opacity-50"
-        >
-          Submit
-        </button>
-      </form>
+    <div className="center-content py-12 px-4">
+      <div className="bg-[var(--card)] p-8 rounded-[var(--radius)] shadow-[var(--shadow-lg)] max-w-md w-full border border-[var(--border)]">
+        <h2 className="text-3xl md:text-4xl font-bold center-text mb-6 heading-gradient">
+          Form with useRef
+        </h2>
+        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+          <input
+            type="text"
+            name="name"
+            placeholder="Name"
+            ref={nameRef}
+            className="input w-full"
+          />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            ref={emailRef}
+            className="input w-full"
+          />
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            ref={passwordRef}
+            className="input w-full"
+          />
+          <button
+            type="submit"
+            className="btn btn-primary w-full"
+          >
+            Submit
+          </button>
+        </form>
 
-      {formData.name && (
-        <div className="mt-6 p-4 border border-gray-300 dark:border-gray-700 rounded-lg bg-gray-50 dark:bg-gray-700">
-          <h3 className="text-xl font-semibold text-gray-800 dark:text-white">Submitted Data:</h3>
-          <p className="text-gray-700 dark:text-gray-300">Name: {formData.name}</p>
-          <p className="text-gray-700 dark:text-gray-300">Email: {formData.email}</p>
-          <p className="text-gray-700 dark:text-gray-300">Password: {formData.password}</p>
-        </div>
-      )}
+        {formData.name && (
+          <div className="mt-6 p-4 border border-[var(--border)] rounded-[var(--radius)] bg-[var(--muted)]">
+            <h3 className="text-xl font-semibold text-[var(--foreground)] mb-2">Submitted Data:</h3>
+            <p className="text-[var(--muted-foreground)]">Name: {formData.name}</p>
+            <p className="text-[var(--muted-foreground)]">Email: {formData.email}</p>
+            <p className="text-[var(--muted-foreground)]">Password: {formData.password}</p>
+          </div>
+        )}
+      </div>
     </div>
   );
 };

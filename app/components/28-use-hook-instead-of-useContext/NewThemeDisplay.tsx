@@ -14,15 +14,19 @@ export const NewThemeDisplay: React.FC = () => {
   // For context, it directly reads the context value.
   // If ThemeContext.Provider is not found, it will suspend or throw an error,
   // similar to how useContext would throw an error if the context value is undefined.
-  const { theme, toggleTheme } = React.use(ThemeContext); // Assuming React.use is available
+  const contextValue = React.use(ThemeContext); // Assuming React.use is available
+  if (!contextValue) {
+    throw new Error('NewThemeDisplay must be used within a ThemeProvider');
+  }
+  const { theme, toggleTheme } = contextValue;
 
   return (
-    <div className={`border border-gray-400 p-4 m-4 rounded-lg ${theme === 'light' ? 'bg-gray-100 text-gray-800' : 'bg-gray-800 text-gray-100'}`}>
-      <h3 className="text-lg font-semibold mb-2">New Theme Display (using `use` hook)</h3>
-      <p className="mb-2">Current Theme: <strong>{theme}</strong></p>
+    <div className={`border border-[var(--border)] p-6 rounded-[var(--radius)] shadow-[var(--shadow-md)] ${theme === 'light' ? 'bg-[var(--card)] text-[var(--foreground)]' : 'bg-[var(--muted)] text-[var(--foreground)]'}`}>
+      <h3 className="text-xl font-semibold mb-4 text-[var(--foreground)]">New Theme Display (using `use` hook)</h3>
+      <p className="mb-4 text-[var(--muted-foreground)]">Current Theme: <strong className="text-[var(--foreground)]">{theme}</strong></p>
       <button
         onClick={toggleTheme}
-        className={`px-4 py-2 rounded-md ${theme === 'light' ? 'bg-green-500 text-white hover:bg-green-600' : 'bg-teal-600 text-white hover:bg-teal-700'}`}
+        className={`btn ${theme === 'light' ? 'btn-accent' : 'btn-primary'}`}
       >
         Toggle Theme
       </button>

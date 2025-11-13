@@ -28,74 +28,76 @@ export const DataFetchingDemo: React.FC = () => {
   };
 
   return (
-    <div className="font-sans p-5 bg-gray-50 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-gray-50">
-      <h2 className="text-3xl font-bold mb-4 text-center text-gray-800 dark:text-gray-200">
-        `use` Hook vs. `useEffect` for Data Fetching
-      </h2>
-      <p className="mb-6 text-center text-lg text-gray-700 dark:text-gray-300">
-        This demo compares traditional data fetching with `useEffect` against the new `use` hook with Suspense and Error Boundaries.
-      </p>
+    <div className="center-content py-12 px-4 min-h-screen bg-[var(--background)]">
+      <div className="max-w-6xl w-full">
+        <h2 className="text-3xl md:text-4xl font-bold center-text mb-4 text-[var(--foreground)]">
+          `use` Hook vs. `useEffect` for Data Fetching
+        </h2>
+        <p className="mb-8 center-text text-lg text-[var(--muted-foreground)]">
+          This demo compares traditional data fetching with `useEffect` against the new `use` hook with Suspense and Error Boundaries.
+        </p>
 
-      <div className="flex flex-col md:flex-row justify-center items-stretch gap-6 max-w-4xl mx-auto">
-        {/* useEffect Example */}
-        <div className="flex-1 border border-gray-200 dark:border-gray-700 p-6 rounded-lg shadow-lg bg-gray-100 dark:bg-gray-800">
-          <FetchWithUseEffect triggerError={triggerErrorUseEffect} />
-          <div className="mt-4 flex gap-2">
-            <button
-              onClick={() => {
-                setTriggerErrorUseEffect(false);
-              }}
-              className="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition-colors"
-            >
-              Fetch Data (useEffect)
-            </button>
-            <button
-              onClick={() => {
-                setTriggerErrorUseEffect(true);
-              }}
-              className="px-4 py-2 bg-red-500 text-white rounded-md hover:bg-red-600 transition-colors"
-            >
-              Fetch Error (useEffect)
-            </button>
-          </div>
-        </div>
-
-        {/* use Hook Example */}
-        <div className="flex-1 border border-gray-200 dark:border-gray-700 p-6 rounded-lg shadow-lg bg-gray-100 dark:bg-gray-800">
-          <ErrorBoundary fallback={
-            <div className="text-red-600 dark:text-red-400 p-4 border border-red-300 rounded-md bg-red-50 dark:bg-red-900">
-              <h3 className="text-xl font-semibold mb-2">Error with `use` Hook</h3>
-              <p>Failed to load data. Please try again.</p>
+        <div className="flex flex-col md:flex-row justify-center items-stretch gap-6">
+          {/* useEffect Example */}
+          <div className="flex-1 border border-[var(--border)] p-6 rounded-[var(--radius)] shadow-[var(--shadow-lg)] bg-[var(--card)]">
+            <FetchWithUseEffect triggerError={triggerErrorUseEffect} />
+            <div className="mt-4 flex gap-2">
               <button
-                onClick={handleRefetch}
-                className="mt-3 px-4 py-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 transition-colors"
+                onClick={() => {
+                  setTriggerErrorUseEffect(false);
+                }}
+                className="btn btn-primary btn-sm"
               >
-                Retry Fetch
+                Fetch Data (useEffect)
+              </button>
+              <button
+                onClick={() => {
+                  setTriggerErrorUseEffect(true);
+                }}
+                className="btn btn-secondary btn-sm"
+              >
+                Fetch Error (useEffect)
               </button>
             </div>
-          }>
-            <Suspense fallback={
-              <div className="text-yellow-600 dark:text-yellow-400 p-4 border border-yellow-300 rounded-md bg-yellow-50 dark:bg-yellow-900">
-                <h3 className="text-xl font-semibold mb-2">Loading with `use` Hook...</h3>
-                <p>Data is being fetched using React 19's `use` hook and Suspense.</p>
+          </div>
+
+          {/* use Hook Example */}
+          <div className="flex-1 border border-[var(--border)] p-6 rounded-[var(--radius)] shadow-[var(--shadow-lg)] bg-[var(--card)]">
+            <ErrorBoundary fallback={
+              <div className="text-[var(--secondary)] p-4 border border-[var(--secondary)] rounded-[var(--radius)] bg-[var(--secondary)]/10">
+                <h3 className="text-xl font-semibold mb-2">Error with `use` Hook</h3>
+                <p>Failed to load data. Please try again.</p>
+                <button
+                  onClick={handleRefetch}
+                  className="mt-3 btn btn-accent btn-sm"
+                >
+                  Retry Fetch
+                </button>
               </div>
             }>
-              <FetchWithUse promise={useHookPromise} />
-            </Suspense>
-          </ErrorBoundary>
-          <div className="mt-4 flex gap-2">
-            <button
-              onClick={handleRefetch}
-              className="px-4 py-2 bg-green-500 text-white rounded-md hover:bg-green-600 transition-colors"
-            >
-              Fetch Data (use Hook)
-            </button>
-            <button
-              onClick={handleRefetchWithError}
-              className="px-4 py-2 bg-orange-500 text-white rounded-md hover:bg-orange-600 transition-colors"
-            >
-              Fetch Error (use Hook)
-            </button>
+              <Suspense fallback={
+                <div className="text-[var(--accent)] p-4 border border-[var(--accent)] rounded-[var(--radius)] bg-[var(--accent)]/10">
+                  <h3 className="text-xl font-semibold mb-2">Loading with `use` Hook...</h3>
+                  <p>Data is being fetched using React 19's `use` hook and Suspense.</p>
+                </div>
+              }>
+                <FetchWithUse promise={useHookPromise} />
+              </Suspense>
+            </ErrorBoundary>
+            <div className="mt-4 flex gap-2">
+              <button
+                onClick={handleRefetch}
+                className="btn btn-accent btn-sm"
+              >
+                Fetch Data (use Hook)
+              </button>
+              <button
+                onClick={handleRefetchWithError}
+                className="btn btn-secondary btn-sm"
+              >
+                Fetch Error (use Hook)
+              </button>
+            </div>
           </div>
         </div>
       </div>

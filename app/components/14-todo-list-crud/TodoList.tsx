@@ -26,35 +26,45 @@ const TodoList = () => {
     };
 
     return (
-        <div className="p-4 border border-gray-300 rounded-lg mt-4">
-            <h2 className="text-2xl font-bold mb-2">Todo List</h2>
-            <form onSubmit={handleSubmit} className="mb-4">
-                <input 
-                    name='name' 
-                    value={name} 
-                    onChange={e => setName(e.target.value)} 
-                    className="p-2 border border-gray-300 rounded mr-2"
-                />
-                <button 
-                    type="submit"
-                    className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
-                >
-                    Add
-                </button>
-            </form>
-            <ul>
-                {todos.map((item) => (
-                    <li key={item.id} className="flex justify-between items-center p-2 border-b border-gray-200">
-                        <span>{item.name}</span>
+        <div className="center-content py-12 px-4">
+            <div className="max-w-2xl w-full bg-[var(--card)] border border-[var(--border)] rounded-[var(--radius)] p-6 md:p-8 shadow-[var(--shadow-md)]">
+                <h2 className="text-3xl md:text-4xl font-bold text-[var(--foreground)] mb-6 center-text">
+                    Todo List
+                </h2>
+                <form onSubmit={handleSubmit} className="mb-6">
+                    <div className="flex gap-2">
+                        <input 
+                            name='name' 
+                            value={name} 
+                            onChange={e => setName(e.target.value)}
+                            placeholder="Add a new todo..."
+                            className="input flex-1"
+                        />
                         <button 
-                            onClick={() => handleRemove(item.id)}
-                            className="text-red-500 hover:text-red-700"
+                            type="submit"
+                            className="btn btn-primary"
                         >
-                            <CgClose />
+                            Add
                         </button>
-                    </li>
-                ))}
-            </ul>
+                    </div>
+                </form>
+                <ul className="space-y-2">
+                    {todos.map((item) => (
+                        <li 
+                            key={item.id} 
+                            className="flex justify-between items-center p-4 border border-[var(--border)] rounded-[var(--radius)] bg-[var(--muted)] hover:bg-[var(--muted)]/80 transition-colors"
+                        >
+                            <span className="text-[var(--foreground)]">{item.name}</span>
+                            <button 
+                                onClick={() => handleRemove(item.id)}
+                                className="text-[var(--secondary)] hover:text-[var(--secondary)]/80 transition-colors p-1"
+                            >
+                                <CgClose size={20} />
+                            </button>
+                        </li>
+                    ))}
+                </ul>
+            </div>
         </div>
     );
 };

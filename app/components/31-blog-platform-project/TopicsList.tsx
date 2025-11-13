@@ -4,20 +4,38 @@ import React from 'react';
 
 const TopicsList = () => {
   return (
-    <div className="bg-white dark:bg-gray-800 rounded-lg shadow-md p-4 text-gray-900 dark:text-gray-50">
-      <h3 className="text-lg font-semibold mb-3">Topics to follow</h3>
-      <ul className="space-y-2">
-        <li>
-          <p className="text-sm font-medium">Frontend Development</p>
-          <p className="text-xs text-gray-500 dark:text-gray-400">Category</p>
+    <div className="bg-gradient-to-br from-[var(--card)] to-[var(--muted)]/30 rounded-2xl shadow-[var(--shadow-lg)] p-5 text-[var(--foreground)] border border-[var(--border)] backdrop-blur-sm">
+      <h3 className="text-xl font-bold mb-4 text-[var(--foreground)] flex items-center gap-2">
+        <span className="w-1 h-6 bg-gradient-to-b from-[var(--secondary)] to-[var(--accent)] rounded-full"></span>
+        Topics to follow
+      </h3>
+      <ul className="space-y-3">
+        <li className="p-3 rounded-xl hover:bg-[var(--muted)]/50 transition-all duration-300 hover:shadow-[var(--shadow-sm)] cursor-pointer group border border-transparent hover:border-[var(--primary)]/20">
+          <p className="text-sm font-bold text-[var(--foreground)] group-hover:text-[var(--primary)] transition-colors mb-1">
+            Frontend Development
+          </p>
+          <p className="text-xs text-[var(--muted-foreground)] flex items-center gap-1">
+            <span className="w-1.5 h-1.5 bg-[var(--secondary)] rounded-full"></span>
+            Category
+          </p>
         </li>
-        <li>
-          <p className="text-sm font-medium">Backend Development</p>
-          <p className="text-xs text-gray-500 dark:text-gray-400">Category</p>
+        <li className="p-3 rounded-xl hover:bg-[var(--muted)]/50 transition-all duration-300 hover:shadow-[var(--shadow-sm)] cursor-pointer group border border-transparent hover:border-[var(--primary)]/20">
+          <p className="text-sm font-bold text-[var(--foreground)] group-hover:text-[var(--primary)] transition-colors mb-1">
+            Backend Development
+          </p>
+          <p className="text-xs text-[var(--muted-foreground)] flex items-center gap-1">
+            <span className="w-1.5 h-1.5 bg-[var(--secondary)] rounded-full"></span>
+            Category
+          </p>
         </li>
-        <li>
-          <p className="text-sm font-medium">DevOps</p>
-          <p className="text-xs text-gray-500 dark:text-gray-400">Category</p>
+        <li className="p-3 rounded-xl hover:bg-[var(--muted)]/50 transition-all duration-300 hover:shadow-[var(--shadow-sm)] cursor-pointer group border border-transparent hover:border-[var(--primary)]/20">
+          <p className="text-sm font-bold text-[var(--foreground)] group-hover:text-[var(--primary)] transition-colors mb-1">
+            DevOps
+          </p>
+          <p className="text-xs text-[var(--muted-foreground)] flex items-center gap-1">
+            <span className="w-1.5 h-1.5 bg-[var(--secondary)] rounded-full"></span>
+            Category
+          </p>
         </li>
       </ul>
     </div>

@@ -10,9 +10,9 @@ export const ChangeEventHandler: React.FC = () => {
   };
 
   return (
-    <div className="p-4 border border-gray-300 dark:border-gray-700 rounded-lg shadow-md dark:bg-gray-800 text-gray-800 dark:text-white">
-      <h3 className="text-lg font-semibold mb-2">Change Event Handler</h3>
-      <p className="text-sm mb-2 text-gray-600 dark:text-gray-400">
+    <div className="p-6 border border-[var(--border)] rounded-[var(--radius)] shadow-[var(--shadow-md)] bg-[var(--card)] text-[var(--foreground)]">
+      <h3 className="text-xl font-semibold mb-2 text-[var(--foreground)]">Change Event Handler</h3>
+      <p className="text-sm mb-4 text-[var(--muted-foreground)]">
         Handles `onChange` events with `React.ChangeEvent`.
       </p>
       <input
@@ -20,9 +20,9 @@ export const ChangeEventHandler: React.FC = () => {
         value={value}
         onChange={handleChange}
         placeholder="Type something..."
-        className="w-full p-2 border border-gray-300 dark:border-gray-600 rounded-md bg-gray-50 dark:bg-gray-700 dark:text-white focus:outline-none focus:ring-2 focus:ring-blue-500"
+        className="input w-full mb-3"
       />
-      <p className="mt-2">Input value: <span className="font-mono bg-gray-200 dark:bg-gray-900 p-1 rounded">{value}</span></p>
+      <p className="text-[var(--muted-foreground)]">Input value: <span className="font-mono bg-[var(--muted)] p-2 rounded-[var(--radius)] text-[var(--foreground)]">{value || '...'}</span></p>
     </div>
   );
 };

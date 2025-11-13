@@ -8,14 +8,14 @@ export const ClickEventHandler: React.FC = () => {
   };
 
   return (
-    <div className="p-4 border border-gray-300 dark:border-gray-700 rounded-lg shadow-md dark:bg-gray-800 text-gray-800 dark:text-white">
-      <h3 className="text-lg font-semibold mb-2">Click Event Handler</h3>
-      <p className="text-sm mb-2 text-gray-600 dark:text-gray-400">
+    <div className="p-6 border border-[var(--border)] rounded-[var(--radius)] shadow-[var(--shadow-md)] bg-[var(--card)] text-[var(--foreground)]">
+      <h3 className="text-xl font-semibold mb-2 text-[var(--foreground)]">Click Event Handler</h3>
+      <p className="text-sm mb-4 text-[var(--muted-foreground)]">
         Handles `onClick` events with `React.MouseEvent`.
       </p>
       <button
         onClick={handleClick}
-        className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors duration-200"
+        className="btn btn-primary"
       >
         Click Me
       </button>

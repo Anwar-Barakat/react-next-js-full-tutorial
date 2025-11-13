@@ -20,21 +20,27 @@ const UpdateUser = () => {
   };
 
   return (
-    <div className="p-4 mt-4">
-      <h2 className="text-2xl font-bold mb-2">Update User</h2>
-      <input
-        type="text"
-        value={newName}
-        onChange={(e) => setNewName(e.target.value)}
-        placeholder="New name"
-        className="p-2 border border-gray-300 rounded mr-2"
-      />
-      <button 
-        onClick={handleUpdate}
-        className="px-4 py-2 bg-purple-500 text-white rounded hover:bg-purple-600"
-      >
-        Update Name
-      </button>
+    <div className="center-content py-12 px-4">
+      <div className="max-w-2xl w-full bg-[var(--card)] border border-[var(--border)] rounded-[var(--radius)] p-6 md:p-8 shadow-[var(--shadow-md)]">
+        <h2 className="text-3xl md:text-4xl font-bold text-[var(--foreground)] mb-6 center-text">
+          Update User
+        </h2>
+        <div className="flex gap-2">
+          <input
+            type="text"
+            value={newName}
+            onChange={(e) => setNewName(e.target.value)}
+            placeholder="New name"
+            className="input flex-1"
+          />
+          <button 
+            onClick={handleUpdate}
+            className="btn btn-secondary"
+          >
+            Update Name
+          </button>
+        </div>
+      </div>
     </div>
   );
 };
