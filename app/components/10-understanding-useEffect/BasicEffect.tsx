@@ -7,8 +7,12 @@ const BasicEffect = () => {
   }, []);
 
   return (
-    <div className="p-4 border border-gray-300 rounded-lg mt-4 text-center text-gray-700">
-      Basic Effect Component (Check console for mount message)
+    <div className="center-content py-12 px-4">
+      <div className="max-w-2xl w-full bg-[var(--card)] border border-[var(--border)] rounded-[var(--radius)] p-6 md:p-8 shadow-[var(--shadow-md)]">
+        <p className="text-lg text-[var(--muted-foreground)] center-text">
+          Basic Effect Component (Check console for mount message)
+        </p>
+      </div>
     </div>
   );
 };

@@ -5,11 +5,13 @@ import { Counter } from './Counter';
 
 export const ContextDemo: React.FC = () => {
   return (
-    <div className="p-6 space-y-8 bg-gray-100 dark:bg-gray-900 min-h-screen text-gray-900 dark:text-gray-100 flex flex-col items-center justify-center">
-      <h2 className="text-3xl font-bold text-center mb-8">React Context API Example</h2>
-      <CounterProvider>
-        <Counter />
-      </CounterProvider>
+    <div className="center-content py-12 px-4 min-h-screen bg-[var(--background)]">
+      <div className="max-w-2xl w-full">
+        <h2 className="text-3xl md:text-4xl font-bold center-text mb-8 text-[var(--foreground)]">React Context API Example</h2>
+        <CounterProvider>
+          <Counter />
+        </CounterProvider>
+      </div>
     </div>
   );
 };

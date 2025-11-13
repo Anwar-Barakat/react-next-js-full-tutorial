@@ -12,11 +12,18 @@ const ArticleList: FC<ArticleListProps> = ({ onEdit }) => {
   const { blogs, deleteBlog } = useBlogs();
 
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 p-4">
+    <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
       {blogs.length === 0 ? (
-        <p className="col-span-full text-center text-gray-600 dark:text-gray-400 text-lg">
-          No blog posts yet. Add one to get started!
-        </p>
+        <div className="col-span-full center-content py-16">
+          <div className="text-center space-y-4">
+            <div className="w-20 h-20 mx-auto bg-gradient-to-br from-[var(--primary)]/20 to-[var(--accent)]/20 rounded-2xl flex items-center justify-center mb-4">
+              <span className="text-4xl">📝</span>
+            </div>
+            <p className="text-[var(--muted-foreground)] text-lg font-medium">
+              No blog posts yet. Add one to get started!
+            </p>
+          </div>
+        </div>
       ) : (
         blogs.map((blog) => (
           <ArticleCard

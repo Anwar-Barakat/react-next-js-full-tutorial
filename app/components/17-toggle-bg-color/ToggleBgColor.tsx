@@ -13,26 +13,28 @@ export const ToggleBgColor = () => {
     setSearchTerm(event.target.value);
   };
 
-  const containerClasses = isDarkMode
-    ? 'bg-gray-800 text-white'
-    : 'bg-gray-100 text-gray-800';
-
   return (
-    <div className={`p-8 rounded-lg min-h-[200px] flex flex-col items-center justify-center transition-colors duration-300 ${containerClasses}`}>
-      <button
-        onClick={handleToggle}
-        className="px-5 py-2.5 text-base cursor-pointer rounded-md border border-gray-300 mb-5"
-      >
-        Toggle {isDarkMode ? 'Light' : 'Dark'} Mode
-      </button>
-      <input
-        type="search"
-        placeholder="Search..."
-        value={searchTerm}
-        onChange={handleSearchChange}
-        className="p-2.5 text-base w-[300px] rounded-md border border-gray-300"
-      />
-      {searchTerm && <p className="mt-5">Searching for: {searchTerm}</p>}
+    <div className="center-content py-12 px-4">
+      <div className={`max-w-2xl w-full p-8 rounded-[var(--radius)] min-h-[200px] flex flex-col items-center justify-center transition-colors duration-300 ${isDarkMode ? 'bg-[var(--muted)]' : 'bg-[var(--card)]'} border border-[var(--border)] shadow-[var(--shadow-md)]`}>
+        <button
+          onClick={handleToggle}
+          className="btn btn-primary mb-5"
+        >
+          Toggle {isDarkMode ? 'Light' : 'Dark'} Mode
+        </button>
+        <input
+          type="search"
+          placeholder="Search..."
+          value={searchTerm}
+          onChange={handleSearchChange}
+          className="input w-full max-w-[300px]"
+        />
+        {searchTerm && (
+          <p className="mt-5 text-[var(--foreground)] center-text">
+            Searching for: <span className="font-semibold">{searchTerm}</span>
+          </p>
+        )}
+      </div>
     </div>
   );
 };

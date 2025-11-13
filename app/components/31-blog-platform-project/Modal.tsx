@@ -13,13 +13,17 @@ const Modal: FC<ModalProps> = ({ children, onClose, isOpen, title }) => {
   if (!isOpen) return null;
 
   return (
-    <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50 p-4">
-      <div className="bg-white dark:bg-gray-800 rounded-lg shadow-xl max-w-lg w-full mx-auto p-6 relative">
-        <div className="flex justify-between items-center mb-4">
-          {title && <h2 className="text-2xl font-bold text-gray-900 dark:text-gray-50">{title}</h2>}
+    <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
+      <div className="bg-[var(--card)] rounded-2xl shadow-[var(--shadow-lg)] max-w-lg w-full mx-auto p-6 md:p-8 relative border border-[var(--border)] animate-in zoom-in-95 duration-300">
+        <div className="flex justify-between items-center mb-6 pb-4 border-b border-[var(--border)]">
+          {title && (
+            <h2 className="text-2xl md:text-3xl font-bold heading-gradient">
+              {title}
+            </h2>
+          )}
           <button
             onClick={onClose}
-            className="text-gray-500 dark:text-gray-400 hover:text-gray-700 dark:hover:text-gray-300 text-2xl leading-none"
+            className="text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--muted)] text-2xl leading-none transition-all duration-200 w-8 h-8 rounded-full flex items-center justify-center"
           >
             &times;
           </button>

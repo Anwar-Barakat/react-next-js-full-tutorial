@@ -24,14 +24,16 @@ export const UserProfile: React.FC = () => {
   };
 
   return (
-    <div className="p-4 border border-gray-300 dark:border-gray-700 rounded-lg shadow-md dark:bg-gray-800 text-gray-800 dark:text-white">
-      <h3 className="text-lg font-semibold mb-2">User Profile (Complex State)</h3>
-      <p>Name: {user.name}</p>
-      <p>Age: {user.age}</p>
-      <p>Email: {user.email}</p>
+    <div className="p-6 border border-[var(--border)] rounded-[var(--radius)] shadow-[var(--shadow-md)] bg-[var(--card)] text-[var(--foreground)]">
+      <h3 className="text-xl font-semibold mb-4 text-[var(--foreground)]">User Profile (Complex State)</h3>
+      <div className="space-y-2 mb-4">
+        <p className="text-[var(--muted-foreground)]"><span className="font-semibold text-[var(--foreground)]">Name:</span> {user.name}</p>
+        <p className="text-[var(--muted-foreground)]"><span className="font-semibold text-[var(--foreground)]">Age:</span> {user.age}</p>
+        <p className="text-[var(--muted-foreground)]"><span className="font-semibold text-[var(--foreground)]">Email:</span> {user.email}</p>
+      </div>
       <button
         onClick={updateAge}
-        className="mt-2 px-4 py-2 bg-green-500 text-white rounded hover:bg-green-600 transition-colors duration-200"
+        className="px-6 py-3 bg-[var(--accent)] text-white rounded-[var(--radius)] hover:bg-[var(--accent)]/90 transition-colors duration-200 font-semibold shadow-[var(--shadow-sm)]"
       >
         Celebrate Birthday!
       </button>

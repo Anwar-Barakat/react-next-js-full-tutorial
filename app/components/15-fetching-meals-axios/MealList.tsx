@@ -32,20 +32,36 @@ const MealList = () => {
   }, []);
 
   if (loading) {
-    return <div className="text-center p-4">Loading meals...</div>;
+    return (
+      <div className="center-content py-12 px-4">
+        <div className="max-w-2xl w-full bg-[var(--card)] border border-[var(--border)] rounded-[var(--radius)] p-6 md:p-8 shadow-[var(--shadow-md)]">
+          <p className="text-lg text-[var(--muted-foreground)] center-text">Loading meals...</p>
+        </div>
+      </div>
+    );
   }
 
   if (error) {
-    return <div className="text-center p-4 text-red-500">Error: {error}</div>;
+    return (
+      <div className="center-content py-12 px-4">
+        <div className="max-w-2xl w-full bg-[var(--card)] border border-[var(--secondary)] rounded-[var(--radius)] p-6 md:p-8 shadow-[var(--shadow-md)]">
+          <p className="text-lg text-[var(--secondary)] center-text">Error: {error}</p>
+        </div>
+      </div>
+    );
   }
 
   return (
-    <div className="p-4">
-      <h2 className="text-3xl font-bold mb-6 text-center">Delicious Meals</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-        {meals.map((meal) => (
-          <MealCard key={meal.id} meal={meal} />
-        ))}
+    <div className="center-content py-12 px-4">
+      <div className="max-w-7xl w-full">
+        <h2 className="text-3xl md:text-4xl font-bold text-[var(--foreground)] mb-8 center-text">
+          Delicious Meals
+        </h2>
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          {meals.map((meal) => (
+            <MealCard key={meal.id} meal={meal} />
+          ))}
+        </div>
       </div>
     </div>
   );

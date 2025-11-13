@@ -10,24 +10,38 @@ const Profile = () => {
   };
 
   return (
-    <div className="p-4 border border-gray-300 rounded-lg mt-4">
-      <h2 className="text-2xl font-bold mb-2">Profile</h2>
-      <p className="mb-2">Name: {profile.name}</p>
-      <p className="mb-4">Age: {profile.age}</p>
-      <input
-        type="text"
-        name="name"
-        value={profile.name}
-        onChange={handleInputChange}
-        className="p-2 border border-gray-300 rounded mr-2"
-      />
-      <input
-        type="number"
-        name="age"
-        value={profile.age}
-        onChange={handleInputChange}
-        className="p-2 border border-gray-300 rounded"
-      />
+    <div className="center-content py-12 px-4">
+      <div className="max-w-2xl w-full bg-[var(--card)] border border-[var(--border)] rounded-[var(--radius)] p-6 md:p-8 shadow-[var(--shadow-md)]">
+        <h2 className="text-3xl md:text-4xl font-bold text-[var(--foreground)] mb-6 center-text">
+          Profile
+        </h2>
+        <div className="space-y-4 mb-6">
+          <p className="text-lg text-[var(--muted-foreground)]">
+            <span className="font-semibold text-[var(--foreground)]">Name:</span> {profile.name}
+          </p>
+          <p className="text-lg text-[var(--muted-foreground)]">
+            <span className="font-semibold text-[var(--foreground)]">Age:</span> {profile.age}
+          </p>
+        </div>
+        <div className="space-y-3">
+          <input
+            type="text"
+            name="name"
+            value={profile.name}
+            onChange={handleInputChange}
+            placeholder="Enter name"
+            className="input w-full"
+          />
+          <input
+            type="number"
+            name="age"
+            value={profile.age}
+            onChange={handleInputChange}
+            placeholder="Enter age"
+            className="input w-full"
+          />
+        </div>
+      </div>
     </div>
   );
 };

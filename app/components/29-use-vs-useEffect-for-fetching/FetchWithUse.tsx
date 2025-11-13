@@ -13,12 +13,12 @@ export const FetchWithUse: React.FC<FetchWithUseProps> = ({ promise }) => {
   const data = React.use(promise);
 
   return (
-    <div className="border border-gray-300 p-4 rounded-lg shadow-md bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-50">
-      <h3 className="text-xl font-semibold mb-3 text-green-600 dark:text-green-400">Fetch with `use` Hook (React 19)</h3>
-      <div>
-        <p><strong>ID:</strong> {data.id}</p>
-        <p><strong>Name:</strong> {data.name}</p>
-        <p><strong>Value:</strong> {data.value}</p>
+    <div className="border border-[var(--border)] p-4 rounded-[var(--radius)] shadow-[var(--shadow-md)] bg-[var(--card)] text-[var(--foreground)]">
+      <h3 className="text-xl font-semibold mb-3 text-[var(--accent)]">Fetch with `use` Hook (React 19)</h3>
+      <div className="space-y-2">
+        <p className="text-[var(--muted-foreground)]"><strong className="text-[var(--foreground)]">ID:</strong> {data.id}</p>
+        <p className="text-[var(--muted-foreground)]"><strong className="text-[var(--foreground)]">Name:</strong> {data.name}</p>
+        <p className="text-[var(--muted-foreground)]"><strong className="text-[var(--foreground)]">Value:</strong> {data.value}</p>
       </div>
     </div>
   );

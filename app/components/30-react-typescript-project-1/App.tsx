@@ -6,7 +6,7 @@ import Profile from "./Profile";
 
 export const App: React.FC = () => {
   return (
-    <main className="flex min-h-screen">
+    <main className="flex min-h-screen bg-gradient-to-br from-[var(--background)] via-[var(--muted)]/30 to-[var(--background)]">
       <Sidebar />
       <Profile />
     </main>

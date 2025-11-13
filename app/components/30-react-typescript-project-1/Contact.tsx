@@ -40,10 +40,10 @@ const links: SocialLink[] = [
 const Contact: React.FC = () => {
   return (
     <section 
-      className="py-12 px-4 bg-white dark:bg-gray-800 text-gray-900 dark:text-gray-50 rounded-lg shadow-md"
+      className="py-12 px-4 bg-[var(--card)] text-[var(--foreground)] rounded-[var(--radius)] shadow-[var(--shadow-md)] border border-[var(--border)]"
       aria-labelledby="contact-heading"
     >
-      <h2 id="contact-heading" className="text-3xl font-extrabold mb-6 text-center">
+      <h2 id="contact-heading" className="text-3xl font-extrabold mb-6 center-text text-[var(--foreground)]">
         Contact Me
       </h2>
       <div className="flex flex-wrap justify-center gap-8" role="list">
@@ -53,7 +53,7 @@ const Contact: React.FC = () => {
             key={link.label}
             target="_blank"
             rel="noopener noreferrer"
-            className="flex flex-col items-center p-4 rounded-lg hover:bg-gray-100 dark:hover:bg-gray-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 transition-colors duration-200"
+            className="flex flex-col items-center p-4 rounded-[var(--radius)] hover:bg-[var(--muted)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2 transition-colors duration-200"
             aria-label={link.ariaLabel}
             role="listitem"
           >

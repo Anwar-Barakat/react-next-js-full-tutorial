@@ -130,11 +130,11 @@ const Tabs: React.FC = () => {
   }, [handleTabChange]);
 
   return (
-    <div className="p-4 bg-gray-50 dark:bg-gray-900 rounded-lg shadow-inner">
+    <div className="p-6 bg-gradient-to-br from-[var(--card)] to-[var(--muted)]/30 rounded-2xl shadow-[var(--shadow-lg)] border border-[var(--border)] backdrop-blur-sm">
       <div
         role="tablist"
         aria-label="Content tabs"
-        className="flex border-b border-gray-200 dark:border-gray-700 mb-4 overflow-x-auto"
+        className="flex border-b-2 border-[var(--border)] mb-6 overflow-x-auto scrollbar-hide"
       >
         {tabs.map((tab, index) => (
           <button
@@ -145,14 +145,17 @@ const Tabs: React.FC = () => {
             aria-controls={`tabpanel-${tab.id}`}
             id={`tab-${tab.id}`}
             tabIndex={activeTab === tab.id ? 0 : -1}
-            className={`flex items-center gap-2 px-4 py-2 text-base font-medium transition-colors duration-200 focus:outline-none  rounded-t-lg whitespace-nowrap ${activeTab === tab.id
-              ? "text-blue-600 dark:text-blue-400"
-              : "text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-200"
+            className={`flex items-center gap-2 px-5 py-3 text-base font-semibold transition-all duration-300 focus:outline-none rounded-t-xl whitespace-nowrap relative ${activeTab === tab.id
+              ? "text-[var(--primary)] bg-gradient-to-b from-[var(--primary)]/10 to-transparent"
+              : "text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--muted)]/30"
               }`}
             onClick={() => handleTabChange(tab.id)}
             onKeyDown={(e) => handleKeyDown(e, tab.id, index)}
           >
-            <span>{tab.icon}</span>
+            {activeTab === tab.id && (
+              <span className="absolute bottom-0 left-0 right-0 h-0.5 bg-gradient-to-r from-[var(--primary)] to-[var(--accent)]"></span>
+            )}
+            <span className={`transition-transform duration-300 ${activeTab === tab.id ? 'scale-110' : ''}`}>{tab.icon}</span>
             <span>{tab.label}</span>
           </button>
         ))}
@@ -162,7 +165,7 @@ const Tabs: React.FC = () => {
         role="tabpanel"
         id={`tabpanel-${activeTab}`}
         aria-labelledby={`tab-${activeTab}`}
-        className="p-4"
+        className="p-4 md:p-6 animate-in fade-in duration-300"
       >
         {activeContent}
       </div>

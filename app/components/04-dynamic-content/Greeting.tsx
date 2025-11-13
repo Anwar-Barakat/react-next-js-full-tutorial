@@ -3,9 +3,15 @@ const Greeting = () => {
   const currentDate = new Date().toLocaleDateString();
 
   return (
-    <div className="p-4 border border-gray-300 rounded-lg mt-4">
-      <h1 className="text-2xl font-bold">Hello, {name}!</h1>
-      <p className="mt-2">Today&apos;s date is: {currentDate}</p>
+    <div className="center-content py-12 px-4">
+      <div className="max-w-2xl w-full bg-[var(--card)] border border-[var(--border)] rounded-[var(--radius)] p-6 md:p-8 shadow-[var(--shadow-md)]">
+        <h1 className="text-3xl md:text-4xl font-bold text-[var(--foreground)] mb-4 center-text">
+          Hello, {name}!
+        </h1>
+        <p className="text-lg text-[var(--muted-foreground)] center-text">
+          Today&apos;s date is: {currentDate}
+        </p>
+      </div>
     </div>
   );
 };
