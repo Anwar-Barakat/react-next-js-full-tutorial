@@ -29,7 +29,7 @@ export const CounterProvider: React.FC<CounterProviderProps> = ({ children }) =>
   const [count, setCount] = useState(0);
 
   const increment = () => setCount((prev) => prev + 1);
-  const decrement = ()s => setCount((prev) => prev - 1);
+  const decrement = () => setCount((prev) => prev - 1);
 
   // The value provided to the context
   const contextValue = { count, increment, decrement };

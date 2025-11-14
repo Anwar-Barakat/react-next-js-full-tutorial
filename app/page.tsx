@@ -128,7 +128,10 @@
 // import { FormBuilder } from "./components/44-zustand-form-builder";
 
 // 45-zustand-notes-management
-import { NotesApp } from "./components/45-zustand-notes-management";
+// import { NotesApp } from "./components/45-zustand-notes-management";
+
+// 46-zustand-workspace-management
+import { WorkspaceApp } from "./components/46-zustand-workspace-management";
 
 
 export default function Home() {
@@ -288,8 +291,11 @@ export default function Home() {
       {/* 44-zustand-form-builder */ }
       {/* <FormBuilder /> */}
 
-      {/* 45-zustand-notes-management */}
-      <NotesApp />
+      {/* 45-zustand-notes-management */ }
+      {/* <NotesApp /> */}
+
+      {/* 46-zustand-workspace-management */}
+      <WorkspaceApp />
 
     </div>
 

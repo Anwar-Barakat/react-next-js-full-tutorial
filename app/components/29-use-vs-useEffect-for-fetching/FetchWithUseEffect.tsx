@@ -1,3 +1,4 @@
+/* eslint-disable react/no-unescaped-entities */
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -30,9 +31,9 @@ export const FetchWithUseEffect: React.FC<FetchWithUseEffectProps> = ({ triggerE
         if (isMounted) {
           setData(result);
         }
-      } catch (err: any) {
+      } catch (err: unknown) {
         if (isMounted) {
-          setError(err.message);
+          setError((err as Error).message);
         }
       } finally {
         if (isMounted) {

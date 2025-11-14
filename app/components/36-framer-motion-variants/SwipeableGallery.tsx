@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from "react";
-import { motion, AnimatePresence } from "framer-motion";
+import { motion, AnimatePresence, PanInfo } from "framer-motion";
 
 const images = [
   "https://images.unsplash.com/photo-1507936580189-3816b4abf640?q=80&w=3870&auto=format&fit=crop",
@@ -13,7 +13,7 @@ const swipeConfidenceThreshold = 100; // pixels
 const SwipeableGallery = () => {
   const [index, setIndex] = useState(0);
 
-  const handleSwipe = (_: any, info: any) => {
+  const handleSwipe = (_: MouseEvent | TouchEvent | PointerEvent, info: PanInfo) => {
     if (info.offset.y < -swipeConfidenceThreshold) {
       setIndex((prev) => (prev + 1) % images.length);
     } else if (info.offset.y > swipeConfidenceThreshold) {

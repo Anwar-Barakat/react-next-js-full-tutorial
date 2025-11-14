@@ -88,29 +88,32 @@ export const Calculator = () => {
         <div className="w-full h-20 bg-gradient-to-br from-[var(--muted)] to-[var(--muted)]/80 text-[var(--foreground)] text-right p-4 text-4xl md:text-5xl font-bold mb-4 rounded-xl border-2 border-[var(--border)] shadow-[var(--shadow-sm)] box-border overflow-hidden">
           <span className="inline-block animate-in fade-in duration-200">{display}</span>
         </div>
-      <div>
-        {renderButton('7', () => handleNumberClick('7'))}
-        {renderButton('8', () => handleNumberClick('8'))}
-        {renderButton('9', () => handleNumberClick('9'))}
-        {renderButton('/', () => handleOperatorClick('/'), operatorButtonClasses)}
-      </div>
-      <div>
-        {renderButton('4', () => handleNumberClick('4'))}
-        {renderButton('5', () => handleNumberClick('5'))}
-        {renderButton('6', () => handleNumberClick('6'))}
-        {renderButton('*', () => handleOperatorClick('*'), operatorButtonClasses)}
-      </div>
-      <div>
-        {renderButton('1', () => handleNumberClick('1'))}
-        {renderButton('2', () => handleNumberClick('2'))}
-        {renderButton('3', () => handleNumberClick('3'))}
-        {renderButton('-', () => handleOperatorClick('-'), operatorButtonClasses)}
-      </div>
-      <div>
-        {renderButton('0', () => handleNumberClick('0'))}
-        {renderButton('C', handleClearClick, clearButtonClasses)}
-        {renderButton('=', handleEqualClick, equalButtonClasses)}
-        {renderButton('+', () => handleOperatorClick('+'), operatorButtonClasses)}
+        <div> {/* This div wraps all the button rows */}
+          <div>
+            {renderButton('7', () => handleNumberClick('7'))}
+            {renderButton('8', () => handleNumberClick('8'))}
+            {renderButton('9', () => handleNumberClick('9'))}
+            {renderButton('/', () => handleOperatorClick('/'), operatorButtonClasses)}
+          </div>
+          <div>
+            {renderButton('4', () => handleNumberClick('4'))}
+            {renderButton('5', () => handleNumberClick('5'))}
+            {renderButton('6', () => handleNumberClick('6'))}
+            {renderButton('*', () => handleOperatorClick('*'), operatorButtonClasses)}
+          </div>
+          <div>
+            {renderButton('1', () => handleNumberClick('1'))}
+            {renderButton('2', () => handleNumberClick('2'))}
+            {renderButton('3', () => handleNumberClick('3'))}
+            {renderButton('-', () => handleOperatorClick('-'), operatorButtonClasses)}
+          </div>
+          <div>
+            {renderButton('0', () => handleNumberClick('0'))}
+            {renderButton('C', handleClearClick, clearButtonClasses)}
+            {renderButton('=', handleEqualClick, equalButtonClasses)}
+            {renderButton('+', () => handleOperatorClick('+'), operatorButtonClasses)}
+          </div>
+        </div>
       </div>
     </div>
   );

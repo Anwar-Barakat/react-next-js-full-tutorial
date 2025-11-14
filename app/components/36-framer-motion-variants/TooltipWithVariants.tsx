@@ -29,7 +29,7 @@ const TooltipWithVariants = () => {
               transition={{ duration: 0.2 }}
               className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 p-2 bg-black text-white text-sm rounded-md whitespace-nowrap"
             >
-              I'm a tooltip!
+              I&apos;m a tooltip!
             </motion.div>
           )}
         </AnimatePresence>

@@ -17,6 +17,7 @@ const BlogForm: FC<BlogFormProps> = ({ existingBlog, onClose }) => {
   const [image, setImage] = useState(existingBlog?.image || "");
   const [time, setTime] = useState(existingBlog?.time || "");
 
+  // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/set-state-in-effect
   useEffect(() => {
     if (existingBlog) {
       setTitle(existingBlog.title);

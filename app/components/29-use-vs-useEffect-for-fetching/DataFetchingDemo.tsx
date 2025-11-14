@@ -78,7 +78,7 @@ export const DataFetchingDemo: React.FC = () => {
               <Suspense fallback={
                 <div className="text-[var(--accent)] p-4 border border-[var(--accent)] rounded-[var(--radius)] bg-[var(--accent)]/10">
                   <h3 className="text-xl font-semibold mb-2">Loading with `use` Hook...</h3>
-                  <p>Data is being fetched using React 19's `use` hook and Suspense.</p>
+                  <p>Data is being fetched using React 19&apos;s `use` hook and Suspense.</p>
                 </div>
               }>
                 <FetchWithUse promise={useHookPromise} />

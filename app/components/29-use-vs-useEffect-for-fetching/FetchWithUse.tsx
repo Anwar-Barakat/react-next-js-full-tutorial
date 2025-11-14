@@ -3,8 +3,14 @@
 import React from 'react';
 import { fetchData } from './dataFetcher';
 
+interface FetchedData {
+  id: number;
+  name: string;
+  value: string;
+}
+
 interface FetchWithUseProps {
-  promise: Promise<any>; // The promise to be consumed by React.use
+  promise: Promise<FetchedData>; // The promise to be consumed by React.use
 }
 
 export const FetchWithUse: React.FC<FetchWithUseProps> = ({ promise }) => {

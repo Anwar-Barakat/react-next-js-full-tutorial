@@ -140,6 +140,7 @@ export const ValidationForm = () => {
 
         <button type="submit" className="btn btn-primary btn-lg w-full">Submit</button>
       </form>
+    </div> {/* Add this closing div */}
     </div>
   );
 };
