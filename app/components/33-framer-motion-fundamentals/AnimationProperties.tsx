@@ -4,7 +4,7 @@ import React from 'react';
 
 const AnimationProperties = () => {
   return (
-    <div className="p-8 bg-[var(--muted)]/30 rounded-lg shadow-[var(--shadow-md)]">
+    <div className="card flex flex-col items-center">
       <h3 className="text-xl font-bold text-white mb-4">Animation Properties</h3>
       <div className="flex justify-around items-center h-32">
         <motion.div

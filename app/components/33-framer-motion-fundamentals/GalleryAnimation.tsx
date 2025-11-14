@@ -30,7 +30,7 @@ const GalleryAnimation = () => {
   const [showImages, setShowImages] = useState(false);
 
   return (
-    <div className="p-8 bg-[var(--muted)]/30 rounded-lg shadow-[var(--shadow-md)] flex flex-col items-center">
+    <div className="card flex flex-col items-center">
         <h3 className="text-xl font-bold text-white mb-4">Gallery Animation</h3>
         <button
             onClick={() => setShowImages((prev) => !prev)}

@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const CardAnimation = () => {
   return (
-    <div className="p-8 bg-[var(--muted)]/30 rounded-lg shadow-[var(--shadow-md)] flex flex-col items-center">
+    <div className="card flex flex-col items-center">
         <h3 className="text-xl font-bold text-white mb-4">Card Animation</h3>
         <motion.div
             className="max-w-sm bg-white rounded-lg shadow-lg cursor-pointer overflow-hidden"

@@ -95,7 +95,10 @@
 // import { Dashboard } from "./components/32-client-table";
 
 // 33-framer-motion-fundamentals
-import { FramerMotionDemo } from "./components/33-framer-motion-fundamentals";
+// import { FramerMotionDemo } from "./components/33-framer-motion-fundamentals";
+
+// 34-framer-motion-exercises
+import { FramerMotionExercises } from "./components/34-framer-motion-exercises";
 
 
 export default function Home() {
@@ -220,7 +223,10 @@ export default function Home() {
       {/* <Dashboard /> */}
 
       {/* 33-framer-motion-fundamentals */}
-      <FramerMotionDemo />
+      {/* <FramerMotionDemo /> */}
+
+      {/* 34-framer-motion-exercises */}
+      <FramerMotionExercises />
 
     </div>
 
