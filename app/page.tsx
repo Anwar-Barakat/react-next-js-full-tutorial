@@ -119,7 +119,10 @@
 // import { RecipeApp } from "./components/41-zustand-recipe-app";
 
 // 42-zustand-expense-tracker
-import { ExpenseTracker } from "./components/42-zustand-expense-tracker";
+// import { ExpenseTracker } from "./components/42-zustand-expense-tracker";
+
+// 43-zustand-password-generator
+import { PasswordGenerator } from "./components/43-zustand-password-generator";
 
 
 export default function Home() {
@@ -271,7 +274,10 @@ export default function Home() {
       {/* <RecipeApp /> */}
 
       {/* 42-zustand-expense-tracker */}
-      <ExpenseTracker />
+      {/* <ExpenseTracker /> */}
+
+      {/* 43-zustand-password-generator */}
+      <PasswordGenerator />
 
     </div>
 
