@@ -101,7 +101,13 @@
 // import { FramerMotionExercises } from "./components/34-framer-motion-exercises";
 
 // 35-framer-motion-keyframes
-import { FramerMotionKeyframes } from "./components/35-framer-motion-keyframes";
+// import { FramerMotionKeyframes } from "./components/35-framer-motion-keyframes";
+
+// 36-framer-motion-variants
+// import { FramerMotionVariants } from "./components/36-framer-motion-variants";
+
+// 36-framer-motion-variants
+import { FramerMotionVariants } from "./components/36-framer-motion-variants";
 
 
 export default function Home() {
@@ -232,7 +238,10 @@ export default function Home() {
       {/* <FramerMotionExercises /> */}
 
       {/* 35-framer-motion-keyframes */}
-      <FramerMotionKeyframes />
+      {/* <FramerMotionKeyframes /> */}
+
+      {/* 36-framer-motion-variants */}
+      <FramerMotionVariants />
 
     </div>
 
