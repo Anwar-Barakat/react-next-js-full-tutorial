@@ -21,7 +21,6 @@ export const ValidationForm = () => {
     e.preventDefault();
     let formValid = true;
 
-    // Username validation
     if (username.length >= 8) {
       setErrorUsername("");
       setIsUsernameValid(true);
@@ -31,8 +30,7 @@ export const ValidationForm = () => {
       formValid = false;
     }
 
-    // Email validation
-    if (email.includes("@") && email.includes(".")) { // More robust email check
+    if (email.includes("@") && email.includes(".")) {
       setErrorEmail("");
       setIsEmailValid(true);
     } else {
@@ -41,7 +39,6 @@ export const ValidationForm = () => {
       formValid = false;
     }
 
-    // Password validation
     if (password.length >= 8) {
       setErrorPassword("");
       setIsPasswordValid(true);
@@ -51,7 +48,6 @@ export const ValidationForm = () => {
       formValid = false;
     }
 
-    // Confirm Password validation
     if (password === confirmPassword && password !== "") {
       setErrorConfirmPassword("");
       setIsConfirmPasswordValid(true);
@@ -63,7 +59,6 @@ export const ValidationForm = () => {
 
     if (formValid) {
       alert("Form submitted successfully!");
-      // Optionally reset form fields
       setUsername("");
       setEmail("");
       setPassword("");
@@ -140,7 +135,7 @@ export const ValidationForm = () => {
 
         <button type="submit" className="btn btn-primary btn-lg w-full">Submit</button>
       </form>
-    </div> {/* Add this closing div */}
+    </div>
     </div>
   );
 };

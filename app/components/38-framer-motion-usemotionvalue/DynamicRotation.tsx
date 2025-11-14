@@ -6,7 +6,7 @@ const DynamicRotation = () => {
   const rotate = useMotionValue(0);
 
   const handleClick = () => {
-    rotate.set(rotate.get() + 90); // Rotate by 90 degrees on each click
+    rotate.set(rotate.get() + 90);
   };
 
   return (

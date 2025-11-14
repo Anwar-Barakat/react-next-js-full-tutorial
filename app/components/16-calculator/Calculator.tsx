@@ -88,7 +88,7 @@ export const Calculator = () => {
         <div className="w-full h-20 bg-gradient-to-br from-[var(--muted)] to-[var(--muted)]/80 text-[var(--foreground)] text-right p-4 text-4xl md:text-5xl font-bold mb-4 rounded-xl border-2 border-[var(--border)] shadow-[var(--shadow-sm)] box-border overflow-hidden">
           <span className="inline-block animate-in fade-in duration-200">{display}</span>
         </div>
-        <div> {/* This div wraps all the button rows */}
+        <div>
           <div>
             {renderButton('7', () => handleNumberClick('7'))}
             {renderButton('8', () => handleNumberClick('8'))}

@@ -10,12 +10,10 @@ interface FetchedData {
 }
 
 interface FetchWithUseProps {
-  promise: Promise<FetchedData>; // The promise to be consumed by React.use
+  promise: Promise<FetchedData>;
 }
 
 export const FetchWithUse: React.FC<FetchWithUseProps> = ({ promise }) => {
-  // React.use will suspend the component if the promise is not resolved yet.
-  // If the promise rejects, it will be caught by the nearest Error Boundary.
   const data = React.use(promise);
 
   return (

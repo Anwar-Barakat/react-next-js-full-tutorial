@@ -11,7 +11,7 @@ const images = [
 const HorizontalScrollGallery = () => {
   const targetRef = useRef<HTMLDivElement>(null);
   const { scrollYProgress } = useScroll({ target: targetRef });
-  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-66%"]); // adjust based on total width
+  const x = useTransform(scrollYProgress, [0, 1], ["0%", "-66%"]);
 
   return (
     <div className="card flex flex-col items-center">

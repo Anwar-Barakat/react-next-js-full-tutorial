@@ -13,7 +13,6 @@ const ExpenseTracker = () => {
 
   useEffect(() => {
     if (editingExpense) {
-      // eslint-disable-next-line react-hooks/set-state-in-effect
       setTitle(editingExpense.title);
       setAmount(editingExpense.amount.toString());
     } else {

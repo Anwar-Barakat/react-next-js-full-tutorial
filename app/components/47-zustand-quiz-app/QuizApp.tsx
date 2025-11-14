@@ -1,10 +1,10 @@
 "use client";
 
 import React from "react";
-import { useQuizStore } from "./store"; // Adjusted import path
+import { useQuizStore } from "./store";
 import Sidebar from "./Sidebar";
 
-const QuizApp = () => { // Renamed from Page
+const QuizApp = () => {
   const {
     questions,
     selectAnswer,
@@ -24,7 +24,6 @@ const QuizApp = () => { // Renamed from Page
     selectAnswer(optionIndex);
   };
 
-  // ✅ When the quiz is finished
   if (showScore) {
     return (
       <div className="flex flex-col items-center justify-center h-screen bg-gray-50">

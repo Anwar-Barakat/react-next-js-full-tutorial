@@ -36,7 +36,7 @@ const Sidebar = () => {
           <li
             key={note.id}
             className="flex items-center justify-between mb-2 p-2 rounded-md hover:bg-[var(--muted)] cursor-pointer transition-colors duration-200"
-            style={{ backgroundColor: note.color + '30' }} // Slightly transparent color
+            style={{ backgroundColor: note.color + '30' }}
           >
             <div
               className="flex items-center gap-2 flex-1"
@@ -50,7 +50,7 @@ const Sidebar = () => {
             </div>
             <button
               onClick={(e) => {
-                e.stopPropagation(); // Prevent selecting note when deleting
+                e.stopPropagation();
                 deleteNote(index);
               }}
               className="btn btn-sm btn-danger"

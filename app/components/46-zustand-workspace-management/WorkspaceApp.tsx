@@ -104,7 +104,6 @@ const WorkspaceApp = () => {
 
   return (
     <div className="card flex h-screen p-0 overflow-hidden">
-      {/* Workspace Sidebar */}
       <div className="w-1/4 p-4 border-r border-[var(--border)] bg-[var(--card)] flex flex-col">
         <h3 className="text-xl font-bold text-white mb-4">Workspaces</h3>
         <WorkspaceList
@@ -117,7 +116,6 @@ const WorkspaceApp = () => {
         />
       </div>
 
-      {/* Lists Section */}
       <div className="w-1/4 p-4 border-r border-[var(--border)] bg-[var(--card)] flex flex-col">
         <h3 className="text-xl font-bold text-white mb-4">
           {currentWorkspaceData ? `${currentWorkspaceData.emoji} ${currentWorkspaceData.name} Lists` : 'Select a Workspace'}
@@ -135,7 +133,6 @@ const WorkspaceApp = () => {
         )}
       </div>
 
-      {/* Todos Section */}
       <div className="w-1/2 p-4 bg-[var(--background)] flex flex-col">
         <h3 className="text-xl font-bold text-white mb-4">
           {currentList ? `${currentList.emoji} ${currentList.name} Todos` : 'Select a List'}
@@ -151,7 +148,6 @@ const WorkspaceApp = () => {
         )}
       </div>
 
-      {/* Workspace Modal */}
       {isWorkspaceModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-[var(--card)] p-6 rounded-lg shadow-lg w-96">
@@ -184,7 +180,6 @@ const WorkspaceApp = () => {
         </div>
       )}
 
-      {/* List Modal */}
       {isListModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-[var(--card)] p-6 rounded-lg shadow-lg w-96">
@@ -217,7 +212,6 @@ const WorkspaceApp = () => {
         </div>
       )}
 
-      {/* Todo Modal */}
       {isTodoModalOpen && (
         <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
           <div className="bg-[var(--card)] p-6 rounded-lg shadow-lg w-96">
