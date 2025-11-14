@@ -113,7 +113,10 @@
 // import { FramerMotionAdvanced } from "./components/39-framer-motion-advanced";
 
 // 40-scroll-animations-gallery
-import { FullPageScrollGallery } from "./components/40-scroll-animations-gallery";
+// import { FullPageScrollGallery } from "./components/40-scroll-animations-gallery";
+
+// 41-zustand-recipe-app
+import { RecipeApp } from "./components/41-zustand-recipe-app";
 
 
 export default function Home() {
@@ -259,7 +262,10 @@ export default function Home() {
       {/* <FramerMotionAdvanced /> */}
 
       {/* 40-scroll-animations-gallery */}
-      <FullPageScrollGallery />
+      {/* <FullPageScrollGallery /> */}
+
+      {/* 41-zustand-recipe-app */}
+      <RecipeApp />
 
     </div>
 
