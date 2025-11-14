@@ -122,7 +122,10 @@
 // import { ExpenseTracker } from "./components/42-zustand-expense-tracker";
 
 // 43-zustand-password-generator
-import { PasswordGenerator } from "./components/43-zustand-password-generator";
+// import PasswordGenerator from "./components/43-zustand-password-generator";
+
+// 44-zustand-form-builder
+import { FormBuilder } from "./components/44-zustand-form-builder";
 
 
 export default function Home() {
@@ -277,7 +280,10 @@ export default function Home() {
       {/* <ExpenseTracker /> */}
 
       {/* 43-zustand-password-generator */}
-      <PasswordGenerator />
+      {/* <PasswordGenerator /> */}
+
+      {/* 44-zustand-form-builder */}
+      <FormBuilder />
 
     </div>
 
