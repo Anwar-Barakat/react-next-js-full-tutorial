@@ -4,7 +4,7 @@ import React from 'react';
 
 const BasicAnimation = () => {
   return (
-    <div className="p-8 bg-muted/30 rounded-lg shadow-md">
+    <div className="card flex flex-col items-center">
       <h3 className="text-xl font-bold text-white mb-4">Basic Animation</h3>
       <div className="flex justify-center items-center h-32">
         <motion.div

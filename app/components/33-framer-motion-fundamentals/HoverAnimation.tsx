@@ -4,7 +4,7 @@ import { motion } from "framer-motion";
 
 const HoverAnimation = () => {
   return (
-    <div className="p-8 bg-muted/30 rounded-lg shadow-md flex flex-col items-center">
+    <div className="card flex flex-col items-center">
         <h3 className="text-xl font-bold text-white mb-4">Hover Animation</h3>
         <div className="flex justify-center items-center h-32">
             <motion.div

@@ -24,7 +24,7 @@ const VariantsAnimation = () => {
   };
 
   return (
-    <div className="p-8 bg-muted/30 rounded-lg shadow-md">
+    <div className="card flex flex-col items-center">
       <h3 className="text-xl font-bold text-white mb-4">Variants Animation</h3>
       <motion.ul
         className="flex justify-center items-center h-32 space-x-4"
