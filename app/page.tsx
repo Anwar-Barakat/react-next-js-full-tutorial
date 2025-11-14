@@ -110,7 +110,10 @@
 // import { FramerMotionUseMotionValue } from "./components/38-framer-motion-usemotionvalue";
 
 // 39-framer-motion-advanced
-import { FramerMotionAdvanced } from "./components/39-framer-motion-advanced";
+// import { FramerMotionAdvanced } from "./components/39-framer-motion-advanced";
+
+// 40-scroll-animations-gallery
+import { FullPageScrollGallery } from "./components/40-scroll-animations-gallery";
 
 
 export default function Home() {
@@ -253,7 +256,10 @@ export default function Home() {
       {/* <FramerMotionUseMotionValue /> */}
 
       {/* 39-framer-motion-advanced */}
-      <FramerMotionAdvanced />
+      {/* <FramerMotionAdvanced /> */}
+
+      {/* 40-scroll-animations-gallery */}
+      <FullPageScrollGallery />
 
     </div>
 
