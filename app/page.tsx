@@ -131,7 +131,10 @@
 // import { NotesApp } from "./components/45-zustand-notes-management";
 
 // 46-zustand-workspace-management
-import { WorkspaceApp } from "./components/46-zustand-workspace-management";
+// import { WorkspaceApp } from "./components/46-zustand-workspace-management";
+
+// 47-zustand-quiz-app
+import QuizApp from "./components/47-zustand-quiz-app";
 
 
 export default function Home() {
@@ -295,7 +298,10 @@ export default function Home() {
       {/* <NotesApp /> */}
 
       {/* 46-zustand-workspace-management */}
-      <WorkspaceApp />
+      {/* <WorkspaceApp /> */}
+
+      {/* 47-zustand-quiz-app */}
+      <QuizApp />
 
     </div>
 

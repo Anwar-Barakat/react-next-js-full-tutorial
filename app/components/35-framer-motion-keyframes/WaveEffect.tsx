@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { motion } from 'framer-motion';
+import { motion, easeInOut } from 'framer-motion';
 
 const waveVariants = {
   animate: (i: number) => ({
@@ -9,7 +9,7 @@ const waveVariants = {
       delay: i * 0.1,
       duration: 0.8,
       repeat: Infinity,
-      ease: "easeInOut",
+      ease: easeInOut,
     },
   }),
 };
