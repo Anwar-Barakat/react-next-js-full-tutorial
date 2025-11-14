@@ -133,8 +133,8 @@
 // 46-zustand-workspace-management
 // import { WorkspaceApp } from "./components/46-zustand-workspace-management";
 
-// 47-zustand-quiz-app
-import QuizApp from "./components/47-zustand-quiz-app";
+// 48-zustand-market
+import App from "./components/48-zustand-market";
 
 
 export default function Home() {
@@ -301,7 +301,10 @@ export default function Home() {
       {/* <WorkspaceApp /> */}
 
       {/* 47-zustand-quiz-app */}
-      <QuizApp />
+      {/* <QuizApp /> */}
+
+      {/* 48-zustand-market */}
+      <App />
 
     </div>
 
