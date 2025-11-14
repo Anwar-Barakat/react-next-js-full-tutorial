@@ -116,7 +116,10 @@
 // import { FullPageScrollGallery } from "./components/40-scroll-animations-gallery";
 
 // 41-zustand-recipe-app
-import { RecipeApp } from "./components/41-zustand-recipe-app";
+// import { RecipeApp } from "./components/41-zustand-recipe-app";
+
+// 42-zustand-expense-tracker
+import { ExpenseTracker } from "./components/42-zustand-expense-tracker";
 
 
 export default function Home() {
@@ -265,7 +268,10 @@ export default function Home() {
       {/* <FullPageScrollGallery /> */}
 
       {/* 41-zustand-recipe-app */}
-      <RecipeApp />
+      {/* <RecipeApp /> */}
+
+      {/* 42-zustand-expense-tracker */}
+      <ExpenseTracker />
 
     </div>
 
