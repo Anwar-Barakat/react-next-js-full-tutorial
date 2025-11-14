@@ -5,6 +5,7 @@ import NavigationMenu from './NavigationMenu';
 import TooltipWithVariants from './TooltipWithVariants';
 import ToggleSwitch from './ToggleSwitch';
 import DynamicList from './DynamicList';
+import SwipeableGallery from './SwipeableGallery';
 
 const FramerMotionVariants = () => {
   return (
@@ -18,6 +19,7 @@ const FramerMotionVariants = () => {
         <TooltipWithVariants />
         <ToggleSwitch />
         <DynamicList />
+        <SwipeableGallery />
       </div>
     </div>
   );

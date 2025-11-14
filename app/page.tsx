@@ -104,6 +104,9 @@
 // import { FramerMotionKeyframes } from "./components/35-framer-motion-keyframes";
 
 // 36-framer-motion-variants
+// import { FramerMotionVariants } from "./components/36-framer-motion-variants";
+
+// 36-framer-motion-variants
 import { FramerMotionVariants } from "./components/36-framer-motion-variants";
 
 
