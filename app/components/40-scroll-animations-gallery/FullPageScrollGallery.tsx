@@ -12,46 +12,34 @@ const images = [
 
 const FullPageScrollGallery = () => {
   const galleryRef = useRef<HTMLDivElement>(null);
-  const { scrollYProgress } = useScroll(); // Global scroll progress for the bar
+  const { scrollYProgress } = useScroll();
 
-  // Scroll progress for the horizontal gallery section
   const { scrollYProgress: galleryScrollProgress } = useScroll({
     target: galleryRef,
-    offset: ["start end", "end start"], // When gallery enters/leaves viewport
+    offset: ["start end", "end start"],
   });
 
-  // Transform global scroll progress (0-1) to percentage for the fixed progress bar
   const lineWidth = useTransform(scrollYProgress, [0, 1], ["0%", "100%"]);
   const smoothWidth = useSpring(lineWidth, {
     stiffness: 100,
     damping: 20,
   });
 
-  // Transform gallery scroll progress to horizontal movement
-  // The total width of the images + gaps, minus the viewport width
-  // Assuming each image is w-80 (320px) and gap-4 (16px)
-  // (5 images * 320px) + (4 gaps * 16px) = 1600 + 64 = 1664px
-  // If viewport is, say, 1000px, then we need to scroll 664px
-  // This calculation needs to be dynamic or estimated. For now, let's estimate.
-  // Let's say we want to scroll 3 images width, so 3 * (320 + 16) = 1008px
-  const xTransform = useTransform(galleryScrollProgress, [0, 1], ["0%", "-60%"]); // Adjust -60% based on content width
+  const xTransform = useTransform(galleryScrollProgress, [0, 1], ["0%", "-60%"]);
 
   return (
     <div className="bg-gray-900 text-white min-h-[300vh] relative">
-      {/* Fixed Scroll Progress Bar */}
       <motion.div
         className="fixed top-0 left-0 h-2 bg-blue-500 z-50"
         style={{ width: smoothWidth }}
       />
 
-      {/* Intro Section */}
       <section className="h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800">
         <h1 className="text-5xl md:text-7xl font-extrabold heading-gradient">
           Scroll Down for Magic
         </h1>
       </section>
 
-      {/* Horizontal Scroll Gallery Section */}
       <section ref={galleryRef} className="h-[150vh] flex items-center justify-start sticky top-0 overflow-hidden">
         <motion.div style={{ x: xTransform }} className="flex gap-8 p-8">
           {images.map((image, index) => (
@@ -65,7 +53,6 @@ const FullPageScrollGallery = () => {
         </motion.div>
       </section>
 
-      {/* Outro Section */}
       <section className="h-screen flex items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900">
         <h2 className="text-4xl md:text-6xl font-bold heading-gradient">
           End of the Journey

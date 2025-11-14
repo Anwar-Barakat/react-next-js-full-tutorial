@@ -18,7 +18,6 @@ const LoaderAnimation = () => {
           role="status"
           aria-label="Loading"
         >
-          {/* Inner animated glow for effect */}
           <motion.div
             className="absolute inset-0 rounded-full border-4 border-blue-300 border-solid border-t-transparent"
             animate={{ opacity: [1, 0.3, 1] }}

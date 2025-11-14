@@ -7,7 +7,7 @@ const SpringAnimatedPosition = () => {
   const y = useMotionValue(0);
 
   const handleClick = () => {
-    x.set(Math.random() * 200 - 100); // Random position between -100 and 100
+    x.set(Math.random() * 200 - 100);
     y.set(Math.random() * 200 - 100);
   };
 

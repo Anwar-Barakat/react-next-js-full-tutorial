@@ -22,7 +22,7 @@ const InteractiveCards = () => {
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, amount: 0.5 }}
-            whileHover={{ scale: 1.05, backgroundColor: "#3b82f6" }} // Tailwind blue-500
+            whileHover={{ scale: 1.05, backgroundColor: "#3b82f6" }}
             transition={{ duration: 0.2 }}
           >
             {item}

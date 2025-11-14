@@ -8,7 +8,7 @@ const images = [
   "https://images.unsplash.com/photo-1448518340475-e3c680e9b4be?q=80&w=3200&auto=format&fit=crop",
 ];
 
-const swipeConfidenceThreshold = 100; // pixels
+const swipeConfidenceThreshold = 100;
 
 const SwipeableGallery = () => {
   const [index, setIndex] = useState(0);

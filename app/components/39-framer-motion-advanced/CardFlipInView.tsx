@@ -19,12 +19,10 @@ const CardFlipInView = () => {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          {/* Front side */}
           <div className="absolute inset-0 bg-red-500 flex items-center justify-center text-xl font-bold [backface-visibility:hidden] rounded-lg">
             Front
           </div>
 
-          {/* Back side */}
           <div className="absolute inset-0 bg-blue-500 flex items-center justify-center text-xl font-bold text-white [transform:rotateY(180deg)] [backface-visibility:hidden] rounded-lg">
             Back
           </div>

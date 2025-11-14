@@ -1,4 +1,3 @@
-/* eslint-disable react/no-unescaped-entities */
 "use client";
 
 import React, { useState, useEffect } from 'react';
@@ -20,7 +19,7 @@ export const FetchWithUseEffect: React.FC<FetchWithUseEffectProps> = ({ triggerE
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    let isMounted = true; // To prevent state updates on unmounted component
+    let isMounted = true;
 
     const getData = async () => {
       setLoading(true);
@@ -45,9 +44,9 @@ export const FetchWithUseEffect: React.FC<FetchWithUseEffectProps> = ({ triggerE
     getData();
 
     return () => {
-      isMounted = false; // Cleanup function
+      isMounted = false;
     };
-  }, [triggerError]); // Re-run effect if triggerError changes
+  }, [triggerError]);
 
   return (
     <div className="border border-[var(--border)] p-4 rounded-[var(--radius)] shadow-[var(--shadow-md)] bg-[var(--card)] text-[var(--foreground)]">

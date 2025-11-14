@@ -7,7 +7,6 @@ const DraggableBox = () => {
   const y = useMotionValue(0);
   const [position, setPosition] = React.useState({ x: 0, y: 0 });
 
-  // Subscribe to motion value changes
   useMotionValueEvent(x, "change", (latest) =>
     setPosition((prev) => ({ ...prev, x: latest }))
   );

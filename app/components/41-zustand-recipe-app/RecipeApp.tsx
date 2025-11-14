@@ -25,7 +25,6 @@ const RecipeApp = () => {
       addRecipe(recipe);
     }
 
-    // Reset form
     setName("");
     setIngredients("");
     setInstructions("");

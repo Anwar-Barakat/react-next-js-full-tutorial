@@ -17,30 +17,28 @@ const BlogForm: FC<BlogFormProps> = ({ existingBlog, onClose }) => {
   const [image, setImage] = useState(existingBlog?.image || "");
   const [time, setTime] = useState(existingBlog?.time || "");
 
-  // eslint-disable-next-line react-hooks/exhaustive-deps, react-hooks/set-state-in-effect
   useEffect(() => {
     if (existingBlog) {
       setTitle(existingBlog.title);
       setDescription(existingBlog.description);
       setImage(existingBlog.image);
-      setTime(existingBlog.time || ""); // Ensure time is a string
+      setTime(existingBlog.time || "");
     } else {
-      // Reset form for new blog if existingBlog is cleared
       setTitle("");
       setDescription("");
       setImage("");
       setTime("");
     }
-  }, [existingBlog]); // Depend on existingBlog to reset/prefill form
+  }, [existingBlog]);
 
   const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault(); // Prevent default form submission
+    e.preventDefault();
 
     const blogData: Omit<Blog, 'id'> = {
       title,
       description,
       image,
-      time: time || new Date().toLocaleDateString(), // Default if not provided
+      time: time || new Date().toLocaleDateString(),
     };
 
     if (existingBlog) {
@@ -49,7 +47,7 @@ const BlogForm: FC<BlogFormProps> = ({ existingBlog, onClose }) => {
       addBlog(blogData);
     }
 
-    onClose(); // Close modal after submission
+    onClose();
   };
 
   return (

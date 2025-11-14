@@ -22,7 +22,6 @@ const FormBuilder = () => {
     <div className="card flex flex-col items-center p-6">
       <h2 className="text-2xl font-bold text-white mb-6">Form Builder</h2>
 
-      {/* Add new field */}
       <div className="w-full max-w-md bg-gray-800 p-4 rounded-lg shadow-md mb-6">
         <h3 className="text-xl font-bold text-white mb-3">Add New Field</h3>
         <input
@@ -70,7 +69,6 @@ const FormBuilder = () => {
         </div>
       </div>
 
-      {/* Render existing fields */}
       <div className="w-full max-w-md bg-gray-800 p-4 rounded-lg shadow-md">
         <h3 className="text-xl font-bold text-white mb-3">Generated Form</h3>
         {formFields.length === 0 ? (

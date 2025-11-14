@@ -9,10 +9,8 @@ import { ErrorBoundary } from './ErrorBoundary';
 export const DataFetchingDemo: React.FC = () => {
   const [triggerErrorUseEffect, setTriggerErrorUseEffect] = useState<boolean>(false);
   const [triggerErrorUse, setTriggerErrorUse] = useState<boolean>(false);
-  const [fetchKey, setFetchKey] = useState<number>(0); // Used to re-trigger fetch for 'use' hook
+  const [fetchKey, setFetchKey] = useState<number>(0);
 
-  // Memoize the promise for the 'use' hook to prevent re-fetching on every render
-  // unless explicitly triggered by fetchKey or triggerErrorUse
   const useHookPromise = React.useMemo(() => {
     return fetchData(triggerErrorUse, 2000);
   }, [fetchKey, triggerErrorUse]);
@@ -38,7 +36,6 @@ export const DataFetchingDemo: React.FC = () => {
         </p>
 
         <div className="flex flex-col md:flex-row justify-center items-stretch gap-6">
-          {/* useEffect Example */}
           <div className="flex-1 border border-[var(--border)] p-6 rounded-[var(--radius)] shadow-[var(--shadow-lg)] bg-[var(--card)]">
             <FetchWithUseEffect triggerError={triggerErrorUseEffect} />
             <div className="mt-4 flex gap-2">
@@ -61,7 +58,6 @@ export const DataFetchingDemo: React.FC = () => {
             </div>
           </div>
 
-          {/* use Hook Example */}
           <div className="flex-1 border border-[var(--border)] p-6 rounded-[var(--radius)] shadow-[var(--shadow-lg)] bg-[var(--card)]">
             <ErrorBoundary fallback={
               <div className="text-[var(--secondary)] p-4 border border-[var(--secondary)] rounded-[var(--radius)] bg-[var(--secondary)]/10">

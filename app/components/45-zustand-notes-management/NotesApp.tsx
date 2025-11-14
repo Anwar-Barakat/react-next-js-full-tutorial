@@ -14,7 +14,7 @@ const NotesApp = () => {
   } = useNoteStore();
 
   return (
-    <div className="card flex h-screen p-0"> {/* Removed default card padding */}
+    <div className="card flex h-screen p-0">
       <Sidebar />
 
       <div className="w-2/3 p-8 flex flex-col bg-[var(--background)] rounded-r-[var(--radius)]">
@@ -23,7 +23,7 @@ const NotesApp = () => {
           placeholder="Write your note..."
           value={editorContent}
           onChange={(e) => setEditorContent(e.target.value)}
-          style={{ backgroundColor: noteColor + '20' }} // Apply note color with transparency
+          style={{ backgroundColor: noteColor + '20' }}
         />
 
         <div className="flex items-center mb-4 gap-4">

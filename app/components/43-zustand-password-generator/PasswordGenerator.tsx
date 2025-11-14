@@ -18,7 +18,6 @@ const PasswordGenerator = () => {
     generatePassword,
   } = usePasswordStore();
 
-  // Generate password on initial mount and when settings change
   useEffect(() => {
     generatePassword();
   }, [length, includeNumbers, includeSymbols, includeUppercase, includeLowercase, generatePassword]);
