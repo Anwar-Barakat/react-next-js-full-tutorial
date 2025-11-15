@@ -134,178 +134,187 @@
 // import { WorkspaceApp } from "./components/46-zustand-workspace-management";
 
 // 48-zustand-market
-import App from "./components/48-zustand-market";
+// import App from "./components/48-zustand-market";
+
+// 49-redux-toolkit-fundamentals
+import ReduxToolkitDemo from "./components/49-redux-toolkit-fundamentals";
 
 
 export default function Home() {
 
   return (
 
-    <div>
+    <div className="center-container">
+      <div className="text-center">
+        <h1 className="text-5xl font-bold mb-8 heading-gradient-secondary">React + Next.js Full Tutorial</h1>
 
-      {/* 01-greet-component */}
-      {/* <Greet /> */}
+        {/* 01-greet-component */}
+        {/* <Greet /> */}
 
-      {/* 02-multiple-components */ }
-      {/* <Header />
-      <MainContent />
-      <Footer /> */}
+        {/* 02-multiple-components */}
+        {/* <Header />
+        <MainContent />
+        <Footer /> */}
 
-      {/* 03-jsx-rules */ }
-      {/* <JSXRules /> */}
+        {/* 03-jsx-rules */}
+        {/* <JSXRules /> */}
 
-      {/* 04-dynamic-content */ }
-      {/* <Greeting />
-      <ProductInfo /> */}
+        {/* 04-dynamic-content */}
+        {/* <Greeting />
+        <ProductInfo /> */}
 
-      {/* 05-rendering-lists */ }
-      {/* <UserList />
-      <ProductList /> */}
+        {/* 05-rendering-lists */}
+        {/* <UserList />
+        <ProductList /> */}
 
-      {/* 06-using-props */ }
-      {/* <Person name="Alice" age={30} />
-      <Product name="Laptop" price="200" /> */}
+        {/* 06-using-props */}
+        {/* <Person name="Alice" age={30} />
+        <Product name="Laptop" price="200" /> */}
 
-      {/* 07-conditional-rendering */ }
-      {/* <Weather temperature={20} />
-      <UserStatus loggedIn={true} isAdmin={true} />
-      <GreetingConditional timeOfDay="morning" /> */}
+        {/* 07-conditional-rendering */}
+        {/* <Weather temperature={20} />
+        <UserStatus loggedIn={true} isAdmin={true} />
+        <GreetingConditional timeOfDay="morning" /> */}
 
-      {/* 08-styling-components */ }
-      {/* <StyledCard />
-      <ProfileCard />
-      <IconComponent /> */}
+        {/* 08-styling-components */}
+        {/* <StyledCard />
+        <ProfileCard />
+        <IconComponent /> */}
 
-      {/* 09-mastering-useState */ }
-      {/* <Counter />
-      <TodoList09 />
-      <Profile />
-      <ShoppingList /> */}
+        {/* 09-mastering-useState */}
+        {/* <Counter />
+        <TodoList09 />
+        <Profile />
+        <ShoppingList /> */}
 
-      {/* 10-understanding-useEffect */ }
-      {/* <BasicEffect />
-      <CounterEffect />
-      <FetchDataEffect /> */}
+        {/* 10-understanding-useEffect */}
+        {/* <BasicEffect />
+        <CounterEffect />
+        <FetchDataEffect /> */}
 
-      {/* 11-context-useContext */ }
-      {/* <UserProvider>
-        <UserProfile />
-        <UpdateUser />
-      </UserProvider> */}
+        {/* 11-context-useContext */}
+        {/* <UserProvider>
+          <UserProfile />
+          <UpdateUser />
+        </UserProvider> */}
 
-      {/* 12-using-useRef */ }
-      {/* <FocusInput />
-      <Timer /> */}
+        {/* 12-using-useRef */}
+        {/* <FocusInput />
+        <Timer /> */}
 
-      {/* 13-custom-hook-fetch */ }
-      {/* <FetchDataComponent /> */}
+        {/* 13-custom-hook-fetch */}
+        {/* <FetchDataComponent /> */}
 
-      {/* 14-todo-list-crud */ }
-      {/* <TodoList /> */}
+        {/* 14-todo-list-crud */}
+        {/* <TodoList /> */}
 
-      {/* 15-fetching-meals-axios */ }
-      {/* <MealList /> */}
+        {/* 15-fetching-meals-axios */}
+        {/* <MealList /> */}
 
-      {/* 16-calculator */ }
-      {/* <Calculator /> */}
+        {/* 16-calculator */}
+        {/* <Calculator /> */}
 
-      {/* 17-toggle-bg-color */ }
-      {/* <ToggleBgColor /> */}
+        {/* 17-toggle-bg-color */}
+        {/* <ToggleBgColor /> */}
 
-      {/* 18-testimonials-gallery */ }
-      {/* <Testimonials /> */}
-      {/* <Gallery /> */}
+        {/* 18-testimonials-gallery */}
+        {/* <Testimonials /> */}
+        {/* <Gallery /> */}
 
-      {/* 19-validation-form */ }
-      {/* <ValidationForm /> */}
+        {/* 19-validation-form */}
+        {/* <ValidationForm /> */}
 
-      {/* 20-button-with-types */ }
-      {/* <UsageExample /> */}
+        {/* 20-button-with-types */}
+        {/* <UsageExample /> */}
 
-      {/* 21-typing-useState */ }
-      {/* <UsageExample /> */}
+        {/* 21-typing-useState */}
+        {/* <UsageExample /> */}
 
-      {/* 22-form-using-ref */ }
-      {/* <FormWithRef /> */}
+        {/* 22-form-using-ref */}
+        {/* <FormWithRef /> */}
 
-      {/* 23-react-typescript-event-handler */ }
-      {/* <UsageExample /> */}
+        {/* 23-react-typescript-event-handler */}
+        {/* <UsageExample /> */}
 
-      {/* 24-react-context-api */ }
-      {/* <UsageExample /> */}
+        {/* 24-react-context-api */}
+        {/* <UsageExample /> */}
 
-      {/* 25-reducer-using-typescript */ }
-      {/* <TodoList /> */}
+        {/* 25-reducer-using-typescript */}
+        {/* <TodoList /> */}
 
-      {/* 26-useReducer-counter */ }
-      {/* <Counter /> */}
+        {/* 26-useReducer-counter */}
+        {/* <Counter /> */}
 
-      {/* 27-user-registration-form */ }
-      {/* <UserRegistrationForm /> */}
+        {/* 27-user-registration-form */}
+        {/* <UserRegistrationForm /> */}
 
-      {/* 28-use-hook-instead-of-useContext */ }
-      {/* <UseHookDemo /> */}
+        {/* 28-use-hook-instead-of-useContext */}
+        {/* <UseHookDemo /> */}
 
-      {/* 29-use-vs-useEffect-for-fetching */ }
-      {/* <DataFetchingDemo /> */}
+        {/* 29-use-vs-useEffect-for-fetching */}
+        {/* <DataFetchingDemo /> */}
 
-      {/* 30-react-typescript-project-1 */ }
-      {/* <Project1App /> */}
+        {/* 30-react-typescript-project-1 */}
+        {/* <Project1App /> */}
 
-      {/* 31-blog-platform-project */ }
-      {/* <App /> */}
+        {/* 31-blog-platform-project */}
+        {/* <App /> */}
 
-      {/* 32-client-table */ }
-      {/* <Dashboard /> */}
+        {/* 32-client-table */}
+        {/* <Dashboard /> */}
 
-      {/* 33-framer-motion-fundamentals */ }
-      {/* <FramerMotionDemo /> */}
+        {/* 33-framer-motion-fundamentals */}
+        {/* <FramerMotionDemo /> */}
 
-      {/* 34-framer-motion-exercises */ }
-      {/* <FramerMotionExercises /> */}
+        {/* 34-framer-motion-exercises */}
+        {/* <FramerMotionExercises /> */}
 
-      {/* 35-framer-motion-keyframes */ }
-      {/* <FramerMotionKeyframes /> */}
+        {/* 35-framer-motion-keyframes */}
+        {/* <FramerMotionKeyframes /> */}
 
-      {/* 36-framer-motion-variants */ }
-      {/* <FramerMotionVariants /> */}
+        {/* 36-framer-motion-variants */}
+        {/* <FramerMotionVariants /> */}
 
-      {/* 37-framer-motion-stagger */ }
-      {/* <FramerMotionStagger /> */}
+        {/* 37-framer-motion-stagger */}
+        {/* <FramerMotionStagger /> */}
 
-      {/* 38-framer-motion-usemotionvalue */ }
-      {/* <FramerMotionUseMotionValue /> */}
+        {/* 38-framer-motion-usemotionvalue */}
+        {/* <FramerMotionUseMotionValue /> */}
 
-      {/* 39-framer-motion-advanced */ }
-      {/* <FramerMotionAdvanced /> */}
+        {/* 39-framer-motion-advanced */}
+        {/* <FramerMotionAdvanced /> */}
 
-      {/* 40-scroll-animations-gallery */ }
-      {/* <FullPageScrollGallery /> */}
+        {/* 40-scroll-animations-gallery */}
+        {/* <FullPageScrollGallery /> */}
 
-      {/* 41-zustand-recipe-app */ }
-      {/* <RecipeApp /> */}
+        {/* 41-zustand-recipe-app */}
+        {/* <RecipeApp /> */}
 
-      {/* 42-zustand-expense-tracker */ }
-      {/* <ExpenseTracker /> */}
+        {/* 42-zustand-expense-tracker */}
+        {/* <ExpenseTracker /> */}
 
-      {/* 43-zustand-password-generator */ }
-      {/* <PasswordGenerator /> */}
+        {/* 43-zustand-password-generator */}
+        {/* <PasswordGenerator /> */}
 
-      {/* 44-zustand-form-builder */ }
-      {/* <FormBuilder /> */}
+        {/* 44-zustand-form-builder */}
+        {/* <FormBuilder /> */}
 
-      {/* 45-zustand-notes-management */ }
-      {/* <NotesApp /> */}
+        {/* 45-zustand-notes-management */}
+        {/* <NotesApp /> */}
 
-      {/* 46-zustand-workspace-management */}
-      {/* <WorkspaceApp /> */}
+        {/* 46-zustand-workspace-management */}
+        {/* <WorkspaceApp /> */}
 
-      {/* 47-zustand-quiz-app */}
-      {/* <QuizApp /> */}
+        {/* 47-zustand-quiz-app */}
+        {/* <QuizApp /> */}
 
-      {/* 48-zustand-market */}
-      <App />
+        {/* 48-zustand-market */}
+        {/* <App /> */}
 
+        {/* 49-redux-toolkit-fundamentals */}
+        <ReduxToolkitDemo />
+
+      </div>
     </div>
 
   );
