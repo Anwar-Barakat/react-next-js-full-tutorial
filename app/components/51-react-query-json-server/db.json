@@ -1,0 +1,7 @@
+{
+  "posts": [
+    { "id": "1", "title": "React Query Introduction", "author": "Alice" },
+    { "id": "2", "title": "Data Fetching with React Query", "author": "Bob" },
+    { "id": "3", "title": "Caching Strategies", "author": "Charlie" }
+  ]
+}
