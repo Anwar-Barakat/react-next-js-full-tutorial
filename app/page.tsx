@@ -140,7 +140,10 @@
 // import ReduxToolkitDemo from "./components/49-redux-toolkit-fundamentals";
 
 // 50-redux-kanban-board
-import { KanbanDemo } from "./components/50-redux-kanban-board";
+// import { KanbanDemo } from "./components/50-redux-kanban-board";
+
+// 51-react-query-json-server
+import ReactQueryDemo from "./components/51-react-query-json-server";
 
 
 export default function Home() {
@@ -318,7 +321,10 @@ export default function Home() {
         {/* <ReduxToolkitDemo /> */}
 
         {/* 50-redux-kanban-board */}
-        <KanbanDemo />
+        {/* <KanbanDemo /> */}
+
+        {/* 51-react-query-json-server */}
+        <ReactQueryDemo />
 
       </div>
     </div>
