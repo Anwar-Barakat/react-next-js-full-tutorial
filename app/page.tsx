@@ -137,7 +137,10 @@
 // import App from "./components/48-zustand-market";
 
 // 49-redux-toolkit-fundamentals
-import ReduxToolkitDemo from "./components/49-redux-toolkit-fundamentals";
+// import ReduxToolkitDemo from "./components/49-redux-toolkit-fundamentals";
+
+// 50-redux-kanban-board
+import { KanbanDemo } from "./components/50-redux-kanban-board";
 
 
 export default function Home() {
@@ -312,7 +315,10 @@ export default function Home() {
         {/* <App /> */}
 
         {/* 49-redux-toolkit-fundamentals */}
-        <ReduxToolkitDemo />
+        {/* <ReduxToolkitDemo /> */}
+
+        {/* 50-redux-kanban-board */}
+        <KanbanDemo />
 
       </div>
     </div>
