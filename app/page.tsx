@@ -1,3 +1,4 @@
+
 {/* 01-greet-component */ }
 // import { Greet } from "./components/01-greet-component";
 
@@ -143,7 +144,10 @@
 // import { KanbanDemo } from "./components/50-redux-kanban-board";
 
 // 51-react-query-json-server
-import ReactQueryDemo from "./components/51-react-query-json-server";
+// import ReactQueryDemo from "./components/51-react-query-json-server";
+
+// 52-react-query-mutations
+import ReactQueryMutationsDemo from "./components/52-react-query-mutations";
 
 
 export default function Home() {
@@ -324,7 +328,10 @@ export default function Home() {
         {/* <KanbanDemo /> */}
 
         {/* 51-react-query-json-server */}
-        <ReactQueryDemo />
+        {/* <ReactQueryDemo /> */}
+
+        {/* 52-react-query-mutations */}
+        <ReactQueryMutationsDemo />
 
       </div>
     </div>
