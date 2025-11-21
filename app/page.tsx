@@ -146,8 +146,8 @@
 // 51-react-query-json-server
 // import ReactQueryDemo from "./components/51-react-query-json-server";
 
-// 52-react-query-mutations
-import ReactQueryMutationsDemo from "./components/52-react-query-mutations";
+// 53-product-list
+import ProductList from "./components/53-product-list-with-stripe";
 
 
 export default function Home() {
@@ -331,7 +331,9 @@ export default function Home() {
         {/* <ReactQueryDemo /> */}
 
         {/* 52-react-query-mutations */}
-        <ReactQueryMutationsDemo />
+        {/* <ReactQueryMutationsDemo /> */}
+
+        <ProductList />
 
       </div>
     </div>

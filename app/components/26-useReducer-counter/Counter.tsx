@@ -3,7 +3,7 @@
 import React, { useReducer } from 'react';
 import { counterReducer, initialCounterState } from './counterReducer';
 
-export const Counter = () => {
+const Counter = () => {
   const [state, dispatch] = useReducer(counterReducer, initialCounterState);
 
   return (
@@ -35,3 +35,5 @@ export const Counter = () => {
     </div>
   );
 };
+
+export default Counter
