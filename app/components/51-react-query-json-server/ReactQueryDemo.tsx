@@ -13,4 +13,4 @@ const ReactQueryDemo: React.FC = () => {
   );
 };
 
-export default ReactQueryDemo;
+export { ReactQueryDemo };

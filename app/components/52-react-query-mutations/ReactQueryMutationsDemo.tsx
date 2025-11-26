@@ -15,4 +15,4 @@ const ReactQueryMutationsDemo: React.FC = () => {
   );
 };
 
-export default ReactQueryMutationsDemo;
+export { ReactQueryMutationsDemo };

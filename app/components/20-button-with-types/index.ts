@@ -1,2 +1,2 @@
 export * from './Button';
-export * from './ButtonDemo';
+export { ButtonDemo as UsageExample } from './ButtonDemo';

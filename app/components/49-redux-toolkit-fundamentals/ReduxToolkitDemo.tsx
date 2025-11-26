@@ -16,4 +16,4 @@ const ReduxToolkitDemo: React.FC = () => {
   );
 };
 
-export default ReduxToolkitDemo;
+export { ReduxToolkitDemo };
