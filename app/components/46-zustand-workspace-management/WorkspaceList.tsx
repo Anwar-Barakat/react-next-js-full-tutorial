@@ -29,13 +29,13 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
           <li
             key={workspace.id}
             className={`flex items-center justify-between p-2 mb-2 rounded-md cursor-pointer transition-colors duration-200 ${
-              selectedWorkspaceId === workspace.id ? 'bg-[var(--accent)]' : 'hover:bg-[var(--muted)]'
+              selectedWorkspaceId === workspace.id ? 'bg-accent' : 'hover:bg-muted'
             }`}
             onClick={() => selectWorkspace(workspace.id)}
           >
             <div className="flex items-center gap-2">
               <span className="text-xl">{workspace.emoji}</span>
-              <span className="text-white">{workspace.name}</span>
+              <span className="text-foreground">{workspace.name}</span>
             </div>
             <div className="flex gap-2">
               <button

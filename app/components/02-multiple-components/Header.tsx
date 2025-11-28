@@ -1,6 +1,6 @@
 const Header = () => {
   return (
-    <header className="bg-card/95 backdrop-blur-md border-b border-border sticky top-0 z-40">
+    <header className="glass border-b border-glass-border sticky top-0 z-40">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-6 md:py-8">
         <h1 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6">
           Welcome to My Website!

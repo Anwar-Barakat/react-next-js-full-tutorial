@@ -23,11 +23,11 @@ const boxVariants = {
 
 const VariantsExample = () => {
   return (
-    <div className="card flex flex-col items-center">
-        <h3 className="text-xl font-bold text-white mb-4">Variants Example</h3>
+    <div className="glass flex flex-col items-center">
+        <h3 className="text-xl font-bold text-[var(--foreground)] mb-4">Variants Example</h3>
         <div className="flex items-center justify-center h-40">
             <motion.div
-                className="w-40 h-40 bg-blue-500"
+                className="w-40 h-40 bg-[var(--primary)]/50"
                 variants={boxVariants}
                 initial={"initial"}
                 whileHover={"hover"}

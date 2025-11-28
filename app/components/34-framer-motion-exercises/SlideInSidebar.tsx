@@ -6,15 +6,15 @@ const SlideInSidebar = () => {
   const [isOpen, setIsOpen] = useState(false);
 
   return (
-    <div className="card flex flex-col items-center relative overflow-hidden">
-      <h3 className="text-xl font-bold text-white mb-4">Exercise 6: Slide In Sidebar</h3>
+    <div className="glass flex flex-col items-center relative overflow-hidden">
+      <h3 className="text-xl font-bold text-[var(--foreground)] mb-4">Exercise 6: Slide In Sidebar</h3>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="px-4 py-2 mb-4 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+        className="btn bg-[var(--primary)]/50 mb-4"
       >
         Toggle Sidebar
       </button>
-      <div className="w-full h-48 bg-gray-700 rounded-lg relative overflow-hidden">
+      <div className="w-full h-48 bg-[var(--muted)]/50 rounded-lg relative overflow-hidden">
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -22,7 +22,7 @@ const SlideInSidebar = () => {
               animate={{ x: 0 }}
               exit={{ x: '-100%' }}
               transition={{ duration: 0.3 }}
-              className="absolute top-0 left-0 h-full w-2/3 bg-indigo-600 p-4 text-white flex items-center justify-center"
+              className="absolute top-0 left-0 h-full w-2/3 bg-[var(--primary)]/50 p-4 text-[var(--foreground)] flex items-center justify-center"
             >
               Sidebar Content
             </motion.div>

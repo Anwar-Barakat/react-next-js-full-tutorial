@@ -25,20 +25,20 @@ const DynamicList = () => {
 
   return (
     <div className="card flex flex-col items-center">
-      <h3 className="text-xl font-bold text-white mb-4">Exercise 5: Dynamic List Animation</h3>
+      <h3 className="text-xl font-bold text-foreground mb-4">Exercise 5: Dynamic List Animation</h3>
       <div className="flex mb-4">
         <input
           type="text"
           value={newItem}
           onChange={(e) => setNewItem(e.target.value)}
           placeholder="Add new item"
-          className="input mr-2"
+          className="input mr-2 text-foreground"
         />
         <button onClick={addItem} className="btn btn-primary">
           Add
         </button>
       </div>
-      <div className="w-full max-w-md bg-gray-700 rounded-lg p-4">
+      <div className="w-full max-w-md bg-muted rounded-lg p-4">
         <AnimatePresence>
           {items.map((item, index) => (
             <motion.div
@@ -47,10 +47,10 @@ const DynamicList = () => {
               initial="initial"
               animate="animate"
               exit="exit"
-              className="flex justify-between items-center bg-gray-800 p-3 rounded-lg mb-2 text-white"
+              className="flex justify-between items-center bg-card p-3 rounded-lg mb-2 text-foreground"
             >
               {item}
-              <button onClick={() => removeItem(index)} className="text-red-400 hover:text-red-600">
+              <button onClick={() => removeItem(index)} className="text-secondary hover:text-secondary">
                 Remove
               </button>
             </motion.div>

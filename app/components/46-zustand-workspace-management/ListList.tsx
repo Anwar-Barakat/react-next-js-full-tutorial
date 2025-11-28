@@ -35,13 +35,13 @@ const ListList: React.FC<ListListProps> = ({
         {lists.map((list) => (
           <li
             key={list.id}
-            className={`flex items-center justify-between p-2 mb-2 rounded-md cursor-pointer transition-colors duration-200 ${selectedListId === list.id ? 'bg-[var(--accent)]' : 'hover:bg-[var(--muted)]'
+            className={`flex items-center justify-between p-2 mb-2 rounded-md cursor-pointer transition-colors duration-200 ${selectedListId === list.id ? 'bg-accent' : 'hover:bg-muted'
               }`}
             onClick={() => selectList(list.id)}
           >
             <div className="flex items-center gap-2">
               <span className="text-xl">{list.emoji}</span>
-              <span className="text-white">{list.name}</span>
+              <span className="text-foreground">{list.name}</span>
             </div>
             <div className="flex gap-2">
               <button

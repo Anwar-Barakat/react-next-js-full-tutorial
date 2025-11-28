@@ -37,50 +37,48 @@ export const FormWithRef = () => {
   };
 
   return (
-    <div className="center-content py-12 px-4">
-      <div className="bg-card p-8 rounded-lg shadow-lg max-w-md w-full border border-border">
-        <h2 className="text-3xl md:text-4xl font-bold center-text mb-6 text-foreground">
-          Form with useRef
-        </h2>
-        <form onSubmit={handleSubmit} className="flex flex-col gap-4">
-          <input
-            type="text"
-            name="name"
-            placeholder="Name"
-            ref={nameRef}
-            className="input w-full"
-          />
-          <input
-            type="email"
-            name="email"
-            placeholder="Email"
-            ref={emailRef}
-            className="input w-full"
-          />
-          <input
-            type="password"
-            name="password"
-            placeholder="Password"
-            ref={passwordRef}
-            className="input w-full"
-          />
-          <button
-            type="submit"
-            className="btn btn-primary w-full"
-          >
-            Submit
-          </button>
-        </form>
+    <div className="glass glass-xl w-full max-w-md">
+      <h2 className="text-3xl font-bold text-primary text-center mb-6">
+        Form with useRef
+      </h2>
+      <form onSubmit={handleSubmit} className="flex flex-col gap-4">
+        <input
+          type="text"
+          name="name"
+          placeholder="Name"
+          ref={nameRef}
+          className="input w-full bg-white/10 border-white/20 focus:border-primary focus:bg-white/20"
+        />
+        <input
+          type="email"
+          name="email"
+          placeholder="Email"
+          ref={emailRef}
+          className="input w-full bg-white/10 border-white/20 focus:border-primary focus:bg-white/20"
+        />
+        <input
+          type="password"
+          name="password"
+          placeholder="Password"
+          ref={passwordRef}
+          className="input w-full bg-white/10 border-white/20 focus:border-primary focus:bg-white/20"
+        />
+        <button
+          type="submit"
+          className="btn btn-primary w-full"
+        >
+          Submit
+        </button>
+      </form>
 
-        {formData.name && (
-          <div className="mt-6 p-4 border border-border rounded-lg bg-muted">
-            <h3 className="text-xl font-semibold text-foreground mb-2">Submitted Data:</h3>
-            <p className="text-muted-foreground">Name: {formData.name}</p>
-            <p className="text-muted-foreground">Email: {formData.email}</p>
-            <p className="text-muted-foreground">Password: {formData.password}</p>
-          </div>
-        )}
-      </div>
+      {formData.name && (
+        <div className="glass mt-6 text-left">
+          <h3 className="text-xl font-semibold text-primary mb-2">Submitted Data:</h3>
+          <p className="text-foreground">Name: {formData.name}</p>
+          <p className="text-foreground">Email: {formData.email}</p>
+          <p className="text-foreground">Password: {formData.password}</p>
+        </div>
+      )}
     </div>
   );
 };

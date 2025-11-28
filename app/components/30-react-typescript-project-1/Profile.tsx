@@ -96,7 +96,7 @@ const Profile: React.FC = () => {
 
   return (
     <section
-      className="relative w-[calc(100%-5rem)] ml-[5rem] bg-[var(--background)] text-[var(--foreground)] min-h-screen"
+      className="relative w-[calc(100%-5rem)] ml-[5rem]"
       aria-label="User profile"
     >
       {/* Banner Section */}
@@ -110,7 +110,7 @@ const Profile: React.FC = () => {
         <div className="absolute top-4 right-4">
           <label
             htmlFor="banner-upload"
-            className="cursor-pointer flex items-center justify-center bg-[var(--muted)] bg-opacity-75 text-white p-3 rounded-full hover:bg-opacity-100 transition-opacity duration-200 focus-within:ring-2 focus-within:ring-[var(--primary)] focus-within:ring-offset-2"
+            className="btn btn-muted p-3 rounded-full bg-opacity-75 focus-within:ring-primary focus-within:ring-offset-2"
             aria-label="Upload banner image"
           >
             <FaCamera size={20} aria-hidden="true" />
@@ -125,7 +125,7 @@ const Profile: React.FC = () => {
             />
           </label>
           {bannerError && (
-            <p id="banner-error" className="absolute top-full mt-2 right-0 text-sm text-[var(--secondary)] bg-[var(--card)] p-2 rounded-[var(--radius)] shadow-[var(--shadow-lg)] max-w-xs border border-[var(--border)]">
+            <p id="banner-error" className="alert alert-danger absolute top-full mt-2 right-0 max-w-xs text-left">
               {bannerError}
             </p>
           )}
@@ -134,7 +134,7 @@ const Profile: React.FC = () => {
 
       {/* Profile Info Section */}
       <div className="relative flex flex-col md:flex-row items-center md:items-start p-4 -mt-16 md:-mt-20 z-10">
-        <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-[var(--card)] overflow-hidden shadow-[var(--shadow-lg)]">
+        <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-glass-border overflow-hidden shadow-xl">
           <img
             src={profileUrl}
             alt="Profile picture"
@@ -144,7 +144,7 @@ const Profile: React.FC = () => {
           <div className="absolute bottom-0 right-0">
             <label
               htmlFor="profile-upload"
-              className="cursor-pointer flex items-center justify-center bg-[var(--muted)] bg-opacity-75 text-white p-2 rounded-full hover:bg-opacity-100 transition-opacity duration-200 focus-within:ring-2 focus-within:ring-[var(--primary)] focus-within:ring-offset-2"
+              className="btn btn-muted p-2 rounded-full bg-opacity-75 focus-within:ring-primary focus-within:ring-offset-2"
               aria-label="Upload profile picture"
             >
               <FaCamera size={16} aria-hidden="true" />
@@ -159,7 +159,7 @@ const Profile: React.FC = () => {
               />
             </label>
             {profileError && (
-              <p id="profile-error" className="absolute top-full mt-2 right-0 text-sm text-[var(--secondary)] bg-[var(--card)] p-2 rounded-[var(--radius)] shadow-[var(--shadow-lg)] max-w-xs z-20 border border-[var(--border)]">
+              <p id="profile-error" className="alert alert-danger absolute top-full mt-2 right-0 max-w-xs z-20 text-left">
                 {profileError}
               </p>
             )}
@@ -167,15 +167,15 @@ const Profile: React.FC = () => {
         </div>
 
         <div className="ml-0 md:ml-6 mt-4 md:mt-8 text-center md:text-left">
-          <h1 className="text-3xl font-bold text-[var(--foreground)]">Anwar WebDev</h1>
-          <p className="text-[var(--muted-foreground)]" aria-label="View count">1M views</p>
-          <p className="mt-2 max-w-xl text-[var(--muted-foreground)]">
+          <h1 className="text-3xl font-bold text-primary">Anwar WebDev</h1>
+          <p className="text-foreground" aria-label="View count">1M views</p>
+          <p className="mt-2 max-w-xl text-muted-foreground">
             Lorem ipsum dolor sit amet consectetur adipisicing elit. Nostrum
             quam excepturi magni numquam rem laborum?
           </p>
           <button
             type="button"
-            className="mt-4 px-6 py-2 bg-[var(--secondary)] text-white rounded-full hover:bg-[var(--secondary)]/90 focus:outline-none focus:ring-2 focus:ring-[var(--secondary)] focus:ring-offset-2 transition-colors duration-200 shadow-[var(--shadow-md)] disabled:opacity-50 disabled:cursor-not-allowed font-semibold"
+            className="btn btn-secondary rounded-full mt-4"
             aria-label="Subscribe to Anwar WebDev"
           >
             Subscribe
@@ -184,7 +184,7 @@ const Profile: React.FC = () => {
       </div>
 
       {/* Tabs Section */}
-      <div className="p-4">
+      <div className="p-4 glass rounded-lg mt-8">
         <Tabs />
       </div>
     </section>

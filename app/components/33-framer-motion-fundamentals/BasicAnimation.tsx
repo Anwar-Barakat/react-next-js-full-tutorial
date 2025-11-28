@@ -4,11 +4,11 @@ import React from 'react';
 
 const BasicAnimation = () => {
   return (
-    <div className="card flex flex-col items-center">
-      <h3 className="text-xl font-bold text-white mb-4">Basic Animation</h3>
+    <div className="glass flex flex-col items-center">
+      <h3 className="text-xl font-bold text-[var(--foreground)] mb-4">Basic Animation</h3>
       <div className="flex justify-center items-center h-32">
         <motion.div
-          className="w-24 h-24 bg-blue-500 rounded-lg"
+          className="w-24 h-24 bg-[var(--primary)]/50 rounded-lg"
           animate={{
             scale: [1, 1.5, 1.5, 1, 1],
             rotate: [0, 0, 270, 270, 0],

@@ -6,11 +6,11 @@ const FadeComponent = () => {
   const [isVisible, setIsVisible] = useState(true);
 
   return (
-    <div className="card flex flex-col items-center">
-      <h3 className="text-xl font-bold text-white mb-4">Exercise 5: Simple Fade In/Out</h3>
+    <div className="glass flex flex-col items-center">
+      <h3 className="text-xl font-bold text-[var(--foreground)] mb-4">Exercise 5: Simple Fade In/Out</h3>
       <button
         onClick={() => setIsVisible(!isVisible)}
-        className="px-4 py-2 mb-4 bg-blue-500 text-white rounded hover:bg-blue-600 transition-colors"
+        className="btn bg-[var(--primary)]/50 mb-4"
       >
         Toggle Fade Component
       </button>
@@ -22,7 +22,7 @@ const FadeComponent = () => {
               animate={{ opacity: 1 }}
               exit={{ opacity: 0 }}
               transition={{ duration: 0.5 }}
-              className="p-4 bg-teal-500 text-white rounded-lg"
+              className="p-4 bg-[var(--accent)]/50 text-[var(--foreground)] rounded-lg"
             >
               I fade in and out!
             </motion.div>

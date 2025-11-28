@@ -33,37 +33,31 @@ const MealList = () => {
 
   if (loading) {
     return (
-      <div className="center-content py-12 px-4">
-        <div className="max-w-2xl w-full bg-card border border-border rounded-lg p-6 md:p-8 shadow-md">
-          <p className="text-lg text-muted-foreground center-text">Loading meals...</p>
+        <div className="glass w-full max-w-md p-6 text-center">
+          <p className="text-lg text-muted-foreground">Loading meals...</p>
         </div>
-      </div>
     );
   }
 
   if (error) {
     return (
-      <div className="center-content py-12 px-4">
-        <div className="max-w-2xl w-full bg-card border border-secondary rounded-lg p-6 md:p-8 shadow-md">
-          <p className="text-lg text-secondary center-text">Error: {error}</p>
+        <div className="glass w-full max-w-md p-6 text-center border-secondary">
+          <p className="text-lg text-secondary">Error: {error}</p>
         </div>
-      </div>
     );
   }
 
   return (
-    <div className="center-content py-12 px-4">
-      <div className="max-w-7xl w-full">
-        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-8 center-text">
-          Delicious Meals
-        </h2>
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          {meals.map((meal) => (
-            <MealCard key={meal.id} meal={meal} />
-          ))}
+        <div className="w-full">
+          <h2 className="text-3xl font-bold text-primary mb-8 text-center">
+            Delicious Meals
+          </h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {meals.map((meal) => (
+              <MealCard key={meal.id} meal={meal} />
+            ))}
+          </div>
         </div>
-      </div>
-    </div>
   );
 };
 

@@ -1,5 +1,6 @@
 'use client';
 import React, { useState } from "react";
+import { AlertCircle } from 'lucide-react'; // Added import
 
 export const ValidationForm = () => {
   const [username, setUsername] = useState("");
@@ -75,7 +76,7 @@ export const ValidationForm = () => {
   };
 
   const getInputClasses = (isValid: boolean | null) => {
-    let classes = "input";
+    let classes = "input w-full bg-white/10 border-white/20 focus:border-primary focus:bg-white/20";
     if (isValid === true) {
       classes += " input-success";
     } else if (isValid === false) {
@@ -85,9 +86,8 @@ export const ValidationForm = () => {
   };
 
   return (
-    <div className="center-content py-12 px-4 bg-background">
-      <div className="bg-card p-8 md:p-10 rounded-2xl shadow-lg max-w-md w-full border border-border backdrop-blur-sm">
-        <h2 className="text-4xl md:text-5xl font-extrabold center-text mb-8 text-foreground">Sign Up</h2>
+    <div className="glass glass-xl w-full max-w-md">
+      <h2 className="text-4xl font-extrabold text-primary text-center mb-8">Sign Up</h2>
       <form onSubmit={submitHandler} className="flex flex-col gap-4">
         <div>
           <input
@@ -97,7 +97,7 @@ export const ValidationForm = () => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-          {errorUsername && <p className="text-secondary text-sm mt-1">{errorUsername}</p>}
+          {errorUsername && <p className="text-secondary text-sm mt-1 flex items-center"><AlertCircle className="w-4 h-4 mr-1" />{errorUsername}</p>}
         </div>
 
         <div>
@@ -108,7 +108,7 @@ export const ValidationForm = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          {errorEmail && <p className="text-secondary text-sm mt-1">{errorEmail}</p>}
+          {errorEmail && <p className="text-secondary text-sm mt-1 flex items-center"><AlertCircle className="w-4 h-4 mr-1" />{errorEmail}</p>}
         </div>
 
         <div>
@@ -119,7 +119,7 @@ export const ValidationForm = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          {errorPassword && <p className="text-secondary text-sm mt-1">{errorPassword}</p>}
+          {errorPassword && <p className="text-secondary text-sm mt-1 flex items-center"><AlertCircle className="w-4 h-4 mr-1" />{errorPassword}</p>}
         </div>
 
         <div>
@@ -130,12 +130,11 @@ export const ValidationForm = () => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          {errorConfirmPassword && <p className="text-secondary text-sm mt-1">{errorConfirmPassword}</p>}
+          {errorConfirmPassword && <p className="text-secondary text-sm mt-1 flex items-center"><AlertCircle className="w-4 h-4 mr-1" />{errorConfirmPassword}</p>}
         </div>
 
         <button type="submit" className="btn btn-primary btn-lg w-full">Submit</button>
       </form>
-    </div>
     </div>
   );
 };

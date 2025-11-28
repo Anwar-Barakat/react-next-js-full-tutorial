@@ -2,10 +2,10 @@
 
 import React, { useState } from 'react';
 
-const buttonClasses = "w-16 h-16 text-2xl m-1 rounded-xl border border-border cursor-pointer bg-muted text-foreground hover:bg-muted/90 hover:shadow-md active:scale-95 transition-all duration-200 font-semibold";
-const operatorButtonClasses = "bg-accent text-white hover:shadow-md hover:scale-105 active:scale-95";
-const clearButtonClasses = "bg-secondary text-white hover:shadow-md hover:scale-105 active:scale-95";
-const equalButtonClasses = "bg-primary text-white hover:shadow-lg hover:scale-105 active:scale-95";
+const buttonClasses = "w-16 h-16 text-2xl m-1 rounded-xl glass text-foreground hover:bg-white/20 active:scale-95 transition-all duration-200 font-semibold";
+const operatorButtonClasses = "bg-accent/30 text-accent hover:shadow-md hover:scale-105 active:scale-95";
+const clearButtonClasses = "bg-secondary/30 text-secondary hover:shadow-md hover:scale-105 active:scale-95";
+const equalButtonClasses = "bg-primary/30 text-primary hover:shadow-lg hover:scale-105 active:scale-95";
 
 export const Calculator = () => {
   const [display, setDisplay] = useState('0');
@@ -83,9 +83,8 @@ export const Calculator = () => {
   );
 
   return (
-    <div className="center-content py-12 px-4 bg-background">
-      <div className="border-2 border-border rounded-2xl p-6 bg-card shadow-lg backdrop-blur-sm">
-        <div className="w-full h-20 bg-muted text-foreground text-right p-4 text-4xl md:text-5xl font-bold mb-4 rounded-xl border-2 border-border shadow-sm box-border overflow-hidden">
+    <div className="glass glass-xl rounded-2xl p-6">
+      <div className="w-full h-20 glass flex items-center justify-end p-4 text-5xl font-bold mb-4 rounded-xl shadow-md overflow-hidden">
           <span className="inline-block animate-in fade-in duration-200">{display}</span>
         </div>
         <div>
@@ -114,7 +113,6 @@ export const Calculator = () => {
             {renderButton('+', () => handleOperatorClick('+'), operatorButtonClasses)}
           </div>
         </div>
-      </div>
     </div>
   );
 };

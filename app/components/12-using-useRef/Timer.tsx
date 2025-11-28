@@ -19,7 +19,7 @@ const Timer = () => {
 
   return (
     <div className="center-content py-12 px-4">
-      <div className="max-w-2xl w-full bg-card border border-border rounded-lg p-6 md:p-8 shadow-md">
+      <div className="max-w-2xl w-full glass rounded-lg p-6 md:p-8">
         <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 center-text">
           Timer
         </h2>
@@ -33,7 +33,7 @@ const Timer = () => {
                 clearInterval(intervalRef.current);
               }
             }}
-            className="px-6 py-3 bg-secondary text-white rounded-lg hover:bg-secondary/90 transition-colors duration-200 font-semibold shadow-md"
+            className="btn btn-secondary"
           >
             Stop Timer
           </button>

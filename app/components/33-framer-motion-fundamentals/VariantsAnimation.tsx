@@ -24,8 +24,8 @@ const VariantsAnimation = () => {
   };
 
   return (
-    <div className="card flex flex-col items-center">
-      <h3 className="text-xl font-bold text-white mb-4">Variants Animation</h3>
+    <div className="glass flex flex-col items-center">
+      <h3 className="text-xl font-bold text-[var(--foreground)] mb-4">Variants Animation</h3>
       <motion.ul
         className="flex justify-center items-center h-32 space-x-4"
         variants={container}
@@ -35,7 +35,7 @@ const VariantsAnimation = () => {
         {[0, 1, 2, 3].map((index) => (
           <motion.li
             key={index}
-            className="w-12 h-12 bg-yellow-500 rounded-full"
+            className="w-12 h-12 bg-[var(--warning)]/50 rounded-full"
             variants={item}
           />
         ))}

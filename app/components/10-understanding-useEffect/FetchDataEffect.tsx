@@ -26,12 +26,12 @@ const FetchDataEffect = () => {
 
   return (
     <div className="center-content py-12 px-4">
-      <div className="max-w-2xl w-full bg-card border border-border rounded-lg p-6 md:p-8 shadow-md">
+      <div className="max-w-2xl w-full glass rounded-lg p-6 md:p-8">
         <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 center-text">
           Fetch Data Effect
         </h2>
         {post ? (
-          <div className="p-4 bg-muted rounded-lg">
+          <div className="p-4 glass rounded-lg">
             <p className="text-lg font-semibold text-foreground center-text">
               First post title: {post.title}
             </p>

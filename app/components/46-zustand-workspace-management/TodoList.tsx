@@ -27,7 +27,7 @@ const TodoList: React.FC<TodoListProps> = ({
           <li
             key={todo.id}
             className={`flex items-center justify-between p-2 mb-2 rounded-md ${
-              todo.completed ? 'bg-gray-700 line-through text-gray-400' : 'bg-gray-800 text-white'
+              todo.completed ? 'bg-muted line-through text-muted-foreground' : 'bg-card text-foreground'
             }`}
           >
             <div className="flex items-center gap-2">
@@ -35,7 +35,7 @@ const TodoList: React.FC<TodoListProps> = ({
                 type="checkbox"
                 checked={todo.completed}
                 onChange={() => onToggleTodoCompletion(todo.id)}
-                className="form-checkbox h-5 w-5 text-blue-600"
+                className="form-checkbox h-5 w-5 text-primary"
               />
               <span>{todo.text}</span>
             </div>

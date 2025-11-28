@@ -30,15 +30,15 @@ export const TodoList: React.FC = () => {
   };
 
   return (
-    <div className="p-6 border border-border rounded-lg shadow-md bg-card text-foreground">
-      <h3 className="text-xl font-semibold mb-4 text-foreground">Todo List (Array State)</h3>
+    <div className="glass glass-lg w-full text-center">
+      <h3 className="text-xl font-semibold mb-4 text-primary">Todo List (Array State)</h3>
       <div className="flex mb-4 gap-2">
         <input
           type="text"
           value={newTodoText}
           onChange={(e) => setNewTodoText(e.target.value)}
           placeholder="Add a new todo"
-              className="input flex-1"
+              className="input flex-1 bg-white/10 border-white/20 focus:border-primary focus:bg-white/20"
         />
         <button
           onClick={addTodo}
@@ -49,7 +49,7 @@ export const TodoList: React.FC = () => {
       </div>
       <ul className="space-y-2">
         {todos.map(todo => (
-          <li key={todo.id} className="flex items-center p-3 border border-border rounded-lg bg-muted">
+          <li key={todo.id} className="flex items-center p-3 rounded-lg bg-white/10 border border-white/20">
             <input
               type="checkbox"
               checked={todo.completed}

@@ -4,7 +4,7 @@ import React from 'react';
 
 const TrendList = () => {
   return (
-    <div className="bg-gradient-to-br from-[var(--card)] to-[var(--muted)]/30 rounded-2xl shadow-[var(--shadow-lg)] p-5 mb-4 text-[var(--foreground)] border border-[var(--border)] backdrop-blur-sm">
+    <div className="glass rounded-2xl shadow-[var(--shadow-lg)] p-5 mb-4 text-[var(--foreground)]">
       <h3 className="text-xl font-bold mb-4 text-[var(--foreground)] flex items-center gap-2">
         <span className="w-1 h-6 bg-gradient-to-b from-[var(--accent)] to-[var(--primary)] rounded-full"></span>
         Trends for you

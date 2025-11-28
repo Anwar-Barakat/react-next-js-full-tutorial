@@ -10,9 +10,9 @@ export const BasicState: React.FC = () => {
   };
 
   return (
-    <div className="p-6 border border-border rounded-lg shadow-md bg-card text-foreground">
-      <h3 className="text-xl font-semibold mb-4 text-foreground">Basic useState Typing</h3>
-      <p className="mb-4 text-lg text-muted-foreground">Count: <span className="font-bold text-primary">{count}</span></p>
+    <div className="glass glass-lg w-full text-center">
+      <h3 className="text-xl font-semibold mb-4 text-primary">Basic useState Typing</h3>
+      <p className="mb-4 text-lg text-foreground">Count: <span className="font-bold text-accent">{count}</span></p>
       <button
         onClick={increment}
         className="btn btn-primary"

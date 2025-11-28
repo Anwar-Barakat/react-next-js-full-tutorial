@@ -19,8 +19,8 @@ const childVariant = {
 
 const StaggerChildren = () => {
   return (
-    <div className="card flex flex-col items-center">
-        <h3 className="text-xl font-bold text-white mb-4">Stagger Children</h3>
+    <div className="glass flex flex-col items-center">
+        <h3 className="text-xl font-bold text-[var(--foreground)] mb-4">Stagger Children</h3>
         <motion.div
             className="flex gap-4"
             variants={parentVariant}
@@ -30,7 +30,7 @@ const StaggerChildren = () => {
             {[...Array(5)].map((_, index) => (
                 <motion.div
                 key={index}
-                className="w-16 h-16 bg-blue-500 rounded"
+                className="w-16 h-16 bg-[var(--primary)]/50 rounded"
                 variants={childVariant}
                 />
             ))}
