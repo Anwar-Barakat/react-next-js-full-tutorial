@@ -1,12 +1,6 @@
 'use client';
 import React, { useState } from 'react';
-
-// Define an interface for a single todo item
-interface TodoItem {
-  id: number;
-  text: string;
-  completed: boolean;
-}
+import { TodoItem } from './types';
 
 export const TodoList: React.FC = () => {
   // Explicitly typing the state variable as an array of TodoItem
@@ -36,8 +30,8 @@ export const TodoList: React.FC = () => {
   };
 
   return (
-    <div className="p-6 border border-[var(--border)] rounded-[var(--radius)] shadow-[var(--shadow-md)] bg-[var(--card)] text-[var(--foreground)]">
-      <h3 className="text-xl font-semibold mb-4 text-[var(--foreground)]">Todo List (Array State)</h3>
+    <div className="p-6 border border-border rounded-lg shadow-md bg-card text-foreground">
+      <h3 className="text-xl font-semibold mb-4 text-foreground">Todo List (Array State)</h3>
       <div className="flex mb-4 gap-2">
         <input
           type="text"
@@ -55,7 +49,7 @@ export const TodoList: React.FC = () => {
       </div>
       <ul className="space-y-2">
         {todos.map(todo => (
-          <li key={todo.id} className="flex items-center p-3 border border-[var(--border)] rounded-[var(--radius)] bg-[var(--muted)]">
+          <li key={todo.id} className="flex items-center p-3 border border-border rounded-lg bg-muted">
             <input
               type="checkbox"
               checked={todo.completed}
@@ -63,7 +57,7 @@ export const TodoList: React.FC = () => {
               className="mr-3 w-4 h-4"
             />
             <span 
-              className={todo.completed ? 'line-through text-[var(--muted-foreground)]' : 'text-[var(--foreground)]'}
+              className={todo.completed ? 'line-through text-muted-foreground' : 'text-foreground'}
             >
               {todo.text}
             </span>

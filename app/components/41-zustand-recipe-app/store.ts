@@ -17,7 +17,7 @@ type RecipeAction = {
     deleteRecipe: (id: number) => void
 }
 
-const useStore = create<RecipeState & RecipeAction>((set, get) => ({
+const useStore = create<RecipeState & RecipeAction>((set) => ({
     recipes: [],
     addRecipe: (recipe: Recipe) => (
         set((state) => ({

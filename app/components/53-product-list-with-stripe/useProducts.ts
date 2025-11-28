@@ -1,4 +1,4 @@
-import { PaginatedResponse } from '@/app/types';
+import { ApiResponse } from '@/app/types';
 import { useQuery } from "@tanstack/react-query";
 import axios from "axios";
 import { Product } from "./types";
@@ -10,7 +10,7 @@ interface UseProductsParams {
 
 const fetchProducts = async (
   params: UseProductsParams
-): Promise<PaginatedResponse<Product>> => {
+): Promise<ApiResponse<Product>> => {
   const response = await axios.get(
     `http://127.0.0.1:8000/api/v4/products`,
     { params }

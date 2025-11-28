@@ -1,7 +1,7 @@
 "use client";
 
 import React from 'react';
-import { fetchData } from './dataFetcher';
+
 
 interface FetchedData {
   id: number;

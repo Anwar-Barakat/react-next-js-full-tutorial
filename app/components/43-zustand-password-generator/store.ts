@@ -15,7 +15,7 @@ type PasswordState = {
     generatePassword: () => void;
 }
 
-export const usePasswordStore = create<PasswordState>((set, get) => ({
+export const usePasswordStore = create<PasswordState>((set) => ({
     length: 12,
     includeNumbers: true,
     includeSymbols: false,
@@ -24,31 +24,37 @@ export const usePasswordStore = create<PasswordState>((set, get) => ({
     generatedPassword: '',
 
     setLength: (length: number) => (
-        set((state) => ({
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        set((_state) => ({
             length: length
         }))
     ),
     toggleNumbers: () => (
-        set((state) => ({
-            includeNumbers: !state.includeNumbers // Fixed bug here
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        set((_state) => ({
+            includeNumbers: !_state.includeNumbers // Fixed bug here
         }))
     ),
     toggleSymbols: () => {
-        set((state) => ({
-            includeSymbols: !state.includeSymbols
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        set((_state) => ({
+            includeSymbols: !_state.includeSymbols
         }))
     },
     toggleLowercase: () => (
-        set((state) => ({
-            includeLowercase: !state.includeLowercase
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        set((_state) => ({
+            includeLowercase: !_state.includeLowercase
         }))
     ),
     toggleUppercase: () => (
-        set((state) => ({
-            includeUppercase: !state.includeUppercase
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
+        set((_state) => ({
+            includeUppercase: !_state.includeUppercase
         }))
     ),
     generatePassword: () => (
+        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         set((state) => {
             const numbers = "0123456789";
             const symbols = "!@#$%^&*()_-+=/[]";

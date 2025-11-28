@@ -11,9 +11,10 @@ export const DataFetchingDemo: React.FC = () => {
   const [triggerErrorUse, setTriggerErrorUse] = useState<boolean>(false);
   const [fetchKey, setFetchKey] = useState<number>(0);
 
+
   const useHookPromise = React.useMemo(() => {
     return fetchData(triggerErrorUse, 2000);
-  }, [fetchKey, triggerErrorUse]);
+  }, [triggerErrorUse]);
 
   const handleRefetch = () => {
     setFetchKey(prev => prev + 1);

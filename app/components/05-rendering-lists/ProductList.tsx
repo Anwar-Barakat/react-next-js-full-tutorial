@@ -7,17 +7,17 @@ const ProductList = () => {
 
   return (
     <div className="center-content py-12 px-4">
-      <div className="max-w-2xl w-full bg-[var(--card)] border border-[var(--border)] rounded-[var(--radius)] p-6 md:p-8 shadow-[var(--shadow-md)]">
-        <h2 className="text-3xl md:text-4xl font-bold text-[var(--foreground)] mb-6 center-text">
+      <div className="max-w-2xl w-full bg-card border border-border rounded-lg p-6 md:p-8">
+        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 center-text">
           Product List
         </h2>
         <div className="space-y-3">
           {products.map((product) => (
             <div 
               key={product.id} 
-              className="p-4 border border-[var(--border)] rounded-[var(--radius)] bg-[var(--muted)] hover:bg-[var(--muted)]/80 transition-colors"
+              className="p-4 border border-border rounded-lg bg-muted hover:bg-muted/80 transition-colors"
             >
-              <p className="text-[var(--foreground)]">
+              <p className="text-foreground">
                 <span className="font-semibold">Name:</span> {product.name}, <span className="font-semibold">Price:</span> {product.price}
               </p>
             </div>

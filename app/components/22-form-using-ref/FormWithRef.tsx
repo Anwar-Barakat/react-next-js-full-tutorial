@@ -38,8 +38,8 @@ export const FormWithRef = () => {
 
   return (
     <div className="center-content py-12 px-4">
-      <div className="bg-[var(--card)] p-8 rounded-[var(--radius)] shadow-[var(--shadow-lg)] max-w-md w-full border border-[var(--border)]">
-        <h2 className="text-3xl md:text-4xl font-bold center-text mb-6 heading-gradient">
+      <div className="bg-card p-8 rounded-lg shadow-lg max-w-md w-full border border-border">
+        <h2 className="text-3xl md:text-4xl font-bold center-text mb-6 text-foreground">
           Form with useRef
         </h2>
         <form onSubmit={handleSubmit} className="flex flex-col gap-4">
@@ -73,11 +73,11 @@ export const FormWithRef = () => {
         </form>
 
         {formData.name && (
-          <div className="mt-6 p-4 border border-[var(--border)] rounded-[var(--radius)] bg-[var(--muted)]">
-            <h3 className="text-xl font-semibold text-[var(--foreground)] mb-2">Submitted Data:</h3>
-            <p className="text-[var(--muted-foreground)]">Name: {formData.name}</p>
-            <p className="text-[var(--muted-foreground)]">Email: {formData.email}</p>
-            <p className="text-[var(--muted-foreground)]">Password: {formData.password}</p>
+          <div className="mt-6 p-4 border border-border rounded-lg bg-muted">
+            <h3 className="text-xl font-semibold text-foreground mb-2">Submitted Data:</h3>
+            <p className="text-muted-foreground">Name: {formData.name}</p>
+            <p className="text-muted-foreground">Email: {formData.email}</p>
+            <p className="text-muted-foreground">Password: {formData.password}</p>
           </div>
         )}
       </div>

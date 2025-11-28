@@ -1,10 +1,7 @@
 "use client";
 
 import React from 'react';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import PostsMutations from './PostsMutations';
-
-const queryClient = new QueryClient();
 
 const ReactQueryMutationsDemo: React.FC = () => {
   return (

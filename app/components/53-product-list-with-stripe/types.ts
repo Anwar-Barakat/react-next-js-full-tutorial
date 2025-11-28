@@ -13,7 +13,12 @@ export interface Media {
         url: string;
         thumb_url: string;
     },
-    gallery: any[]
+    gallery: GalleryItem[]
+}
+
+export interface GalleryItem {
+    url: string;
+    thumb_url: string;
 }
 
 export interface Product {

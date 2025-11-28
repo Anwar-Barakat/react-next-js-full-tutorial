@@ -146,7 +146,9 @@ import ZustandMarketAppv48 from "./components/48-zustand-market";
 import { ReduxToolkitDemo as ReduxToolkitDemov49 } from "./components/49-redux-toolkit-fundamentals";
 
 // 50-redux-kanban-board
-import { KanbanDemo as KanbanDemov50 } from "./components/50-redux-kanban-board";
+// import { KanbanDemo as KanbanDemov50 } from "./components/50-redux-kanban-board";
+import { KanbanClientWrapper } from "./components/KanbanClientWrapper";
+
 
 // 51-react-query-json-server
 import { ReactQueryDemo as ReactQueryDemov51 } from "./components/51-react-query-json-server";
@@ -154,6 +156,7 @@ import { ReactQueryMutationsDemo as ReactQueryMutationsDemov52 } from "./compone
 
 // 53-product-list
 import { ProductList as ProductList53 } from "./components/53-product-list-with-stripe";
+
 
 
 export default function Home() {
@@ -324,7 +327,7 @@ export default function Home() {
         <ReduxToolkitDemov49 />
 
         {/* 50-redux-kanban-board */}
-        <KanbanDemov50 />
+        <KanbanClientWrapper />
 
         {/* 51-react-query-json-server */}
         <ReactQueryDemov51 />

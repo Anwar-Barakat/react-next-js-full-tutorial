@@ -11,16 +11,16 @@ const Profile = () => {
 
   return (
     <div className="center-content py-12 px-4">
-      <div className="max-w-2xl w-full bg-[var(--card)] border border-[var(--border)] rounded-[var(--radius)] p-6 md:p-8 shadow-[var(--shadow-md)]">
-        <h2 className="text-3xl md:text-4xl font-bold text-[var(--foreground)] mb-6 center-text">
+      <div className="max-w-2xl w-full bg-card border border-border rounded-lg p-6 md:p-8">
+        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 center-text">
           Profile
         </h2>
         <div className="space-y-4 mb-6">
-          <p className="text-lg text-[var(--muted-foreground)]">
-            <span className="font-semibold text-[var(--foreground)]">Name:</span> {profile.name}
+          <p className="text-lg text-muted-foreground">
+            <span className="font-semibold text-foreground">Name:</span> {profile.name}
           </p>
-          <p className="text-lg text-[var(--muted-foreground)]">
-            <span className="font-semibold text-[var(--foreground)]">Age:</span> {profile.age}
+          <p className="text-lg text-muted-foreground">
+            <span className="font-semibold text-foreground">Age:</span> {profile.age}
           </p>
         </div>
         <div className="space-y-3">

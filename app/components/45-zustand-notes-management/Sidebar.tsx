@@ -3,7 +3,7 @@ import React from "react";
 import { useNoteStore } from "./store";
 
 const Sidebar = () => {
-  const { notes, search, selectNote, setSearch, deleteNote, addOrUpdateNote, setCurrentIndex, setEditorContent, setNoteColor } = useNoteStore();
+  const { notes, search, selectNote, setSearch, deleteNote, setCurrentIndex, setEditorContent, setNoteColor } = useNoteStore();
 
   const filteredNotes = notes.filter((note) =>
     note.text.toLowerCase().includes(search.toLowerCase())

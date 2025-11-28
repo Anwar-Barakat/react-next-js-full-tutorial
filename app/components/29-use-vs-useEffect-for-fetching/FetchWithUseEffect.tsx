@@ -60,7 +60,7 @@ export const FetchWithUseEffect: React.FC<FetchWithUseEffectProps> = ({ triggerE
           <p className="text-[var(--muted-foreground)]"><strong className="text-[var(--foreground)]">Value:</strong> {data.value}</p>
         </div>
       )}
-      {!loading && !error && !data && <p className="text-[var(--muted-foreground)]">Click "Fetch Data" to load.</p>}
+      {!loading && !error && !data && <p className="text-[var(--muted-foreground)]">Click &quot;Fetch Data&quot; to load.</p>}
     </div>
   );
 };
