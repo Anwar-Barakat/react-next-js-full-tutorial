@@ -14,8 +14,8 @@ const FetchDataComponent = () => {
   if (loading) {
     return (
       <div className="center-content py-12 px-4">
-        <div className="max-w-2xl w-full bg-[var(--card)] border border-[var(--border)] rounded-[var(--radius)] p-6 md:p-8 shadow-[var(--shadow-md)]">
-          <p className="text-lg text-[var(--muted-foreground)] center-text">Loading todos...</p>
+        <div className="max-w-2xl w-full bg-card border border-border rounded-lg p-6 md:p-8 shadow-md">
+          <p className="text-lg text-muted-foreground center-text">Loading todos...</p>
         </div>
       </div>
     );
@@ -24,8 +24,8 @@ const FetchDataComponent = () => {
   if (error) {
     return (
       <div className="center-content py-12 px-4">
-        <div className="max-w-2xl w-full bg-[var(--card)] border border-[var(--secondary)] rounded-[var(--radius)] p-6 md:p-8 shadow-[var(--shadow-md)]">
-          <p className="text-lg text-[var(--secondary)] center-text">Error: {error.message}</p>
+        <div className="max-w-2xl w-full bg-card border border-secondary rounded-lg p-6 md:p-8 shadow-md">
+          <p className="text-lg text-secondary center-text">Error: {error.message}</p>
         </div>
       </div>
     );
@@ -33,15 +33,15 @@ const FetchDataComponent = () => {
 
   return (
     <div className="center-content py-12 px-4">
-      <div className="max-w-2xl w-full bg-[var(--card)] border border-[var(--border)] rounded-[var(--radius)] p-6 md:p-8 shadow-[var(--shadow-md)]">
-        <h2 className="text-3xl md:text-4xl font-bold text-[var(--foreground)] mb-6 center-text">
+      <div className="max-w-2xl w-full bg-card border border-border rounded-lg p-6 md:p-8 shadow-md">
+        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 center-text">
           Todos
         </h2>
         <ul className="space-y-2 max-h-96 overflow-y-auto">
           {data?.map((todo) => (
             <li 
               key={todo.id} 
-              className="p-4 border border-[var(--border)] rounded-[var(--radius)] bg-[var(--muted)] text-[var(--foreground)]"
+              className="p-4 border border-border rounded-lg bg-muted text-foreground"
             >
               {todo.title}
             </li>

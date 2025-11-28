@@ -26,18 +26,18 @@ const FetchDataEffect = () => {
 
   return (
     <div className="center-content py-12 px-4">
-      <div className="max-w-2xl w-full bg-[var(--card)] border border-[var(--border)] rounded-[var(--radius)] p-6 md:p-8 shadow-[var(--shadow-md)]">
-        <h2 className="text-3xl md:text-4xl font-bold text-[var(--foreground)] mb-6 center-text">
+      <div className="max-w-2xl w-full bg-card border border-border rounded-lg p-6 md:p-8 shadow-md">
+        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 center-text">
           Fetch Data Effect
         </h2>
         {post ? (
-          <div className="p-4 bg-[var(--muted)] rounded-[var(--radius)]">
-            <p className="text-lg font-semibold text-[var(--foreground)] center-text">
+          <div className="p-4 bg-muted rounded-lg">
+            <p className="text-lg font-semibold text-foreground center-text">
               First post title: {post.title}
             </p>
           </div>
         ) : (
-          <p className="text-lg text-[var(--muted-foreground)] center-text">Loading...</p>
+          <p className="text-lg text-muted-foreground center-text">Loading...</p>
         )}
       </div>
     </div>

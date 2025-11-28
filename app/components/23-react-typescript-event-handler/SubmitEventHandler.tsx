@@ -11,9 +11,9 @@ export const SubmitEventHandler: React.FC = () => {
   };
 
   return (
-    <div className="p-6 border border-[var(--border)] rounded-[var(--radius)] shadow-[var(--shadow-md)] bg-[var(--card)] text-[var(--foreground)]">
-      <h3 className="text-xl font-semibold mb-2 text-[var(--foreground)]">Submit Event Handler</h3>
-      <p className="text-sm mb-4 text-[var(--muted-foreground)]">
+    <div className="p-6 border border-border rounded-lg shadow-md bg-card text-foreground">
+      <h3 className="text-xl font-semibold mb-2 text-foreground">Submit Event Handler</h3>
+      <p className="text-sm mb-4 text-muted-foreground">
         Handles `onSubmit` events with `React.FormEvent`.
       </p>
       <form onSubmit={handleSubmit}>

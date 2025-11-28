@@ -21,7 +21,7 @@ export const UserProvider = ({ children }: { children: ReactNode }) => {
 
   return (
     <UserContext.Provider value={{ user, updateUser }}>
-      <div className="p-4 border border-[var(--border)] rounded-[var(--radius)] bg-[var(--card)] shadow-[var(--shadow-md)]">
+      <div className="p-4 border border-border rounded-lg bg-card shadow-md">
         {children}
       </div>
     </UserContext.Provider>

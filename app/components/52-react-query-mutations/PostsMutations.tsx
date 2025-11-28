@@ -11,6 +11,10 @@ interface Post {
   author: string;
 }
 
+interface DeletePostContext {
+  previousPosts: Post[] | undefined;
+}
+
 const JSON_SERVER_URL = 'http://localhost:3001';
 
 // --- API Functions ---
@@ -67,7 +71,7 @@ const PostsMutations: React.FC = () => {
   });
 
   // --- Mutation for Deleting Post (with Optimistic Update) ---
-  const deletePostMutation = useMutation<void, Error, string>({
+  const deletePostMutation = useMutation<void, Error, string, DeletePostContext>({
     mutationFn: deletePost,
     onMutate: async (postIdToDelete) => {
       // Cancel any outgoing refetches (so they don't overwrite our optimistic update)
@@ -85,7 +89,7 @@ const PostsMutations: React.FC = () => {
       // Return a context object with the snapshotted value
       return { previousPosts };
     },
-    onError: (err, postIdToDelete, context) => {
+    onError: (err, postIdToDelete, context: DeletePostContext | undefined) => {
       // If the mutation fails, use the context here to roll back
       queryClient.setQueryData(['posts'], context?.previousPosts);
       alert(`Failed to delete post: ${err.message}`);

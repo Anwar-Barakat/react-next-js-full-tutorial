@@ -10,9 +10,9 @@ export const ChangeEventHandler: React.FC = () => {
   };
 
   return (
-    <div className="p-6 border border-[var(--border)] rounded-[var(--radius)] shadow-[var(--shadow-md)] bg-[var(--card)] text-[var(--foreground)]">
-      <h3 className="text-xl font-semibold mb-2 text-[var(--foreground)]">Change Event Handler</h3>
-      <p className="text-sm mb-4 text-[var(--muted-foreground)]">
+    <div className="p-6 border border-border rounded-lg shadow-md bg-card text-foreground">
+      <h3 className="text-xl font-semibold mb-2 text-foreground">Change Event Handler</h3>
+      <p className="text-sm mb-4 text-muted-foreground">
         Handles `onChange` events with `React.ChangeEvent`.
       </p>
       <input
@@ -22,7 +22,7 @@ export const ChangeEventHandler: React.FC = () => {
         placeholder="Type something..."
         className="input w-full mb-3"
       />
-      <p className="text-[var(--muted-foreground)]">Input value: <span className="font-mono bg-[var(--muted)] p-2 rounded-[var(--radius)] text-[var(--foreground)]">{value || '...'}</span></p>
+      <p className="text-muted-foreground">Input value: <span className="font-mono bg-muted p-2 rounded-lg text-foreground">{value || '...'}</span></p>
     </div>
   );
 };

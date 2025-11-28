@@ -1,12 +1,13 @@
 "use client";
 
 import React, { useState } from 'react';
-import { Droppable } from 'react-beautiful-dnd';
+import { useDroppable } from '@dnd-kit/core';
+import { SortableContext, verticalListSortingStrategy } from '@dnd-kit/sortable';
 import { useSelector, useDispatch } from 'react-redux';
 import { RootState } from './store';
 import { Column as ColumnType } from './types';
-import { addCard } from './boardSlice'; // Import addCard action
-import { Plus } from 'lucide-react'; // Assuming lucide-react is installed for icons
+import { addCard } from './boardSlice';
+import { Plus } from 'lucide-react';
 import TaskCard from './TaskCard';
 
 interface ColumnProps {
@@ -15,16 +16,21 @@ interface ColumnProps {
 }
 
 const Column: React.FC<ColumnProps> = React.memo(({ column }) => {
+  const { id, title, cardIds } = column;
   const cards = useSelector((state: RootState) =>
-    column.cardIds.map((cardId) => state.kanbanBoard.cards[cardId])
+    cardIds.map((cardId) => state.kanbanBoard.cards[cardId])
   );
   const dispatch = useDispatch();
   const [newCardContent, setNewCardContent] = useState('');
   const [isAdding, setIsAdding] = useState(false);
 
+  const { setNodeRef, isOver } = useDroppable({
+    id: id,
+  });
+
   const handleAddCard = () => {
     if (newCardContent.trim()) {
-      dispatch(addCard({ columnId: column.id, content: newCardContent.trim() }));
+      dispatch(addCard({ columnId: id, content: newCardContent.trim() }));
       setNewCardContent('');
       setIsAdding(false);
     }
@@ -32,21 +38,17 @@ const Column: React.FC<ColumnProps> = React.memo(({ column }) => {
 
   return (
     <div className="bg-gray-100 dark:bg-gray-800 rounded-lg shadow-md p-4 w-80 flex flex-col flex-shrink-0 mx-2">
-      <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">{column.title}</h3>
-      <Droppable droppableId={column.id}>
-        {(provided, snapshot) => (
-          <div
-            ref={provided.innerRef}
-            {...provided.droppableProps}
-            className={`flex-grow min-h-[100px] ${snapshot.isDraggingOver ? 'bg-blue-100 dark:bg-blue-900' : ''}`}
-          >
-            {cards.map((card, index) => (
-              <TaskCard key={card.id} card={card} index={index} />
-            ))}
-            {provided.placeholder}
-          </div>
-        )}
-      </Droppable>
+      <h3 className="text-lg font-semibold mb-4 text-gray-900 dark:text-white">{title}</h3>
+      <div
+        ref={setNodeRef}
+        className={`flex-grow min-h-[100px] ${isOver ? 'bg-blue-100 dark:bg-blue-900' : ''}`}
+      >
+        <SortableContext items={cards.map(card => card.id)} strategy={verticalListSortingStrategy}>
+          {cards.map((card, index) => (
+            <TaskCard key={card.id} card={card} index={index} columnId={id} />
+          ))}
+        </SortableContext>
+      </div>
 
       {/* Add Card Section */}
       <div className="mt-3 pt-3 border-t border-gray-200 dark:border-gray-700">
@@ -98,5 +100,7 @@ const Column: React.FC<ColumnProps> = React.memo(({ column }) => {
 });
 
 export default Column;
+
+Column.displayName = 'Column';
 
 

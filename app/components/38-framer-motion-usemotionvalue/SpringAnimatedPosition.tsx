@@ -1,6 +1,6 @@
 'use client';
 import React from 'react';
-import { motion, useMotionValue, spring } from 'framer-motion';
+import { motion, useMotionValue } from 'framer-motion';
 
 const SpringAnimatedPosition = () => {
   const x = useMotionValue(0);

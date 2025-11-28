@@ -1,5 +1,5 @@
 'use client';
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import useExpense, { Expense } from "./store";
 
 const ExpenseTracker = () => {
@@ -11,15 +11,7 @@ const ExpenseTracker = () => {
 
   const totalExpenses = expenses.reduce((sum, expense) => sum + expense.amount, 0);
 
-  useEffect(() => {
-    if (editingExpense) {
-      setTitle(editingExpense.title);
-      setAmount(editingExpense.amount.toString());
-    } else {
-      setTitle("");
-      setAmount("");
-    }
-  }, [editingExpense]);
+
 
   const handleSubmit = () => {
     setError("");
@@ -51,6 +43,8 @@ const ExpenseTracker = () => {
 
   const handleEdit = (expense: Expense) => {
     setEditingExpense(expense);
+    setTitle(expense.title);
+    setAmount(expense.amount.toString());
   };
 
   return (

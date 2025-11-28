@@ -85,9 +85,9 @@ export const ValidationForm = () => {
   };
 
   return (
-    <div className="center-content py-12 px-4 bg-gradient-to-br from-[var(--background)] via-[var(--muted)]/20 to-[var(--background)]">
-      <div className="bg-gradient-to-br from-[var(--card)] to-[var(--muted)]/30 p-8 md:p-10 rounded-2xl shadow-[var(--shadow-lg)] max-w-md w-full border border-[var(--border)] backdrop-blur-sm">
-        <h2 className="text-4xl md:text-5xl font-extrabold center-text mb-8 heading-gradient">Sign Up</h2>
+    <div className="center-content py-12 px-4 bg-background">
+      <div className="bg-card p-8 md:p-10 rounded-2xl shadow-lg max-w-md w-full border border-border backdrop-blur-sm">
+        <h2 className="text-4xl md:text-5xl font-extrabold center-text mb-8 text-foreground">Sign Up</h2>
       <form onSubmit={submitHandler} className="flex flex-col gap-4">
         <div>
           <input
@@ -97,7 +97,7 @@ export const ValidationForm = () => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-          {errorUsername && <p className="text-[var(--secondary)] text-sm mt-1">{errorUsername}</p>}
+          {errorUsername && <p className="text-secondary text-sm mt-1">{errorUsername}</p>}
         </div>
 
         <div>
@@ -108,7 +108,7 @@ export const ValidationForm = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          {errorEmail && <p className="text-[var(--secondary)] text-sm mt-1">{errorEmail}</p>}
+          {errorEmail && <p className="text-secondary text-sm mt-1">{errorEmail}</p>}
         </div>
 
         <div>
@@ -119,7 +119,7 @@ export const ValidationForm = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          {errorPassword && <p className="text-[var(--secondary)] text-sm mt-1">{errorPassword}</p>}
+          {errorPassword && <p className="text-secondary text-sm mt-1">{errorPassword}</p>}
         </div>
 
         <div>
@@ -130,7 +130,7 @@ export const ValidationForm = () => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          {errorConfirmPassword && <p className="text-[var(--secondary)] text-sm mt-1">{errorConfirmPassword}</p>}
+          {errorConfirmPassword && <p className="text-secondary text-sm mt-1">{errorConfirmPassword}</p>}
         </div>
 
         <button type="submit" className="btn btn-primary btn-lg w-full">Submit</button>

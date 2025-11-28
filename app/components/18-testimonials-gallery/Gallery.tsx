@@ -38,19 +38,19 @@ export const Gallery = () => {
   return (
     <div className="center-content py-12 px-4">
       <div className="relative max-w-4xl w-full">
-        <h2 className="mb-8 text-3xl md:text-4xl font-bold text-[var(--foreground)] center-text">
+        <h2 className="mb-8 text-3xl md:text-4xl font-bold text-foreground center-text">
           Our Gallery
         </h2>
         <button 
           onClick={handleBack} 
-          className="absolute top-1/2 -translate-y-1/2 bg-[var(--primary)] bg-opacity-90 text-white border-none p-3 cursor-pointer text-2xl z-10 left-[-20px] rounded-full hover:bg-[var(--primary-hover)] transition-colors shadow-[var(--shadow-md)]"
+          className="absolute top-1/2 -translate-y-1/2 bg-primary bg-opacity-90 text-white border-none p-3 cursor-pointer text-2xl z-10 left-[-20px] rounded-full hover:bg-primary/80 transition-colors shadow-md"
         >
           &#10094;
         </button>
-        <div className="overflow-hidden rounded-[var(--radius)]">
+        <div className="overflow-hidden rounded-lg">
           <div className="flex gap-4">
             {getImagesForView().map((src, index) => (
-              <div key={index} className={`min-w-[calc(100%/${IMAGES_PER_VIEW}-10px)] overflow-hidden rounded-[var(--radius)] shadow-[var(--shadow-lg)]`}>
+              <div key={index} className={`min-w-[calc(100%/${IMAGES_PER_VIEW}-10px)] overflow-hidden rounded-lg shadow-lg`}>
                 <Image src={src} alt={`Gallery image ${index + 1}`} className="w-full block object-cover" width={600} height={400}/>
               </div>
             ))}
@@ -58,7 +58,7 @@ export const Gallery = () => {
         </div>
         <button 
           onClick={handleNext} 
-          className="absolute top-1/2 -translate-y-1/2 bg-[var(--primary)] bg-opacity-90 text-white border-none p-3 cursor-pointer text-2xl z-10 right-[-20px] rounded-full hover:bg-[var(--primary-hover)] transition-colors shadow-[var(--shadow-md)]"
+          className="absolute top-1/2 -translate-y-1/2 bg-primary bg-opacity-90 text-white border-none p-3 cursor-pointer text-2xl z-10 right-[-20px] hover:bg-primary/80 transition-colors rounded-full shadow-md"
         >
           &#10095;
         </button>

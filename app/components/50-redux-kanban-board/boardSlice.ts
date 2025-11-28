@@ -1,6 +1,4 @@
-import React, { useState } from 'react';
-import { Provider, useSelector, useDispatch } from 'react-redux';
-import { configureStore, createSlice, PayloadAction } from '@reduxjs/toolkit';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
 
 export interface Card {
   id: string;

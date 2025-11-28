@@ -1,6 +1,6 @@
 "use client";
 
-import React, { FC, useEffect, useState } from "react";
+import React, { FC, useState } from "react";
 import { Blog, useBlogs } from "./BlogContext";
 
 interface BlogFormProps {
@@ -17,19 +17,7 @@ const BlogForm: FC<BlogFormProps> = ({ existingBlog, onClose }) => {
   const [image, setImage] = useState(existingBlog?.image || "");
   const [time, setTime] = useState(existingBlog?.time || "");
 
-  useEffect(() => {
-    if (existingBlog) {
-      setTitle(existingBlog.title);
-      setDescription(existingBlog.description);
-      setImage(existingBlog.image);
-      setTime(existingBlog.time || "");
-    } else {
-      setTitle("");
-      setDescription("");
-      setImage("");
-      setTime("");
-    }
-  }, [existingBlog]);
+
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

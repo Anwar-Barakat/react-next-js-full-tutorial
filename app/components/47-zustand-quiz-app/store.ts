@@ -18,7 +18,7 @@ interface QuizState {
     resetQuiz: () => void;
 }
 
-export const useQuizStore = create<QuizState>((set, get) => ({
+export const useQuizStore = create<QuizState>((set) => ({
     currentQuestion: 0,
     answers: Array(10).fill(null),
     score: 0,
