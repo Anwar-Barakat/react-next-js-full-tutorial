@@ -1,7 +1,7 @@
 const MainContent = () => {
   return (
     <main className="center-content py-12 md:py-16 px-4 sm:px-6 lg:px-8">
-      <div className="max-w-4xl w-full bg-card rounded-2xl p-8 md:p-12 border border-border">
+      <div className="max-w-4xl w-full glass rounded-2xl p-8 md:p-12">
         <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-6 center-text">
           Main Content
         </h2>

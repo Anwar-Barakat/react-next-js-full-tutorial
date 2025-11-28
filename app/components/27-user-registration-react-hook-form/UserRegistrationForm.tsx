@@ -4,6 +4,7 @@ import React, { useState } from 'react';
 import { useForm, SubmitHandler } from 'react-hook-form';
 import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
+import { AlertCircle, CheckCircle } from 'lucide-react';
 
 // Define the schema for validation using Zod
 const schema = z.object({
@@ -20,10 +21,9 @@ const schema = z.object({
   confirmPassword: z.string().min(1, 'Confirm Password is required'),
 }).refine((data) => data.password === data.confirmPassword, {
   message: 'Passwords do not match',
-  path: ['confirmPassword'], // Set the error on the confirmPassword field
+  path: ['confirmPassword'],
 });
 
-// Infer the form data type from the schema
 type FormData = z.infer<typeof schema>;
 
 export const UserRegistrationForm: React.FC = () => {
@@ -39,81 +39,83 @@ export const UserRegistrationForm: React.FC = () => {
   const [submissionMessage, setSubmissionMessage] = useState<string | null>(null);
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    // Simulate API call
     console.log('Form Data:', data);
     setSubmissionMessage(`Registration successful for ${data.fullName}!`);
-    reset(); // Clear the form after successful submission
+    reset();
   };
 
+  const inputClasses = (hasError: boolean) => 
+    `input w-full bg-white/10 border-white/20 focus:border-primary focus:bg-white/20 ${hasError ? 'input-error' : ''}`;
+
   return (
-    <div className="center-content py-12 px-4">
-      <div className="max-w-md w-full p-6 bg-card shadow-lg rounded-lg border border-border">
-        <h2 className="text-3xl md:text-4xl font-bold mb-6 center-text text-foreground">User Registration</h2>
-        <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
-          <div>
-            <label htmlFor="fullName" className="block text-sm font-medium text-foreground mb-1">
-              Full Name
-            </label>
-            <input
-              type="text"
-              id="fullName"
-              {...register('fullName')}
-              className="input w-full"
-            />
-            {errors.fullName && <p className="mt-1 text-sm text-secondary">{errors.fullName.message}</p>}
-          </div>
+    <div className="w-full max-w-md">
+      <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
+        <div>
+          <label htmlFor="fullName" className="block text-sm font-medium text-foreground mb-1">
+            Full Name
+          </label>
+          <input
+            type="text"
+            id="fullName"
+            {...register('fullName')}
+            className={inputClasses(!!errors.fullName)}
+          />
+          {errors.fullName && <p className="mt-1 text-sm text-secondary flex items-center"><AlertCircle className="w-4 h-4 mr-1" />{errors.fullName.message}</p>}
+        </div>
 
-          <div>
-            <label htmlFor="email" className="block text-sm font-medium text-foreground mb-1">
-              Email
-            </label>
-            <input
-              type="email"
-              id="email"
-              {...register('email')}
-              className="input w-full"
-            />
-            {errors.email && <p className="mt-1 text-sm text-secondary">{errors.email.message}</p>}
-          </div>
+        <div>
+          <label htmlFor="email" className="block text-sm font-medium text-foreground mb-1">
+            Email
+          </label>
+          <input
+            type="email"
+            id="email"
+            {...register('email')}
+            className={inputClasses(!!errors.email)}
+          />
+          {errors.email && <p className="mt-1 text-sm text-secondary flex items-center"><AlertCircle className="w-4 h-4 mr-1" />{errors.email.message}</p>}
+        </div>
 
-          <div>
-            <label htmlFor="password" className="block text-sm font-medium text-foreground mb-1">
-              Password
-            </label>
-            <input
-              type="password"
-              id="password"
-              {...register('password')}
-              className="input w-full"
-            />
-            {errors.password && <p className="mt-1 text-sm text-secondary">{errors.password.message}</p>}
-          </div>
+        <div>
+          <label htmlFor="password" className="block text-sm font-medium text-foreground mb-1">
+            Password
+          </label>
+          <input
+            type="password"
+            id="password"
+            {...register('password')}
+            className={inputClasses(!!errors.password)}
+          />
+          {errors.password && <p className="mt-1 text-sm text-secondary flex items-center"><AlertCircle className="w-4 h-4 mr-1" />{errors.password.message}</p>}
+        </div>
 
-          <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-foreground mb-1">
-              Confirm Password
-            </label>
-            <input
-              type="password"
-              id="confirmPassword"
-              {...register('confirmPassword')}
-              className="input w-full"
-            />
-            {errors.confirmPassword && <p className="mt-1 text-sm text-secondary">{errors.confirmPassword.message}</p>}
-          </div>
+        <div>
+          <label htmlFor="confirmPassword" className="block text-sm font-medium text-foreground mb-1">
+            Confirm Password
+          </label>
+          <input
+            type="password"
+            id="confirmPassword"
+            {...register('confirmPassword')}
+            className={inputClasses(!!errors.confirmPassword)}
+          />
+          {errors.confirmPassword && <p className="mt-1 text-sm text-secondary flex items-center"><AlertCircle className="w-4 h-4 mr-1" />{errors.confirmPassword.message}</p>}
+        </div>
 
-          <button
-            type="submit"
-            className="btn btn-primary w-full"
-          >
-            Register
-          </button>
-        </form>
+        <button
+          type="submit"
+          className="btn btn-primary w-full btn-lg"
+        >
+          Register
+        </button>
+      </form>
 
-        {submissionMessage && (
-          <div className="mt-6 p-4 bg-accent/20 border border-accent text-accent rounded-lg">
-            {submissionMessage}
-          </div>
-        )}
-      </div>
+      {submissionMessage && (
+        <div className="alert alert-success mt-4">
+          <CheckCircle className="w-5 h-5 mr-2"/>
+          {submissionMessage}
+        </div>
+      )}
     </div>
+  );
+};

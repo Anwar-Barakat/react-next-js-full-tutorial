@@ -1,3 +1,7 @@
+'use client';
+import { useState } from 'react';
+import { BookOpen } from 'lucide-react'; // Import the icon
+
 {/* 01-greet-component */ }
 import { Greet as Greetv01 } from "./components/01-greet-component";
 
@@ -146,9 +150,7 @@ import ZustandMarketAppv48 from "./components/48-zustand-market";
 import { ReduxToolkitDemo as ReduxToolkitDemov49 } from "./components/49-redux-toolkit-fundamentals";
 
 // 50-redux-kanban-board
-// import { KanbanDemo as KanbanDemov50 } from "./components/50-redux-kanban-board";
 import { KanbanClientWrapper } from "./components/KanbanClientWrapper";
-
 
 // 51-react-query-json-server
 import { ReactQueryDemo as ReactQueryDemov51 } from "./components/51-react-query-json-server";
@@ -157,187 +159,102 @@ import { ReactQueryMutationsDemo as ReactQueryMutationsDemov52 } from "./compone
 // 53-product-list
 import { ProductList as ProductList53 } from "./components/53-product-list-with-stripe";
 
-
+const components = {
+  '01': { name: 'Greet Component', component: <Greetv01 /> },
+  '02': { name: 'Multiple Components', component: <><Headerv02 /><MainContentv02 /><Footerv02 /></> },
+  '03': { name: 'JSX Rules', component: <JSXRulesv03 /> },
+  '04': { name: 'Dynamic Content', component: <><Greetingv04 name="John" /><ProductInfov04 product={{ name: "Laptop", price: 1200, availability: "In stock" }} /></> },
+  '05': { name: 'Rendering Lists', component: <><UserListv05 users={[{ id: 1, name: 'John', email: 'john@example.com' }, { id: 2, name: 'Jane', email: 'jane@example.com' }]} /><ProductList05 products={[{ id: 1, name: 'Laptop', price: 1200 }, { id: 2, name: 'Mouse', price: 50 }, { id: 3, name: 'Keyboard', price: 100 }]} /></> },
+  '06': { name: 'Using Props', component: <><Personv06 name="Alice" age={30} /><Productv06 name="Laptop" price={200} /></> },
+  '07': { name: 'Conditional Rendering', component: <><Weatherv07 temperature={20} /><UserStatusv07 loggedIn={true} isAdmin={true} /><GreetingConditionalv07 timeOfDay="morning" /></> },
+  '08': { name: 'Styling Components', component: <><StyledCardv08 /><ProfileCardv08 /><IconComponentv08 /></> },
+  '09': { name: 'Mastering useState', component: <><Counter09 /><TodoList09 /><Profilev09 /><ShoppingListv09 /></> },
+  '10': { name: 'Understanding useEffect', component: <><BasicEffectv10 /><CounterEffectv10 /><FetchDataEffectv10 /></> },
+  '11': { name: 'Context & useContext', component: <UserProviderv11><UserProfilev11 /><UpdateUserv11 /></UserProviderv11> },
+  '12': { name: 'Using useRef', component: <><FocusInputv12 /><Timerv12 /></> },
+  '13': { name: 'Custom Hook Fetch', component: <FetchDataComponentv13 /> },
+  '14': { name: 'Todo List CRUD', component: <TodoList14 /> },
+  '15': { name: 'Fetching Meals Axios', component: <MealListv15 /> },
+  '16': { name: 'Calculator', component: <Calculatorv16 /> },
+  '17': { name: 'Toggle BG Color', component: <ToggleBgColorv17 /> },
+  '18': { name: 'Testimonials Gallery', component: <><Testimonialsv18 /><Galleryv18 /></> },
+  '19': { name: 'Validation Form', component: <ValidationFormv19 /> },
+  '20': { name: 'Button with Types', component: <ButtonUsageExamplev20 /> },
+  '21': { name: 'Typing useState', component: <UseStateUsageExamplev21 /> },
+  '22': { name: 'Form using Ref', component: <FormWithRefv22 /> },
+  '23': { name: 'React TypeScript Event Handler', component: <EventHandlerUsageExamplev23 /> },
+  '24': { name: 'React Context API', component: <ContextUsageExamplev24 /> },
+  '25': { name: 'Reducer using TypeScript', component: <TodoList25 /> },
+  '26': { name: 'useReducer Counter', component: <Counter26 /> },
+  '27': { name: 'User Registration Form', component: <UserRegistrationFormv27 /> },
+  '28': { name: 'use Hook instead of useContext', component: <UseHookDemov28 /> },
+  '29': { name: 'use vs useEffect for fetching', component: <DataFetchingDemov29 /> },
+  '30': { name: 'React TypeScript Project 1', component: <Project1Appv30 /> },
+  '31': { name: 'Blog Platform Project', component: <Appv31 /> },
+  '32': { name: 'Client Table', component: <Dashboardv32 /> },
+  '33': { name: 'Framer Motion Fundamentals', component: <FramerMotionDemov33 /> },
+  '34': { name: 'Framer Motion Exercises', component: <FramerMotionExercisesv34 /> },
+  '35': { name: 'Framer Motion Keyframes', component: <FramerMotionKeyframesv35 /> },
+  '36': { name: 'Framer Motion Variants', component: <FramerMotionVariantsv36 /> },
+  '37': { name: 'Framer Motion Stagger', component: <FramerMotionStaggerv37 /> },
+  '38': { name: 'Framer Motion useMotionValue', component: <FramerMotionUseMotionValuev38 /> },
+  '39': { name: 'Framer Motion Advanced', component: <FramerMotionAdvancedv39 /> },
+  '40': { name: 'Scroll Animations Gallery', component: <FullPageScrollGalleryv40 /> },
+  '41': { name: 'Zustand Recipe App', component: <RecipeAppv41 /> },
+  '42': { name: 'Zustand Expense Tracker', component: <ExpenseTrackerv42 /> },
+  '43': { name: 'Zustand Password Generator', component: <PasswordGeneratorv43 /> },
+  '44': { name: 'Zustand Form Builder', component: <FormBuilderv44 /> },
+  '45': { name: 'Zustand Notes Management', component: <NotesAppv45 /> },
+  '46': { name: 'Zustand Workspace Management', component: <WorkspaceAppv46 /> },
+  '47': { name: 'Zustand Quiz App', component: <QuizAppV47 /> },
+  '48': { name: 'Zustand Market', component: <ZustandMarketAppv48 /> },
+  '49': { name: 'Redux Toolkit Fundamentals', component: <ReduxToolkitDemov49 /> },
+  '50': { name: 'Redux Kanban Board', component: <KanbanClientWrapper /> },
+  '51': { name: 'React Query JSON Server', component: <ReactQueryDemov51 /> },
+  '52': { name: 'React Query Mutations', component: <ReactQueryMutationsDemov52 /> },
+  '53': { name: 'Product List with Stripe', component: <ProductList53 /> },
+};
 
 export default function Home() {
+  const [selectedKey, setSelectedKey] = useState(Object.keys(components)[0]);
+
+  const selectedComponent = components[selectedKey];
 
   return (
+    <div className="min-h-screen">
+      <div className="glass max-h-[30rem] overflow-y-auto p-4 rounded-lg mb-8">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
+          <h1 className='text-4xl sm:col-span-2 lg:col-span-3 xl:col-span-4 font-bold mb-4 text-primary-hover'>Component Showcase</h1>
+          {Object.entries(components).map(([key, { name }]) => (
+            <button
+              key={key}
+              onClick={() => setSelectedKey(key)}
+              className={`glass w-full h-28 p-4 transition-all duration-300 flex flex-col items-center justify-center text-center rounded-xl ${
+                selectedKey === key
+                  ? 'border-primary shadow-xl scale-105 bg-gradient-to-br from-primary/30 to-primary/50'
+                  : 'border-glass-border hover:border-primary/50 hover:bg-white/10'
+              }`}
+            >
+              <div className="flex items-center mb-2">
+                <BookOpen className="w-5 h-5 mr-2 text-primary-hover/50" />
+                <span className="text-xl font-bold text-primary-hover">{key}</span>
+              </div>
+              <span className="text-base leading-tight">{name}</span>
+            </button>
+          ))}
+        </div>
+      </div>
 
-    <div className="center-container">
-      <div className="text-center">
-        <h1 className="text-5xl font-bold mb-8 text-primary">React + Next.js Full Tutorial</h1>
+      <hr className="my-8 border-glass-border opacity-30" />
 
-        {/* 01-greet-component */}
-        <Greetv01 />
-
-        {/* 02-multiple-components */}
-        <Headerv02 />
-        <MainContentv02 />
-        <Footerv02 />
-
-        {/* 03-jsx-rules */}
-        <JSXRulesv03 />
-
-        {/* 04-dynamic-content */}
-        <Greetingv04 />
-        <ProductInfov04 />
-
-        {/* 05-rendering-lists */}
-        <UserListv05 />
-        <ProductList05 />
-
-        {/* 06-using-props */}
-        <Personv06 name="Alice" age={30} />
-        <Productv06 name="Laptop" price="200" />
-
-        {/* 07-conditional-rendering */}
-        <Weatherv07 temperature={20} />
-        <UserStatusv07 loggedIn={true} isAdmin={true} />
-        <GreetingConditionalv07 timeOfDay="morning" />
-
-        {/* 08-styling-components */}
-        <StyledCardv08 />
-        <ProfileCardv08 />
-        <IconComponentv08 />
-
-        {/* 09-mastering-useState */}
-        <Counter09 />
-        <TodoList09 />
-        <Profilev09 />
-        <ShoppingListv09 />
-
-        {/* 10-understanding-useEffect */}
-        <BasicEffectv10 />
-        <CounterEffectv10 />
-        <FetchDataEffectv10 />
-
-        {/* 11-context-useContext */}
-        <UserProviderv11>
-          <UserProfilev11 />
-          <UpdateUserv11 />
-        </UserProviderv11>
-
-        {/* 12-using-useRef */}
-        <FocusInputv12 />
-        <Timerv12 />
-
-        {/* 13-custom-hook-fetch */}
-        <FetchDataComponentv13 />
-
-        <TodoList14 />
-
-        {/* 15-fetching-meals-axios */}
-        <MealListv15 />
-
-        {/* 16-calculator */}
-        <Calculatorv16 />
-
-        {/* 17-toggle-bg-color */}
-        <ToggleBgColorv17 />
-
-        {/* 18-testimonials-gallery */}
-        <Testimonialsv18 />
-        <Galleryv18 />
-
-        {/* 19-validation-form */}
-        <ValidationFormv19 />
-
-        <ButtonUsageExamplev20 />
-
-        <UseStateUsageExamplev21 />
-
-        {/* 22-form-using-ref */}
-        <FormWithRefv22 />
-
-        <EventHandlerUsageExamplev23 />
-
-        <ContextUsageExamplev24 />
-
-        <TodoList25 />
-
-        {/* 26-useReducer-counter */}
-        <Counter26 />
-
-        {/* 27-user-registration-form */}
-        <UserRegistrationFormv27 />
-
-        {/* 28-use-hook-instead-of-useContext */}
-        <UseHookDemov28 />
-
-        {/* 29-use-vs-useEffect-for-fetching */}
-        <DataFetchingDemov29 />
-
-        {/* 30-react-typescript-project-1 */}
-        <Project1Appv30 />
-
-        {/* 31-blog-platform-project */}
-        <Appv31 />
-
-        {/* 32-client-table */}
-        <Dashboardv32 />
-
-        {/* 33-framer-motion-fundamentals */}
-        <FramerMotionDemov33 />
-
-        {/* 34-framer-motion-exercises */}
-        <FramerMotionExercisesv34 />
-
-        {/* 35-framer-motion-keyframes */}
-        <FramerMotionKeyframesv35 />
-
-        {/* 36-framer-motion-variants */}
-        <FramerMotionVariantsv36 />
-
-        {/* 37-framer-motion-stagger */}
-        <FramerMotionStaggerv37 />
-
-        {/* 38-framer-motion-usemotionvalue */}
-        <FramerMotionUseMotionValuev38 />
-
-        {/* 39-framer-motion-advanced */}
-        <FramerMotionAdvancedv39 />
-
-        {/* 40-scroll-animations-gallery */}
-        <FullPageScrollGalleryv40 />
-
-        {/* 41-zustand-recipe-app */}
-        <RecipeAppv41 />
-
-        {/* 42-zustand-expense-tracker */}
-        <ExpenseTrackerv42 />
-
-        {/* 43-zustand-password-generator */}
-        <PasswordGeneratorv43 />
-
-        {/* 44-zustand-form-builder */}
-        <FormBuilderv44 />
-
-        {/* 45-zustand-notes-management */}
-        <NotesAppv45 />
-
-        {/* 46-zustand-workspace-management */}
-        <WorkspaceAppv46 />
-
-        {/* 47-zustand-quiz-app */}
-        <QuizAppV47 />
-
-        <ZustandMarketAppv48 />
-
-        {/* 49-redux-toolkit-fundamentals */}
-        <ReduxToolkitDemov49 />
-
-        {/* 50-redux-kanban-board */}
-        <KanbanClientWrapper />
-
-        {/* 51-react-query-json-server */}
-        <ReactQueryDemov51 />
-        <ReactQueryMutationsDemov52 />
-
-        <ProductList53 />
-
+      <div className="glass glass-xl mb-8">
+        <h2 className="text-3xl font-bold mb-6 text-center text-primary-hover">
+          {selectedKey}: {selectedComponent.name}
+        </h2>
+        <div className="center-content p-4">
+          {selectedComponent.component}
+        </div>
       </div>
     </div>
-
   );
-
 }

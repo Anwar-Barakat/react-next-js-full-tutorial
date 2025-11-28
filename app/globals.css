@@ -1,6 +1,29 @@
 @import "tailwindcss";
 
 :root {
+  --background: #0a0a0a;
+  --foreground: #ededed;
+  --primary: #60a5fa;
+  --primary-hover: #3b82f6;
+  --secondary: #a78bfa;
+  --accent: #22d3ee;
+  --muted: #1f1f1f;
+  --muted-foreground: #a1a1aa;
+  --border: #27272a;
+  --card: #18181b;
+  --card-foreground: #ededed;
+  --radius: 0.5rem;
+  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
+  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+  --warning: #fbbf24;
+  --glass-bg: rgba(26, 29, 35, 0.5);
+  --glass-border: rgba(255, 255, 255, 0.1);
+  --body-background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
+  --default-component-bg: var(--glass-bg);
+}
+
+.light {
   --background: #ffffff;
   --foreground: #171717;
   --primary: #3b82f6;
@@ -12,12 +35,12 @@
   --border: #e5e7eb;
   --card: #ffffff;
   --card-foreground: #171717;
-  --radius: 0.5rem;
-  --shadow-sm: 0 1px 2px 0 rgb(0 0 0 / 0.05);
-  --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
-  --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --warning: #f59e0b;
+  --glass-bg: rgba(255, 255, 255, 0.2);
+  --glass-border: rgba(255, 255, 255, 0.3);
+  --body-background: linear-gradient(to right, #83a4d4, #b6fbff);
 }
+
 
 @theme inline {
   --color-background: var(--background);
@@ -36,27 +59,44 @@
   --radius: var(--radius);
 }
 
-@media (prefers-color-scheme: dark) {
-  :root {
-    --background: #0a0a0a;
-    --foreground: #ededed;
-    --primary: #60a5fa;
-    --primary-hover: #3b82f6;
-    --secondary: #a78bfa;
-    --accent: #22d3ee;
-    --muted: #1f1f1f;
-    --muted-foreground: #a1a1aa;
-    --border: #27272a;
-    --card: #18181b;
-    --card-foreground: #ededed;
-    --warning: #fbbf24;
+body {
+  background: var(--body-background);
+  color: var(--foreground);
+  font-family: Arial, Helvetica, sans-serif;
+  min-height: 100vh;
+}
+
+
+@media (min-width: 640px) {
+  .container {
+    max-width: 640px;
+    padding-left: 2rem;
+    padding-right: 2rem;
   }
 }
 
-body {
-  background: var(--background);
-  color: var(--foreground);
-  font-family: Arial, Helvetica, sans-serif;
+@media (min-width: 768px) {
+  .container {
+    max-width: 768px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .container {
+    max-width: 1024px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .container {
+    max-width: 1280px;
+  }
+}
+
+@media (min-width: 1536px) {
+  .container {
+    max-width: 1536px;
+  }
 }
 
 /* Center utilities */
@@ -352,5 +392,50 @@ body {
 
   .alert-close:hover {
     opacity: 1;
+  }
+}
+
+/* Glassmorphism utilities */
+@layer components {
+  .glass {
+    background: var(--glass-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: var(--radius);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-lg);
+    padding: 1.5rem;
+    transition: all 0.3s ease;
+  }
+  .glass:hover {
+    box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.2), 0 4px 6px -4px rgb(0 0 0 / 0.2);
+    transform: translateY(-4px);
+  }
+  .glass-lg {
+    padding: 2rem;
+    border-radius: 1rem;
+  }
+  .glass-xl {
+    padding: 2.5rem 3rem;
+    border-radius: 1.5rem;
+  }
+  .default-glass-bg {
+    background: var(--default-component-bg);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-radius: var(--radius);
+    border: 1px solid var(--glass-border);
+    box-shadow: var(--shadow-md);
+  }
+  .themed-card {
+    background: var(--card);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    box-shadow: var(--shadow-md);
+  }
+
+  [data-theme-background] {
+    background: var(--card); /* Default themed background for elements that need it */
+    color: var(--foreground);
   }
 }

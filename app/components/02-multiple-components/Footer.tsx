@@ -1,7 +1,7 @@
 const Footer = () => {
   const year = new Date().getFullYear()
   return (
-    <footer className="border-t border-border py-8 md:py-10 bg-card">
+    <footer className="glass border-t border-glass-border py-8 md:py-10">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         <div className="center-content flex-col gap-2">
           <p className="text-muted-foreground center-text text-sm md:text-base">

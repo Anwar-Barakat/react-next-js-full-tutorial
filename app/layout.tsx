@@ -24,10 +24,12 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en" className="min-h-screen bg-white text-gray-900 dark:bg-zinc-900 dark:text-gray-100 font-sans transition-colors duration-300">
-      <body className={`${inter.variable} ${firaCode.variable} antialiased min-h-screen bg-white dark:bg-zinc-900 text-gray-900 dark:text-gray-100 font-sans transition-colors duration-300`}>
+    <html lang="en">
+      <body className={`${inter.variable} ${firaCode.variable} antialiased`}>
         <Providers>
-          {children}
+          <main className="container py-8">
+            {children}
+          </main>
         </Providers>
       </body>
     </html>
