@@ -1,4 +1,4 @@
 export * from './ClickEventHandler';
 export * from './ChangeEventHandler';
 export * from './SubmitEventHandler';
-export * from './UsageExample';
+export { EventHandlersDemo as UsageExample } from './EventHandlersDemo';

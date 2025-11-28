@@ -51,7 +51,6 @@
   "[jsonc]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
-  "tabnine.experimentalAutoImports": true,
   "[typescript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
@@ -63,9 +62,6 @@
   "githubPullRequests.createOnPublishBranch": "never",
   "biome.suggestInstallingGlobally": false,
   "diffEditor.ignoreTrimWhitespace": false,
-  "Codegeex.SidebarUI.LanguagePreference": "English",
-  "Codegeex.License": "",
   "editor.largeFileOptimizations": false,
   "git.openRepositoryInParentFolders": "never",
-  "Codegeex.Privacy": true
 }
