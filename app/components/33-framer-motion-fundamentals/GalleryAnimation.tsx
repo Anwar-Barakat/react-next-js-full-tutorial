@@ -30,11 +30,11 @@ const GalleryAnimation = () => {
   const [showImages, setShowImages] = useState(false);
 
   return (
-    <div className="card flex flex-col items-center">
-        <h3 className="text-xl font-bold text-white mb-4">Gallery Animation</h3>
+    <div className="glass flex flex-col items-center">
+        <h3 className="text-xl font-bold text-[var(--foreground)] mb-4">Gallery Animation</h3>
         <button
             onClick={() => setShowImages((prev) => !prev)}
-            className="px-4 py-2 mb-4 bg-yellow-500 rounded hover:bg-yellow-600 transition-colors"
+            className="btn bg-[var(--warning)]/50 mb-4"
         >
             {showImages ? "Hide Images" : "Show Images"}
         </button>

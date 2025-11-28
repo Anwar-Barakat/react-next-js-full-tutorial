@@ -35,7 +35,7 @@ const App = () => {
         <Navigation />
         <div className="container mx-auto p-4 md:p-6 lg:p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
           {/* Main Content Area */}
-          <main className="md:col-span-2 bg-[var(--card)] rounded-2xl shadow-[var(--shadow-lg)] p-6 md:p-8 border border-[var(--border)] backdrop-blur-sm">
+          <main className="md:col-span-2 glass rounded-2xl shadow-[var(--shadow-lg)] p-6 md:p-8">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
               <h2 className="text-3xl md:text-4xl font-bold heading-gradient">
                 Blog Posts

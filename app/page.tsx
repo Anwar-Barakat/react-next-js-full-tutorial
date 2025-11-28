@@ -2,6 +2,7 @@
 import { useState } from 'react';
 import { BookOpen } from 'lucide-react'; // Import the icon
 
+
 {/* 01-greet-component */ }
 import { Greet as Greetv01 } from "./components/01-greet-component";
 
@@ -225,23 +226,27 @@ export default function Home() {
       <div className="glass max-h-[30rem] overflow-y-auto p-4 rounded-lg mb-8">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
           <h1 className='text-4xl sm:col-span-2 lg:col-span-3 xl:col-span-4 font-bold mb-4 text-primary-hover'>Component Showcase</h1>
-          {Object.entries(components).map(([key, { name }]) => (
-            <button
-              key={key}
-              onClick={() => setSelectedKey(key)}
-              className={`glass w-full h-28 p-4 transition-all duration-300 flex flex-col items-center justify-center text-center rounded-xl ${
-                selectedKey === key
-                  ? 'border-primary shadow-xl scale-105 bg-gradient-to-br from-primary/30 to-primary/50'
-                  : 'border-glass-border hover:border-primary/50 hover:bg-white/10'
-              }`}
-            >
-              <div className="flex items-center mb-2">
-                <BookOpen className="w-5 h-5 mr-2 text-primary-hover/50" />
-                <span className="text-xl font-bold text-primary-hover">{key}</span>
-              </div>
-              <span className="text-base leading-tight">{name}</span>
-            </button>
-          ))}
+          {Object.keys(components)
+            .sort((a, b) => parseInt(a) - parseInt(b)) // Explicitly sort keys numerically
+            .map((key) => {
+              const { name } = components[key];
+              return (
+                <button
+                  key={key}
+                  onClick={() => setSelectedKey(key)}
+                  className={`glass w-full h-28 p-4 transition-all duration-300 flex flex-col items-center justify-center text-center rounded-xl ${selectedKey === key
+                    ? 'border-primary shadow-xl scale-105 bg-gradient-to-br from-primary/30 to-primary/50'
+                    : 'border-glass-border hover:border-primary/50 hover:bg-white/10'
+                    }`}
+                >
+                  <div className="flex items-center mb-2">
+                    <BookOpen className="w-5 h-5 mr-2 text-primary-hover/50" />
+                    <span className="text-xl font-bold text-primary-hover">{key}</span>
+                  </div>
+                  <span className="text-base leading-tight">{name}</span>
+                </button>
+              )
+            })}
         </div>
       </div>
 
@@ -252,7 +257,12 @@ export default function Home() {
           {selectedKey}: {selectedComponent.name}
         </h2>
         <div className="center-content p-4">
-          {selectedComponent.component}
+          <div
+            key={selectedKey}
+            className="w-full" // Ensure it takes full width of its container
+          >
+            {selectedComponent.component}
+          </div>
         </div>
       </div>
     </div>

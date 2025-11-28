@@ -37,34 +37,32 @@ export const Testimonials = () => {
   const currentTestimonial = testimonials[currentIndex];
 
   return (
-    <div className="center-content py-12 px-4">
-      <div className="max-w-2xl w-full">
-        <h2 className="mb-8 text-3xl md:text-4xl font-bold text-foreground center-text">
-          What Our Clients Say
-        </h2>
-        <div className="flex justify-center items-center mb-6">
-          <div className="bg-card text-foreground border border-border rounded-lg p-6 max-w-md shadow-lg flex items-center relative">
-            <Image src={currentTestimonial.avatar} alt={`Avatar of ${currentTestimonial.author}`} className="w-16 h-16 rounded-full mr-5" width={150} height={150}/>
-            <div>
-              <p className="italic text-muted-foreground">{currentTestimonial.text}</p>
-              <p className="font-bold mt-2.5 text-right text-foreground">- {currentTestimonial.author}</p>
-            </div>
+    <div className="w-full max-w-2xl text-center">
+      <h2 className="mb-8 text-3xl font-bold text-primary">
+        What Our Clients Say
+      </h2>
+      <div className="flex justify-center items-center mb-6">
+        <div className="glass glass-lg flex items-center relative max-w-md w-full text-left">
+          <Image src={currentTestimonial.avatar} alt={`Avatar of ${currentTestimonial.author}`} className="w-16 h-16 rounded-full mr-5" width={150} height={150}/>
+          <div>
+            <p className="italic text-foreground">{currentTestimonial.text}</p>
+            <p className="font-bold mt-2.5 text-right text-muted-foreground">- {currentTestimonial.author}</p>
           </div>
         </div>
-        <div className="center-content gap-3">
-          <button 
-            onClick={handleBack} 
-            className="py-2 px-6 text-base cursor-pointer rounded-lg border border-border bg-primary text-white hover:bg-primary/80 transition-colors duration-200 font-semibold shadow-sm"
-          >
-            Back
-          </button>
-          <button 
-            onClick={handleNext} 
-            className="py-2 px-6 text-base cursor-pointer rounded-lg border border-border bg-primary text-white hover:bg-primary/80 transition-colors duration-200 font-semibold shadow-sm"
-          >
-            Next
-          </button>
-        </div>
+      </div>
+      <div className="center-content gap-3">
+        <button 
+          onClick={handleBack} 
+          className="btn btn-primary"
+        >
+          Back
+        </button>
+        <button 
+          onClick={handleNext} 
+          className="btn btn-primary"
+        >
+          Next
+        </button>
       </div>
     </div>
   );

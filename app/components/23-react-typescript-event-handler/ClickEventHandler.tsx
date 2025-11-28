@@ -8,9 +8,9 @@ export const ClickEventHandler: React.FC = () => {
   };
 
   return (
-    <div className="p-6 border border-border rounded-lg shadow-md bg-card text-foreground">
-      <h3 className="text-xl font-semibold mb-2 text-foreground">Click Event Handler</h3>
-      <p className="text-sm mb-4 text-muted-foreground">
+    <div className="glass glass-lg w-full text-center">
+      <h3 className="text-xl font-semibold mb-2 text-primary">Click Event Handler</h3>
+      <p className="text-sm mb-4 text-foreground">
         Handles `onClick` events with `React.MouseEvent`.
       </p>
       <button

@@ -19,58 +19,56 @@ export const TodoList: React.FC = () => {
   };
 
   return (
-    <div className="center-content py-12 px-4 min-h-screen bg-background">
-      <div className="max-w-2xl w-full bg-card rounded-lg shadow-lg p-6 md:p-8 border border-border">
-        <h2 className="text-3xl md:text-4xl font-bold center-text mb-6 text-foreground">Todo List with useReducer</h2>
+    <div className="glass glass-xl w-full max-w-2xl">
+      <h2 className="text-3xl font-bold text-primary text-center mb-6">Todo List with useReducer</h2>
 
-        {/* Input for new todo */}
-        <div className="flex mb-6 gap-2">
-          <input
-            type="text"
-            value={newTodoText}
-            onChange={(e) => setNewTodoText(e.target.value)}
-            onKeyDown={(e) => e.key === 'Enter' && handleAddTodo()}
-            placeholder="Add a new task..."
-            className="input flex-1"
-          />
-          <button
-            onClick={handleAddTodo}
-            className="btn btn-primary"
-          >
-            Add
-          </button>
-        </div>
-
-        {/* List of todos */}
-        <ul className="space-y-2">
-          {state.map(todo => (
-            <li
-              key={todo.id}
-              className="flex items-center justify-between p-4 border border-border rounded-lg bg-muted hover:bg-muted/80 transition-colors"
-            >
-              <div className="flex items-center">
-                <input
-                  type="checkbox"
-                  checked={todo.completed}
-                  onChange={() => dispatch({ type: 'TOGGLE_TODO', payload: todo.id })}
-                  className="h-5 w-5 rounded border-border text-primary focus:ring-primary"
-                />
-                <span
-                  className={`ml-3 text-lg ${todo.completed ? 'line-through text-muted-foreground' : 'text-foreground'}`}
-                >
-                  {todo.text}
-                </span>
-              </div>
-              <button
-                onClick={() => dispatch({ type: 'DELETE_TODO', payload: todo.id })}
-                className="btn btn-danger btn-sm rounded-full"
-              >
-                X
-              </button>
-            </li>
-          ))}
-        </ul>
+      {/* Input for new todo */}
+      <div className="flex mb-6 gap-2">
+        <input
+          type="text"
+          value={newTodoText}
+          onChange={(e) => setNewTodoText(e.target.value)}
+          onKeyDown={(e) => e.key === 'Enter' && handleAddTodo()}
+          placeholder="Add a new task..."
+          className="input flex-1 bg-white/10 border-white/20 focus:border-primary focus:bg-white/20"
+        />
+        <button
+          onClick={handleAddTodo}
+          className="btn btn-primary"
+        >
+          Add
+        </button>
       </div>
+
+      {/* List of todos */}
+      <ul className="space-y-2">
+        {state.map(todo => (
+          <li
+            key={todo.id}
+            className="flex items-center justify-between p-4 rounded-lg bg-white/10 border border-white/20 hover:bg-white/20 transition-colors"
+          >
+            <div className="flex items-center">
+              <input
+                type="checkbox"
+                checked={todo.completed}
+                onChange={() => dispatch({ type: 'TOGGLE_TODO', payload: todo.id })}
+                className="h-5 w-5 rounded border-white/50 text-primary focus:ring-primary"
+              />
+              <span
+                className={`ml-3 text-lg ${todo.completed ? 'line-through text-muted-foreground' : 'text-foreground'}`}
+              >
+                {todo.text}
+              </span>
+            </div>
+            <button
+              onClick={() => dispatch({ type: 'DELETE_TODO', payload: todo.id })}
+              className="btn btn-danger btn-sm rounded-full"
+            >
+              X
+            </button>
+          </li>
+        ))}
+      </ul>
     </div>
   );
 };

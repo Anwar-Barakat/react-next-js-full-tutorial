@@ -4,11 +4,11 @@ import { motion } from 'framer-motion';
 
 const ZigzagBox = () => {
   return (
-    <div className="card flex flex-col items-center">
+    <div className="glass flex flex-col items-center">
       <h3 className="text-xl font-bold text-foreground mb-4">Exercise 5: Zigzag Animation</h3>
-      <div className="w-full h-32 flex items-center justify-center bg-muted rounded-lg overflow-hidden">
+      <div className="w-full h-32 flex items-center justify-center bg-[var(--muted)]/50 rounded-lg overflow-hidden">
                   <motion.div
-                    className="w-16 h-16 bg-warning rounded-lg"          animate={{ x: [0, 100, 0, -100, 0], y: [0, 50, 100, 50, 0] }}
+                    className="w-16 h-16 bg-[var(--warning)]/50 rounded-lg"          animate={{ x: [0, 100, 0, -100, 0], y: [0, 50, 100, 50, 0] }}
           transition={{
             duration: 3,
             repeat: Infinity,

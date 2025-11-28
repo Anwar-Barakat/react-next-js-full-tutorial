@@ -11,7 +11,7 @@ interface ArticleCardProps {
 
 const ArticleCard: FC<ArticleCardProps> = ({ blog, onDelete, onEdit }) => {
   return (
-    <div className="group bg-[var(--card)] rounded-2xl shadow-[var(--shadow-md)] overflow-hidden flex flex-col border border-[var(--border)] hover:shadow-[var(--shadow-lg)] hover:border-[var(--primary)]/30 transition-all duration-300 hover:-translate-y-1">
+    <div className="group glass overflow-hidden flex flex-col">
       <div className="relative overflow-hidden">
         <img
           src={blog.image}

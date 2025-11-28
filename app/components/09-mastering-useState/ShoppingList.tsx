@@ -25,7 +25,7 @@ const ShoppingList = () => {
 
   return (
     <div className="center-content py-12 px-4">
-      <div className="max-w-2xl w-full bg-card border border-border rounded-lg p-6 md:p-8">
+      <div className="max-w-2xl w-full glass rounded-lg p-6 md:p-8">
         <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 center-text">
           Shopping List
         </h2>
@@ -37,7 +37,6 @@ const ShoppingList = () => {
               value={newItem.name}
               onChange={handleInputChange}
               placeholder="Item name"
-              className="input flex-1"
             />
             <input
               type="number"
@@ -45,7 +44,6 @@ const ShoppingList = () => {
               value={newItem.quantity}
               onChange={handleInputChange}
               placeholder="Quantity"
-              className="input w-full sm:w-32"
             />
             <button 
               type="submit"
@@ -59,7 +57,7 @@ const ShoppingList = () => {
           {items.map((item, index) => (
             <li 
               key={index} 
-              className="p-4 border border-border rounded-lg bg-muted text-foreground"
+              className="p-4 glass rounded-lg text-foreground"
             >
               <span className="font-semibold">{item.name}</span> - Quantity: {item.quantity}
             </li>

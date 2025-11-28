@@ -14,7 +14,7 @@ const Modal: FC<ModalProps> = ({ children, onClose, isOpen, title }) => {
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
-      <div className="bg-[var(--card)] rounded-2xl shadow-[var(--shadow-lg)] max-w-lg w-full mx-auto p-6 md:p-8 relative border border-[var(--border)] animate-in zoom-in-95 duration-300">
+      <div className="glass rounded-2xl shadow-[var(--shadow-lg)] max-w-lg w-full mx-auto p-6 md:p-8 relative animate-in zoom-in-95 duration-300">
         <div className="flex justify-between items-center mb-6 pb-4 border-b border-[var(--border)]">
           {title && (
             <h2 className="text-2xl md:text-3xl font-bold heading-gradient">

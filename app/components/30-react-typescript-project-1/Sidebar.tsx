@@ -44,10 +44,10 @@ const Sidebar: React.FC = () => {
     <li key={item.id}>
       <button
         onClick={(e) => handleNavClick(e, item.id)}
-        className={`flex items-center justify-center p-2 rounded-[var(--radius)] transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-[var(--primary)] focus:ring-offset-2 ${
+        className={`flex items-center justify-center p-2 rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-primary focus:ring-offset-2 ${
           isActive
-            ? "bg-[var(--muted)] text-[var(--primary)]"
-            : "hover:bg-[var(--muted)] text-white"
+            ? "bg-primary/20 text-primary"
+            : "hover:bg-white/10 text-foreground"
         }`}
         aria-label={item.label}
         aria-current={isActive ? "page" : undefined}
@@ -59,7 +59,7 @@ const Sidebar: React.FC = () => {
 
   return (
     <aside 
-      className="sidebar fixed top-0 left-0 w-20 h-screen bg-[var(--muted)] text-white flex flex-col justify-between items-center py-4 z-30 border-r border-[var(--border)]"
+      className="sidebar fixed top-0 left-0 w-20 h-screen glass py-4 z-30 flex flex-col justify-between items-center"
       role="navigation"
       aria-label="Main navigation"
     >

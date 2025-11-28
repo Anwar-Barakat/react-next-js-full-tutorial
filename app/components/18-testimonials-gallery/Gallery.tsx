@@ -36,33 +36,31 @@ export const Gallery = () => {
   };
 
   return (
-    <div className="center-content py-12 px-4">
-      <div className="relative max-w-4xl w-full">
-        <h2 className="mb-8 text-3xl md:text-4xl font-bold text-foreground center-text">
-          Our Gallery
-        </h2>
-        <button 
-          onClick={handleBack} 
-          className="absolute top-1/2 -translate-y-1/2 bg-primary bg-opacity-90 text-white border-none p-3 cursor-pointer text-2xl z-10 left-[-20px] rounded-full hover:bg-primary/80 transition-colors shadow-md"
-        >
-          &#10094;
-        </button>
-        <div className="overflow-hidden rounded-lg">
-          <div className="flex gap-4">
-            {getImagesForView().map((src, index) => (
-              <div key={index} className={`min-w-[calc(100%/${IMAGES_PER_VIEW}-10px)] overflow-hidden rounded-lg shadow-lg`}>
-                <Image src={src} alt={`Gallery image ${index + 1}`} className="w-full block object-cover" width={600} height={400}/>
-              </div>
-            ))}
-          </div>
+    <div className="glass glass-xl relative max-w-4xl w-full p-0">
+      <h2 className="mb-8 text-3xl font-bold text-primary text-center">
+        Our Gallery
+      </h2>
+      <button 
+        onClick={handleBack} 
+        className="btn btn-primary absolute top-1/2 -translate-y-1/2 text-2xl z-10 left-[-20px] p-3 rounded-full"
+      >
+        &#10094;
+      </button>
+      <div className="overflow-hidden rounded-lg border border-glass-border">
+        <div className="flex gap-4">
+          {getImagesForView().map((src, index) => (
+            <div key={index} className={`glass p-2 min-w-[calc(100%/${IMAGES_PER_VIEW}-10px)] overflow-hidden rounded-lg`}>
+              <Image src={src} alt={`Gallery image ${index + 1}`} className="w-full block object-cover" width={600} height={400}/>
+            </div>
+          ))}
         </div>
-        <button 
-          onClick={handleNext} 
-          className="absolute top-1/2 -translate-y-1/2 bg-primary bg-opacity-90 text-white border-none p-3 cursor-pointer text-2xl z-10 right-[-20px] hover:bg-primary/80 transition-colors rounded-full shadow-md"
-        >
-          &#10095;
-        </button>
       </div>
+      <button 
+        onClick={handleNext} 
+        className="btn btn-primary absolute top-1/2 -translate-y-1/2 text-2xl z-10 right-[-20px] p-3 rounded-full"
+      >
+        &#10095;
+      </button>
     </div>
   );
 };

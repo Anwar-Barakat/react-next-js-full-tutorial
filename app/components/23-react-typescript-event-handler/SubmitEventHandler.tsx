@@ -11,9 +11,9 @@ export const SubmitEventHandler: React.FC = () => {
   };
 
   return (
-    <div className="p-6 border border-border rounded-lg shadow-md bg-card text-foreground">
-      <h3 className="text-xl font-semibold mb-2 text-foreground">Submit Event Handler</h3>
-      <p className="text-sm mb-4 text-muted-foreground">
+    <div className="glass glass-lg w-full text-center">
+      <h3 className="text-xl font-semibold mb-2 text-primary">Submit Event Handler</h3>
+      <p className="text-sm mb-4 text-foreground">
         Handles `onSubmit` events with `React.FormEvent`.
       </p>
       <form onSubmit={handleSubmit}>
@@ -21,7 +21,7 @@ export const SubmitEventHandler: React.FC = () => {
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          className="input w-full mb-3"
+          className="input w-full mb-3 bg-white/10 border-white/20 focus:border-primary focus:bg-white/20"
         />
         <button
           type="submit"
