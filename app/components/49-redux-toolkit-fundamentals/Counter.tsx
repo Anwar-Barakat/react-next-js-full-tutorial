@@ -10,9 +10,9 @@ const Counter: React.FC = () => {
   const dispatch = useDispatch();
 
   return (
-    <div className="p-4 border rounded-lg shadow-md bg-white dark:bg-gray-800 dark:border-gray-700">
-      <h2 className="text-2xl font-bold mb-4 text-gray-900 dark:text-white">Counter with Redux Toolkit</h2>
-      <p className="text-xl mb-4 text-gray-700 dark:text-gray-300">Count: <span className="font-semibold text-blue-600 dark:text-blue-400 text-3xl">{count}</span></p>
+    <div className="p-4 border rounded-lg shadow-md bg-card dark:bg-card dark:border-border">
+      <h2 className="text-2xl font-bold mb-4 text-foreground dark:text-foreground">Counter with Redux Toolkit</h2>
+      <p className="text-xl mb-4 text-muted-foreground dark:text-muted-foreground">Count: <span className="font-semibold text-primary dark:text-primary text-3xl">{count}</span></p>
       <div className="flex space-x-2">
         <button
           className="btn btn-primary"

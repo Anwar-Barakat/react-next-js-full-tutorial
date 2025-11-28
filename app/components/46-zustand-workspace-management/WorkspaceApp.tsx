@@ -104,8 +104,8 @@ const WorkspaceApp = () => {
 
   return (
     <div className="card flex h-screen p-0 overflow-hidden">
-      <div className="w-1/4 p-4 border-r border-[var(--border)] bg-[var(--card)] flex flex-col">
-        <h3 className="text-xl font-bold text-white mb-4">Workspaces</h3>
+      <div className="w-1/4 p-4 border-r border-border bg-card flex flex-col">
+        <h3 className="text-xl font-bold text-card-foreground mb-4">Workspaces</h3>
         <WorkspaceList
           workspaces={workspaces}
           selectedWorkspaceId={selectedWorkspaceId}
@@ -116,8 +116,8 @@ const WorkspaceApp = () => {
         />
       </div>
 
-      <div className="w-1/4 p-4 border-r border-[var(--border)] bg-[var(--card)] flex flex-col">
-        <h3 className="text-xl font-bold text-white mb-4">
+      <div className="w-1/4 p-4 border-r border-border bg-card flex flex-col">
+        <h3 className="text-xl font-bold text-card-foreground mb-4">
           {currentWorkspaceData ? `${currentWorkspaceData.emoji} ${currentWorkspaceData.name} Lists` : 'Select a Workspace'}
         </h3>
         {selectedWorkspaceId && (
@@ -133,8 +133,8 @@ const WorkspaceApp = () => {
         )}
       </div>
 
-      <div className="w-1/2 p-4 bg-[var(--background)] flex flex-col">
-        <h3 className="text-xl font-bold text-white mb-4">
+      <div className="w-1/2 p-4 bg-background flex flex-col">
+        <h3 className="text-xl font-bold text-card-foreground mb-4">
           {currentList ? `${currentList.emoji} ${currentList.name} Todos` : 'Select a List'}
         </h3>
         {selectedListId && (
@@ -149,9 +149,9 @@ const WorkspaceApp = () => {
       </div>
 
       {isWorkspaceModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-[var(--card)] p-6 rounded-lg shadow-lg w-96">
-            <h4 className="text-lg font-bold text-white mb-4">
+        <div className="fixed inset-0 bg-foreground/50 flex items-center justify-center z-50">
+          <div className="bg-card p-6 rounded-lg shadow-lg w-96">
+            <h4 className="text-lg font-bold text-card-foreground mb-4">
               {currentWorkspace ? 'Edit Workspace' : 'Add Workspace'}
             </h4>
             <input
@@ -181,9 +181,9 @@ const WorkspaceApp = () => {
       )}
 
       {isListModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-[var(--card)] p-6 rounded-lg shadow-lg w-96">
-            <h4 className="text-lg font-bold text-white mb-4">
+        <div className="fixed inset-0 bg-foreground/50 flex items-center justify-center z-50">
+          <div className="bg-card p-6 rounded-lg shadow-lg w-96">
+            <h4 className="text-lg font-bold text-card-foreground mb-4">
               {currentList ? 'Edit List' : 'Add List'}
             </h4>
             <input
@@ -213,9 +213,9 @@ const WorkspaceApp = () => {
       )}
 
       {isTodoModalOpen && (
-        <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
-          <div className="bg-[var(--card)] p-6 rounded-lg shadow-lg w-96">
-            <h4 className="text-lg font-bold text-white mb-4">
+        <div className="fixed inset-0 bg-foreground/50 flex items-center justify-center z-50">
+          <div className="bg-card p-6 rounded-lg shadow-lg w-96">
+            <h4 className="text-lg font-bold text-card-foreground mb-4">
               {currentTodo ? 'Edit Todo' : 'Add Todo'}
             </h4>
             <input
@@ -226,7 +226,7 @@ const WorkspaceApp = () => {
               className="input mb-3 w-full"
             />
             {currentTodo && (
-              <label className="flex items-center text-white mb-4">
+              <label className="flex items-center text-card-foreground mb-4">
                 <input
                   type="checkbox"
                   checked={modalTodoCompleted}

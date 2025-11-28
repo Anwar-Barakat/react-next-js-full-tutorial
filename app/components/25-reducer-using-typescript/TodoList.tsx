@@ -19,9 +19,9 @@ export const TodoList: React.FC = () => {
   };
 
   return (
-    <div className="center-content py-12 px-4 min-h-screen bg-[var(--background)]">
-      <div className="max-w-2xl w-full bg-[var(--card)] rounded-[var(--radius)] shadow-[var(--shadow-lg)] p-6 md:p-8 border border-[var(--border)]">
-        <h2 className="text-3xl md:text-4xl font-bold center-text mb-6 text-[var(--foreground)]">Todo List with useReducer</h2>
+    <div className="center-content py-12 px-4 min-h-screen bg-background">
+      <div className="max-w-2xl w-full bg-card rounded-lg shadow-lg p-6 md:p-8 border border-border">
+        <h2 className="text-3xl md:text-4xl font-bold center-text mb-6 text-foreground">Todo List with useReducer</h2>
 
         {/* Input for new todo */}
         <div className="flex mb-6 gap-2">
@@ -46,17 +46,17 @@ export const TodoList: React.FC = () => {
           {state.map(todo => (
             <li
               key={todo.id}
-              className="flex items-center justify-between p-4 border border-[var(--border)] rounded-[var(--radius)] bg-[var(--muted)] hover:bg-[var(--muted)]/80 transition-colors"
+              className="flex items-center justify-between p-4 border border-border rounded-lg bg-muted hover:bg-muted/80 transition-colors"
             >
               <div className="flex items-center">
                 <input
                   type="checkbox"
                   checked={todo.completed}
                   onChange={() => dispatch({ type: 'TOGGLE_TODO', payload: todo.id })}
-                  className="h-5 w-5 rounded border-[var(--border)] text-[var(--primary)] focus:ring-[var(--primary)]"
+                  className="h-5 w-5 rounded border-border text-primary focus:ring-primary"
                 />
                 <span
-                  className={`ml-3 text-lg ${todo.completed ? 'line-through text-[var(--muted-foreground)]' : 'text-[var(--foreground)]'}`}
+                  className={`ml-3 text-lg ${todo.completed ? 'line-through text-muted-foreground' : 'text-foreground'}`}
                 >
                   {todo.text}
                 </span>

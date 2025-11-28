@@ -3,7 +3,7 @@
 import React, { useState } from 'react';
 
 const buttonClasses = "w-16 h-16 text-2xl m-1 rounded-xl border border-border cursor-pointer bg-muted text-foreground hover:bg-muted/90 hover:shadow-md active:scale-95 transition-all duration-200 font-semibold";
-const operatorButtonClasses = "bg-accent text-white hover:shadow-md hover:scale-105 active:scale-95";
+const operatorButtonClasses = "bg-accent text-card-foreground hover:shadow-md hover:scale-105 active:scale-95";
 const clearButtonClasses = "bg-secondary text-white hover:shadow-md hover:scale-105 active:scale-95";
 const equalButtonClasses = "bg-primary text-white hover:shadow-lg hover:scale-105 active:scale-95";
 

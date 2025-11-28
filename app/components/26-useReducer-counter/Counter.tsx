@@ -8,9 +8,9 @@ const Counter = () => {
 
   return (
     <div className="center-content py-12 px-4">
-      <div className="max-w-2xl w-full p-6 border border-[var(--border)] rounded-[var(--radius)] shadow-[var(--shadow-md)] bg-[var(--card)] text-[var(--foreground)]">
-        <h3 className="text-2xl font-semibold mb-6 center-text text-[var(--foreground)]">useReducer Counter</h3>
-        <p className="text-5xl font-bold mb-6 center-text text-[var(--primary)]">{state.count}</p>
+      <div className="max-w-2xl w-full p-6 border border-border rounded-lg shadow-md bg-card text-foreground">
+        <h3 className="text-2xl font-semibold mb-6 center-text text-foreground">useReducer Counter</h3>
+        <p className="text-5xl font-bold mb-6 center-text text-primary">{state.count}</p>
         <div className="center-content gap-4 flex-wrap">
           <button
             onClick={() => dispatch({ type: 'increment' })}

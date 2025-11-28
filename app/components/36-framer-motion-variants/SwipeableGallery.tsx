@@ -23,8 +23,8 @@ const SwipeableGallery = () => {
 
   return (
     <div className="card flex flex-col items-center">
-      <h3 className="text-xl font-bold text-white mb-4">Swipeable Image Gallery</h3>
-      <div className="relative w-[300px] h-[450px] rounded-2xl overflow-hidden shadow-2xl bg-gray-900">
+      <h3 className="text-xl font-bold text-foreground mb-4">Swipeable Image Gallery</h3>
+      <div className="relative w-[300px] h-[450px] rounded-2xl overflow-hidden shadow-2xl bg-card">
         <AnimatePresence mode="wait">
           <motion.img
             key={index}

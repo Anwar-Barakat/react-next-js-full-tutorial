@@ -9,7 +9,7 @@ const ReduxToolkitDemo: React.FC = () => {
   return (
     <Provider store={store}>
       <div className="card card-hover card-lg">
-        <h1 className="text-3xl font-bold text-center heading-gradient mb-4">Redux Toolkit Counter Demo</h1>
+        <h1 className="text-3xl font-bold text-center text-primary mb-4">Redux Toolkit Counter Demo</h1>
         <Counter />
       </div>
     </Provider>

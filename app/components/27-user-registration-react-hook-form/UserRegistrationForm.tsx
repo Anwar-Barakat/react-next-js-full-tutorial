@@ -47,11 +47,11 @@ export const UserRegistrationForm: React.FC = () => {
 
   return (
     <div className="center-content py-12 px-4">
-      <div className="max-w-md w-full p-6 bg-[var(--card)] shadow-[var(--shadow-lg)] rounded-[var(--radius)] border border-[var(--border)]">
-        <h2 className="text-3xl md:text-4xl font-bold mb-6 center-text heading-gradient">User Registration</h2>
+      <div className="max-w-md w-full p-6 bg-card shadow-lg rounded-lg border border-border">
+        <h2 className="text-3xl md:text-4xl font-bold mb-6 center-text text-foreground">User Registration</h2>
         <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
           <div>
-            <label htmlFor="fullName" className="block text-sm font-medium text-[var(--foreground)] mb-1">
+            <label htmlFor="fullName" className="block text-sm font-medium text-foreground mb-1">
               Full Name
             </label>
             <input
@@ -60,11 +60,11 @@ export const UserRegistrationForm: React.FC = () => {
               {...register('fullName')}
               className="input w-full"
             />
-            {errors.fullName && <p className="mt-1 text-sm text-[var(--secondary)]">{errors.fullName.message}</p>}
+            {errors.fullName && <p className="mt-1 text-sm text-secondary">{errors.fullName.message}</p>}
           </div>
 
           <div>
-            <label htmlFor="email" className="block text-sm font-medium text-[var(--foreground)] mb-1">
+            <label htmlFor="email" className="block text-sm font-medium text-foreground mb-1">
               Email
             </label>
             <input
@@ -73,11 +73,11 @@ export const UserRegistrationForm: React.FC = () => {
               {...register('email')}
               className="input w-full"
             />
-            {errors.email && <p className="mt-1 text-sm text-[var(--secondary)]">{errors.email.message}</p>}
+            {errors.email && <p className="mt-1 text-sm text-secondary">{errors.email.message}</p>}
           </div>
 
           <div>
-            <label htmlFor="password" className="block text-sm font-medium text-[var(--foreground)] mb-1">
+            <label htmlFor="password" className="block text-sm font-medium text-foreground mb-1">
               Password
             </label>
             <input
@@ -86,11 +86,11 @@ export const UserRegistrationForm: React.FC = () => {
               {...register('password')}
               className="input w-full"
             />
-            {errors.password && <p className="mt-1 text-sm text-[var(--secondary)]">{errors.password.message}</p>}
+            {errors.password && <p className="mt-1 text-sm text-secondary">{errors.password.message}</p>}
           </div>
 
           <div>
-            <label htmlFor="confirmPassword" className="block text-sm font-medium text-[var(--foreground)] mb-1">
+            <label htmlFor="confirmPassword" className="block text-sm font-medium text-foreground mb-1">
               Confirm Password
             </label>
             <input
@@ -99,7 +99,7 @@ export const UserRegistrationForm: React.FC = () => {
               {...register('confirmPassword')}
               className="input w-full"
             />
-            {errors.confirmPassword && <p className="mt-1 text-sm text-[var(--secondary)]">{errors.confirmPassword.message}</p>}
+            {errors.confirmPassword && <p className="mt-1 text-sm text-secondary">{errors.confirmPassword.message}</p>}
           </div>
 
           <button
@@ -111,11 +111,9 @@ export const UserRegistrationForm: React.FC = () => {
         </form>
 
         {submissionMessage && (
-          <div className="mt-6 p-4 bg-[var(--accent)]/20 border border-[var(--accent)] text-[var(--accent)] rounded-[var(--radius)]">
+          <div className="mt-6 p-4 bg-accent/20 border border-accent text-accent rounded-lg">
             {submissionMessage}
           </div>
         )}
       </div>
     </div>
-  );
-};

@@ -113,26 +113,25 @@ body {
   }
 
   .btn-primary {
-    background: linear-gradient(to right, var(--primary), var(--primary-hover));
+    background-color: var(--primary);
     color: white;
   }
 
   .btn-primary:hover {
-    background: linear-gradient(to right, var(--primary-hover), var(--primary));
+    background-color: var(--primary-hover);
   }
 
   .btn-secondary {
-    background: linear-gradient(to right, var(--secondary), var(--secondary));
+    background-color: var(--secondary);
     color: white;
   }
 
   .btn-secondary:hover {
-    background: linear-gradient(to right, var(--secondary), var(--secondary));
     opacity: 0.9;
   }
 
   .btn-accent {
-    background: linear-gradient(to right, var(--accent), var(--accent));
+    background-color: var(--accent);
     color: white;
   }
 
@@ -152,7 +151,7 @@ body {
   }
 
   .btn-danger {
-    background: linear-gradient(to right, var(--secondary), var(--secondary));
+    background-color: var(--secondary);
     color: white;
   }
 
@@ -203,16 +202,6 @@ body {
     transform: translateY(-4px);
     border-color: var(--primary);
     opacity: 0.95;
-  }
-
-  .card-gradient {
-    background: linear-gradient(to bottom right, var(--card), var(--muted));
-    opacity: 0.3;
-    border: 1px solid var(--border);
-    border-radius: var(--radius);
-    box-shadow: var(--shadow-lg);
-    padding: 1.5rem;
-    backdrop-filter: blur(4px);
   }
 
   .card-lg {
@@ -272,31 +261,24 @@ body {
 
 }
 
-/* Heading utilities */
+
+/* Link utilities */
 @layer components {
-  .heading-gradient {
-    background: linear-gradient(to right, var(--primary), var(--accent));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
+  .link {
+    color: var(--primary);
+    text-decoration: none;
+    transition: color 0.2s ease;
   }
 
-  .heading-gradient-secondary {
-    background: linear-gradient(to right, var(--primary), var(--accent), var(--secondary));
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: transparent;
+  .link:hover {
+    color: var(--primary-hover);
+    text-decoration: underline;
   }
 
-}
-
-/* Container utilities */
-@layer utilities {
-  .container-gradient {
-    background: linear-gradient(to bottom right, var(--background), var(--muted));
-    opacity: 0.3;
+  .link-focus {
+    outline: 2px solid var(--primary);
+    outline-offset: 2px;
+    border-radius: var(--radius);
   }
 }
 

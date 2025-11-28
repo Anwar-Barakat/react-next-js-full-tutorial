@@ -5,10 +5,10 @@ import { motion } from 'framer-motion';
 const SlidingText = () => {
   return (
     <div className="card flex flex-col items-center">
-      <h3 className="text-xl font-bold text-white mb-4">Exercise 4: Sliding Text</h3>
-      <div className="w-full h-32 flex items-center justify-center bg-gray-700 rounded-lg overflow-hidden">
+      <h3 className="text-xl font-bold text-foreground mb-4">Exercise 4: Sliding Text</h3>
+      <div className="w-full h-32 flex items-center justify-center bg-muted rounded-lg overflow-hidden">
         <motion.p
-          className="text-3xl font-bold text-white"
+          className="text-3xl font-bold text-foreground"
           initial={{ x: -200, opacity: 0 }}
           animate={{ x: 0, opacity: 1 }}
           transition={{

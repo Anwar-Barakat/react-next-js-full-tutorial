@@ -165,7 +165,7 @@ export default function Home() {
 
     <div className="center-container">
       <div className="text-center">
-        <h1 className="text-5xl font-bold mb-8 heading-gradient-secondary">React + Next.js Full Tutorial</h1>
+        <h1 className="text-5xl font-bold mb-8 text-primary">React + Next.js Full Tutorial</h1>
 
         {/* 01-greet-component */}
         <Greetv01 />

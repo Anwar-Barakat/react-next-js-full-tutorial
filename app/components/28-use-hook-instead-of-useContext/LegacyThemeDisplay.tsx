@@ -13,9 +13,9 @@ export const LegacyThemeDisplay: React.FC = () => {
   const { theme, toggleTheme } = themeContext;
 
   return (
-    <div className={`border border-[var(--border)] p-6 rounded-[var(--radius)] shadow-[var(--shadow-md)] ${theme === 'light' ? 'bg-[var(--card)] text-[var(--foreground)]' : 'bg-[var(--muted)] text-[var(--foreground)]'}`}>
-      <h3 className="text-xl font-semibold mb-4 text-[var(--foreground)]">Legacy Theme Display (using `useContext`)</h3>
-      <p className="mb-4 text-[var(--muted-foreground)]">Current Theme: <strong className="text-[var(--foreground)]">{theme}</strong></p>
+    <div className={`border border-border p-6 rounded-md shadow-md ${theme === 'light' ? 'bg-card text-foreground' : 'bg-muted text-foreground'}`}>
+      <h3 className="text-xl font-semibold mb-4 text-foreground">Legacy Theme Display (using `useContext`)</h3>
+      <p className="mb-4 text-muted-foreground">Current Theme: <strong className="text-foreground">{theme}</strong></p>
       <button
         onClick={toggleTheme}
         className={`btn ${theme === 'light' ? 'btn-primary' : 'btn-secondary'}`}
