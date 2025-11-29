@@ -22,10 +22,10 @@ const StaggeredTextReveal = () => {
   const characters = Array.from(title);
 
   return (
-    <div className="card flex flex-col items-center">
-      <h3 className="text-xl font-bold text-white mb-4">Exercise 5: Staggered Text Reveal</h3>
+    <div className="glass flex flex-col items-center">
+      <h3 className="text-xl font-bold text-foreground mb-4">Exercise 5: Staggered Text Reveal</h3>
       <motion.h1
-        className="text-4xl font-bold text-white"
+        className="text-4xl font-bold text-foreground"
         variants={containerVariants}
         initial="hidden"
         animate="visible"

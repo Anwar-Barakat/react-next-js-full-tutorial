@@ -21,8 +21,8 @@ const StaggeredFadeSlideIn = () => {
   const items = ['Item A', 'Item B', 'Item C', 'Item D', 'Item E'];
 
   return (
-    <div className="card flex flex-col items-center">
-      <h3 className="text-xl font-bold text-white mb-4">Challenge 1: Staggered Fade and Slide In</h3>
+    <div className="glass flex flex-col items-center">
+      <h3 className="text-xl font-bold text-foreground mb-4">Challenge 1: Staggered Fade and Slide In</h3>
       <motion.ul
         className="w-full max-w-xs bg-gray-700 rounded-lg p-4"
         variants={containerVariants}

@@ -11,12 +11,12 @@ const TooltipWithVariants = () => {
   const [isVisible, setIsVisible] = useState(false);
 
   return (
-    <div className="card flex flex-col items-center relative">
+    <div className="glass flex flex-col items-center relative">
       <h3 className="text-xl font-bold text-foreground mb-4">Exercise 3: Tooltip with Variants</h3>
       <div
         onMouseEnter={() => setIsVisible(true)}
         onMouseLeave={() => setIsVisible(false)}
-        className="relative px-4 py-2 bg-muted text-foreground rounded-lg cursor-pointer"
+        className="relative px-4 py-2 bg-[var(--muted)]/50 text-foreground rounded-lg cursor-pointer"
       >
         Hover over me
         <AnimatePresence>
@@ -27,7 +27,7 @@ const TooltipWithVariants = () => {
               animate="visible"
               exit="hidden"
               transition={{ duration: 0.2 }}
-              className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 p-2 bg-card text-card-foreground text-sm rounded-md whitespace-nowrap"
+              className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 p-2 bg-[var(--card)]/50 text-[var(--foreground)] text-sm rounded-md whitespace-nowrap"
             >
               I&apos;m a tooltip!
             </motion.div>
