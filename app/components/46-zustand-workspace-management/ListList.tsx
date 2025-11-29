@@ -26,7 +26,7 @@ const ListList: React.FC<ListListProps> = ({
 
   return (
     <div className="flex flex-col h-full">
-      <button onClick={onAddList} className="btn btn-primary mb-4"
+      <button onClick={onAddList} className="btn bg-primary/50 mb-4"
       disabled={!selectedWorkspaceId}
       >
         + Add List
@@ -35,7 +35,7 @@ const ListList: React.FC<ListListProps> = ({
         {lists.map((list) => (
           <li
             key={list.id}
-            className={`flex items-center justify-between p-2 mb-2 rounded-md cursor-pointer transition-colors duration-200 ${selectedListId === list.id ? 'bg-accent' : 'hover:bg-muted'
+            className={`flex items-center justify-between p-2 mb-2 rounded-md cursor-pointer transition-colors duration-200 ${selectedListId === list.id ? 'bg-accent/50' : 'hover:bg-muted/50'
               }`}
             onClick={() => selectList(list.id)}
           >
@@ -49,7 +49,7 @@ const ListList: React.FC<ListListProps> = ({
                   e.stopPropagation();
                   onEditList(list);
                 }}
-                className="btn btn-sm btn-accent"
+                className="btn btn-sm bg-accent/50"
               >
                 Edit
               </button>
@@ -58,7 +58,7 @@ const ListList: React.FC<ListListProps> = ({
                   e.stopPropagation();
                   onDeleteList(list.id);
                 }}
-                className="btn btn-sm btn-danger"
+                className="btn btn-sm bg-secondary/50"
               >
                 X
               </button>

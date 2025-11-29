@@ -19,7 +19,7 @@ const TodoList: React.FC<TodoListProps> = ({
 }) => {
   return (
     <div className="flex flex-col h-full">
-      <button onClick={onAddTodo} className="btn btn-primary mb-4">
+      <button onClick={onAddTodo} className="btn bg-primary/50 mb-4">
         + Add Todo
       </button>
       <ul className="flex-1 overflow-y-auto">
@@ -27,7 +27,7 @@ const TodoList: React.FC<TodoListProps> = ({
           <li
             key={todo.id}
             className={`flex items-center justify-between p-2 mb-2 rounded-md ${
-              todo.completed ? 'bg-muted line-through text-muted-foreground' : 'bg-card text-foreground'
+              todo.completed ? 'bg-muted/50 line-through text-muted-foreground' : 'bg-card/50 text-foreground'
             }`}
           >
             <div className="flex items-center gap-2">
@@ -42,13 +42,13 @@ const TodoList: React.FC<TodoListProps> = ({
             <div className="flex gap-2">
               <button
                 onClick={() => onEditTodo(todo)}
-                className="btn btn-sm btn-accent"
+                className="btn btn-sm bg-accent/50"
               >
                 Edit
               </button>
               <button
                 onClick={() => onDeleteTodo(todo.id)}
-                className="btn btn-sm btn-danger"
+                className="btn btn-sm bg-secondary/50"
               >
                 X
               </button>

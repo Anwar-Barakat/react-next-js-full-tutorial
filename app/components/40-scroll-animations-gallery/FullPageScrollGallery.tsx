@@ -28,13 +28,13 @@ const FullPageScrollGallery = () => {
   const xTransform = useTransform(galleryScrollProgress, [0, 1], ["0%", "-60%"]);
 
   return (
-    <div className="bg-gray-900 text-white min-h-[300vh] relative">
+    <div className="bg-background text-foreground min-h-[300vh] relative">
       <motion.div
-        className="fixed top-0 left-0 h-2 bg-blue-500 z-50"
+        className="fixed top-0 left-0 h-2 bg-primary/50 z-50"
         style={{ width: smoothWidth }}
       />
 
-      <section className="h-screen flex items-center justify-center bg-gradient-to-br from-gray-900 to-gray-800">
+      <section className="h-screen flex items-center justify-center bg-gradient-to-br from-background to-muted">
         <h1 className="text-5xl md:text-7xl font-extrabold heading-gradient">
           Scroll Down for Magic
         </h1>
@@ -53,7 +53,7 @@ const FullPageScrollGallery = () => {
         </motion.div>
       </section>
 
-      <section className="h-screen flex items-center justify-center bg-gradient-to-br from-gray-800 to-gray-900">
+      <section className="h-screen flex items-center justify-center bg-gradient-to-br from-muted to-background">
         <h2 className="text-4xl md:text-6xl font-bold heading-gradient">
           End of the Journey
         </h2>

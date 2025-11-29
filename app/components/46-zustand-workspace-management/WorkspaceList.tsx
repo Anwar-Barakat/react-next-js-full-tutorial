@@ -21,7 +21,7 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
 }) => {
   return (
     <div className="flex flex-col h-full">
-      <button onClick={onAddWorkspace} className="btn btn-primary mb-4">
+      <button onClick={onAddWorkspace} className="btn bg-primary/50 mb-4">
         + Add Workspace
       </button>
       <ul className="flex-1 overflow-y-auto">
@@ -29,7 +29,7 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
           <li
             key={workspace.id}
             className={`flex items-center justify-between p-2 mb-2 rounded-md cursor-pointer transition-colors duration-200 ${
-              selectedWorkspaceId === workspace.id ? 'bg-accent' : 'hover:bg-muted'
+              selectedWorkspaceId === workspace.id ? 'bg-accent/50' : 'hover:bg-muted/50'
             }`}
             onClick={() => selectWorkspace(workspace.id)}
           >
@@ -43,7 +43,7 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
                   e.stopPropagation();
                   onEditWorkspace(workspace);
                 }}
-                className="btn btn-sm btn-accent"
+                className="btn btn-sm bg-accent/50"
               >
                 Edit
               </button>
@@ -52,7 +52,7 @@ const WorkspaceList: React.FC<WorkspaceListProps> = ({
                   e.stopPropagation();
                   onDeleteWorkspace(workspace.id);
                 }}
-                className="btn btn-sm btn-danger"
+                className="btn btn-sm bg-secondary/50"
               >
                 X
               </button>

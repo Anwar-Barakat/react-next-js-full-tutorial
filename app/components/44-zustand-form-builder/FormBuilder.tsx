@@ -19,11 +19,11 @@ const FormBuilder = () => {
   };
 
   return (
-    <div className="card flex flex-col items-center p-6">
-      <h2 className="text-2xl font-bold text-white mb-6">Form Builder</h2>
+    <div className="glass flex flex-col items-center p-6">
+      <h2 className="text-2xl font-bold text-foreground mb-6">Form Builder</h2>
 
-      <div className="w-full max-w-md bg-gray-800 p-4 rounded-lg shadow-md mb-6">
-        <h3 className="text-xl font-bold text-white mb-3">Add New Field</h3>
+      <div className="w-full max-w-md bg-card/50 p-4 rounded-lg shadow-md mb-6">
+        <h3 className="text-xl font-bold text-foreground mb-3">Add New Field</h3>
         <input
           type="text"
           placeholder="Field label"
@@ -31,7 +31,7 @@ const FormBuilder = () => {
           onChange={(e) =>
             setNewField((prev) => ({ ...prev, label: e.target.value }))
           }
-          className="input mb-2 w-full"
+          className="input mb-2 w-full bg-card/50"
         />
         <select
           value={newField.type}
@@ -41,7 +41,7 @@ const FormBuilder = () => {
               type: e.target.value as FormField["type"],
             }))
           }
-          className="input mb-2 w-full bg-gray-700 text-white"
+          className="input mb-2 w-full bg-muted/50 text-foreground"
         >
           <option value="string">Text</option>
           <option value="password">Password</option>
@@ -57,10 +57,10 @@ const FormBuilder = () => {
           onChange={(e) =>
             setNewField((prev) => ({ ...prev, value: e.target.value }))
           }
-          className="input mb-4 w-full"
+          className="input mb-4 w-full bg-card/50"
         />
         <div className="flex gap-2">
-          <button type="button" onClick={handleAddField} className="btn btn-primary flex-1">
+          <button type="button" onClick={handleAddField} className="btn bg-primary/50 flex-1">
             Add Field
           </button>
           <button type="button" onClick={resetForm} className="btn btn-muted flex-1">
@@ -69,22 +69,22 @@ const FormBuilder = () => {
         </div>
       </div>
 
-      <div className="w-full max-w-md bg-gray-800 p-4 rounded-lg shadow-md">
-        <h3 className="text-xl font-bold text-white mb-3">Generated Form</h3>
+      <div className="w-full max-w-md bg-card/50 p-4 rounded-lg shadow-md">
+        <h3 className="text-xl font-bold text-foreground mb-3">Generated Form</h3>
         {formFields.length === 0 ? (
-          <p className="text-gray-400 text-center">No fields added yet.</p>
+          <p className="text-muted-foreground text-center">No fields added yet.</p>
         ) : (
           <form className="flex flex-col gap-4">
             {formFields.map((field, index) => (
-              <div key={index} className="flex flex-col sm:flex-row sm:items-center gap-2 p-2 bg-gray-700 rounded-md">
-                <label className="text-white font-bold w-24 flex-shrink-0">{field.label}:</label>
+              <div key={index} className="flex flex-col sm:flex-row sm:items-center gap-2 p-2 bg-muted/50 rounded-md">
+                <label className="text-foreground font-bold w-24 flex-shrink-0">{field.label}:</label>
                 {field.type === "textarea" ? (
                   <textarea
                     value={field.value}
                     onChange={(e) =>
                       updateField(index, { ...field, value: e.target.value })
                     }
-                    className="input flex-1"
+                    className="input flex-1 bg-card/50"
                   />
                 ) : (
                   <input
@@ -93,10 +93,10 @@ const FormBuilder = () => {
                     onChange={(e) =>
                       updateField(index, { ...field, value: e.target.value })
                     }
-                    className="input flex-1"
+                    className="input flex-1 bg-card/50"
                   />
                 )}
-                <button type="button" onClick={() => removeField(index)} className="btn btn-sm btn-danger flex-shrink-0">
+                <button type="button" onClick={() => removeField(index)} className="btn btn-sm bg-secondary/50 flex-shrink-0">
                   Remove
                 </button>
               </div>

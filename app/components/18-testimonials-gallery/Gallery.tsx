@@ -36,12 +36,9 @@ export const Gallery = () => {
   };
 
   return (
-    <div className="glass glass-xl relative max-w-4xl w-full p-0">
-      <h2 className="mb-8 text-3xl font-bold text-primary text-center">
-        Our Gallery
-      </h2>
-      <button 
-        onClick={handleBack} 
+    <div className="glass glass-xl relative w-full p-0">
+      <button
+        onClick={handleBack}
         className="btn btn-primary absolute top-1/2 -translate-y-1/2 text-2xl z-10 left-[-20px] p-3 rounded-full"
       >
         &#10094;
@@ -49,14 +46,14 @@ export const Gallery = () => {
       <div className="overflow-hidden rounded-lg border border-glass-border">
         <div className="flex gap-4">
           {getImagesForView().map((src, index) => (
-            <div key={index} className={`glass p-2 min-w-[calc(100%/${IMAGES_PER_VIEW}-10px)] overflow-hidden rounded-lg`}>
-              <Image src={src} alt={`Gallery image ${index + 1}`} className="w-full block object-cover" width={600} height={400}/>
+            <div key={index} className={`glass p-2 min-w-[calc(100%/${IMAGES_PER_VIEW}-10px)] overflow-hidden rounded-lg w-full`}>
+              <Image src={src} alt={`Gallery image ${index + 1}`} className="w-full block object-cover" width={600} height={400} />
             </div>
           ))}
         </div>
       </div>
-      <button 
-        onClick={handleNext} 
+      <button
+        onClick={handleNext}
         className="btn btn-primary absolute top-1/2 -translate-y-1/2 text-2xl z-10 right-[-20px] p-3 rounded-full"
       >
         &#10095;

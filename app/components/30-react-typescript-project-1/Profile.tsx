@@ -183,8 +183,7 @@ const Profile: React.FC = () => {
         </div>
       </div>
 
-      {/* Tabs Section */}
-      <div className="p-4 glass rounded-lg mt-8">
+      <div className="rounded-lg mt-8">
         <Tabs />
       </div>
     </section>

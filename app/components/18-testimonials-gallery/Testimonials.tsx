@@ -37,7 +37,7 @@ export const Testimonials = () => {
   const currentTestimonial = testimonials[currentIndex];
 
   return (
-    <div className="w-full max-w-2xl text-center">
+    <div className="w-full text-center flex flex-col items-center justify-center">
       <h2 className="mb-8 text-3xl font-bold text-primary">
         What Our Clients Say
       </h2>

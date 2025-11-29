@@ -23,22 +23,22 @@ const PasswordGenerator = () => {
   }, [length, includeNumbers, includeSymbols, includeUppercase, includeLowercase, generatePassword]);
 
   return (
-    <div className="card flex flex-col items-center p-6">
-      <h2 className="text-2xl font-bold text-card-foreground mb-4">Password Generator</h2>
+    <div className="glass flex flex-col items-center p-6">
+      <h2 className="text-2xl font-bold text-foreground mb-4">Password Generator</h2>
 
       <div className="w-full max-w-md mb-6">
-        <div className="bg-muted p-4 rounded-lg mb-4 flex justify-between items-center">
-          <h1 className="text-xl text-card-foreground font-mono break-all">{generatedPassword}</h1>
+        <div className="bg-muted/50 p-4 rounded-lg mb-4 flex justify-between items-center">
+          <h1 className="text-xl text-foreground font-mono break-all">{generatedPassword}</h1>
           <button
             onClick={() => navigator.clipboard.writeText(generatedPassword)}
-            className="btn btn-sm btn-accent ml-4"
+            className="btn btn-sm bg-accent/50 ml-4"
           >
             Copy
           </button>
         </div>
 
         <div className="mb-4">
-          <label className="block text-card-foreground text-sm font-bold mb-2">
+          <label className="block text-foreground text-sm font-bold mb-2">
             Password length: {length}
           </label>
           <input
@@ -52,7 +52,7 @@ const PasswordGenerator = () => {
         </div>
 
         <div className="space-y-2">
-          <label className="flex items-center text-card-foreground">
+          <label className="flex items-center text-foreground">
             <input
               type="checkbox"
               checked={includeNumbers}
@@ -61,7 +61,7 @@ const PasswordGenerator = () => {
             />
             Include numbers
           </label>
-          <label className="flex items-center text-card-foreground">
+          <label className="flex items-center text-foreground">
             <input
               type="checkbox"
               checked={includeSymbols}
@@ -70,7 +70,7 @@ const PasswordGenerator = () => {
             />
             Include symbols
           </label>
-          <label className="flex items-center text-card-foreground">
+          <label className="flex items-center text-foreground">
             <input
               type="checkbox"
               checked={includeLowercase}
@@ -79,7 +79,7 @@ const PasswordGenerator = () => {
             />
             Include lowercase
           </label>
-          <label className="flex items-center text-card-foreground">
+          <label className="flex items-center text-foreground">
             <input
               type="checkbox"
               checked={includeUppercase}
@@ -90,7 +90,7 @@ const PasswordGenerator = () => {
           </label>
         </div>
 
-        <button onClick={generatePassword} className="btn btn-primary w-full mt-6">
+        <button onClick={generatePassword} className="btn bg-primary/50 w-full mt-6">
           Generate Password
         </button>
       </div>

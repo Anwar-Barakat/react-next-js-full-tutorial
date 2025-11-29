@@ -7,7 +7,6 @@ export const Counter: React.FC = () => {
 
   return (
     <div className="glass glass-lg w-full text-center">
-      <h3 className="text-2xl font-semibold mb-6 text-primary">Context Counter</h3>
       <p className="text-5xl font-bold mb-6 text-accent">{count}</p>
       <div className="flex justify-center gap-4">
         <button

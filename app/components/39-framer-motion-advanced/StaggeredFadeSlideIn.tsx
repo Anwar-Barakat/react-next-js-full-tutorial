@@ -24,7 +24,7 @@ const StaggeredFadeSlideIn = () => {
     <div className="glass flex flex-col items-center">
       <h3 className="text-xl font-bold text-foreground mb-4">Challenge 1: Staggered Fade and Slide In</h3>
       <motion.ul
-        className="w-full max-w-xs bg-gray-700 rounded-lg p-4"
+        className="w-full max-w-xs bg-muted/50 rounded-lg p-4"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -32,7 +32,7 @@ const StaggeredFadeSlideIn = () => {
         {items.map((item, index) => (
           <motion.li
             key={index}
-            className="bg-gray-800 p-3 mb-2 rounded-md text-white"
+            className="bg-card/50 p-3 mb-2 rounded-md text-foreground"
             variants={itemVariants}
           >
             {item}

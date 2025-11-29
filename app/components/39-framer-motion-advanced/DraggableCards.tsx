@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const DraggableCardItem = ({ children, style }: { children: React.ReactNode, style: React.CSSProperties }) => {
   return (
     <motion.div
-      className="rounded-3xl shadow-lg p-5 m-2 w-52 h-72 flex items-center justify-center text-white text-2xl font-bold"
+      className="rounded-3xl shadow-lg p-5 m-2 w-52 h-72 flex items-center justify-center text-foreground text-2xl font-bold"
       style={style}
       drag
       dragConstraints={{ left: -200, right: 200, bottom: 200, top: -200 }}
@@ -22,9 +22,9 @@ const DraggableCardItem = ({ children, style }: { children: React.ReactNode, sty
 
 const DraggableCards = () => {
   return (
-    <div className="card flex flex-col items-center">
-      <h3 className="text-xl font-bold text-white mb-4">Draggable Cards</h3>
-      <div className="w-full h-96 bg-gray-700 rounded-lg overflow-hidden flex items-center justify-center relative">
+    <div className="glass flex flex-col items-center">
+      <h3 className="text-xl font-bold text-foreground mb-4">Draggable Cards</h3>
+      <div className="w-full h-96 bg-muted/50 rounded-lg overflow-hidden flex items-center justify-center relative">
         <DraggableCardItem
           style={{ background: "linear-gradient(135deg, #f093fb 0%, #f5576c)" }}
         >
