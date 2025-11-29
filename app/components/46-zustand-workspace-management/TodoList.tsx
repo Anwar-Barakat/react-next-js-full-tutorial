@@ -26,9 +26,8 @@ const TodoList: React.FC<TodoListProps> = ({
         {todos.map((todo) => (
           <li
             key={todo.id}
-            className={`flex items-center justify-between p-2 mb-2 rounded-md ${
-              todo.completed ? 'bg-muted/50 line-through text-muted-foreground' : 'bg-card/50 text-foreground'
-            }`}
+            className={`flex items-center justify-between p-2 mb-2 rounded-md ${todo.completed ? 'bg-muted/50 line-through text-muted-foreground' : 'bg-card text-foreground'
+              }`}
           >
             <div className="flex items-center gap-2">
               <input

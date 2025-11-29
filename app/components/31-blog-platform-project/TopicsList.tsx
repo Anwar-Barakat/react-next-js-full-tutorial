@@ -4,13 +4,13 @@ import React from 'react';
 
 const TopicsList = () => {
   return (
-    <div className="glass rounded-2xl shadow-[var(--shadow-lg)] p-5 text-[var(--foreground)]">
-      <h3 className="text-xl font-bold mb-4 text-[var(--foreground)] flex items-center gap-2">
-        <span className="w-1 h-6 bg-gradient-to-b from-[var(--secondary)] to-[var(--accent)] rounded-full"></span>
+    <div className="glass rounded-2xl shadow-lg p-5 text-foreground">
+      <h3 className="text-xl font-bold mb-4 text-foreground flex items-center gap-2">
+        <span className="w-1 h-6 bg-gradient-to-b from-secondary to-accent rounded-full"></span>
         Topics to follow
       </h3>
       <ul className="space-y-3">
-        <li className="p-3 rounded-xl hover:bg-[var(--muted)]/50 transition-all duration-300 hover:shadow-[var(--shadow-sm)] cursor-pointer group border border-transparent hover:border-[var(--primary)]/20">
+        <li className="p-3 rounded-xl hover:bg-muted transition-all duration-300 hover:shadow-[var(--shadow-sm)] cursor-pointer group border border-transparent hover:border-primary/20">
           <p className="text-sm font-bold text-[var(--foreground)] group-hover:text-[var(--primary)] transition-colors mb-1">
             Frontend Development
           </p>
@@ -19,7 +19,7 @@ const TopicsList = () => {
             Category
           </p>
         </li>
-        <li className="p-3 rounded-xl hover:bg-[var(--muted)]/50 transition-all duration-300 hover:shadow-[var(--shadow-sm)] cursor-pointer group border border-transparent hover:border-[var(--primary)]/20">
+        <li className="p-3 rounded-xl hover:bg-muted transition-all duration-300 hover:shadow-[var(--shadow-sm)] cursor-pointer group border border-transparent hover:border-primary/20">
           <p className="text-sm font-bold text-[var(--foreground)] group-hover:text-[var(--primary)] transition-colors mb-1">
             Backend Development
           </p>
@@ -28,7 +28,7 @@ const TopicsList = () => {
             Category
           </p>
         </li>
-        <li className="p-3 rounded-xl hover:bg-[var(--muted)]/50 transition-all duration-300 hover:shadow-[var(--shadow-sm)] cursor-pointer group border border-transparent hover:border-[var(--primary)]/20">
+        <li className="p-3 rounded-xl hover:bg-muted transition-all duration-300 hover:shadow-[var(--shadow-sm)] cursor-pointer group border border-transparent hover:border-primary/20">
           <p className="text-sm font-bold text-[var(--foreground)] group-hover:text-[var(--primary)] transition-colors mb-1">
             DevOps
           </p>

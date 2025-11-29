@@ -35,7 +35,7 @@ const VariantsAnimation = () => {
         {[0, 1, 2, 3].map((index) => (
           <motion.li
             key={index}
-            className="w-12 h-12 bg-[var(--warning)]/50 rounded-full"
+            className="w-12 h-12 bg-warning rounded-full"
             variants={item}
           />
         ))}

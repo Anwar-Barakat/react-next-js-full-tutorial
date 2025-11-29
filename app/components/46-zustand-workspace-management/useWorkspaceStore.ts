@@ -1,7 +1,6 @@
 import { create } from "zustand";
-import { produce } from "immer"; // For immutable state updates
+import { produce } from "immer";
 
-// --- Interfaces ---
 export interface Workspace {
     id: string;
     name: string;
@@ -10,19 +9,18 @@ export interface Workspace {
 
 export interface List {
     id: string;
-    workspaceId: string; // Link to parent workspace
+    workspaceId: string;
     name: string;
     emoji: string;
 }
 
 export interface Todo {
     id: string;
-    listId: string; // Link to parent list
+    listId: string;
     text: string;
     completed: boolean;
 }
 
-// --- State ---
 interface WorkspaceState {
     workspaces: Workspace[];
     lists: List[];
@@ -31,28 +29,23 @@ interface WorkspaceState {
     selectedListId: string | null;
 }
 
-// --- Actions ---
 interface WorkspaceActions {
-    // Workspace CRUD
     addWorkspace: (name: string, emoji: string) => void;
     updateWorkspace: (id: string, name: string, emoji: string) => void;
     deleteWorkspace: (id: string) => void;
     selectWorkspace: (id: string | null) => void;
 
-    // List CRUD
     addList: (workspaceId: string, name: string, emoji: string) => void;
     updateList: (id: string, name: string, emoji: string) => void;
     deleteList: (id: string) => void;
     selectList: (id: string | null) => void;
 
-    // Todo CRUD
     addTodo: (listId: string, text: string) => void;
     updateTodo: (id: string, text: string, completed: boolean) => void;
     deleteTodo: (id: string) => void;
     toggleTodoCompletion: (id: string) => void;
 }
 
-// --- Store ---
 export const useWorkspaceStore = create<WorkspaceState & WorkspaceActions>((set, get) => ({
     workspaces: [],
     lists: [],
@@ -60,7 +53,6 @@ export const useWorkspaceStore = create<WorkspaceState & WorkspaceActions>((set,
     selectedWorkspaceId: null,
     selectedListId: null,
 
-    // Workspace Actions
     addWorkspace: (name, emoji) =>
         set(produce((state: WorkspaceState) => {
             const newWorkspace: Workspace = { id: crypto.randomUUID(), name, emoji };
@@ -95,10 +87,9 @@ export const useWorkspaceStore = create<WorkspaceState & WorkspaceActions>((set,
     selectWorkspace: (id) =>
         set(produce((state: WorkspaceState) => {
             state.selectedWorkspaceId = id;
-            state.selectedListId = null; // Reset selected list when workspace changes
+            state.selectedListId = null;
         })),
 
-    // List Actions
     addList: (workspaceId, name, emoji) =>
         set(produce((state: WorkspaceState) => {
             const newList: List = { id: crypto.randomUUID(), workspaceId, name, emoji };
@@ -132,7 +123,6 @@ export const useWorkspaceStore = create<WorkspaceState & WorkspaceActions>((set,
             state.selectedListId = id;
         })),
 
-    // Todo Actions
     addTodo: (listId, text) =>
         set(produce((state: WorkspaceState) => {
             const newTodo: Todo = { id: crypto.randomUUID(), listId, text, completed: false };

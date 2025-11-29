@@ -33,7 +33,6 @@ const Sidebar: React.FC = () => {
   const handleNavClick = (e: React.MouseEvent<HTMLButtonElement>, itemId: string) => {
     e.preventDefault();
     setActiveItem(itemId);
-    // Scroll to corresponding tab if it exists
     const tabButton = document.querySelector(`[data-tab-id="${itemId}"]`) as HTMLButtonElement;
     if (tabButton) {
       tabButton.click();

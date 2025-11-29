@@ -6,7 +6,6 @@ import { z } from 'zod';
 import { zodResolver } from '@hookform/resolvers/zod';
 import { AlertCircle, CheckCircle } from 'lucide-react';
 
-// Define the schema for validation using Zod
 const schema = z.object({
   fullName: z.string().min(1, 'Full Name is required'),
   email: z.string().min(1, 'Email is required').email('Invalid email address'),
@@ -45,7 +44,7 @@ export const UserRegistrationForm: React.FC = () => {
   };
 
   const inputClasses = (hasError: boolean) => 
-    `input w-full bg-white/10 border-white/20 focus:border-primary focus:bg-white/20 ${hasError ? 'input-error' : ''}`;
+    `input w-full bg-white border-white focus:border-primary focus:bg-white ${hasError ? 'input-error' : ''}`;
 
   return (
     <div className="w-full max-w-md glass">
@@ -104,7 +103,7 @@ export const UserRegistrationForm: React.FC = () => {
 
         <button
           type="submit"
-          className="btn btn-primary w-full btn-lg"
+          className="btn bg-primary w-full btn-lg"
         >
           Register
         </button>

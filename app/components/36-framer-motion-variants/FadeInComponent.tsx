@@ -12,7 +12,7 @@ const FadeInComponent = () => {
     <div className="glass flex flex-col items-center">
       <h3 className="text-xl font-bold text-foreground mb-4">Exercise 1: Simple Fade-In</h3>
       <motion.div
-        className="p-8 bg-[var(--primary)]/50 text-foreground rounded-lg shadow-lg"
+        className="p-8 bg-primary text-foreground rounded-lg shadow-lg"
         variants={fadeInVariant}
         initial="hidden"
         animate="visible"

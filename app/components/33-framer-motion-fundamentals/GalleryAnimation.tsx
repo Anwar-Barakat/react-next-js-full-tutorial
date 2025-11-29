@@ -16,7 +16,7 @@ const parentVariants = {
     opacity: 1,
     transition: {
       duration: 0.3,
-      staggerChildren: 0.2, // shorter stagger for smoother appearance
+      staggerChildren: 0.2,
     },
   },
 };
@@ -34,7 +34,7 @@ const GalleryAnimation = () => {
         <h3 className="text-xl font-bold text-[var(--foreground)] mb-4">Gallery Animation</h3>
         <button
             onClick={() => setShowImages((prev) => !prev)}
-            className="btn bg-[var(--warning)]/50 mb-4"
+            className="btn bg-warning mb-4"
         >
             {showImages ? "Hide Images" : "Show Images"}
         </button>

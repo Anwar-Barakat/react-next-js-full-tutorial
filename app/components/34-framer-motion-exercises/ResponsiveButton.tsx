@@ -7,7 +7,7 @@ const ResponsiveButton = () => {
     <div className="glass flex flex-col items-center">
       <h3 className="text-xl font-bold text-[var(--foreground)] mb-4">Exercise 8: Responsive Button</h3>
       <motion.button
-        className="btn bg-[var(--primary)]/50 text-base md:text-lg lg:text-xl"
+        className="btn bg-primary text-base md:text-lg lg:text-xl"
         whileHover={{ scale: 1.05 }}
         whileTap={{ scale: 0.95 }}
       >

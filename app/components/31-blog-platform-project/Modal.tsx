@@ -14,8 +14,8 @@ const Modal: FC<ModalProps> = ({ children, onClose, isOpen, title }) => {
 
   return (
     <div className="fixed inset-0 bg-black/60 backdrop-blur-sm flex items-center justify-center z-50 p-4 animate-in fade-in duration-200">
-      <div className="glass rounded-2xl shadow-[var(--shadow-lg)] max-w-lg w-full mx-auto p-6 md:p-8 relative animate-in zoom-in-95 duration-300">
-        <div className="flex justify-between items-center mb-6 pb-4 border-b border-[var(--border)]">
+      <div className="glass rounded-2xl shadow-lg max-w-lg w-full mx-auto p-6 md:p-8 relative animate-in zoom-in-95 duration-300">
+        <div className="flex justify-between items-center mb-6 pb-4 border-b border-border">
           {title && (
             <h2 className="text-2xl md:text-3xl font-bold heading-gradient">
               {title}
@@ -23,7 +23,7 @@ const Modal: FC<ModalProps> = ({ children, onClose, isOpen, title }) => {
           )}
           <button
             onClick={onClose}
-            className="text-[var(--muted-foreground)] hover:text-[var(--foreground)] hover:bg-[var(--muted)] text-2xl leading-none transition-all duration-200 w-8 h-8 rounded-full flex items-center justify-center"
+            className="text-muted-foreground hover:text-foreground hover:bg-muted text-2xl leading-none transition-all duration-200 w-8 h-8 rounded-full flex items-center justify-center"
           >
             &times;
           </button>

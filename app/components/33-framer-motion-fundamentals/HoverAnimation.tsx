@@ -8,7 +8,7 @@ const HoverAnimation = () => {
         <h3 className="text-xl font-bold text-[var(--foreground)] mb-4">Hover Animation</h3>
         <div className="flex justify-center items-center h-32">
             <motion.div
-                className="bg-[var(--muted)]/50 w-16 h-16 rounded-lg"
+                className="bg-muted w-16 h-16 rounded-lg"
                 whileHover={{ scale: 1.1, rotate: 360 }}
                 transition={{ type: "spring", stiffness: 300 }}
             ></motion.div>

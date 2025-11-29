@@ -30,7 +30,7 @@ const StaggeredImageGallery = () => {
     <div className="glass flex flex-col items-center">
       <h3 className="text-xl font-bold text-foreground mb-4">Exercise 2: Staggered Image Gallery</h3>
       <motion.div
-        className="grid grid-cols-2 gap-4 p-4 bg-muted/50 rounded-lg"
+        className="grid grid-cols-2 gap-4 p-4 bg-muted rounded-lg"
         variants={containerVariants}
         initial="hidden"
         animate="visible"

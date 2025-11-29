@@ -9,10 +9,8 @@ import Header from "./Header";
 const ProductList = () => {
     const { products, setProductsData } = useProductStore();
 
-    // Fetch products using react-query
     const { data, isLoading, isError } = useProducts({});
 
-    // Update store with fetched data
     useEffect(() => {
         if (data?.data) {
             setProductsData(data.data.data, data.data.meta, data.data.links);
@@ -22,7 +20,7 @@ const ProductList = () => {
     const hasProducts = products && products.length > 0;
 
     return (
-        <div className="container-gradient min-h-screen">
+        <div className="glass mx-auto my-8 max-w-7xl min-h-screen">
             <Header />
             <div className="max-w-7xl mx-auto p-6">
                 {isLoading ? (
@@ -39,7 +37,6 @@ const ProductList = () => {
                     </div>
                 ) : (
                     <>
-                        {/* Product list */}
                         <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-8 mb-8">
                             {products.map((product) => (
                                 <ProductDetails key={product.id} product={product} />

@@ -14,10 +14,10 @@ const Header: React.FC = () => {
         <>
             <header className="flex justify-between items-center p-4 border-b border-border sticky top-0 bg-background/95 backdrop-blur-sm z-50">
                 <h1 className="text-3xl font-bold heading-gradient">Our Products</h1>
-                <button onClick={() => setIsCartOpen(true)} className="relative btn btn-sm btn-primary">
+                <button onClick={() => setIsCartOpen(true)} className="relative btn btn-sm bg-primary/50">
                     <span>Cart</span>
                     {cartCount > 0 && (
-                        <span className="absolute -top-2 -right-2 bg-secondary text-white rounded-full px-1.5 py-0.5 text-xs">
+                        <span className="absolute -top-2 -right-2 bg-secondary/50 text-foreground rounded-full px-1.5 py-0.5 text-xs">
                             {cartCount}
                         </span>
                     )}

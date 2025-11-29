@@ -8,7 +8,7 @@ const BasicAnimation = () => {
       <h3 className="text-xl font-bold text-[var(--foreground)] mb-4">Basic Animation</h3>
       <div className="flex justify-center items-center h-32">
         <motion.div
-          className="w-24 h-24 bg-[var(--primary)]/50 rounded-lg"
+          className="w-24 h-24 bg-primary rounded-lg"
           animate={{
             scale: [1, 1.5, 1.5, 1, 1],
             rotate: [0, 0, 270, 270, 0],

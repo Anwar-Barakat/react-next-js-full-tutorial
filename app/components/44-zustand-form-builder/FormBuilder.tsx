@@ -22,7 +22,7 @@ const FormBuilder = () => {
     <div className="glass flex flex-col items-center p-6">
       <h2 className="text-2xl font-bold text-foreground mb-6">Form Builder</h2>
 
-      <div className="w-full max-w-md bg-card/50 p-4 rounded-lg shadow-md mb-6">
+      <div className="w-full max-w-md bg-card p-4 rounded-lg shadow-md mb-6">
         <h3 className="text-xl font-bold text-foreground mb-3">Add New Field</h3>
         <input
           type="text"
@@ -31,7 +31,7 @@ const FormBuilder = () => {
           onChange={(e) =>
             setNewField((prev) => ({ ...prev, label: e.target.value }))
           }
-          className="input mb-2 w-full bg-card/50"
+          className="input mb-2 w-full bg-card"
         />
         <select
           value={newField.type}
@@ -57,7 +57,7 @@ const FormBuilder = () => {
           onChange={(e) =>
             setNewField((prev) => ({ ...prev, value: e.target.value }))
           }
-          className="input mb-4 w-full bg-card/50"
+          className="input mb-4 w-full bg-card"
         />
         <div className="flex gap-2">
           <button type="button" onClick={handleAddField} className="btn bg-primary/50 flex-1">
@@ -69,7 +69,7 @@ const FormBuilder = () => {
         </div>
       </div>
 
-      <div className="w-full max-w-md bg-card/50 p-4 rounded-lg shadow-md">
+      <div className="w-full max-w-md bg-card p-4 rounded-lg shadow-md">
         <h3 className="text-xl font-bold text-foreground mb-3">Generated Form</h3>
         {formFields.length === 0 ? (
           <p className="text-muted-foreground text-center">No fields added yet.</p>
@@ -84,7 +84,7 @@ const FormBuilder = () => {
                     onChange={(e) =>
                       updateField(index, { ...field, value: e.target.value })
                     }
-                    className="input flex-1 bg-card/50"
+                    className="input flex-1 bg-card"
                   />
                 ) : (
                   <input
@@ -93,7 +93,7 @@ const FormBuilder = () => {
                     onChange={(e) =>
                       updateField(index, { ...field, value: e.target.value })
                     }
-                    className="input flex-1 bg-card/50"
+                    className="input flex-1 bg-card"
                   />
                 )}
                 <button type="button" onClick={() => removeField(index)} className="btn btn-sm bg-secondary/50 flex-shrink-0">

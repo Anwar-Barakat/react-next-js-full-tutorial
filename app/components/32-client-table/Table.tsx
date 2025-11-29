@@ -22,12 +22,12 @@ const Table = () => {
         <input
           type="text"
           placeholder="Filter by client name..."
-          className="input bg-[var(--muted)]/30 text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+          className="input bg-muted text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
           value={clientNameFilter}
           onChange={(e) => setClientNameFilter(e.target.value)}
         />
         <select
-          className="input bg-[var(--muted)]/30 text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
+          className="input bg-muted text-[var(--foreground)] focus:outline-none focus:ring-2 focus:ring-[var(--primary)]"
           value={statusFilter}
           onChange={(e) => setStatusFilter(e.target.value)}
         >
@@ -38,7 +38,7 @@ const Table = () => {
       </div>
       <div className="glass overflow-x-auto overflow-y-auto max-h-[500px] rounded-lg shadow-[var(--shadow-lg)]">
         <table className="table-fixed w-[800px]">
-          <thead className="bg-[var(--muted)]/30 text-[var(--foreground)]">
+          <thead className="bg-muted text-[var(--foreground)]">
             <tr>
               <th className="p-4 text-left w-[200px]">Client</th>
               <th className="p-4 text-left w-[200px]">Project</th>
@@ -50,7 +50,7 @@ const Table = () => {
           <tbody>
             {filteredData.length > 0 ? (
               filteredData.map((item, index) => (
-                <tr key={index} className="border-b border-[var(--border)] hover:bg-[var(--muted)]/10">
+                <tr key={index} className="border-b border-[var(--border)] hover:bg-muted">
                   <td className="p-4 flex items-center w-[200px]">
                     <img
                       src={item.image}
@@ -67,15 +67,15 @@ const Table = () => {
                     <span
                       className={`px-2 py-1 rounded-full text-xs ${
                         item.status === "Completed"
-                          ? "bg-green-500/20 text-green-400"
-                          : "bg-yellow-500/20 text-yellow-400"
+                          ? "bg-green-500 text-green-400"
+                          : "bg-yellow-500 text-yellow-400"
                       }`}
                     >
                       {item.status}
                     </span>
                   </td>
                   <td className="p-4 w-[150px]">
-                    <div className="w-full bg-[var(--muted)]/30 rounded-full h-2.5">
+                    <div className="w-full bg-muted rounded-full h-2.5">
                       <div
                         className="bg-blue-500 h-2.5 rounded-full"
                         style={{ width: item.progress }}

@@ -25,7 +25,7 @@ const useExpense = create<ExpenseState & ExpenseAction>((set) => ({
     updateExpense: (expense: Expense) => (
         set((state) => ({
             expenses: state.expenses.map(ex => (
-                ex.id === expense.id ? expense : ex // Corrected logic here
+                ex.id === expense.id ? expense : ex
             ))
         }))
     ),

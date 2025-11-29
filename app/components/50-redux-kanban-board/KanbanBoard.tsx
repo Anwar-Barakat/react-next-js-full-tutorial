@@ -15,7 +15,7 @@ const KanbanBoard: React.FC = () => {
   const sensors = useSensors(
     useSensor(PointerSensor, {
       activationConstraint: {
-        distance: 8, // Enable dragging after 8px of movement
+        distance: 8,
       },
     })
   );
@@ -48,13 +48,11 @@ const KanbanBoard: React.FC = () => {
     }
 
     const activeCardIndex = board.columns[activeColumnId].cardIds.indexOf(active.id as string);
-    // Determine the overCardIndex carefully. If over is a column itself, place at end.
-    // If over is a card, get its index within its column.
     const overCardIndex = over.data.current?.sortable?.index ?? board.columns[overColumnId].cardIds.length;
 
 
     if (activeColumnId === overColumnId) {
-      if (activeCardIndex === -1) return; // Should not happen if activeCardIndex is found
+      if (activeCardIndex === -1) return;
 
       const newCardIds = arrayMove(
         board.columns[activeColumnId].cardIds,
@@ -62,7 +60,6 @@ const KanbanBoard: React.FC = () => {
         overCardIndex
       );
 
-      // Dispatch moveCard for reordering within the same column
       dispatch(
         moveCard({
           sourceColumnId: activeColumnId,
@@ -73,13 +70,12 @@ const KanbanBoard: React.FC = () => {
         })
       );
     } else {
-      // Moving card between columns
       dispatch(
         moveCard({
           sourceColumnId: activeColumnId,
           destinationColumnId: overColumnId,
           sourceIndex: activeCardIndex,
-          destinationIndex: overCardIndex, // Use the calculated overCardIndex for inter-column moves
+          destinationIndex: overCardIndex,
           draggableId: active.id as string,
         })
       );

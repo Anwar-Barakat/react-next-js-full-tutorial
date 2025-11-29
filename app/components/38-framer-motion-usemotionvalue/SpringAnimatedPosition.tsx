@@ -14,9 +14,9 @@ const SpringAnimatedPosition = () => {
   return (
     <div className="glass flex flex-col items-center">
       <h3 className="text-xl font-bold text-foreground mb-4">Exercise 3: Spring-Animated Position</h3>
-      <div className="w-full h-48 flex items-center justify-center bg-muted/50 rounded-lg overflow-hidden relative">
+      <div className="w-full h-48 flex items-center justify-center bg-muted rounded-lg overflow-hidden relative">
         <motion.div
-          className="w-24 h-24 bg-warning/50 rounded-lg cursor-pointer"
+          className="w-24 h-24 bg-warning rounded-lg cursor-pointer"
           style={{ x, y }}
           onClick={handleClick}
           transition={{ type: "spring", stiffness: 300, damping: 20 }}

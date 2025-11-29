@@ -12,14 +12,14 @@ const Header = () => {
                     value={searchTitle}
                     name='title'
                     onChange={(e) => setSearchTitle(e.target.value)}
-                    className="input w-full md:w-1/2"
+                    className="input w-full md:w-1/2 bg-card"
                     placeholder="Search for products..."
                 />
             </div>
             <div className="relative">
                 <AiOutlineShoppingCart className="w-8 h-8 text-gray-600" />
                 {cartCount > 0 && (
-                    <span className="absolute -top-2 -right-2 bg-primary text-white rounded-full w-6 h-6 flex items-center justify-center text-xs">
+                    <span className="absolute -top-2 -right-2 bg-primary/50 text-foreground rounded-full w-6 h-6 flex items-center justify-center text-xs">
                         {cartCount}
                     </span>
                 )}

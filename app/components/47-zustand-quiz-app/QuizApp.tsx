@@ -26,14 +26,14 @@ const QuizApp = () => {
 
   if (showScore) {
     return (
-      <div className="flex flex-col items-center justify-center h-screen bg-gray-50">
-        <h1 className="text-2xl font-semibold mb-4">Quiz Completed 🎉</h1>
-        <p className="text-lg mb-4">
-          Your score: <strong>{score}</strong> / {questions.length}
+      <div className="glass flex flex-col items-center justify-center h-screen">
+        <h1 className="text-2xl font-semibold mb-4 text-foreground">Quiz Completed 🎉</h1>
+        <p className="text-lg mb-4 text-foreground">
+          Your score: <strong className="text-accent">{score}</strong> / {questions.length}
         </p>
         <button
           onClick={resetQuiz}
-          className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+          className="btn bg-primary/50 text-foreground"
         >
           Restart Quiz
         </button>
@@ -45,21 +45,21 @@ const QuizApp = () => {
     <div className="flex h-screen">
       <Sidebar />
 
-      <div className="flex flex-col w-3/4 p-8">
-        <h2 className="text-xl font-bold mb-4">
+      <div className="glass flex flex-col w-3/4 p-8">
+        <h2 className="text-xl font-bold mb-4 text-foreground">
           Question {currentQuestion + 1} of {questions.length}
         </h2>
-        <p className="text-lg mb-4">{question.question}</p>
+        <p className="text-lg mb-4 text-foreground">{question.question}</p>
 
         <div className="space-y-3">
           {question.options.map((option, index) => (
             <label
               key={index}
               htmlFor={`option-${index}`}
-              className={`block p-3 border rounded cursor-pointer ${
+              className={`block p-3 border rounded cursor-pointer text-foreground ${
                 currentAnswer === index
-                  ? "bg-blue-100 border-blue-500"
-                  : "hover:bg-gray-100"
+                  ? "bg-primary/50 border-primary"
+                  : "hover:bg-muted/50"
               }`}
             >
               <input
@@ -79,13 +79,13 @@ const QuizApp = () => {
           <button
             onClick={previousQuestion}
             disabled={currentQuestion === 0}
-            className="px-4 py-2 bg-gray-300 rounded hover:bg-gray-400 disabled:opacity-50"
+            className="btn bg-muted/50 text-foreground disabled:opacity-50"
           >
             Previous
           </button>
           <button
             onClick={nextQuestion}
-            className="px-4 py-2 bg-blue-500 text-white rounded hover:bg-blue-600"
+            className="btn bg-primary/50 text-foreground"
           >
             {currentQuestion === questions.length - 1 ? "Finish" : "Next"}
           </button>

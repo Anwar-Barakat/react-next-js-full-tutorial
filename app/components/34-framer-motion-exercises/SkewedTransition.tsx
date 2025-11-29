@@ -6,9 +6,9 @@ const SkewedTransition = () => {
   return (
     <div className="glass flex flex-col items-center">
       <h3 className="text-xl font-bold text-[var(--foreground)] mb-4">Exercise 4: Skewed Transition</h3>
-      <div className="w-full h-32 flex items-center justify-center bg-[var(--muted)]/50 rounded-lg overflow-hidden">
+      <div className="w-full h-32 flex items-center justify-center bg-muted rounded-lg overflow-hidden">
         <motion.div
-          className="w-32 h-20 bg-[var(--warning)]/50 rounded-lg cursor-pointer"
+          className="w-32 h-20 bg-warning rounded-lg cursor-pointer"
           whileTap={{ skewX: 20, skewY: 10 }}
           transition={{ duration: 0.3 }}
         />

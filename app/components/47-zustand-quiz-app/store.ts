@@ -101,6 +101,10 @@ export const useQuizStore = create<QuizState>((set) => ({
                 "To create backups",
                 "To manage user permissions",
                 "To speed up data retrieval",
+                "To store large files",
+                "To create backups",
+                "To manage user permissions",
+                "To speed up data retrieval",
             ],
             correctAnswer: 3,
         },
@@ -144,7 +148,7 @@ export const useQuizStore = create<QuizState>((set) => ({
         set((state) => ({
             currentQuestion: 0,
             score: 0,
-            answers: Array(state.questions.length).fill(null), // Use questions.length for answers array size
+            answers: Array(state.questions.length).fill(null),
             showScore: false,
         }));
     },

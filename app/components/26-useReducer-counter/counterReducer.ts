@@ -1,6 +1,3 @@
-// app/components/26-useReducer-counter/counterReducer.ts
-
-// 1. Define State and Actions
 export interface CounterState {
   count: number;
 }
@@ -23,8 +20,6 @@ export function counterReducer(state: CounterState, action: CounterAction): Coun
     case 'reset':
       return { count: action.payload };
     default:
-      // This should ideally not be reached if all action types are handled
-      // For robustness, you might throw an error or return the current state
       return state;
   }
 }
