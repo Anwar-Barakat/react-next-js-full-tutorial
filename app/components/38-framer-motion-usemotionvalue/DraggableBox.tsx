@@ -15,17 +15,17 @@ const DraggableBox = () => {
   );
 
   return (
-    <div className="card flex flex-col items-center">
-      <h3 className="text-xl font-bold text-white mb-4">Exercise 1: Draggable Box</h3>
+    <div className="glass flex flex-col items-center">
+      <h3 className="text-xl font-bold text-foreground mb-4">Exercise 1: Draggable Box</h3>
       <div className="min-h-screen flex flex-col items-center justify-center gap-4 ">
         <motion.div
-          className="w-32 h-32 bg-blue-500 rounded-lg shadow-lg cursor-grab"
+          className="w-32 h-32 bg-primary/50 rounded-lg shadow-lg cursor-grab"
           drag
           style={{ x, y }}
           dragConstraints={{ left: -150, right: 150, top: -150, bottom: 150 }}
           whileDrag={{ scale: 1.05 }}
         />
-        <p className="text-lg font-semibold text-white">
+        <p className="text-lg font-semibold text-foreground">
           Position: ({position.x.toFixed(0)}, {position.y.toFixed(0)})
         </p>
       </div>

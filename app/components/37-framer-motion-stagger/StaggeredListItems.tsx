@@ -21,19 +21,18 @@ const StaggeredListItems = () => {
   const items = ['Item 1', 'Item 2', 'Item 3', 'Item 4', 'Item 5'];
 
   return (
-    <div className="card flex flex-col items-center">
-      <h3 className="text-xl font-bold text-white mb-4">Exercise 1: Staggered List Items</h3>
+    <div className="glass flex flex-col items-center">
+      <h3 className="text-xl font-bold text-foreground mb-4">Exercise 1: Staggered List Items</h3>
       <motion.div
-        className="w-full max-w-xs bg-gray-700 rounded-lg p-4"
+        className="w-full max-w-xs bg-muted/50 rounded-lg p-4"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
       >
         {items.map((item, index) => (
-          <motion.div
-            key={index}
-            className="bg-gray-800 p-3 mb-2 rounded-md text-white"
-            variants={itemVariants}
+                      <motion.div
+                        key={index}
+                        className="bg-card/50 p-3 mb-2 rounded-md text-foreground"            variants={itemVariants}
           >
             {item}
           </motion.div>
