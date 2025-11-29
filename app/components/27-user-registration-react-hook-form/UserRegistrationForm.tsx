@@ -44,7 +44,7 @@ export const UserRegistrationForm: React.FC = () => {
   };
 
   const inputClasses = (hasError: boolean) => 
-    `input w-full bg-white/10 border-white/20 focus:border-primary focus:bg-white/20 ${hasError ? 'input-error' : ''}`;
+    `input w-full bg-white border-white focus:border-primary focus:bg-white ${hasError ? 'input-error' : ''}`;
 
   return (
     <div className="w-full max-w-md glass">
@@ -103,7 +103,7 @@ export const UserRegistrationForm: React.FC = () => {
 
         <button
           type="submit"
-          className="btn bg-primary/50 w-full btn-lg"
+          className="btn bg-primary w-full btn-lg"
         >
           Register
         </button>

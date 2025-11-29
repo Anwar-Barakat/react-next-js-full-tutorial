@@ -26,7 +26,7 @@ export const UserProfile: React.FC = () => {
       </div>
       <button
         onClick={updateAge}
-        className="btn bg-accent/50"
+        className="btn bg-accent"
       >
         Celebrate Birthday!
       </button>

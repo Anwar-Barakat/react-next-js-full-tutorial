@@ -20,11 +20,11 @@ export const SubmitEventHandler: React.FC = () => {
           type="text"
           value={inputValue}
           onChange={(e) => setInputValue(e.target.value)}
-          className="input w-full mb-3 bg-white/10 border-white/20 focus:border-primary focus:bg-white/20"
+          className="input w-full mb-3 bg-white border-white focus:border-primary focus:bg-white"
         />
         <button
           type="submit"
-          className="btn bg-accent/50 w-full"
+          className="btn bg-accent w-full"
         >
           Submit Form
         </button>

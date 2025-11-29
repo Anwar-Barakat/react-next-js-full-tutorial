@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Fira_Code } from "next/font/google";
 import "./globals.css";
 import { Providers } from './providers';
+import ThemeToggleButton from './components/theme-toggle/ThemeToggleButton';
 
 const inter = Inter({
   variable: "--font-sans",
@@ -24,10 +25,13 @@ export default function RootLayout({
   children: React.ReactNode;
 }>) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning className="dark">
       <body className={`${inter.variable} ${firaCode.variable} antialiased`}>
         <Providers>
-          <main className="container py-8">
+          <main className="container py-8 relative">
+            <div className="absolute top-4 right-4 z-10">
+              <ThemeToggleButton />
+            </div>
             {children}
           </main>
         </Providers>

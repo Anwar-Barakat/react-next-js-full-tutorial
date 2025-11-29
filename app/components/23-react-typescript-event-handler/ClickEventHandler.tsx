@@ -15,7 +15,7 @@ export const ClickEventHandler: React.FC = () => {
       </p>
       <button
         onClick={handleClick}
-        className="btn bg-primary/50"
+        className="btn bg-primary"
       >
         Click Me
       </button>

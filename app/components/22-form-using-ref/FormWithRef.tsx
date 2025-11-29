@@ -46,25 +46,25 @@ export const FormWithRef = () => {
           name="name"
           placeholder="Name"
           ref={nameRef}
-          className="input w-full bg-white/10 border-white/20 focus:border-primary focus:bg-white/20"
+          className="input w-full bg-white border-white focus:border-primary focus:bg-white"
         />
         <input
           type="email"
           name="email"
           placeholder="Email"
           ref={emailRef}
-          className="input w-full bg-white/10 border-white/20 focus:border-primary focus:bg-white/20"
+          className="input w-full bg-white border-white focus:border-primary focus:bg-white"
         />
         <input
           type="password"
           name="password"
           placeholder="Password"
           ref={passwordRef}
-          className="input w-full bg-white/10 border-white/20 focus:border-primary focus:bg-white/20"
+          className="input w-full bg-white border-white focus:border-primary focus:bg-white"
         />
         <button
           type="submit"
-          className="btn bg-primary/50 w-full"
+          className="btn bg-primary w-full"
         >
           Submit
         </button>

@@ -19,9 +19,8 @@ export const ChangeEventHandler: React.FC = () => {
         value={value}
         onChange={handleChange}
         placeholder="Type something..."
-        className="input w-full mb-3 bg-white/10 border-white/20 focus:border-primary focus:bg-white/20"
-      />
-      <p className="text-foreground">Input value: <span className="font-mono bg-white/10 p-2 rounded-lg text-primary">{value || '...'}</span></p>
+                  className="input w-full mb-3 bg-white border-white focus:border-primary focus:bg-white"      />
+      <p className="text-foreground">Input value: <span className="font-mono bg-white p-2 rounded-lg text-primary">{value || '...'}</span></p>
     </div>
   );
 };

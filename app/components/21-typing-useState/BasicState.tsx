@@ -14,7 +14,7 @@ export const BasicState: React.FC = () => {
       <p className="mb-4 text-lg text-foreground">Count: <span className="font-bold text-accent">{count}</span></p>
       <button
         onClick={increment}
-        className="btn bg-primary/50"
+        className="btn bg-primary"
       >
         Increment
       </button>
