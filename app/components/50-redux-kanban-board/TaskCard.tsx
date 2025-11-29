@@ -50,7 +50,7 @@ const TaskCard: React.FC<TaskCardProps> = React.memo(({ card, index, columnId })
       style={style}
       {...attributes}
       {...listeners}
-            className={`bg-card/50 p-3 mb-3 rounded shadow-sm border border-border text-foreground ${isDragging ? 'shadow-lg transform rotate-2 bg-primary/50' : ''}`}
+      className={`bg-card p-3 mb-3 rounded shadow-sm border border-border text-foreground ${isDragging ? 'shadow-lg transform rotate-2 bg-primary/50' : ''}`}
     >
       {isEditing ? (
         <div className="flex flex-col gap-2">
@@ -58,7 +58,7 @@ const TaskCard: React.FC<TaskCardProps> = React.memo(({ card, index, columnId })
             value={editContent}
             onChange={(e) => setEditContent(e.target.value)}
             placeholder="Enter card content..."
-            className="input resize-none focus:ring-primary text-sm bg-card/50 text-foreground"
+            className="input resize-none focus:ring-primary text-sm bg-card text-foreground"
             rows={2}
             autoFocus
           />

@@ -24,7 +24,7 @@ const StaggeredGridLayout = () => {
     <div className="glass flex flex-col items-center">
       <h3 className="text-xl font-bold text-foreground mb-4">Exercise 4: Staggered Grid Layout</h3>
       <motion.div
-        className="grid grid-cols-2 gap-6 p-4 bg-muted/50 rounded-lg"
+        className="grid grid-cols-2 gap-6 p-4 bg-muted rounded-lg"
         variants={containerVariants}
         initial="hidden"
         animate="visible"
@@ -32,7 +32,7 @@ const StaggeredGridLayout = () => {
         {items.map((item, index) => (
           <motion.div
             key={index}
-            className="w-24 h-24 bg-accent/50 rounded-md flex items-center justify-center text-foreground text-sm"
+            className="w-24 h-24 bg-accent rounded-md flex items-center justify-center text-foreground text-sm"
             variants={itemVariants}
           >
             {item}

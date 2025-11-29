@@ -7,7 +7,7 @@ const PulsatingButton = () => {
     <div className="glass flex flex-col items-center">
       <h3 className="text-xl font-bold text-foreground mb-4">Exercise 2: Pulsating Effect</h3>
       <motion.button
-        className="btn bg-[var(--secondary)]/50"
+        className="btn bg-secondary"
         animate={{ scale: [1, 1.1, 1] }}
         transition={{
           duration: 1.5,

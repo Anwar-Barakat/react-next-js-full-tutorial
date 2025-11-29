@@ -23,7 +23,7 @@ const HorizontalScrollGallery = () => {
               {images.map((image, index) => (
                 <div
                   key={index}
-                  className="w-80 h-64 rounded-lg shadow-lg flex-shrink-0 bg-card/50"
+                  className="w-80 h-64 rounded-lg shadow-lg flex-shrink-0 bg-card"
                   style={{
                     backgroundImage: `url(${image})`,
                     backgroundSize: "cover",

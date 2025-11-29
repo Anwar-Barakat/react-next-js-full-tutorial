@@ -32,7 +32,7 @@ const StaggeredFadeSlideIn = () => {
         {items.map((item, index) => (
           <motion.li
             key={index}
-            className="bg-card/50 p-3 mb-2 rounded-md text-foreground"
+            className="bg-card p-3 mb-2 rounded-md text-foreground"
             variants={itemVariants}
           >
             {item}

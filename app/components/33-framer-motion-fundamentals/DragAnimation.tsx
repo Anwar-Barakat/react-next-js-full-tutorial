@@ -6,9 +6,9 @@ const DragAnimation = () => {
   return (
     <div className="glass flex flex-col items-center">
         <h3 className="text-xl font-bold text-[var(--foreground)] mb-4">Drag Animation</h3>
-        <div className="w-64 h-64 bg-[var(--muted)]/50 rounded-lg flex justify-center items-center">
+        <div className="w-64 h-64 bg-muted rounded-lg flex justify-center items-center">
             <motion.div
-                className="w-32 h-32 bg-[var(--primary)]/50 rounded-lg flex justify-center items-center text-[var(--foreground)] font-bold"
+                className="w-32 h-32 bg-primary rounded-lg flex justify-center items-center text-[var(--foreground)] font-bold"
                 drag
                 dragConstraints={{
                     top: -50,

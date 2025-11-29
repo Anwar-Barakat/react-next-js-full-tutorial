@@ -17,8 +17,8 @@
   --shadow-md: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
   --shadow-lg: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
   --warning: #fbbf24;
-  --glass-bg: rgba(26, 29, 35, 0.5);
-  --glass-border: rgba(255, 255, 255, 0.1);
+  --glass-bg: var(--card);
+  --glass-border: var(--border);
   --body-background: linear-gradient(to right, #0f2027, #203a43, #2c5364);
   --default-component-bg: var(--glass-bg);
 }
@@ -36,8 +36,8 @@
   --card: #ffffff;
   --card-foreground: #171717;
   --warning: #f59e0b;
-  --glass-bg: rgba(255, 255, 255, 0.2);
-  --glass-border: rgba(255, 255, 255, 0.3);
+  --glass-bg: var(--card);
+  --glass-border: var(--border);
   --body-background: linear-gradient(to right, #83a4d4, #b6fbff);
 }
 
@@ -383,14 +383,11 @@ body {
 @layer components {
   .glass {
     background: var(--glass-bg);
-    backdrop-filter: blur(10px);
-    -webkit-backdrop-filter: blur(10px);
     border-radius: var(--radius);
     border: 1px solid var(--glass-border);
     box-shadow: var(--shadow-lg);
     padding: 1.5rem;
     transition: all 0.3s ease;
-    cursor: pointer;
   }
   .glass:hover {
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.2), 0 4px 6px -4px rgb(0 0 0 / 0.2);

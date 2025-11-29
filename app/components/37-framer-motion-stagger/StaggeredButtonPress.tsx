@@ -24,7 +24,7 @@ const StaggeredButtonPress = () => {
     <div className="glass flex flex-col items-center">
       <h3 className="text-xl font-bold text-foreground mb-4">Exercise 3: Staggered Button Press</h3>
       <motion.div
-        className="flex space-x-4 p-4 bg-muted/50 rounded-lg"
+        className="flex space-x-4 p-4 bg-muted rounded-lg"
         variants={containerVariants}
         initial="hidden"
         whileHover="visible"

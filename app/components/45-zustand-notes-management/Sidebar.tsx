@@ -10,13 +10,13 @@ const Sidebar = () => {
   );
 
   return (
-    <div className="w-1/3 p-4 border-r border-[var(--border)] bg-card/50 flex flex-col">
+    <div className="w-1/3 p-4 border-r border-[var(--border)] bg-card flex flex-col">
       <input
         type="text"
         placeholder="Search notes..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="input mb-4 bg-card/50"
+        className="input mb-4 bg-card"
       />
 
       <button

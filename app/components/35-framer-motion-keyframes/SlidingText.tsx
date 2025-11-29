@@ -6,7 +6,7 @@ const SlidingText = () => {
   return (
     <div className="glass flex flex-col items-center">
       <h3 className="text-xl font-bold text-foreground mb-4">Exercise 4: Sliding Text</h3>
-      <div className="w-full h-32 flex items-center justify-center bg-[var(--muted)]/50 rounded-lg overflow-hidden">
+      <div className="w-full h-32 flex items-center justify-center bg-muted rounded-lg overflow-hidden">
         <motion.p
           className="text-3xl font-bold text-foreground"
           initial={{ x: -200, opacity: 0 }}

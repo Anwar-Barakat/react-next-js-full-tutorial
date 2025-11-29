@@ -20,7 +20,7 @@ const Sidebar = () => {
   const cartTotal = cart.reduce((total, item) => total + +item.newPrice, 0)
 
   return (
-    <aside className="w-80 bg-card/50 p-4 border-r border-border flex flex-col">
+    <aside className="w-80 bg-card p-4 border-r border-border flex flex-col">
       <div>
         <h2 className="text-lg font-semibold mb-4 heading-gradient">Filters</h2>
         <div className="space-y-4">
@@ -31,7 +31,7 @@ const Sidebar = () => {
               type="number"
               value={searchMinPrice || ''}
               onChange={e => setSearchMinPrice(e.target.value ? +e.target.value : null)}
-              className="input bg-card/50"
+              className="input bg-card"
               placeholder="0"
             />
           </div>
@@ -42,7 +42,7 @@ const Sidebar = () => {
               type="number"
               value={searchMaxPrice || ''}
               onChange={e => setSearchMaxPrice(e.target.value ? +e.target.value : null)}
-              className="input bg-card/50"
+              className="input bg-card"
               placeholder="1000"
             />
           </div>
@@ -52,7 +52,7 @@ const Sidebar = () => {
               id="category"
               value={searchCategory}
               onChange={e => setSearchCategory(e.target.value)}
-              className="input bg-card/50"
+              className="input bg-card"
             >
               {categories.map(category => (
                 <option key={category} value={category.toLowerCase()}>{category}</option>

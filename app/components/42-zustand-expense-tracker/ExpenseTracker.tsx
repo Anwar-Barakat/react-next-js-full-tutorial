@@ -58,7 +58,7 @@ const ExpenseTracker = () => {
           placeholder="Expense Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="input mb-2 w-full bg-card/50"
+          className="input mb-2 w-full bg-card"
         />
 
         <input
@@ -67,7 +67,7 @@ const ExpenseTracker = () => {
           placeholder="Amount"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
-          className="input mb-4 w-full bg-card/50"
+          className="input mb-4 w-full bg-card"
         />
         {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
         <button onClick={handleSubmit} className="btn bg-primary/50 w-full">
@@ -81,7 +81,7 @@ const ExpenseTracker = () => {
           <p className="text-muted-foreground text-center">No expenses added yet.</p>
         ) : (
           expenses.map((expense) => (
-            <li key={expense.id} className="bg-card/50 p-3 mb-2 rounded-md text-foreground flex justify-between items-center">
+            <li key={expense.id} className="bg-card p-3 mb-2 rounded-md text-foreground flex justify-between items-center">
               <div>
                 <strong>{expense.title}</strong> - ${expense.amount.toFixed(2)}
               </div>

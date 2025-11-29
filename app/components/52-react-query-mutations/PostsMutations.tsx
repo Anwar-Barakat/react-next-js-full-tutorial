@@ -132,14 +132,14 @@ const PostsMutations: React.FC = () => {
           placeholder="Post Title"
           value={newPostTitle}
           onChange={(e) => setNewPostTitle(e.target.value)}
-          className="input w-full bg-card/50"
+          className="input w-full bg-card"
         />
         <input
           type="text"
           placeholder="Author"
           value={newPostAuthor}
           onChange={(e) => setNewPostAuthor(e.target.value)}
-          className="input w-full bg-card/50"
+          className="input w-full bg-card"
         />
         <button
           onClick={handleAddPost}
@@ -164,13 +164,13 @@ const PostsMutations: React.FC = () => {
                   type="text"
                   value={editTitle}
                   onChange={(e) => setEditTitle(e.target.value)}
-                  className="input w-full bg-card/50"
+                  className="input w-full bg-card"
                 />
                 <input
                   type="text"
                   value={editAuthor}
                   onChange={(e) => setEditAuthor(e.target.value)}
-                  className="input w-full bg-card/50"
+                  className="input w-full bg-card"
                 />
                 <div className="flex gap-2 mt-2">
                   <button

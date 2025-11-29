@@ -47,20 +47,20 @@ const RecipeApp = () => {
         placeholder="Recipe name"
         value={name}
         onChange={(e) => setName(e.target.value)}
-        className="input mb-2 w-full max-w-md bg-card/50"
+        className="input mb-2 w-full max-w-md bg-card"
       />
       <input
         type="text"
         placeholder="Ingredients (comma separated)"
         value={ingredients}
         onChange={(e) => setIngredients(e.target.value)}
-        className="input mb-2 w-full max-w-md bg-card/50"
+        className="input mb-2 w-full max-w-md bg-card"
       />
       <textarea
         placeholder="Instructions"
         value={instructions}
         onChange={(e) => setInstructions(e.target.value)}
-        className="input mb-4 w-full max-w-md h-24 bg-card/50"
+        className="input mb-4 w-full max-w-md h-24 bg-card"
       />
 
       <button onClick={handleSubmit} className="btn bg-primary/50 mb-6">
@@ -70,7 +70,7 @@ const RecipeApp = () => {
       <h3 className="text-xl font-bold text-foreground mb-3">My Recipes</h3>
       <ul className="w-full max-w-md bg-muted/50 rounded-lg p-4">
         {recipes.map((recipe) => (
-          <li key={recipe.id} className="bg-card/50 p-3 mb-2 rounded-md text-foreground">
+          <li key={recipe.id} className="bg-card p-3 mb-2 rounded-md text-foreground">
             <strong>{recipe.name}</strong>
             <p className="text-sm text-muted-foreground">Ingredients: {recipe.ingredients.join(", ")}</p>
             <p className="text-sm text-muted-foreground">Instructions: {recipe.instructions}</p>

@@ -14,7 +14,6 @@ const Card: FC<CardProps> = ({ title, description, image, link, imageAlt }) => {
   const isExternalLink = useMemo(() => {
     if (!link) return false;
     if (typeof window === "undefined") {
-      // SSR fallback: check if link starts with http/https
       return link.startsWith("http://") || link.startsWith("https://");
     }
     try {

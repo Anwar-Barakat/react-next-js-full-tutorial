@@ -25,12 +25,12 @@ const FlippingCard = () => {
                 className="relative w-64 h-40 rounded-lg shadow-lg [transform-style:preserve-3d]"
             >
                 {/* Front side */}
-                <div className="absolute inset-0 bg-[var(--secondary)]/50 flex items-center justify-center text-xl font-bold [backface-visibility:hidden] rounded-lg">
+                <div className="absolute inset-0 bg-secondary flex items-center justify-center text-xl font-bold [backface-visibility:hidden] rounded-lg">
                 Front side
                 </div>
 
                 {/* Back side */}
-                <div className="absolute inset-0 bg-[var(--primary)]/50 flex items-center justify-center text-xl font-bold text-[var(--foreground)] [transform:rotateY(180deg)] [backface-visibility:hidden] rounded-lg">
+                <div className="absolute inset-0 bg-primary flex items-center justify-center text-xl font-bold text-[var(--foreground)] [transform:rotateY(180deg)] [backface-visibility:hidden] rounded-lg">
                 Back side
                 </div>
             </motion.div>

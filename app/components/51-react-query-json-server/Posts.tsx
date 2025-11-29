@@ -35,7 +35,7 @@ const Posts: React.FC = () => {
     <div className="space-y-4">
       <h2 className="text-2xl font-semibold text-foreground">Posts</h2>
       {data?.map((post) => (
-        <div key={post.id} className="p-4 border rounded-lg shadow-sm bg-card/50">
+        <div key={post.id} className="p-4 border rounded-lg shadow-sm bg-card">
           <h3 className="text-lg font-medium text-primary">{post.title}</h3>
           <p className="text-muted-foreground">Author: {post.author}</p>
         </div>

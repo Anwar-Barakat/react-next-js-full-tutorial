@@ -12,7 +12,7 @@ const ProductDetails: FC<ProductDetailsProps> = ({ product }) => {
     const { addToCart } = useProductStore();
 
     return (
-        <div className="flex flex-col h-full bg-card/50 border border-border rounded-lg shadow-md hover:shadow-lg transition-shadow">
+        <div className="flex flex-col h-full bg-card border border-border rounded-lg shadow-md hover:shadow-lg transition-shadow">
             <img
                 src={product.image}
                 alt={product.name}

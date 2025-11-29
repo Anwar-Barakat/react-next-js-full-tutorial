@@ -15,11 +15,11 @@ const NavigationMenu = () => {
       <h3 className="text-xl font-bold text-foreground mb-4">Exercise 2: Navigation Menu</h3>
       <button
         onClick={() => setIsOpen(!isOpen)}
-        className="px-4 py-2 mb-4 bg-[var(--primary)]/50 text-foreground rounded hover:bg-[var(--primary-hover)]/50 transition-colors"
+        className="px-4 py-2 mb-4 bg-primary text-foreground rounded hover:bg-primary-hover transition-colors"
       >
         Toggle Menu
       </button>
-      <div className="w-full h-48 bg-[var(--muted)]/50 rounded-lg relative overflow-hidden">
+      <div className="w-full h-48 bg-muted rounded-lg relative overflow-hidden">
         <AnimatePresence>
           {isOpen && (
             <motion.div
@@ -28,7 +28,7 @@ const NavigationMenu = () => {
               animate="open"
               exit="closed"
               transition={{ duration: 0.3 }}
-              className="absolute top-0 left-0 h-full w-2/3 bg-[var(--accent)]/50 p-4 text-foreground flex flex-col justify-center items-center"
+              className="absolute top-0 left-0 h-full w-2/3 bg-accent p-4 text-foreground flex flex-col justify-center items-center"
             >
               <p className="text-lg font-bold">Menu Item 1</p>
               <p className="text-lg font-bold">Menu Item 2</p>

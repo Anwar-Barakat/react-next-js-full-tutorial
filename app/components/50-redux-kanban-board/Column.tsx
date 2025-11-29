@@ -37,7 +37,7 @@ const Column: React.FC<ColumnProps> = React.memo(({ column }) => {
   };
 
   return (
-    <div className="bg-card/50 rounded-lg shadow-md p-4 w-80 flex flex-col flex-shrink-0 mx-2">
+    <div className="bg-card rounded-lg shadow-md p-4 w-80 flex flex-col flex-shrink-0 mx-2">
       <h3 className="text-lg font-semibold mb-4 text-foreground">{title}</h3>
       <div
         ref={setNodeRef}
@@ -57,7 +57,7 @@ const Column: React.FC<ColumnProps> = React.memo(({ column }) => {
               value={newCardContent}
               onChange={(e) => setNewCardContent(e.target.value)}
               placeholder="Enter card content..."
-              className="input resize-none focus:ring-primary text-sm bg-card/50 text-foreground"
+              className="input resize-none focus:ring-primary text-sm bg-card text-foreground"
               rows={2}
               autoFocus
               onKeyDown={(e) => {

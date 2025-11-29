@@ -30,7 +30,7 @@ const StaggerChildren = () => {
             {[...Array(5)].map((_, index) => (
                 <motion.div
                 key={index}
-                className="w-16 h-16 bg-[var(--primary)]/50 rounded"
+                className="w-16 h-16 bg-primary rounded"
                 variants={childVariant}
                 />
             ))}

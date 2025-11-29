@@ -19,7 +19,7 @@ const NotesApp = () => {
 
       <div className="w-2/3 p-8 flex flex-col bg-background/50 rounded-r-[var(--radius)]">
         <textarea
-          className="flex-1 p-4 border border-[var(--border)] rounded-lg mb-4 input bg-card/50"
+          className="flex-1 p-4 border border-[var(--border)] rounded-lg mb-4 input bg-card"
           placeholder="Write your note..."
           value={editorContent}
           onChange={(e) => setEditorContent(e.target.value)}
