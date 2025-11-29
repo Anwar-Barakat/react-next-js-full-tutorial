@@ -48,8 +48,8 @@ const ExpenseTracker = () => {
   };
 
   return (
-    <div className="card flex flex-col items-center p-6">
-      <h2 className="text-2xl font-bold text-white mb-4">Expense Tracker</h2>
+    <div className="glass flex flex-col items-center p-6">
+      <h2 className="text-2xl font-bold text-foreground mb-4">Expense Tracker</h2>
 
       <div className="w-full max-w-md mb-6">
         <input
@@ -58,7 +58,7 @@ const ExpenseTracker = () => {
           placeholder="Expense Title"
           value={title}
           onChange={(e) => setTitle(e.target.value)}
-          className="input mb-2 w-full"
+          className="input mb-2 w-full bg-card/50"
         />
 
         <input
@@ -67,34 +67,34 @@ const ExpenseTracker = () => {
           placeholder="Amount"
           value={amount}
           onChange={(e) => setAmount(e.target.value)}
-          className="input mb-4 w-full"
+          className="input mb-4 w-full bg-card/50"
         />
         {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
-        <button onClick={handleSubmit} className="btn btn-primary w-full">
+        <button onClick={handleSubmit} className="btn bg-primary/50 w-full">
           {editingExpense ? "Update Expense" : "Add Expense"}
         </button>
       </div>
 
-      <h3 className="text-xl font-bold text-white mb-3">Expenses</h3>
-      <ul className="w-full max-w-md bg-gray-700 rounded-lg p-4">
+      <h3 className="text-xl font-bold text-foreground mb-3">Expenses</h3>
+      <ul className="w-full max-w-md bg-muted/50 rounded-lg p-4">
         {expenses.length === 0 ? (
-          <p className="text-gray-400 text-center">No expenses added yet.</p>
+          <p className="text-muted-foreground text-center">No expenses added yet.</p>
         ) : (
           expenses.map((expense) => (
-            <li key={expense.id} className="bg-gray-800 p-3 mb-2 rounded-md text-white flex justify-between items-center">
+            <li key={expense.id} className="bg-card/50 p-3 mb-2 rounded-md text-foreground flex justify-between items-center">
               <div>
                 <strong>{expense.title}</strong> - ${expense.amount.toFixed(2)}
               </div>
               <div className="flex space-x-2">
-                <button onClick={() => handleEdit(expense)} className="btn btn-sm btn-accent">Edit</button>
-                <button onClick={() => deleteExpense(expense.id)} className="btn btn-sm btn-danger">Delete</button>
+                <button onClick={() => handleEdit(expense)} className="btn btn-sm bg-accent/50">Edit</button>
+                <button onClick={() => deleteExpense(expense.id)} className="btn btn-sm bg-secondary/50">Delete</button>
               </div>
             </li>
           ))
         )}
       </ul>
 
-      <div className="w-full max-w-md mt-4 p-3 bg-gray-700 rounded-lg text-white text-lg font-bold flex justify-between">
+      <div className="w-full max-w-md mt-4 p-3 bg-muted/50 rounded-lg text-foreground text-lg font-bold flex justify-between">
         <span>Total:</span>
         <span>${totalExpenses.toFixed(2)}</span>
       </div>

@@ -103,9 +103,9 @@ const WorkspaceApp = () => {
     : [];
 
   return (
-    <div className="card flex h-screen p-0 overflow-hidden">
-      <div className="w-1/4 p-4 border-r border-border bg-card flex flex-col">
-        <h3 className="text-xl font-bold text-card-foreground mb-4">Workspaces</h3>
+    <div className="glass flex h-screen p-0 overflow-hidden">
+      <div className="w-1/4 p-4 border-r border-border bg-card/50 flex flex-col">
+        <h3 className="text-xl font-bold text-foreground mb-4">Workspaces</h3>
         <WorkspaceList
           workspaces={workspaces}
           selectedWorkspaceId={selectedWorkspaceId}
@@ -116,8 +116,8 @@ const WorkspaceApp = () => {
         />
       </div>
 
-      <div className="w-1/4 p-4 border-r border-border bg-card flex flex-col">
-        <h3 className="text-xl font-bold text-card-foreground mb-4">
+      <div className="w-1/4 p-4 border-r border-border bg-card/50 flex flex-col">
+        <h3 className="text-xl font-bold text-foreground mb-4">
           {currentWorkspaceData ? `${currentWorkspaceData.emoji} ${currentWorkspaceData.name} Lists` : 'Select a Workspace'}
         </h3>
         {selectedWorkspaceId && (
@@ -133,8 +133,8 @@ const WorkspaceApp = () => {
         )}
       </div>
 
-      <div className="w-1/2 p-4 bg-background flex flex-col">
-        <h3 className="text-xl font-bold text-card-foreground mb-4">
+      <div className="w-1/2 p-4 bg-background/50 flex flex-col">
+        <h3 className="text-xl font-bold text-foreground mb-4">
           {currentList ? `${currentList.emoji} ${currentList.name} Todos` : 'Select a List'}
         </h3>
         {selectedListId && (
@@ -150,8 +150,8 @@ const WorkspaceApp = () => {
 
       {isWorkspaceModalOpen && (
         <div className="fixed inset-0 bg-foreground/50 flex items-center justify-center z-50">
-          <div className="bg-card p-6 rounded-lg shadow-lg w-96">
-            <h4 className="text-lg font-bold text-card-foreground mb-4">
+          <div className="bg-card/50 p-6 rounded-lg shadow-lg w-96">
+            <h4 className="text-lg font-bold text-foreground mb-4">
               {currentWorkspace ? 'Edit Workspace' : 'Add Workspace'}
             </h4>
             <input
@@ -159,20 +159,20 @@ const WorkspaceApp = () => {
               placeholder="Workspace Name"
               value={modalName}
               onChange={(e) => setModalName(e.target.value)}
-              className="input mb-3 w-full"
+              className="input mb-3 w-full bg-card/50"
             />
             <input
               type="text"
               placeholder="Emoji (e.g., 🏠)"
               value={modalEmoji}
               onChange={(e) => setModalEmoji(e.target.value)}
-              className="input mb-4 w-full"
+              className="input mb-4 w-full bg-card/50"
             />
             <div className="flex justify-end gap-2">
               <button onClick={() => setIsWorkspaceModalOpen(false)} className="btn btn-muted">
                 Cancel
               </button>
-              <button onClick={handleSaveWorkspace} className="btn btn-primary">
+              <button onClick={handleSaveWorkspace} className="btn bg-primary/50">
                 {currentWorkspace ? 'Update' : 'Add'}
               </button>
             </div>
@@ -214,8 +214,8 @@ const WorkspaceApp = () => {
 
       {isTodoModalOpen && (
         <div className="fixed inset-0 bg-foreground/50 flex items-center justify-center z-50">
-          <div className="bg-card p-6 rounded-lg shadow-lg w-96">
-            <h4 className="text-lg font-bold text-card-foreground mb-4">
+          <div className="bg-card/50 p-6 rounded-lg shadow-lg w-96">
+            <h4 className="text-lg font-bold text-foreground mb-4">
               {currentTodo ? 'Edit Todo' : 'Add Todo'}
             </h4>
             <input
@@ -223,10 +223,10 @@ const WorkspaceApp = () => {
               placeholder="Todo Text"
               value={modalTodoText}
               onChange={(e) => setModalTodoText(e.target.value)}
-              className="input mb-3 w-full"
+              className="input mb-3 w-full bg-card/50"
             />
             {currentTodo && (
-              <label className="flex items-center text-card-foreground mb-4">
+              <label className="flex items-center text-foreground mb-4">
                 <input
                   type="checkbox"
                   checked={modalTodoCompleted}
@@ -240,7 +240,7 @@ const WorkspaceApp = () => {
               <button onClick={() => setIsTodoModalOpen(false)} className="btn btn-muted">
                 Cancel
               </button>
-              <button onClick={handleSaveTodo} className="btn btn-primary">
+              <button onClick={handleSaveTodo} className="btn bg-primary/50">
                 {currentTodo ? 'Update' : 'Add'}
               </button>
             </div>

@@ -53,9 +53,8 @@ import { Calculator as Calculatorv16 } from "./components/16-calculator";
 
 {/* 17-toggle-bg-color */ }
 import { ToggleBgColor as ToggleBgColorv17 } from "./components/17-toggle-bg-color";
-
 {/* 18-testimonials-gallery */ }
-import { Testimonials as Testimonialsv18, Gallery as Galleryv18 } from "./components/18-testimonials-gallery";
+import { App as Appv18 } from "./components/18-testimonials-gallery/App";
 
 {/* 19-validation-form */ }
 import { ValidationForm as ValidationFormv19 } from "./components/19-validation-form";
@@ -178,7 +177,7 @@ const components = {
   '15': { name: 'Fetching Meals Axios', component: <MealListv15 /> },
   '16': { name: 'Calculator', component: <Calculatorv16 /> },
   '17': { name: 'Toggle BG Color', component: <ToggleBgColorv17 /> },
-  '18': { name: 'Testimonials Gallery', component: <><Testimonialsv18 /><Galleryv18 /></> },
+  '18': { name: 'Testimonials Gallery', component: <Appv18 /> },
   '19': { name: 'Validation Form', component: <ValidationFormv19 /> },
   '20': { name: 'Button with Types', component: <ButtonUsageExamplev20 /> },
   '21': { name: 'Typing useState', component: <UseStateUsageExamplev21 /> },

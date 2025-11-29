@@ -10,13 +10,13 @@ const Sidebar = () => {
   );
 
   return (
-    <div className="w-1/3 p-4 border-r border-[var(--border)] bg-[var(--card)] flex flex-col">
+    <div className="w-1/3 p-4 border-r border-[var(--border)] bg-card/50 flex flex-col">
       <input
         type="text"
         placeholder="Search notes..."
         value={search}
         onChange={(e) => setSearch(e.target.value)}
-        className="input mb-4"
+        className="input mb-4 bg-card/50"
       />
 
       <button
@@ -26,7 +26,7 @@ const Sidebar = () => {
           setEditorContent("");
           setNoteColor("#ffffff");
         }}
-        className="btn btn-primary mb-4"
+        className="btn bg-primary/50 mb-4"
       >
         + New Note
       </button>
@@ -35,7 +35,7 @@ const Sidebar = () => {
         {filteredNotes.map((note, index) => (
           <li
             key={note.id}
-            className="flex items-center justify-between mb-2 p-2 rounded-md hover:bg-[var(--muted)] cursor-pointer transition-colors duration-200"
+            className="flex items-center justify-between mb-2 p-2 rounded-md hover:bg-muted/50 cursor-pointer transition-colors duration-200"
             style={{ backgroundColor: note.color + '30' }}
           >
             <div
@@ -46,14 +46,14 @@ const Sidebar = () => {
                 className="w-5 h-5 rounded-full border border-[var(--border)]"
                 style={{ backgroundColor: note.color }}
               />
-              <span className="text-white truncate">{note.text.substring(0, 30)}...</span>
+              <span className="text-foreground truncate">{note.text.substring(0, 30)}...</span>
             </div>
             <button
               onClick={(e) => {
                 e.stopPropagation();
                 deleteNote(index);
               }}
-              className="btn btn-sm btn-danger"
+              className="btn btn-sm bg-secondary/50"
             >
               X
             </button>

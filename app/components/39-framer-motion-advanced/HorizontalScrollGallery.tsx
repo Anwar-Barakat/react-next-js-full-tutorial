@@ -14,16 +14,16 @@ const HorizontalScrollGallery = () => {
   const x = useTransform(scrollYProgress, [0, 1], ["0%", "-66%"]);
 
   return (
-    <div className="card flex flex-col items-center">
-      <h3 className="text-xl font-bold text-white mb-4">Horizontal Scroll Gallery</h3>
-      <div className="w-full h-64 bg-gray-700 rounded-lg overflow-hidden">
+    <div className="glass flex flex-col items-center">
+      <h3 className="text-xl font-bold text-foreground mb-4">Horizontal Scroll Gallery</h3>
+      <div className="w-full h-64 bg-muted/50 rounded-lg overflow-hidden">
         <div className="relative h-[300px]" ref={targetRef}>
           <div className="sticky top-0 overflow-hidden">
             <motion.div className="flex gap-4 p-4" style={{ x }}>
               {images.map((image, index) => (
                 <div
                   key={index}
-                  className="w-80 h-64 rounded-lg shadow-lg flex-shrink-0 bg-gray-200"
+                  className="w-80 h-64 rounded-lg shadow-lg flex-shrink-0 bg-card/50"
                   style={{
                     backgroundImage: `url(${image})`,
                     backgroundSize: "cover",

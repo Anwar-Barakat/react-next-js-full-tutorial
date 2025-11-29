@@ -48,7 +48,7 @@ export const UserRegistrationForm: React.FC = () => {
     `input w-full bg-white/10 border-white/20 focus:border-primary focus:bg-white/20 ${hasError ? 'input-error' : ''}`;
 
   return (
-    <div className="w-full max-w-md">
+    <div className="w-full max-w-md glass">
       <form onSubmit={handleSubmit(onSubmit)} className="space-y-4">
         <div>
           <label htmlFor="fullName" className="block text-sm font-medium text-foreground mb-1">

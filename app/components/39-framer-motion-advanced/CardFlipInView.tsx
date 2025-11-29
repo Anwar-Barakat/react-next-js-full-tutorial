@@ -9,8 +9,8 @@ const cardFlipVariants = {
 
 const CardFlipInView = () => {
   return (
-    <div className="card flex flex-col items-center">
-      <h3 className="text-xl font-bold text-white mb-4">Challenge 2: Card Flip Animation</h3>
+    <div className="glass flex flex-col items-center">
+      <h3 className="text-xl font-bold text-foreground mb-4">Challenge 2: Card Flip Animation</h3>
       <div className="perspective-[1000px] w-64 h-40">
         <motion.div
           className="relative w-full h-full rounded-lg shadow-lg [transform-style:preserve-3d]"
@@ -19,11 +19,11 @@ const CardFlipInView = () => {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <div className="absolute inset-0 bg-red-500 flex items-center justify-center text-xl font-bold [backface-visibility:hidden] rounded-lg">
+          <div className="absolute inset-0 bg-secondary/50 flex items-center justify-center text-xl font-bold [backface-visibility:hidden] rounded-lg">
             Front
           </div>
 
-          <div className="absolute inset-0 bg-blue-500 flex items-center justify-center text-xl font-bold text-white [transform:rotateY(180deg)] [backface-visibility:hidden] rounded-lg">
+          <div className="absolute inset-0 bg-primary/50 flex items-center justify-center text-xl font-bold text-foreground [transform:rotateY(180deg)] [backface-visibility:hidden] rounded-lg">
             Back
           </div>
         </motion.div>

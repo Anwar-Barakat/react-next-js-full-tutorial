@@ -33,31 +33,31 @@ const MealList = () => {
 
   if (loading) {
     return (
-        <div className="glass w-full max-w-md p-6 text-center">
-          <p className="text-lg text-muted-foreground">Loading meals...</p>
-        </div>
+      <div className="glass w-full max-w-md p-6 text-center">
+        <p className="text-lg text-muted-foreground">Loading meals...</p>
+      </div>
     );
   }
 
   if (error) {
     return (
-        <div className="glass w-full max-w-md p-6 text-center border-secondary">
-          <p className="text-lg text-secondary">Error: {error}</p>
-        </div>
+      <div className="glass w-full max-w-md p-6 text-center border-secondary">
+        <p className="text-lg text-secondary">Error: {error}</p>
+      </div>
     );
   }
 
   return (
-        <div className="w-full">
-          <h2 className="text-3xl font-bold text-primary mb-8 text-center">
-            Delicious Meals
-          </h2>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-            {meals.map((meal) => (
-              <MealCard key={meal.id} meal={meal} />
-            ))}
-          </div>
-        </div>
+    <div className="w-full">
+      <h2 className="text-3xl font-bold text-primary mb-8 text-center">
+        Delicious Meals
+      </h2>
+      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-2 gap-6">
+        {meals.map((meal) => (
+          <MealCard key={meal.id} meal={meal} />
+        ))}
+      </div>
+    </div>
   );
 };
 

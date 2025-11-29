@@ -8,7 +8,6 @@ const Counter = () => {
 
   return (
     <div className="glass glass-xl w-full max-w-2xl text-center">
-      <h3 className="text-2xl font-semibold mb-6 text-primary">useReducer Counter</h3>
       <p className="text-5xl font-bold mb-6 text-accent">{state.count}</p>
       <div className="flex justify-center gap-4 flex-wrap">
         <button
