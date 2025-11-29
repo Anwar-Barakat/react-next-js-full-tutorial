@@ -25,16 +25,16 @@ export interface Product {
     id: number;
     name: string;
     description: string;
-    price: string; // Price is a string from the backend
+    price: string;
     image: string;
     media: Media;
     category: Category;
-    tags?: Tag[]; // Added tags to product interface as it's included by the backend
+    tags?: Tag[];
     created_at: string;
     updated_at: string;
 }
 
-export interface Tag { // Added Tag interface
+export interface Tag {
     id: number;
     name: string;
 }

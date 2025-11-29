@@ -17,7 +17,6 @@ export interface BoardState {
   columnOrder: string[];
 }
 
-// ==================== boardSlice.ts ====================
 const initialState: BoardState = {
   cards: {
     'card-1': { id: 'card-1', content: 'Set up project structure' },

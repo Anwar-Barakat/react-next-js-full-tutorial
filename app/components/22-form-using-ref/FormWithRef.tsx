@@ -30,7 +30,6 @@ export const FormWithRef = () => {
       password: newPassword,
     });
 
-    // Optionally clear the inputs after submission
     if (nameRef.current) nameRef.current.value = "";
     if (emailRef.current) emailRef.current.value = "";
     if (passwordRef.current) passwordRef.current.value = "";
@@ -65,7 +64,7 @@ export const FormWithRef = () => {
         />
         <button
           type="submit"
-          className="btn btn-primary w-full"
+          className="btn bg-primary/50 w-full"
         >
           Submit
         </button>

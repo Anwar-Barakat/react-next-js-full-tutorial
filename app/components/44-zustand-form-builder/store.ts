@@ -17,13 +17,11 @@ interface FormFieldState {
 export const useFormStore = create<FormFieldState>((set) => ({
     formFields: [],
     addField: (field: FormField) => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         set((_state) => ({
             formFields: [..._state.formFields, field]
         }))
     },
     updateField: (index: number, field: FormField) => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         set((_state) => ({
             formFields: _state.formFields.map((f, i) => (
                 index === i ? field : f
@@ -31,13 +29,11 @@ export const useFormStore = create<FormFieldState>((set) => ({
         }))
     },
     removeField: (index: number) => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         set((_state) => ({
             formFields: _state.formFields.filter((_, i) => i !== index)
         }))
     },
     resetForm: () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         set((_state) => ({
             formFields: []
         }))

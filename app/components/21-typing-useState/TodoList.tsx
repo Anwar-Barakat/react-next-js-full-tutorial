@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { TodoItem } from './types';
 
 export const TodoList: React.FC = () => {
-  // Explicitly typing the state variable as an array of TodoItem
   const [todos, setTodos] = useState<TodoItem[]>([
     { id: 1, text: 'Learn TypeScript', completed: false },
     { id: 2, text: 'Build React App', completed: false },
@@ -42,7 +41,7 @@ export const TodoList: React.FC = () => {
         />
         <button
           onClick={addTodo}
-              className="btn btn-primary"
+              className="btn bg-primary/50"
         >
           Add Todo
         </button>

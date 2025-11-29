@@ -5,7 +5,6 @@ export const ChangeEventHandler: React.FC = () => {
   const [value, setValue] = useState<string>('');
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    // The 'event' object is fully typed, providing access to properties like 'target.value'
     setValue(event.target.value);
   };
 

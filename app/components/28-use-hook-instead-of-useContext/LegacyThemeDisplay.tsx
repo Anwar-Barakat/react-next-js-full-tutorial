@@ -18,7 +18,7 @@ export const LegacyThemeDisplay: React.FC = () => {
       <p className="mb-4 text-foreground">Current Theme: <strong className="text-accent">{theme}</strong></p>
       <button
         onClick={toggleTheme}
-        className={`btn ${theme === 'light' ? 'btn-primary' : 'btn-secondary'}`}
+        className={`btn ${theme === 'light' ? 'bg-primary/50' : 'bg-secondary/50'}`}
       >
         Toggle Theme
       </button>

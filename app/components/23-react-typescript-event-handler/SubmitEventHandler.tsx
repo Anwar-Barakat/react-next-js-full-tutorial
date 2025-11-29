@@ -5,7 +5,6 @@ export const SubmitEventHandler: React.FC = () => {
   const [inputValue, setInputValue] = useState<string>('Default Value');
 
   const handleSubmit = (event: React.FormEvent<HTMLFormElement>) => {
-    // The 'event' object is fully typed
     event.preventDefault();
     alert(`Form submitted with value: ${inputValue}`);
   };
@@ -25,7 +24,7 @@ export const SubmitEventHandler: React.FC = () => {
         />
         <button
           type="submit"
-          className="btn btn-accent w-full"
+          className="btn bg-accent/50 w-full"
         >
           Submit Form
         </button>

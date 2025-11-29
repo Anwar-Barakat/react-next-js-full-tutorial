@@ -15,19 +15,19 @@ const Counter: React.FC = () => {
       <p className="text-xl mb-4 text-muted-foreground dark:text-muted-foreground">Count: <span className="font-semibold text-primary dark:text-primary text-3xl">{count}</span></p>
       <div className="flex space-x-2">
         <button
-          className="btn btn-primary"
+          className="btn bg-primary/50"
           onClick={() => dispatch(increment())}
         >
           Increment
         </button>
         <button
-          className="btn btn-danger"
+          className="btn bg-secondary/50"
           onClick={() => dispatch(decrement())}
         >
           Decrement
         </button>
         <button
-          className="btn btn-accent"
+          className="btn bg-accent/50"
           onClick={() => dispatch(incrementByAmount(5))}
         >
           Increment by 5

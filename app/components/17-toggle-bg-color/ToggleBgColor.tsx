@@ -11,7 +11,7 @@ export const ToggleBgColor = () => {
   return (
     <div className="glass glass-xl w-full max-w-2xl min-h-[200px] flex flex-col items-center justify-center text-center">
       <button
-        onClick={() => {}} // Dummy onClick, as the original logic toggled internal background
+        onClick={() => {}}
         className="btn btn-primary mb-5"
       >
         Toggle Mode

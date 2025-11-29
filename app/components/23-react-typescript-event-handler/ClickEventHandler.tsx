@@ -3,7 +3,7 @@ import React from 'react';
 
 export const ClickEventHandler: React.FC = () => {
   const handleClick = (event: React.MouseEvent<HTMLButtonElement>) => {
-    // The 'event' object is fully typed, providing access to properties like 'target.value'
+    event.preventDefault();
     alert(`Button clicked! Event type: ${event.type}`);
   };
 
@@ -15,7 +15,7 @@ export const ClickEventHandler: React.FC = () => {
       </p>
       <button
         onClick={handleClick}
-        className="btn btn-primary"
+        className="btn bg-primary/50"
       >
         Click Me
       </button>

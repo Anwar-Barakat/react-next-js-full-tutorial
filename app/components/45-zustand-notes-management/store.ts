@@ -42,7 +42,7 @@ export const useNoteStore = create<NoteState & NoteAction>((set, get) => ({
         set((state) => {
             const { editorContent, currentNoteIndex, noteColor, notes } = state;
 
-            if (!editorContent.trim()) return state; // prevent empty notes
+            if (!editorContent.trim()) return state;
 
             if (currentNoteIndex !== null) {
                 return {

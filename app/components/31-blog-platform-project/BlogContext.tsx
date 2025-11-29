@@ -3,16 +3,16 @@
 import React, { FC, createContext, useContext, useState, ReactNode } from "react";
 
 export type Blog = {
-  id: string; // Changed to string for UUID or similar
+  id: string;
   title: string;
   description: string;
   image: string;
-  time?: string; // Optional, could be Date type
+  time?: string;
 };
 
 interface BlogContextType {
   blogs: Blog[];
-  addBlog: (blog: Omit<Blog, 'id'>) => void; // id will be generated
+  addBlog: (blog: Omit<Blog, 'id'>) => void;
   updateBlog: (blog: Blog) => void;
   deleteBlog: (id: string) => void;
 }
@@ -27,8 +27,8 @@ const BlogProvider: FC<{ children: ReactNode }> = ({ children }) => {
   const addBlog = (newBlog: Omit<Blog, 'id'>) => {
     const blogWithId: Blog = {
       ...newBlog,
-      id: String(Date.now()), // Simple ID generation
-      time: newBlog.time || new Date().toLocaleDateString(), // Default time if not provided
+      id: String(Date.now()),
+      time: newBlog.time || new Date().toLocaleDateString(),
     };
     setBlogs((prevBlogs) => [...prevBlogs, blogWithId]);
   };

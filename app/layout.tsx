@@ -1,7 +1,7 @@
 import type { Metadata } from "next";
 import { Inter, Fira_Code } from "next/font/google";
 import "./globals.css";
-import { Providers } from './providers'; // Import Providers
+import { Providers } from './providers';
 
 const inter = Inter({
   variable: "--font-sans",

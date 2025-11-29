@@ -20,7 +20,7 @@ const Sidebar = () => {
   const cartTotal = cart.reduce((total, item) => total + +item.newPrice, 0)
 
   return (
-    <aside className="w-80 bg-card p-4 border-r border-border flex flex-col">
+    <aside className="w-80 bg-card/50 p-4 border-r border-border flex flex-col">
       <div>
         <h2 className="text-lg font-semibold mb-4 heading-gradient">Filters</h2>
         <div className="space-y-4">
@@ -31,7 +31,7 @@ const Sidebar = () => {
               type="number"
               value={searchMinPrice || ''}
               onChange={e => setSearchMinPrice(e.target.value ? +e.target.value : null)}
-              className="input"
+              className="input bg-card/50"
               placeholder="0"
             />
           </div>
@@ -42,7 +42,7 @@ const Sidebar = () => {
               type="number"
               value={searchMaxPrice || ''}
               onChange={e => setSearchMaxPrice(e.target.value ? +e.target.value : null)}
-              className="input"
+              className="input bg-card/50"
               placeholder="1000"
             />
           </div>
@@ -52,14 +52,14 @@ const Sidebar = () => {
               id="category"
               value={searchCategory}
               onChange={e => setSearchCategory(e.target.value)}
-              className="input"
+              className="input bg-card/50"
             >
               {categories.map(category => (
                 <option key={category} value={category.toLowerCase()}>{category}</option>
               ))}
             </select>
           </div>
-          <button onClick={clearFilter} className="btn btn-secondary w-full mt-4">Clear Filters</button>
+          <button onClick={clearFilter} className="btn bg-secondary/50 w-full mt-4">Clear Filters</button>
         </div>
       </div>
       <div className="mt-8 pt-8 border-t border-border flex-1 flex flex-col">
@@ -89,7 +89,7 @@ const Sidebar = () => {
               <span>Total:</span>
               <span>${cartTotal.toFixed(2)}</span>
             </div>
-            <button className="btn btn-primary w-full mt-4">Checkout</button>
+            <button className="btn bg-primary/50 w-full mt-4">Checkout</button>
           </div>
         )}
       </div>

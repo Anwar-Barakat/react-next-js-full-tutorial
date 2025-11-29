@@ -22,7 +22,6 @@ export const TodoList: React.FC = () => {
     <div className="glass glass-xl w-full max-w-2xl">
       <h2 className="text-3xl font-bold text-primary text-center mb-6">Todo List with useReducer</h2>
 
-      {/* Input for new todo */}
       <div className="flex mb-6 gap-2">
         <input
           type="text"
@@ -40,7 +39,6 @@ export const TodoList: React.FC = () => {
         </button>
       </div>
 
-      {/* List of todos */}
       <ul className="space-y-2">
         {state.map(todo => (
           <li

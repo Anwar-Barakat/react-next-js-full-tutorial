@@ -3,7 +3,6 @@ import React, { useState } from 'react';
 import { UserProfileType } from './types';
 
 export const UserProfile: React.FC = () => {
-  // Explicitly typing the state variable with the UserProfileType interface
   const [user, setUser] = useState<UserProfileType>({
     name: 'Alice Smith',
     age: 30,
@@ -27,7 +26,7 @@ export const UserProfile: React.FC = () => {
       </div>
       <button
         onClick={updateAge}
-        className="btn btn-accent"
+        className="btn bg-accent/50"
       >
         Celebrate Birthday!
       </button>

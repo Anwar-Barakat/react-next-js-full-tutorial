@@ -1,4 +1,3 @@
-// todoReducer.ts
 import { Todo, Action } from './types';
 
 export const todoReducer = (state: Todo[], action: Action): Todo[] => {

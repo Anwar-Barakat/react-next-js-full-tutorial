@@ -2,7 +2,6 @@
 import React, { useState } from 'react';
 
 export const BasicState: React.FC = () => {
-  // Explicitly typing the state variable as a number
   const [count, setCount] = useState<number>(0);
 
   const increment = () => {
@@ -15,7 +14,7 @@ export const BasicState: React.FC = () => {
       <p className="mb-4 text-lg text-foreground">Count: <span className="font-bold text-accent">{count}</span></p>
       <button
         onClick={increment}
-        className="btn btn-primary"
+        className="btn bg-primary/50"
       >
         Increment
       </button>

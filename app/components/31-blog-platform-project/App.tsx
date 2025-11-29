@@ -15,7 +15,7 @@ const App = () => {
   const [editingBlog, setEditingBlog] = useState<Blog | undefined>(undefined);
 
   const openModalForNewBlog = () => {
-    setEditingBlog(undefined); // Clear any existing blog data
+    setEditingBlog(undefined);
     setIsModalOpen(true);
   };
 
@@ -26,7 +26,7 @@ const App = () => {
 
   const closeModal = () => {
     setIsModalOpen(false);
-    setEditingBlog(undefined); // Clear editing blog when modal closes
+    setEditingBlog(undefined);
   };
 
   return (
@@ -34,7 +34,6 @@ const App = () => {
       <div className="min-h-screen bg-gradient-to-br from-[var(--background)] via-[var(--muted)]/30 to-[var(--background)] text-[var(--foreground)]">
         <Navigation />
         <div className="container mx-auto p-4 md:p-6 lg:p-8 grid grid-cols-1 md:grid-cols-3 gap-6">
-          {/* Main Content Area */}
           <main className="md:col-span-2 glass rounded-2xl shadow-[var(--shadow-lg)] p-6 md:p-8">
             <div className="flex flex-col sm:flex-row justify-between items-start sm:items-center gap-4 mb-6">
               <h2 className="text-3xl md:text-4xl font-bold heading-gradient">
@@ -56,7 +55,6 @@ const App = () => {
             </Suspense>
           </main>
 
-          {/* Sidebar */}
           <aside className="md:col-span-1 space-y-4">
             <PeopleToFollow />
             <TrendList />

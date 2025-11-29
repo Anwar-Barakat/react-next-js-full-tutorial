@@ -4,7 +4,7 @@ import React, { useState, useEffect, useCallback } from "react";
 import { FaCamera } from "react-icons/fa";
 import Tabs from "./Tabs";
 
-const MAX_FILE_SIZE = 5 * 1024 * 1024; // 5MB
+const MAX_FILE_SIZE = 5 * 1024 * 1024;
 const ALLOWED_IMAGE_TYPES = ["image/jpeg", "image/jpg", "image/png", "image/webp"];
 
 const Profile: React.FC = () => {
@@ -16,7 +16,6 @@ const Profile: React.FC = () => {
   const [profileError, setProfileError] = useState<string>("");
   const [isUploading, setIsUploading] = useState<boolean>(false);
 
-  // Cleanup object URLs to prevent memory leaks
   useEffect(() => {
     return () => {
       if (bannerUrl && bannerUrl.startsWith("blob:")) {
@@ -46,14 +45,13 @@ const Profile: React.FC = () => {
     const error = validateFile(file);
     if (error) {
       setBannerError(error);
-      e.target.value = ""; // Reset input
+      e.target.value = "";
       return;
     }
 
     setIsUploading(true);
     try {
       const newUrl = URL.createObjectURL(file);
-      // Revoke old URL if it was a blob
       if (bannerUrl && bannerUrl.startsWith("blob:")) {
         URL.revokeObjectURL(bannerUrl);
       }
@@ -74,14 +72,13 @@ const Profile: React.FC = () => {
     const error = validateFile(file);
     if (error) {
       setProfileError(error);
-      e.target.value = ""; // Reset input
+      e.target.value = "";
       return;
     }
 
     setIsUploading(true);
     try {
       const newUrl = URL.createObjectURL(file);
-      // Revoke old URL if it was a blob
       if (profileUrl && profileUrl.startsWith("blob:")) {
         URL.revokeObjectURL(profileUrl);
       }
@@ -99,7 +96,6 @@ const Profile: React.FC = () => {
       className="relative w-[calc(100%-5rem)] ml-[5rem]"
       aria-label="User profile"
     >
-      {/* Banner Section */}
       <div className="relative">
         <img
           src={bannerUrl}
@@ -132,7 +128,6 @@ const Profile: React.FC = () => {
         </div>
       </div>
 
-      {/* Profile Info Section */}
       <div className="relative flex flex-col md:flex-row items-center md:items-start p-4 -mt-16 md:-mt-20 z-10">
         <div className="relative w-32 h-32 md:w-40 md:h-40 rounded-full border-4 border-glass-border overflow-hidden shadow-xl">
           <img

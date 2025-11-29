@@ -390,10 +390,10 @@ body {
     box-shadow: var(--shadow-lg);
     padding: 1.5rem;
     transition: all 0.3s ease;
+    cursor: pointer;
   }
   .glass:hover {
     box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.2), 0 4px 6px -4px rgb(0 0 0 / 0.2);
-    transform: translateY(-4px);
   }
   .glass-lg {
     padding: 2rem;

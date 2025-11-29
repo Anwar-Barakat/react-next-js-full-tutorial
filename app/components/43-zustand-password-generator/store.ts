@@ -24,37 +24,31 @@ export const usePasswordStore = create<PasswordState>((set) => ({
     generatedPassword: '',
 
     setLength: (length: number) => (
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         set((_state) => ({
             length: length
         }))
     ),
     toggleNumbers: () => (
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         set((_state) => ({
-            includeNumbers: !_state.includeNumbers // Fixed bug here
+            includeNumbers: !_state.includeNumbers
         }))
     ),
     toggleSymbols: () => {
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         set((_state) => ({
             includeSymbols: !_state.includeSymbols
         }))
     },
     toggleLowercase: () => (
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         set((_state) => ({
             includeLowercase: !_state.includeLowercase
         }))
     ),
     toggleUppercase: () => (
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         set((_state) => ({
             includeUppercase: !_state.includeUppercase
         }))
     ),
     generatePassword: () => (
-        // eslint-disable-next-line @typescript-eslint/no-unused-vars
         set((state) => {
             const numbers = "0123456789";
             const symbols = "!@#$%^&*()_-+=/[]";
@@ -68,7 +62,6 @@ export const usePasswordStore = create<PasswordState>((set) => ({
             if (state.includeSymbols) characters += symbols
 
             let password = '';
-            // Ensure at least one character type is selected
             if (characters.length === 0) {
                 return { generatedPassword: "Select at least one character type." };
             }

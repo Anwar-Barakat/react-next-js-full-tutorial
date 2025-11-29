@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from "react";
-import { AlertCircle } from 'lucide-react'; // Added import
+import { AlertCircle } from 'lucide-react';
 
 export const ValidationForm = () => {
   const [username, setUsername] = useState("");
