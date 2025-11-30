@@ -24,7 +24,7 @@ const boxVariants = {
 const VariantsExample = () => {
   return (
     <div className="glass flex flex-col items-center">
-        <h3 className="text-xl font-bold text-[var(--foreground)] mb-4">Variants Example</h3>
+        <h3 className="text-xl font-bold text-foreground mb-4">Variants Example</h3>
         <div className="flex items-center justify-center h-40">
             <motion.div
                 className="w-40 h-40 bg-primary"

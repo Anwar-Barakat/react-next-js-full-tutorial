@@ -1,8 +1,14 @@
 import type { Metadata } from "next";
-import { Inter, Fira_Code } from "next/font/google";
+import { Inter, Fira_Code, Bebas_Neue } from "next/font/google";
 import "./globals.css";
 import { Providers } from './providers';
 import ThemeToggleButton from './components/theme-toggle/ThemeToggleButton';
+
+const bebasNeue = Bebas_Neue({
+  subsets: ['latin'],
+  weight: "400",
+  variable: '--font-bebas-neue',
+});
 
 const inter = Inter({
   variable: "--font-sans",
@@ -26,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className="dark">
-      <body className={`${inter.variable} ${firaCode.variable} antialiased`}>
+      <body className={`${inter.variable} ${firaCode.variable} ${bebasNeue.variable} antialiased`}>
         <Providers>
           <main className="container py-8 relative">
             <div className="absolute top-4 right-4 z-10">

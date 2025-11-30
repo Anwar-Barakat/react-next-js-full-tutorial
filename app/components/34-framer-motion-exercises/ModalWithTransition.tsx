@@ -7,7 +7,7 @@ const ModalWithTransition = () => {
 
   return (
     <div className="glass flex flex-col items-center relative">
-      <h3 className="text-xl font-bold text-[var(--foreground)] mb-4">Exercise 7: Modal with Transition</h3>
+      <h3 className="text-xl font-bold text-foreground mb-4">Exercise 7: Modal with Transition</h3>
       <button
         onClick={() => setIsModalOpen(true)}
         className="btn bg-primary mb-4"
@@ -32,8 +32,8 @@ const ModalWithTransition = () => {
               className="glass p-8 max-w-sm w-full text-center"
               onClick={(e) => e.stopPropagation()} 
             >
-              <h4 className="text-xl font-bold mb-4 text-[var(--foreground)]">Modal Title</h4>
-              <p className="text-[var(--muted-foreground)] mb-6">This is a modal with a smooth transition effect.</p>
+              <h4 className="text-xl font-bold mb-4 text-foreground">Modal Title</h4>
+              <p className="text-muted-foreground mb-6">This is a modal with a smooth transition effect.</p>
               <button
                 onClick={() => setIsModalOpen(false)}
                 className="btn bg-secondary"

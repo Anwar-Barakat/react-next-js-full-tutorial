@@ -27,7 +27,7 @@ const TooltipWithVariants = () => {
               animate="visible"
               exit="hidden"
               transition={{ duration: 0.2 }}
-              className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 p-2 bg-card text-[var(--foreground)] text-sm rounded-md whitespace-nowrap"
+              className="absolute bottom-full left-1/2 -translate-x-1/2 mb-2 p-2 bg-card text-foreground text-sm rounded-md whitespace-nowrap"
             >
               I&apos;m a tooltip!
             </motion.div>

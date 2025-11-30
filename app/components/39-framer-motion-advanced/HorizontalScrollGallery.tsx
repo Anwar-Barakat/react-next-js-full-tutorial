@@ -16,7 +16,7 @@ const HorizontalScrollGallery = () => {
   return (
     <div className="glass flex flex-col items-center">
       <h3 className="text-xl font-bold text-foreground mb-4">Horizontal Scroll Gallery</h3>
-      <div className="w-full h-64 bg-muted/50 rounded-lg overflow-hidden">
+      <div className="w-full h-64 bg-muted rounded-lg overflow-hidden">
         <div className="relative h-[300px]" ref={targetRef}>
           <div className="sticky top-0 overflow-hidden">
             <motion.div className="flex gap-4 p-4" style={{ x }}>

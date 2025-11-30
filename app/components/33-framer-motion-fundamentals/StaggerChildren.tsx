@@ -20,7 +20,7 @@ const childVariant = {
 const StaggerChildren = () => {
   return (
     <div className="glass flex flex-col items-center">
-        <h3 className="text-xl font-bold text-[var(--foreground)] mb-4">Stagger Children</h3>
+        <h3 className="text-xl font-bold text-foreground mb-4">Stagger Children</h3>
         <motion.div
             className="flex gap-4"
             variants={parentVariant}

@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const HoverAnimation = () => {
   return (
     <div className="glass flex flex-col items-center">
-        <h3 className="text-xl font-bold text-[var(--foreground)] mb-4">Hover Animation</h3>
+        <h3 className="text-xl font-bold text-foreground mb-4">Hover Animation</h3>
         <div className="flex justify-center items-center h-32">
             <motion.div
                 className="bg-muted w-16 h-16 rounded-lg"
