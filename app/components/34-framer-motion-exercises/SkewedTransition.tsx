@@ -5,7 +5,7 @@ import { motion } from 'framer-motion';
 const SkewedTransition = () => {
   return (
     <div className="glass flex flex-col items-center">
-      <h3 className="text-xl font-bold text-[var(--foreground)] mb-4">Exercise 4: Skewed Transition</h3>
+      <h3 className="text-xl font-bold text-foreground mb-4">Exercise 4: Skewed Transition</h3>
       <div className="w-full h-32 flex items-center justify-center bg-muted rounded-lg overflow-hidden">
         <motion.div
           className="w-32 h-20 bg-warning rounded-lg cursor-pointer"

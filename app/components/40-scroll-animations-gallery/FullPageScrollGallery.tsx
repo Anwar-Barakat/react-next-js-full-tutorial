@@ -30,7 +30,7 @@ const FullPageScrollGallery = () => {
   return (
     <div className="bg-background text-foreground min-h-[300vh] relative">
       <motion.div
-        className="fixed top-0 left-0 h-2 bg-primary/50 z-50"
+        className="fixed top-0 left-0 h-2 bg-primary z-50"
         style={{ width: smoothWidth }}
       />
 

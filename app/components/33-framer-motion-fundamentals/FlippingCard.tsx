@@ -12,7 +12,7 @@ const FlippingCard = () => {
 
   return (
     <div className="glass flex flex-col items-center">
-        <h3 className="text-xl font-bold text-[var(--foreground)] mb-4">Flipping Card</h3>
+        <h3 className="text-xl font-bold text-foreground mb-4">Flipping Card</h3>
         <div
             className="perspective-[1000px]"
             onClick={() => setIsFlipped((prev) => !prev)}
@@ -30,7 +30,7 @@ const FlippingCard = () => {
                 </div>
 
                 {/* Back side */}
-                <div className="absolute inset-0 bg-primary flex items-center justify-center text-xl font-bold text-[var(--foreground)] [transform:rotateY(180deg)] [backface-visibility:hidden] rounded-lg">
+                <div className="absolute inset-0 bg-primary flex items-center justify-center text-xl font-bold text-foreground [transform:rotateY(180deg)] [backface-visibility:hidden] rounded-lg">
                 Back side
                 </div>
             </motion.div>

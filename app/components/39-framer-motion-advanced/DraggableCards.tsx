@@ -24,7 +24,7 @@ const DraggableCards = () => {
   return (
     <div className="glass flex flex-col items-center">
       <h3 className="text-xl font-bold text-foreground mb-4">Draggable Cards</h3>
-      <div className="w-full h-96 bg-muted/50 rounded-lg overflow-hidden flex items-center justify-center relative">
+      <div className="w-full h-96 bg-muted rounded-lg overflow-hidden flex items-center justify-center relative">
         <DraggableCardItem
           style={{ background: "linear-gradient(135deg, #f093fb 0%, #f5576c)" }}
         >

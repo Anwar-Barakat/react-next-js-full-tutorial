@@ -5,7 +5,7 @@ import { motion } from "framer-motion";
 const CardAnimation = () => {
   return (
     <div className="glass flex flex-col items-center">
-        <h3 className="text-xl font-bold text-[var(--foreground)] mb-4">Card Animation</h3>
+        <h3 className="text-xl font-bold text-foreground mb-4">Card Animation</h3>
         <motion.div
             className="max-w-sm glass rounded-lg shadow-lg cursor-pointer overflow-hidden"
             initial={{ scale: 1, rotate: 0 }}
@@ -24,7 +24,7 @@ const CardAnimation = () => {
 
             <div className="p-6">
                 <h2 className="text-xl font-semibold mb-2">Card title</h2>
-                <p className="text-[var(--muted-foreground)] mb-4">
+                <p className="text-muted-foreground mb-4">
                 Lorem ipsum dolor sit amet, consectetur adipisicing elit. Asperiores,
                 perspiciatis.
                 </p>

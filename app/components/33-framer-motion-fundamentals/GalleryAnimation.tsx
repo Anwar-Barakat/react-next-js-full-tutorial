@@ -31,7 +31,7 @@ const GalleryAnimation = () => {
 
   return (
     <div className="glass flex flex-col items-center">
-        <h3 className="text-xl font-bold text-[var(--foreground)] mb-4">Gallery Animation</h3>
+        <h3 className="text-xl font-bold text-foreground mb-4">Gallery Animation</h3>
         <button
             onClick={() => setShowImages((prev) => !prev)}
             className="btn bg-warning mb-4"

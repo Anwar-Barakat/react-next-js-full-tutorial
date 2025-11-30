@@ -19,11 +19,11 @@ const CardFlipInView = () => {
           whileInView="visible"
           viewport={{ once: true }}
         >
-          <div className="absolute inset-0 bg-secondary/50 flex items-center justify-center text-xl font-bold [backface-visibility:hidden] rounded-lg">
+          <div className="absolute inset-0 bg-secondary flex items-center justify-center text-xl font-bold [backface-visibility:hidden] rounded-lg">
             Front
           </div>
 
-          <div className="absolute inset-0 bg-primary/50 flex items-center justify-center text-xl font-bold text-foreground [transform:rotateY(180deg)] [backface-visibility:hidden] rounded-lg">
+          <div className="absolute inset-0 bg-primary flex items-center justify-center text-xl font-bold text-foreground [transform:rotateY(180deg)] [backface-visibility:hidden] rounded-lg">
             Back
           </div>
         </motion.div>
