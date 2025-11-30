@@ -1,1 +1,1 @@
-export { DataFetchingDemo } from './DataFetchingDemo';
+export { DataFetchingDemo } from './components/DataFetchingDemo';

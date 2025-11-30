@@ -1,1 +1,1 @@
-export { default as PasswordGenerator } from './PasswordGenerator';
+export { default as PasswordGenerator } from './components/PasswordGenerator';

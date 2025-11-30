@@ -150,7 +150,7 @@ import ZustandMarketAppv48 from "./components/48-zustand-market";
 import { ReduxToolkitDemo as ReduxToolkitDemov49 } from "./components/49-redux-toolkit-fundamentals";
 
 
-import { KanbanClientWrapper } from "./components/50-redux-kanban-board/KanbanClientWrapper";
+import { KanbanClientWrapper } from "./components/50-redux-kanban-board/components/KanbanClientWrapper";
 
 
 import { ReactQueryDemo as ReactQueryDemov51 } from "./components/51-react-query-json-server";

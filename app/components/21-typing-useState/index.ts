@@ -1,4 +1,4 @@
-export * from './BasicState';
-export * from './UserProfile';
-export * from './TodoList';
-export { StatefulComponentsContainer as UsageExample } from './StatefulComponentsContainer';
+export * from './components/BasicState';
+export * from './components/UserProfile';
+export * from './components/TodoList';
+export { StatefulComponentsContainer as UsageExample } from './components/StatefulComponentsContainer';

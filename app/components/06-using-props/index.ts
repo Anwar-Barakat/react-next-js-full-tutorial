@@ -1,4 +1,4 @@
-import Person from './Person';
-import Product from './Product';
+import Person from './components/Person';
+import Product from './components/Product';
 
 export { Person, Product };

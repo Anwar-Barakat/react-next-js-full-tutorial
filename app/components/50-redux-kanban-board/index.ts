@@ -1,1 +1,1 @@
-export { default as KanbanDemo } from './KanbanDemo';
+export { KanbanClientWrapper } from './components/KanbanClientWrapper';

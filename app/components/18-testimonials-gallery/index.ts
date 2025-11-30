@@ -1,3 +1,3 @@
-export * from './Testimonials';
-export * from './Gallery';
+export * from './components/Testimonials';
+export * from './components/Gallery';
 export * from './App'

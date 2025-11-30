@@ -1,3 +1,3 @@
-import JSXRules from './JSXRules';
+import JSXRules from './components/JSXRules';
 
 export { JSXRules };

@@ -1,1 +1,1 @@
-export { default as FramerMotionExercises } from './FramerMotionExercises';
+export { default as FramerMotionExercises } from './components/FramerMotionExercises';

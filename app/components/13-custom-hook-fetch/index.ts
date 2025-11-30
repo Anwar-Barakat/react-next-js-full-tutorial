@@ -1,3 +1,3 @@
-import FetchDataComponent from './FetchDataComponent';
+import FetchDataComponent from './components/FetchDataComponent';
 
 export { FetchDataComponent };

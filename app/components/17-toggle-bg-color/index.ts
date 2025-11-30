@@ -1,1 +1,1 @@
-export * from './ToggleBgColor';
+export { ToggleBgColor } from './components/ToggleBgColor';

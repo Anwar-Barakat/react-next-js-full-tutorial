@@ -1,4 +1,4 @@
-import UserList from './UserList';
-import ProductList from './ProductList';
+import UserList from './components/UserList';
+import ProductList from './components/ProductList';
 
 export { UserList, ProductList };

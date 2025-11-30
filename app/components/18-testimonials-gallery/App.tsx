@@ -1,6 +1,6 @@
 import React from 'react';
-import { Testimonials } from './Testimonials';
-import { Gallery } from './Gallery';
+import { Testimonials } from './components/Testimonials';
+import { Gallery } from './components/Gallery';
 
 export const App = () => {
   return (

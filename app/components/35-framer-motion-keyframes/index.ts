@@ -1,1 +1,1 @@
-export { default as FramerMotionKeyframes } from './FramerMotionKeyframes';
+export { default as FramerMotionKeyframes } from './components/FramerMotionKeyframes';

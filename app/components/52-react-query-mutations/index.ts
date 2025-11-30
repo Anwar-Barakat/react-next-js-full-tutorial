@@ -1,1 +1,1 @@
-export * from './ReactQueryMutationsDemo';
+export { ReactQueryMutationsDemo } from './components/ReactQueryMutationsDemo';

@@ -1,4 +1,4 @@
-import MealList from './MealList';
-import MealCard from './MealCard';
+import MealList from './components/MealList';
+import MealCard from './components/MealCard';
 
 export { MealList, MealCard };

@@ -1,1 +1,1 @@
-export { default as QuizApp } from './QuizApp';
+export { default as QuizApp } from './components/QuizApp';

@@ -1,1 +1,1 @@
-export { default as FramerMotionVariants } from './FramerMotionVariants';
+export { default as FramerMotionVariants } from './components/FramerMotionVariants';

@@ -1,5 +1,5 @@
-import { UserProvider, UserContext } from './UserContext';
-import UserProfile from './UserProfile';
-import UpdateUser from './UpdateUser';
+import { UserProvider, UserContext } from './components/UserContext';
+import UserProfile from './components/UserProfile';
+import UpdateUser from './components/UpdateUser';
 
 export { UserProvider, UserContext, UserProfile, UpdateUser };

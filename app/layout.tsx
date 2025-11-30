@@ -32,7 +32,7 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en" suppressHydrationWarning className="dark">
-      <body className={`${inter.variable} ${firaCode.variable} ${bebasNeue.variable} antialiased`}>
+      <body className={`${bebasNeue.className} ${inter.variable} ${firaCode.variable} antialiased`}>
         <Providers>
           <main className="container py-8 relative">
             <div className="absolute top-4 right-4 z-10">

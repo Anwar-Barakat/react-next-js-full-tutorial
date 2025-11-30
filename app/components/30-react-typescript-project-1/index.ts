@@ -1,2 +1,2 @@
-export { App } from './App';
-export { default } from './App';
+export { App } from './components/App';
+export { default } from './components/App';
