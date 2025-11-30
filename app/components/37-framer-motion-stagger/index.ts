@@ -1,1 +1,1 @@
-export { default as FramerMotionStagger } from './FramerMotionStagger';
+export { default as FramerMotionStagger } from './components/FramerMotionStagger';

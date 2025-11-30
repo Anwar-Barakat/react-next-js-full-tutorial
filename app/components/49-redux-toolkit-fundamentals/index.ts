@@ -1,1 +1,1 @@
-export * from './ReduxToolkitDemo';
+export { ReduxToolkitDemo } from './components/ReduxToolkitDemo';

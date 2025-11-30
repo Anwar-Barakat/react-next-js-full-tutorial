@@ -1,1 +1,1 @@
-export { default as FramerMotionAdvanced } from './FramerMotionAdvanced';
+export { default as FramerMotionAdvanced } from './components/FramerMotionAdvanced';

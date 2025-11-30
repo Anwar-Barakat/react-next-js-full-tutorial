@@ -1,1 +1,1 @@
-export * from './ValidationForm';
+export { ValidationForm } from './components/ValidationForm';

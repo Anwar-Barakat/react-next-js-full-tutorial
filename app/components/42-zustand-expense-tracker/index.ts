@@ -1,1 +1,1 @@
-export { default as ExpenseTracker } from './ExpenseTracker';
+export { default as ExpenseTracker } from './components/ExpenseTracker';

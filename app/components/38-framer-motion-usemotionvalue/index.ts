@@ -1,1 +1,1 @@
-export { default as FramerMotionUseMotionValue } from './FramerMotionUseMotionValue';
+export { default as FramerMotionUseMotionValue } from './components/FramerMotionUseMotionValue';

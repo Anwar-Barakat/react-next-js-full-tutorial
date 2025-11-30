@@ -1,1 +1,1 @@
-export { default as FramerMotionDemo } from './FramerMotionDemo';
+export { default as FramerMotionDemo } from './components/FramerMotionDemo';

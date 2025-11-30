@@ -1,1 +1,1 @@
-export { default as FullPageScrollGallery } from './FullPageScrollGallery';
+export { default as FullPageScrollGallery } from './components/FullPageScrollGallery';

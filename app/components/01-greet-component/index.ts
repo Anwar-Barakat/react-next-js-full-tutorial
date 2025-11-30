@@ -1,3 +1,3 @@
-import Greet from './Greet'
+import Greet from './components/Greet'
 
 export { Greet };

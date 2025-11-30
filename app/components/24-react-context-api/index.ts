@@ -1,3 +1,3 @@
-export * from './CounterContext';
-export * from './Counter';
-export { ContextDemo as UsageExample } from './ContextDemo';
+export * from './components/CounterContext';
+export * from './components/Counter';
+export { ContextDemo as UsageExample } from './components/ContextDemo';

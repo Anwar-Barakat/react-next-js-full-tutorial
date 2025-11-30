@@ -1,1 +1,1 @@
-export { default as WorkspaceApp } from './WorkspaceApp';
+export { default as WorkspaceApp } from './components/WorkspaceApp';

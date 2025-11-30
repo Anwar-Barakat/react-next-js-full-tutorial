@@ -1,1 +1,1 @@
-export { default as NotesApp } from './NotesApp';
+export { default as NotesApp } from './components/NotesApp';

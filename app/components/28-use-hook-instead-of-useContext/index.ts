@@ -1,1 +1,1 @@
-export { UseHookDemo } from './UseHookDemo';
+export { UseHookDemo } from './components/UseHookDemo';

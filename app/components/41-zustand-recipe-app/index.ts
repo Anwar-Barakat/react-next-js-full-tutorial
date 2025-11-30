@@ -1,1 +1,1 @@
-export { default as RecipeApp } from './RecipeApp';
+export { default as RecipeApp } from './components/RecipeApp';
