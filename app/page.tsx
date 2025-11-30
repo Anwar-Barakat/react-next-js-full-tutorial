@@ -158,6 +158,7 @@ import { ReactQueryMutationsDemo as ReactQueryMutationsDemov52 } from "./compone
 
 
 import { ProductList as ProductList53 } from "./components/53-product-list-with-stripe";
+import { RegexTester as RegexTesterv54 } from "./components/54-regular-expression";
 
 const components = {
   '01': { name: 'Greet Component', component: <Greetv01 /> },
@@ -213,6 +214,7 @@ const components = {
   '51': { name: 'React Query JSON Server', component: <ReactQueryDemov51 /> },
   '52': { name: 'React Query Mutations', component: <ReactQueryMutationsDemov52 /> },
   '53': { name: 'Product List with Stripe', component: <ProductList53 /> },
+  '54': { name: 'Regular Expression', component: <RegexTesterv54 /> },
 };
 
 export default function Home() {
@@ -230,14 +232,14 @@ export default function Home() {
           {Object.keys(components)
             .sort((a, b) => parseInt(a) - parseInt(b))
             .map((key) => {
-              const { name } = components[key];
+              const { name } = components[key]
               return (
                 <motion.button
                   key={key}
                   onClick={() => setSelectedKey(key)}
                   className={`glass w-full h-28 p-4 flex flex-col items-center justify-center text-center rounded-xl relative overflow-hidden ${selectedKey === key
-                      ? 'border-primary bg-gradient-to-br from-primary/20 to-primary/30'
-                      : 'border-glass-border'
+                    ? 'border-primary bg-gradient-to-br from-primary/20 to-primary/30'
+                    : 'border-glass-border'
                     }`}
                   whileHover={{
                     scale: 1.03,
