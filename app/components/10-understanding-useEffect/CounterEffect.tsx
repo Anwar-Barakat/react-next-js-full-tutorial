@@ -14,7 +14,7 @@ const CounterEffect = () => {
         <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 center-text">
           Counter Effect
         </h2>
-        <p className="text-2xl font-semibold text-accent mb-6 center-text">
+        <p className="text-2xl font-semibold mb-6 center-text">
           Current count: {count}
         </p>
         <div className="center-content">
