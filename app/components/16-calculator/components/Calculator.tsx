@@ -76,8 +76,8 @@ export const Calculator = () => {
     setWaitingForOperand(false);
   };
 
-  const renderButton = (value: string, onClick: () => void, extraClasses = "") => (
-    <button className={`${buttonClasses} ${extraClasses}`} onClick={onClick}>
+  const renderButton = (value: string, onClick: () => void, extraClasses = "", ariaLabel: string = value) => (
+    <button className={`${buttonClasses} ${extraClasses}`} onClick={onClick} aria-label={ariaLabel}>
       {value}
     </button>
   );
@@ -85,7 +85,7 @@ export const Calculator = () => {
   return (
     <div className="glass glass-xl rounded-2xl p-6">
       <div className="w-full h-20 glass flex items-center justify-end p-4 text-5xl font-bold mb-4 rounded-xl shadow-md overflow-hidden">
-          <span className="inline-block animate-in fade-in duration-200">{display}</span>
+          <span className="inline-block animate-in fade-in duration-200" role="status" aria-live="polite">{display}</span>
         </div>
         <div>
           <div>
@@ -108,8 +108,8 @@ export const Calculator = () => {
           </div>
           <div>
             {renderButton('0', () => handleNumberClick('0'))}
-            {renderButton('C', handleClearClick, clearButtonClasses)}
-            {renderButton('=', handleEqualClick, equalButtonClasses)}
+            {renderButton('C', handleClearClick, clearButtonClasses, 'Clear')}
+            {renderButton('=', handleEqualClick, equalButtonClasses, 'Equals')}
             {renderButton('+', () => handleOperatorClick('+'), operatorButtonClasses)}
           </div>
         </div>

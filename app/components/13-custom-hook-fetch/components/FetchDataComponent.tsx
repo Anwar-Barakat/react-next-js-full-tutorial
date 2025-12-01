@@ -34,9 +34,11 @@ const FetchDataComponent = () => {
   return (
     <div className="center-content py-12 px-4">
       <div className="max-w-2xl w-full themed-card p-6 md:p-8">
-        <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6 center-text">
-          Todos
-        </h2>
+        {data && data.length > 0 && ( // Conditionally render the title if data exists
+          <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6 center-text">
+            Todos
+          </h2>
+        )}
         <ul className="space-y-2 max-h-96 overflow-y-auto">
           {data?.map((todo) => (
             <li 

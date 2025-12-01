@@ -97,7 +97,7 @@ export const ValidationForm = () => {
             value={username}
             onChange={(e) => setUsername(e.target.value)}
           />
-          {errorUsername && <p className="text-secondary text-sm mt-1 flex items-center"><AlertCircle className="w-4 h-4 mr-1" />{errorUsername}</p>}
+          {errorUsername && <p role="alert" data-testid="error-username" className="text-secondary text-sm mt-1 flex items-center"><AlertCircle className="w-4 h-4 mr-1" />{errorUsername}</p>}
         </div>
 
         <div>
@@ -108,7 +108,7 @@ export const ValidationForm = () => {
             value={email}
             onChange={(e) => setEmail(e.target.value)}
           />
-          {errorEmail && <p className="text-secondary text-sm mt-1 flex items-center"><AlertCircle className="w-4 h-4 mr-1" />{errorEmail}</p>}
+          {errorEmail && <p role="alert" data-testid="error-email" className="text-secondary text-sm mt-1 flex items-center"><AlertCircle className="w-4 h-4 mr-1" />{errorEmail}</p>}
         </div>
 
         <div>
@@ -119,7 +119,7 @@ export const ValidationForm = () => {
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
-          {errorPassword && <p className="text-secondary text-sm mt-1 flex items-center"><AlertCircle className="w-4 h-4 mr-1" />{errorPassword}</p>}
+          {errorPassword && <p role="alert" data-testid="error-password" className="text-secondary text-sm mt-1 flex items-center"><AlertCircle className="w-4 h-4 mr-1" />{errorPassword}</p>}
         </div>
 
         <div>
@@ -130,7 +130,7 @@ export const ValidationForm = () => {
             value={confirmPassword}
             onChange={(e) => setConfirmPassword(e.target.value)}
           />
-          {errorConfirmPassword && <p className="text-secondary text-sm mt-1 flex items-center"><AlertCircle className="w-4 h-4 mr-1" />{errorConfirmPassword}</p>}
+          {errorConfirmPassword && <p role="alert" data-testid="error-confirm-password" className="text-secondary text-sm mt-1 flex items-center"><AlertCircle className="w-4 h-4 mr-1" />{errorConfirmPassword}</p>}
         </div>
 
         <button type="submit" className="btn btn-primary btn-lg w-full">Submit</button>
