@@ -1,2 +1,2 @@
-export { Button } from './components/Button';
-export { ButtonDemo as UsageExample } from './components/ButtonDemo';
+export { Button } from './components/Button.tsx';
+export { ButtonDemo as UsageExample } from './components/ButtonDemo.tsx';

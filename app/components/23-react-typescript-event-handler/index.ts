@@ -1,4 +1,4 @@
-export * from './components/ClickEventHandler';
-export * from './components/ChangeEventHandler';
-export * from './components/SubmitEventHandler';
-export { EventHandlersDemo as UsageExample } from './components/EventHandlersDemo';
+export * from './components/ClickEventHandler.tsx';
+export * from './components/ChangeEventHandler.tsx';
+export * from './components/SubmitEventHandler.tsx';
+export { EventHandlersDemo as UsageExample } from './components/EventHandlersDemo.tsx';

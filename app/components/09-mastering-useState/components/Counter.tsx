@@ -6,8 +6,8 @@ const Counter = () => {
 
   return (
     <div className="center-content py-12 px-4">
-      <div className="max-w-2xl w-full glass rounded-2xl p-8 md:p-10">
-        <h2 className="text-4xl md:text-5xl font-extrabold text-foreground mb-8 center-text">
+      <div className="max-w-2xl w-full themed-card p-8 md:p-10">
+        <h2 className="text-4xl md:text-5xl font-extrabold text-primary mb-8 center-text">
           Counter
         </h2>
         <div className="mb-8 center-content">

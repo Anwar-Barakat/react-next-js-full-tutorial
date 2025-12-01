@@ -33,7 +33,7 @@ const MealList = () => {
 
   if (loading) {
     return (
-      <div className="glass w-full max-w-md p-6 text-center">
+      <div className="themed-card w-full max-w-md p-6 text-center">
         <p className="text-lg text-muted-foreground">Loading meals...</p>
       </div>
     );
@@ -48,7 +48,7 @@ const MealList = () => {
   }
 
   return (
-    <div className="w-full">
+    <div className="w-full themed-card p-6">
       <h2 className="text-3xl font-bold text-primary mb-8 text-center">
         Delicious Meals
       </h2>

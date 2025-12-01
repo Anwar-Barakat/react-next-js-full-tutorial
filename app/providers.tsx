@@ -7,7 +7,7 @@ const queryClient = new QueryClient();
 
 type Theme = 'light' | 'dark';
 
-interface ThemeContextType {
+  interface ThemeContextType {
   theme: Theme;
   toggleTheme: () => void;
 }
