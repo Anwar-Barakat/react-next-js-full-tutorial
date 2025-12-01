@@ -25,6 +25,7 @@ const Header: React.FC<HeaderProps> = ({ components, selectedKey, setSelectedKey
         <select
           value={selectedKey}
           onChange={(e) => setSelectedKey(e.target.value)}
+          
           className="glass w-full h-10 pl-4 pr-10 text-base placeholder-gray-500 border rounded-lg appearance-none focus:outline-none focus:shadow-outline-blue"
         >
           {Object.keys(components)
