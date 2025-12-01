@@ -1,7 +1,6 @@
 'use client';
 import { useState } from 'react';
-import { BookOpen } from 'lucide-react';
-import { motion } from 'framer-motion';
+import Header from './components/layout/Header';
 
 
 import { Greet as Greetv01 } from "./components/01-greet-component";
@@ -224,45 +223,11 @@ export default function Home() {
 
   return (
     <div className="min-h-screen">
-      <div className="glass max-h-[30rem] overflow-y-auto p-4 rounded-lg mb-8">
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4">
-          <h1 className='text-5xl sm:col-span-2 lg:col-span-3 xl:col-span-4 font-extrabold mb-6 text-transparent bg-clip-text bg-gradient-to-r from-primary to-accent'>
-            Component Showcase
-          </h1>
-          {Object.keys(components)
-            .sort((a, b) => parseInt(a) - parseInt(b))
-            .map((key) => {
-              const { name } = components[key]
-              return (
-                <motion.button
-                  key={key}
-                  onClick={() => setSelectedKey(key)}
-                  className={`glass w-full h-28 p-4 flex flex-col items-center justify-center text-center rounded-xl relative overflow-hidden ${selectedKey === key
-                    ? 'border-primary bg-gradient-to-br from-primary/20 to-primary/30'
-                    : 'border-glass-border'
-                    }`}
-                  whileHover={{
-                    scale: 1.03,
-                    boxShadow: "0px 0px 12px rgba(96, 165, 250, 0.5)",
-                    backgroundColor: "rgba(96, 165, 250, 0.1)"
-                  }}
-                  whileTap={{ scale: 0.98 }}
-                  transition={{ type: 'spring', stiffness: 300 }}
-                  animate={{
-                    scale: selectedKey === key ? 1.05 : 1,
-                    boxShadow: selectedKey === key ? "0px 0px 20px rgba(96, 165, 250, 0.7)" : "0px 0px 0px rgba(96, 165, 250, 0)",
-                  }}
-                >
-                  <div className="flex items-center mb-2">
-                    <BookOpen className="w-5 h-5 mr-2 text-primary-hover/50" />
-                    <span className="text-xl font-bold text-primary-hover">{key}</span>
-                  </div>
-                  <span className="text-base leading-tight">{name}</span>
-                </motion.button>
-              )
-            })}
-        </div>
-      </div>
+      <Header
+        components={components}
+        selectedKey={selectedKey}
+        setSelectedKey={setSelectedKey}
+      />
 
       <hr className="my-8 border-glass-border opacity-30" />
 

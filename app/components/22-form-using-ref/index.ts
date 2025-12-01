@@ -1,1 +1,1 @@
-export { FormWithRef } from './components/FormWithRef';
+export { FormWithRef } from './components/FormWithRef.tsx';

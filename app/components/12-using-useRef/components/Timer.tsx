@@ -19,8 +19,8 @@ const Timer = () => {
 
   return (
     <div className="center-content py-12 px-4">
-      <div className="max-w-2xl w-full glass rounded-lg p-6 md:p-8">
-        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 center-text">
+      <div className="max-w-2xl w-full themed-card p-6 md:p-8">
+        <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6 center-text">
           Timer
         </h2>
         <p className="text-3xl font-bold text-secondary mb-6 center-text">

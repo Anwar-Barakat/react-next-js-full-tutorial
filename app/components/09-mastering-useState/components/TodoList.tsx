@@ -15,8 +15,8 @@ const TodoList = () => {
 
   return (
     <div className="center-content py-12 px-4">
-      <div className="max-w-2xl w-full glass rounded-lg p-6 md:p-8">
-        <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 center-text">
+      <div className="max-w-2xl w-full themed-card p-6 md:p-8">
+        <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6 center-text">
           Todo List
         </h2>
         <form onSubmit={addTodo} className="mb-6">

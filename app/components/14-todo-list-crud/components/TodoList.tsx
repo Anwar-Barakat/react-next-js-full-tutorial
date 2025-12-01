@@ -27,8 +27,8 @@ const TodoList = () => {
 
     return (
         <div className="center-content py-12 px-4">
-            <div className="max-w-2xl w-full glass rounded-lg p-6 md:p-8">
-                <h2 className="text-3xl md:text-4xl font-bold text-foreground mb-6 center-text">
+            <div className="max-w-2xl w-full themed-card p-6 md:p-8">
+                <h2 className="text-3xl md:text-4xl font-bold text-primary mb-6 center-text">
                     Todo List
                 </h2>
                 <form onSubmit={handleSubmit} className="mb-6">
@@ -52,7 +52,7 @@ const TodoList = () => {
                     {todos.map((item) => (
                         <li 
                             key={item.id} 
-                            className="flex justify-between items-center p-4 glass rounded-lg transition-colors"
+                            className="flex justify-between items-center p-4 themed-card text-primary transition-colors"
                         >
                             <span className="text-foreground">{item.name}</span>
                             <button 

@@ -4,6 +4,8 @@ import "./globals.css";
 import { Providers } from './providers';
 import ThemeToggleButton from './components/theme-toggle/ThemeToggleButton';
 
+import Footer from './components/layout/Footer';
+
 const bebasNeue = Bebas_Neue({
   subsets: ['latin'],
   weight: "400",
@@ -40,6 +42,7 @@ export default function RootLayout({
             </div>
             {children}
           </main>
+          <Footer />
         </Providers>
       </body>
     </html>

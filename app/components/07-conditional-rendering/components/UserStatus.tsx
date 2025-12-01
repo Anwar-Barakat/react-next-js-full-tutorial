@@ -6,7 +6,7 @@ interface UserStatusProps {
 const UserStatus = (props: UserStatusProps) => {
   return (
     <div className="center-content py-12 px-4">
-      <div className="max-w-2xl w-full glass rounded-lg p-6 md:p-8">
+      <div className="max-w-2xl w-full themed-card p-6 md:p-8">
         {props.loggedIn && props.isAdmin && (
           <p className="text-xl font-bold text-accent center-text">
             Welcome Admin! 👑
