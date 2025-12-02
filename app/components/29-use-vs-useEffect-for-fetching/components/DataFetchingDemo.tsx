@@ -2,9 +2,9 @@
 
 import React, { useState, Suspense } from 'react';
 import { fetchData } from '../dataFetcher';
-import { FetchWithUseEffect } from '../FetchWithUseEffect';
-import { FetchWithUse } from '../FetchWithUse';
-import { ErrorBoundary } from '../ErrorBoundary';
+import { FetchWithUseEffect } from './FetchWithUseEffect';
+import { FetchWithUse } from './FetchWithUse';
+import { ErrorBoundary } from './ErrorBoundary';
 
 export const DataFetchingDemo: React.FC = () => {
   const [triggerErrorUseEffect, setTriggerErrorUseEffect] = useState<boolean>(false);
@@ -28,7 +28,7 @@ export const DataFetchingDemo: React.FC = () => {
 
   return (
     <div className="w-full">
-      <h2 className="text-3xl font-bold text-primary text-center mb-4">
+      <h2 className="text-3xl font-bold text-primary text-center mb-4" data-testid="main-heading">
         `use` Hook vs. `useEffect` for Data Fetching
       </h2>
       <p className="mb-8 text-lg text-foreground text-center">
@@ -61,8 +61,8 @@ export const DataFetchingDemo: React.FC = () => {
         <div className="flex-1 glass glass-lg">
           <ErrorBoundary fallback={
             <div className="alert alert-danger">
-              <h3 className="text-xl font-semibold mb-2">Error with `use` Hook</h3>
-              <p>Failed to load data. Please try again.</p>
+              <h3 className="text-xl font-semibold mb-2" data-testid="use-hook-error-heading">Error with `use` Hook</h3>
+              <p data-testid="use-hook-error-message">Failed to load data. Please try again.</p>
               <button
                 onClick={handleRefetch}
                 className="mt-3 btn btn-accent btn-sm"
@@ -73,7 +73,7 @@ export const DataFetchingDemo: React.FC = () => {
           }>
             <Suspense fallback={
               <div className="alert alert-info">
-                <h3 className="text-xl font-semibold mb-2">Loading with `use` Hook...</h3>
+                <h3 className="text-xl font-semibold mb-2" data-testid="use-hook-loading-message">Loading with `use` Hook...</h3>
                 <p>Data is being fetched using React 19&apos;s `use` hook and Suspense.</p>
               </div>
             }>

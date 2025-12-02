@@ -33,6 +33,7 @@ export const UserRegistrationForm: React.FC = () => {
     reset,
   } = useForm<FormData>({
     resolver: zodResolver(schema),
+    mode: 'onBlur',
   });
 
   const [submissionMessage, setSubmissionMessage] = useState<string | null>(null);
@@ -59,7 +60,7 @@ export const UserRegistrationForm: React.FC = () => {
             {...register('fullName')}
             className={inputClasses(!!errors.fullName)}
           />
-          {errors.fullName && <p className="mt-1 text-sm text-secondary flex items-center"><AlertCircle className="w-4 h-4 mr-1" />{errors.fullName.message}</p>}
+          {errors.fullName && <p data-testid="error-fullName" className="mt-1 text-sm text-secondary flex items-center"><AlertCircle className="w-4 h-4 mr-1" />{errors.fullName.message}</p>}
         </div>
 
         <div>
@@ -72,7 +73,7 @@ export const UserRegistrationForm: React.FC = () => {
             {...register('email')}
             className={inputClasses(!!errors.email)}
           />
-          {errors.email && <p className="mt-1 text-sm text-secondary flex items-center"><AlertCircle className="w-4 h-4 mr-1" />{errors.email.message}</p>}
+          {errors.email && <p data-testid="error-email" className="mt-1 text-sm text-secondary flex items-center"><AlertCircle className="w-4 h-4 mr-1" />{errors.email.message}</p>}
         </div>
 
         <div>
@@ -85,7 +86,7 @@ export const UserRegistrationForm: React.FC = () => {
             {...register('password')}
             className={inputClasses(!!errors.password)}
           />
-          {errors.password && <p className="mt-1 text-sm text-secondary flex items-center"><AlertCircle className="w-4 h-4 mr-1" />{errors.password.message}</p>}
+          {errors.password && <p data-testid="error-password" className="mt-1 text-sm text-secondary flex items-center"><AlertCircle className="w-4 h-4 mr-1" />{errors.password.message}</p>}
         </div>
 
         <div>
@@ -98,7 +99,7 @@ export const UserRegistrationForm: React.FC = () => {
             {...register('confirmPassword')}
             className={inputClasses(!!errors.confirmPassword)}
           />
-          {errors.confirmPassword && <p className="mt-1 text-sm text-secondary flex items-center"><AlertCircle className="w-4 h-4 mr-1" />{errors.confirmPassword.message}</p>}
+          {errors.confirmPassword && <p data-testid="error-confirmPassword" className="mt-1 text-sm text-secondary flex items-center"><AlertCircle className="w-4 h-4 mr-1" />{errors.confirmPassword.message}</p>}
         </div>
 
         <button

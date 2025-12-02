@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useEffect } from 'react';
-import { fetchData } from './dataFetcher';
+import { fetchData } from '../dataFetcher';
 
 interface FetchedData {
   id: number;
@@ -51,16 +51,16 @@ export const FetchWithUseEffect: React.FC<FetchWithUseEffectProps> = ({ triggerE
   return (
     <div className="glass glass-lg w-full text-center">
       <h3 className="text-xl font-semibold mb-3 text-primary">Fetch with `useEffect`</h3>
-      {loading && <p className="text-accent">Loading data...</p>}
-      {error && <p className="text-secondary">Error: {error}</p>}
+      {loading && <p className="text-accent" data-testid="loading-message">Loading data...</p>}
+      {error && <p className="text-secondary" data-testid="error-message">Error: {error}</p>}
       {data && (
         <div className="space-y-2">
-          <p className="text-foreground text-left"><strong className="text-primary">ID:</strong> {data.id}</p>
-          <p className="text-foreground text-left"><strong className="text-primary">Name:</strong> {data.name}</p>
-          <p className="text-foreground text-left"><strong className="text-primary">Value:</strong> {data.value}</p>
+          <p className="text-foreground text-left" data-testid="id-display"><strong className="text-primary">ID:</strong> {data.id}</p>
+          <p className="text-foreground text-left" data-testid="name-display"><strong className="text-primary">Name:</strong> {data.name}</p>
+          <p className="text-foreground text-left" data-testid="value-display"><strong className="text-primary">Value:</strong> {data.value}</p>
         </div>
       )}
-      {!loading && !error && !data && <p className="text-muted-foreground">Click &quot;Fetch Data&quot; to load.</p>}
+      {!loading && !error && !data && <p className="text-muted-foreground" data-testid="initial-message">Click &quot;Fetch Data&quot; to load.</p>}
     </div>
   );
 };
