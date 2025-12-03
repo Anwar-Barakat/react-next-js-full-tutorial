@@ -1,16 +1,13 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import StyledCard from '../components/StyledCard';
 
-describe('StyledCard Component', () => {
-  it('renders the title "Styled Card"', () => {
+describe('StyledCard', () => {
+  it('renders the styled card with a title and description', () => {
     render(<StyledCard />);
-    expect(screen.getByText('Styled Card')).toBeInTheDocument();
-  });
+    const title = screen.getByText('Styled Card');
+    const paragraph = screen.getByText('This card is styled with Tailwind CSS.');
 
-  it('renders the descriptive paragraph', () => {
-    render(<StyledCard />);
-    expect(screen.getByText('This card is styled with Tailwind CSS.')).toBeInTheDocument();
+    expect(title).toBeInTheDocument();
+    expect(paragraph).toBeInTheDocument();
   });
 });

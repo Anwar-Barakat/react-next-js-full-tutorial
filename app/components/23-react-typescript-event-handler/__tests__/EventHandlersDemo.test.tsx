@@ -1,6 +1,4 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { EventHandlersDemo } from '../components/EventHandlersDemo';
 import { ClickEventHandler } from '../components/ClickEventHandler';
 import { ChangeEventHandler } from '../components/ChangeEventHandler';
@@ -22,7 +20,7 @@ jest.mock('../components/SubmitEventHandler', () => ({
   SubmitEventHandler: () => <div data-testid="mock-submit-handler">Mock SubmitEventHandler</div>,
 }));
 
-describe('EventHandlersDemo Component', () => {
+describe('EventHandlersDemo', () => {
   it('renders ClickEventHandler, ChangeEventHandler, and SubmitEventHandler components', () => {
     render(<EventHandlersDemo />);
 

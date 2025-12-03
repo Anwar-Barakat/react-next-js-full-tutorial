@@ -1,17 +1,14 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import Greeting from '../components/Greeting';
+import Greeting from '@/app/components/04-dynamic-content/components/Greeting';
 
-describe('Greeting Component', () => {
-  it('renders "Hello, John!"', () => {
+describe('Greeting', () => {
+  it('renders the greeting component with a name and current date', () => {
     render(<Greeting />);
-    expect(screen.getByText('Hello, John!')).toBeInTheDocument();
-  });
-
-  it('renders today\'s date', () => {
-    render(<Greeting />);
+    const nameGreeting = screen.getByText('Hello, John!');
     const currentDate = new Date().toLocaleDateString();
-    expect(screen.getByText(`Today's date is: ${currentDate}`)).toBeInTheDocument();
+    const dateDisplay = screen.getByText(`Today's date is: ${currentDate}`);
+
+    expect(nameGreeting).toBeInTheDocument();
+    expect(dateDisplay).toBeInTheDocument();
   });
 });

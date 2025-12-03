@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { ContextDemo } from '../components/ContextDemo';
 import { CounterProvider } from '../components/CounterContext';
 import { Counter } from '../components/Counter';
@@ -15,7 +14,7 @@ jest.mock('../components/Counter', () => ({
 // We need to keep CounterProvider real for ContextDemo to work as intended,
 // as ContextDemo wraps Counter with CounterProvider.
 
-describe('ContextDemo Component', () => {
+describe('ContextDemo', () => {
   it('renders Counter component within CounterProvider', () => {
     render(<ContextDemo />);
 

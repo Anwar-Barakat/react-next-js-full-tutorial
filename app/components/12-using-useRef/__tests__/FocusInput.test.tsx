@@ -1,9 +1,7 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import FocusInput from '../components/FocusInput';
 
-describe('FocusInput Component', () => {
+describe('FocusInput', () => {
   it('focuses the input when the button is clicked', () => {
     render(<FocusInput />);
     const inputElement = screen.getByPlaceholderText('Click button to focus');

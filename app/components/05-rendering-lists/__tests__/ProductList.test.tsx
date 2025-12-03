@@ -1,9 +1,7 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import ProductList from '../components/ProductList';
+import ProductList from '@/app/components/05-rendering-lists/components/ProductList';
 
-describe('ProductList Component', () => {
+describe('ProductList', () => {
   const mockProducts = [
     { id: 1, name: 'Laptop', price: 1200 },
     { id: 2, name: 'Mouse', price: 25 },

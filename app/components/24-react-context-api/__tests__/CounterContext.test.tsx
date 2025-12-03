@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen, act, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { CounterProvider, useCounter } from '../components/CounterContext';
 
 // A test component to consume the context

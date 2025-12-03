@@ -1,9 +1,7 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { SubmitEventHandler } from '../components/SubmitEventHandler';
 
-describe('SubmitEventHandler Component', () => {
+describe('SubmitEventHandler', () => {
   let alertSpy: jest.SpyInstance;
 
   beforeEach(() => {

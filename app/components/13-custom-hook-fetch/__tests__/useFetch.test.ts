@@ -12,10 +12,10 @@ describe('useFetch', () => {
     // Reset mocks before each test
     // global.fetch is mocked globally in jest.setup.ts
     // We can override it here for specific test cases
-    jest.spyOn(global, 'fetch').mockClear(); 
+    jest.spyOn(global, 'fetch').mockClear();
   });
 
-  it('should fetch data successfully', async () => {
+  it.concurrent('should fetch data successfully', async () => {
     jest.spyOn(global, 'fetch').mockImplementationOnce(() =>
       Promise.resolve({
         ok: true,
@@ -36,7 +36,7 @@ describe('useFetch', () => {
     expect(global.fetch).toHaveBeenCalledWith(mockUrl);
   });
 
-  it('should handle fetch error', async () => {
+  it.concurrent('should handle fetch error', async () => {
     jest.spyOn(global, 'fetch').mockImplementationOnce(() =>
       Promise.resolve({
         ok: false,
@@ -58,7 +58,7 @@ describe('useFetch', () => {
     expect(global.fetch).toHaveBeenCalledWith(mockUrl);
   });
 
-  it('should handle network error', async () => {
+  it.concurrent('should handle network error', async () => {
     jest.spyOn(global, 'fetch').mockImplementationOnce(() => Promise.reject(mockError));
 
     const { result } = renderHook(() => useFetch(mockUrl));

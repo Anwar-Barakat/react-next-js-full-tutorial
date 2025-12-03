@@ -1,19 +1,19 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import Counter from '../components/Counter';
 
-describe('Counter Component', () => {
-  it('renders initial count of 0', () => {
+describe('Counter', () => {
+  it('renders initial count and increments it on button click', () => {
     render(<Counter />);
-    expect(screen.getByText('0')).toBeInTheDocument();
-  });
 
-  it('increments count when "+ Increment" button is clicked', () => {
-    render(<Counter />);
+    // Check initial count
+    expect(screen.getByText('0')).toBeInTheDocument();
+
+    // Increment count and check
     const incrementButton = screen.getByRole('button', { name: /increment/i });
     fireEvent.click(incrementButton);
     expect(screen.getByText('1')).toBeInTheDocument();
+
+    // Increment again and check
     fireEvent.click(incrementButton);
     expect(screen.getByText('2')).toBeInTheDocument();
   });

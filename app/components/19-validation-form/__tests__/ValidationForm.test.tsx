@@ -1,6 +1,4 @@
-import React from 'react';
-import { render, screen, fireEvent, waitFor, act, within } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import { render, screen, fireEvent, waitFor, act } from '@testing-library/react';
 import { ValidationForm } from '../components/ValidationForm';
 import { AlertCircle } from 'lucide-react';
 
@@ -9,7 +7,7 @@ jest.mock('lucide-react', () => ({
   AlertCircle: () => <svg data-testid="alert-circle-icon" />,
 }));
 
-describe('ValidationForm Component', () => {
+describe('ValidationForm', () => {
   let alertSpy: jest.SpyInstance;
 
   beforeEach(() => {
@@ -49,6 +47,7 @@ describe('ValidationForm Component', () => {
   it('displays error for short username', async () => {
     render(<ValidationForm />);
     const usernameInput = screen.getByPlaceholderText('Username');
+    fireEvent.change(usernameInput, { target: { value: 'short' } });
     act(() => {
       fireEvent.click(screen.getByRole('button', { name: /submit/i }));
     });

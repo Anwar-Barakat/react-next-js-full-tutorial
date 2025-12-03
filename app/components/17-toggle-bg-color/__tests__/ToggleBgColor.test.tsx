@@ -1,9 +1,7 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { ToggleBgColor } from '../components/ToggleBgColor';
 
-describe('ToggleBgColor (Search Component)', () => {
+describe('ToggleBgColor', () => {
   it('renders a search input and a button', () => {
     render(<ToggleBgColor />);
     expect(screen.getByPlaceholderText('Search...')).toBeInTheDocument();

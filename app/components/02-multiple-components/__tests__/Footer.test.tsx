@@ -1,12 +1,11 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import Footer from '../components/Footer';
 
-describe('Footer Component', () => {
-  it('renders the current year in the copyright notice', () => {
+describe('Footer', () => {
+  it('renders the copyright notice with the current year', () => {
     render(<Footer />);
     const currentYear = new Date().getFullYear();
-    expect(screen.getByText(`© ${currentYear} My Website`)).toBeInTheDocument();
+    const copyrightNotice = screen.getByText(`© ${currentYear} My Website`);
+    expect(copyrightNotice).toBeInTheDocument();
   });
 });

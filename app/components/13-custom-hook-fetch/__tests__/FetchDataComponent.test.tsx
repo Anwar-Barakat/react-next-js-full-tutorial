@@ -1,6 +1,4 @@
-import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import { render, screen } from '@testing-library/react';
 import FetchDataComponent from '../components/FetchDataComponent';
 import useFetch from '../components/useFetch';
 

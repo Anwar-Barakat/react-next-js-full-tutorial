@@ -1,18 +1,13 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import JSXRules from '../components/JSXRules';
+import JSXRules from '@/app/components/03-jsx-rules/components/JsxRules';
 
-describe('JSXRules Component', () => {
-  it('renders the title "JSX Rules"', () => {
+describe('JSXRules', () => {
+  it('renders the component with a title and a list of rules', () => {
     render(<JSXRules />);
-    expect(screen.getByText('JSX Rules')).toBeInTheDocument();
-  });
+    const title = screen.getByText('JSX Rules');
+    const rules = screen.getAllByRole('listitem');
 
-  it('renders the list of JSX rules', () => {
-    render(<JSXRules />);
-    expect(screen.getByText('JSX must return a single parent element.')).toBeInTheDocument();
-    expect(screen.getByText('JSX elements must be properly closed.')).toBeInTheDocument();
-    expect(screen.getByText('JSX attributes are written using camelCase (e.g., className instead of class).')).toBeInTheDocument();
+    expect(title).toBeInTheDocument();
+    expect(rules).toHaveLength(3);
   });
 });

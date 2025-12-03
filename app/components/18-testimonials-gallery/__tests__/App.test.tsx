@@ -1,7 +1,5 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { App } from '../App';
+import { App } from '@/app/components/18-testimonials-gallery/App';
 import { Testimonials } from '../components/Testimonials';
 import { Gallery } from '../components/Gallery';
 
@@ -16,7 +14,7 @@ jest.mock('../components/Gallery', () => ({
   Gallery: () => <div data-testid="mock-gallery">Mock Gallery</div>,
 }));
 
-describe('App Component', () => {
+describe('App', () => {
   it('renders Testimonials and Gallery components', () => {
     render(<App />);
 

@@ -1,47 +1,12 @@
-import React from 'react';
 import { render, screen, fireEvent, waitFor, within } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import { TodoList } from '../components/TodoList';
-import { todoReducer } from '../todoReducer';
-import { Todo } from '../types';
+import { TodoList } from '../components/TodoList'; // This will now use the actual todoReducer
 
-// Mock the todoReducer to control its behavior in the component test
-jest.mock('../todoReducer', () => ({
-  __esModule: true,
-  todoReducer: jest.fn((state, action) => {
-    // Implement basic reducer logic for the mock to function
-    switch (action.type) {
-      case 'ADD_TODO':
-        return [...state, { id: state.length + 1, text: action.payload, completed: false }];
-      case 'TOGGLE_TODO':
-        return state.map(todo =>
-          todo.id === action.payload ? { ...todo, completed: !todo.completed } : todo
-        );
-      case 'DELETE_TODO':
-        return state.filter(todo => todo.id !== action.payload);
-      default:
-        return state;
-    }
-  }),
+// Mock react-icons/cg
+jest.mock('react-icons/cg', () => ({
+  CgClose: () => <svg data-testid="cg-close-icon" />,
 }));
 
-const mockTodoReducer = todoReducer as jest.Mock;
-
-describe('TodoList Component (with mocked reducer)', () => {
-  const initialTodos: Todo[] = [
-    { id: 1, text: 'Learn useReducer', completed: false },
-    { id: 2, text: 'Apply TypeScript', completed: true },
-  ];
-
-  beforeEach(() => {
-    // Reset mock before each test and set initial state for the component
-    mockTodoReducer.mockImplementation((state, action) => {
-      // Use the actual reducer implementation for predictable state changes
-      return jest.requireActual('../todoReducer').todoReducer(state, action);
-    });
-    // The initial state for the component is handled within the component itself
-  });
-
+describe('TodoList', () => {
   it('renders initial todo items', () => {
     render(<TodoList />);
     expect(screen.getByText('Learn useReducer')).toBeInTheDocument();
@@ -64,9 +29,11 @@ describe('TodoList Component (with mocked reducer)', () => {
   it('toggles todo completion status when checkbox is clicked', () => {
     render(<TodoList />);
     const applyTypeScriptTodo = screen.getByText('Apply TypeScript');
-    const checkbox = applyTypeScriptTodo.previousSibling as HTMLInputElement;
+    // Find the checkbox associated with 'Apply TypeScript'
+    const checkbox = within(applyTypeScriptTodo.closest('li')!).getByRole('checkbox') as HTMLInputElement;
 
     expect(checkbox).toBeChecked(); // Initially completed
+    expect(applyTypeScriptTodo).toHaveClass('line-through'); // Should have line-through
 
     fireEvent.click(checkbox);
     expect(checkbox).not.toBeChecked(); // Should be toggled to incomplete

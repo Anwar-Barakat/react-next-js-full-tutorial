@@ -1,9 +1,7 @@
-import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import FetchDataEffect from '../components/FetchDataEffect';
 
-describe('FetchDataEffect Component', () => {
+describe('FetchDataEffect', () => {
   const mockPost = {
     id: 1,
     title: 'Test Post Title',

@@ -1,16 +1,14 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import ProductInfo from '../components/ProductInfo';
 
-describe('ProductInfo Component', () => {
+describe('ProductInfo', () => {
   const mockProduct = {
     name: 'Test Product',
     price: 99.99,
     availability: 'In stock',
   };
 
-  it('renders product name, price, and availability', () => {
+  it('renders product information for an "In stock" product', () => {
     render(<ProductInfo product={mockProduct} />);
 
     expect(screen.getByText('Test Product')).toBeInTheDocument();
@@ -18,7 +16,7 @@ describe('ProductInfo Component', () => {
     expect(screen.getByText('In stock')).toBeInTheDocument();
   });
 
-  it('renders "Out of stock" availability correctly', () => {
+  it('renders product information for an "Out of stock" product', () => {
     const outOfStockProduct = { ...mockProduct, availability: 'Out of stock' };
     render(<ProductInfo product={outOfStockProduct} />);
 

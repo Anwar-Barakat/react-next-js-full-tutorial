@@ -1,6 +1,4 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { StatefulComponentsContainer } from '../components/StatefulComponentsContainer';
 import { BasicState } from '../components/BasicState';
 import { UserProfile } from '../components/UserProfile';
@@ -22,7 +20,7 @@ jest.mock('../components/TodoList', () => ({
   TodoList: () => <div data-testid="mock-todo-list">Mock TodoList</div>,
 }));
 
-describe('StatefulComponentsContainer Component', () => {
+describe('StatefulComponentsContainer', () => {
   it('renders BasicState, UserProfile, and TodoList components', () => {
     render(<StatefulComponentsContainer />);
 
