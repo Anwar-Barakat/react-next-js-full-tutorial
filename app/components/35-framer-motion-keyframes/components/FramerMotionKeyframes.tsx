@@ -1,12 +1,12 @@
 'use client';
 import React from 'react';
-import BouncingBall from '../BouncingBall';
-import PulsatingButton from '../PulsatingButton';
-import ColorChangeSquare from '../ColorChangeSquare';
-import SlidingText from '../SlidingText';
-import ZigzagBox from '../ZigzagBox';
-import WaveEffect from '../WaveEffect';
-import BackgroundAnimation from '../BackgroundAnimation';
+import BouncingBall from './BouncingBall';
+import PulsatingButton from './PulsatingButton';
+import ColorChangeSquare from './ColorChangeSquare';
+import SlidingText from './SlidingText';
+import ZigzagBox from './ZigzagBox';
+import WaveEffect from './WaveEffect';
+import BackgroundAnimation from './BackgroundAnimation';
 
 const FramerMotionKeyframes = () => {
   return (

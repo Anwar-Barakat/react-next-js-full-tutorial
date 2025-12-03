@@ -1,14 +1,14 @@
 "use client";
 
 import React, { Suspense, useState } from "react";
-import Navigation from "../Navigation";
-import PeopleToFollow from "../PeopleToFollow";
-import TrendList from "../TrendList";
-import TopicsList from "../TopicsList";
-import BlogProvider, { Blog } from "../BlogContext";
-import Modal from "../Modal";
-import BlogForm from "../BlogForm";
-import ArticleList from "../ArticleList";
+import Navigation from "./Navigation";
+import PeopleToFollow from "./PeopleToFollow";
+import TrendList from "./TrendList";
+import TopicsList from "./TopicsList";
+import BlogProvider, { Blog } from "./BlogContext";
+import Modal from "./Modal";
+import BlogForm from "./BlogForm";
+import ArticleList from "./ArticleList";
 
 const App = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);

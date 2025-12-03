@@ -1,7 +1,7 @@
 "use client";
 
 import React, { FC } from "react";
-import { useBlogs, Blog } from "./BlogContext";
+import { useBlogs, Blog } from "../BlogContext";
 import ArticleCard from "./ArticleCard";
 
 interface ArticleListProps {
