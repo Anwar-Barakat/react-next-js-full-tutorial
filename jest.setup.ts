@@ -1,5 +1,6 @@
 import '@testing-library/jest-dom';
 import 'jest-fetch-mock'; // Import jest-fetch-mock
+import { cleanup } from '@testing-library/react';
 
 // Before each test, make sure fetch is mocked
 beforeEach(() => {
@@ -17,3 +18,5 @@ beforeEach(() => {
 afterEach(() => {
   jest.restoreAllMocks();
 });
+
+afterEach(cleanup);

@@ -1,9 +1,7 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { Calculator } from '../components/Calculator';
 
-describe('Calculator Component', () => {
+describe('Calculator', () => {
   it('renders initial display value as "0"', () => {
     render(<Calculator />);
     expect(screen.getByRole('status')).toHaveTextContent('0');
@@ -22,7 +20,7 @@ describe('Calculator Component', () => {
     fireEvent.click(screen.getByRole('button', { name: '1' }));
     fireEvent.click(screen.getByRole('button', { name: '+' }));
     fireEvent.click(screen.getByRole('button', { name: '2' }));
-    fireEvent.click(screen.getByText('='));
+    fireEvent.click(screen.getByRole('button', { name: 'Equals' }));
     expect(screen.getByRole('status')).toHaveTextContent('3');
   });
 
@@ -31,7 +29,7 @@ describe('Calculator Component', () => {
     fireEvent.click(screen.getByRole('button', { name: '5' }));
     fireEvent.click(screen.getByRole('button', { name: '-' }));
     fireEvent.click(screen.getByRole('button', { name: '2' }));
-    fireEvent.click(screen.getByText('='));
+    fireEvent.click(screen.getByRole('button', { name: 'Equals' }));
     expect(screen.getByRole('status')).toHaveTextContent('3');
   });
 
@@ -40,7 +38,7 @@ describe('Calculator Component', () => {
     fireEvent.click(screen.getByRole('button', { name: '4' }));
     fireEvent.click(screen.getByRole('button', { name: '*' }));
     fireEvent.click(screen.getByRole('button', { name: '3' }));
-    fireEvent.click(screen.getByText('='));
+    fireEvent.click(screen.getByRole('button', { name: 'Equals' }));
     expect(screen.getByRole('status')).toHaveTextContent('12');
   });
 
@@ -50,7 +48,7 @@ describe('Calculator Component', () => {
     fireEvent.click(screen.getByRole('button', { name: '0' }));
     fireEvent.click(screen.getByRole('button', { name: '/' }));
     fireEvent.click(screen.getByRole('button', { name: '2' }));
-    fireEvent.click(screen.getByText('='));
+    fireEvent.click(screen.getByRole('button', { name: 'Equals' }));
     expect(screen.getByRole('status')).toHaveTextContent('5');
   });
 

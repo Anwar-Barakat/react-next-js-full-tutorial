@@ -1,9 +1,7 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { TodoList } from '../components/TodoList';
 
-describe('TodoList Component', () => {
+describe('TodoList', () => {
   it('renders initial todo items', () => {
     render(<TodoList />);
     expect(screen.getByText('Learn TypeScript')).toBeInTheDocument();
@@ -46,5 +44,6 @@ describe('TodoList Component', () => {
     fireEvent.click(addButton); // Click without typing
 
     expect(screen.queryByText('Add a new todo')).not.toBeInTheDocument(); // Assuming no default empty todo is shown
+
   });
 });

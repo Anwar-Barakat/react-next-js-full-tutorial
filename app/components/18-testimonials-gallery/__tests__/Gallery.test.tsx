@@ -1,6 +1,4 @@
-import React from 'react';
-import { render, screen, fireEvent, act } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import { render, screen, fireEvent } from '@testing-library/react';
 import { Gallery } from '../components/Gallery';
 import Image from 'next/image';
 
@@ -13,7 +11,7 @@ jest.mock('next/image', () => ({
   },
 }));
 
-describe('Gallery Component', () => {
+describe('Gallery', () => {
   // Helper to get all currently displayed images by their alt text
   const getDisplayedImages = () => {
     return screen.getAllByRole('img').map(img => img.getAttribute('src'));

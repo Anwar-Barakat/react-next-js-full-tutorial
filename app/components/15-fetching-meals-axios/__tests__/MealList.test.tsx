@@ -1,6 +1,4 @@
-import React from 'react';
 import { render, screen, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import axios from 'axios';
 import MealList from '../components/MealList';
 
@@ -17,7 +15,7 @@ jest.mock('../components/MealCard', () => {
   );
 });
 
-describe('MealList Component', () => {
+describe('MealList', () => {
   const mockRecipes = {
     recipes: [
       { id: 1, name: 'Pasta', image: 'pasta.jpg', instructions: ['Boil water'] },

@@ -1,10 +1,8 @@
 import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { UseHookDemo } from '../components/UseHookDemo';
-import { ThemeProvider } from '../ThemeProvider';
-import { LegacyThemeDisplay } from '../LegacyThemeDisplay';
-import { NewThemeDisplay } from '../NewThemeDisplay';
+import { LegacyThemeDisplay } from '../LegacyThemeDisplay'; // Corrected import path
+import { NewThemeDisplay } from '../NewThemeDisplay';     // Corrected import path
 
 // Mock child components to isolate UseHookDemo's rendering structure
 jest.mock('../LegacyThemeDisplay', () => ({
@@ -17,16 +15,7 @@ jest.mock('../NewThemeDisplay', () => ({
   NewThemeDisplay: () => <div data-testid="mock-new-theme-display">Mock NewThemeDisplay</div>,
 }));
 
-// We need the real ThemeProvider here, as UseHookDemo wraps its children with it.
-// jest.mock('../ThemeProvider', () => ({
-//   __esModule: true,
-//   ThemeProvider: ({ children }: { children: React.ReactNode }) => (
-//     <div data-testid="mock-theme-provider">{children}</div>
-//   ),
-// }));
-
-
-describe('UseHookDemo Component', () => {
+describe('UseHookDemo', () => {
   it('renders LegacyThemeDisplay and NewThemeDisplay components within ThemeProvider', () => {
     render(<UseHookDemo />);
 

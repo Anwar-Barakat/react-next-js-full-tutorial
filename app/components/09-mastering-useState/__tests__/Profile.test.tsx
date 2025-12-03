@@ -1,33 +1,32 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import { render, fireEvent, within } from '@testing-library/react';
 import Profile from '../components/Profile';
 
-describe('Profile Component', () => {
+describe('Profile', () => {
   it('renders initial profile information', () => {
-    render(<Profile />);
-    const nameSpan = screen.getByText('Name:', { selector: 'span' });
-    expect(nameSpan.closest('p')).toHaveTextContent('Name: John Doe');
+    const { container } = render(<Profile />);
 
-    const ageSpan = screen.getByText('Age:', { selector: 'span' });
-    expect(ageSpan.closest('p')).toHaveTextContent('Age: 30');
+    const nameSpan = within(container).getByText('Name:');
+    expect(nameSpan.parentElement).toHaveTextContent('Name: John Doe');
+
+    const ageSpan = within(container).getByText('Age:');
+    expect(ageSpan.parentElement).toHaveTextContent('Age: 30');
   });
 
-  it('updates name when input is changed', () => {
-    render(<Profile />);
-    const nameInput = screen.getByPlaceholderText('Enter name') as HTMLInputElement;
+  it('updates name and age when input fields are changed', () => {
+    const { container } = render(<Profile />);
+    const nameInput = within(container).getByPlaceholderText('Enter name') as HTMLInputElement;
+    const ageInput = within(container).getByPlaceholderText('Enter age') as HTMLInputElement;
 
+    // Update name
     fireEvent.change(nameInput, { target: { value: 'Jane Smith' } });
-    const updatedNameSpan = screen.getByText('Name:', { selector: 'span' });
-    expect(updatedNameSpan.closest('p')).toHaveTextContent('Name: Jane Smith');
-  });
+    const updatedNameSpan = within(container).getByText('Name:');
+    expect(updatedNameSpan.parentElement).toHaveTextContent('Name: Jane Smith');
+    expect(nameInput.value).toBe('Jane Smith'); // Check input value directly
 
-  it('updates age when input is changed', () => {
-    render(<Profile />);
-    const ageInput = screen.getByPlaceholderText('Enter age') as HTMLInputElement;
-
+    // Update age
     fireEvent.change(ageInput, { target: { value: '25' } });
-    const updatedAgeSpan = screen.getByText('Age:', { selector: 'span' });
-    expect(updatedAgeSpan.closest('p')).toHaveTextContent('Age: 25');
+    const updatedAgeSpan = within(container).getByText('Age:');
+    expect(updatedAgeSpan.parentElement).toHaveTextContent('Age: 25');
+    expect(ageInput.value).toBe('25'); // Check input value directly
   });
 });

@@ -1,20 +1,20 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import { render, fireEvent, within } from '@testing-library/react';
 import { BasicState } from '../components/BasicState';
 
-describe('BasicState Component', () => {
-  it('renders initial count of 0', () => {
-    render(<BasicState />);
-    expect(screen.getByText(/count:/i).closest('p')).toHaveTextContent('Count: 0');
-  });
+describe('BasicState', () => {
+  it('renders initial count and increments it on button click', () => {
+    const { container } = render(<BasicState />);
 
-  it('increments count when button is clicked', () => {
-    render(<BasicState />);
-    const incrementButton = screen.getByRole('button', { name: /increment/i });
+    // Check initial count
+    expect(within(container).getByText(/Count:/)).toHaveTextContent('Count: 0');
+
+    // Increment count and check
+    const incrementButton = within(container).getByRole('button', { name: /increment/i });
     fireEvent.click(incrementButton);
-    expect(screen.getByText(/count:/i).closest('p')).toHaveTextContent('Count: 1');
+    expect(within(container).getByText(/Count:/)).toHaveTextContent('Count: 1');
+
+    // Increment again and check
     fireEvent.click(incrementButton);
-    expect(screen.getByText(/count:/i).closest('p')).toHaveTextContent('Count: 2');
+    expect(within(container).getByText(/Count:/)).toHaveTextContent('Count: 2');
   });
 });

@@ -1,9 +1,7 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { Button } from '../components/Button';
 
-describe('Button Component', () => {
+describe('Button', () => {
   it('renders with children text', () => {
     render(<Button variant="primary">Click Me</Button>);
     expect(screen.getByRole('button', { name: /click me/i })).toBeInTheDocument();

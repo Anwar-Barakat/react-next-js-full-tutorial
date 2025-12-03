@@ -1,6 +1,4 @@
-import React from 'react';
-import { render, screen, fireEvent, act } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import { render, screen, fireEvent } from '@testing-library/react';
 import TodoList from '../components/TodoList';
 
 // Mock react-icons to prevent issues with SVG rendering
@@ -8,7 +6,7 @@ jest.mock('react-icons/cg', () => ({
   CgClose: () => <svg data-testid="cg-close-icon" />,
 }));
 
-describe('TodoList Component', () => {
+describe('TodoList', () => {
   // Mock Math.random to return consistent values for predictable IDs
   const mockMathRandom = jest.spyOn(Math, 'random');
 

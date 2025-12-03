@@ -1,6 +1,4 @@
-import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { Testimonials } from '../components/Testimonials';
 import Image from 'next/image';
 
@@ -13,7 +11,7 @@ jest.mock('next/image', () => ({
   },
 }));
 
-describe('Testimonials Component', () => {
+describe('Testimonials', () => {
   it('renders initial testimonial', () => {
     render(<Testimonials />);
     expect(screen.getByText('This is the best service I have ever used. Highly recommended!')).toBeInTheDocument();

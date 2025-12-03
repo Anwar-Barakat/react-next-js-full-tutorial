@@ -1,6 +1,5 @@
 import React from 'react';
 import { render, screen, waitFor, act } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { FetchWithUseEffect } from '../components/FetchWithUseEffect';
 import { fetchData } from '../dataFetcher';
 
@@ -15,6 +14,10 @@ describe('FetchWithUseEffect', () => {
   beforeEach(() => {
     jest.useFakeTimers();
     mockFetchData.mockReset();
+  });
+
+  afterEach(() => {
+    jest.useRealTimers();
   });
 
   it('displays loading state initially and then renders data on success', async () => {
@@ -60,23 +63,19 @@ describe('FetchWithUseEffect', () => {
     expect(mockFetchData).toHaveBeenCalledWith(true, 2000);
   });
 
-    it('displays initial message when no data is fetched yet and not loading/error', async () => {
-      mockFetchData.mockResolvedValueOnce(null); // Resolve with null to trigger initial message
+  it('displays initial message when no data is fetched yet and not loading/error', async () => {
+    mockFetchData.mockResolvedValueOnce(null); // Resolve with null to trigger initial message
 
-      render(<FetchWithUseEffect triggerError={false} />);
+    render(<FetchWithUseEffect triggerError={false} />);
 
-      act(() => {
-        jest.runAllTimers(); // Advance all timers to resolve the fetch
-      });
-
-      // Wait for the loading state to disappear, and initial message to appear
-      await waitFor(() => {
-        expect(screen.queryByTestId('loading-message')).not.toBeInTheDocument();
-        expect(screen.getByTestId('initial-message')).toBeInTheDocument();
-      });
+    act(() => {
+      jest.runAllTimers(); // Advance all timers to resolve the fetch
     });
-  
-    afterEach(() => {
-      jest.useRealTimers();
+
+    // Wait for the loading state to disappear, and initial message to appear
+    await waitFor(() => {
+      expect(screen.queryByTestId('loading-message')).not.toBeInTheDocument();
+      expect(screen.getByTestId('initial-message')).toBeInTheDocument();
     });
+  });
 });

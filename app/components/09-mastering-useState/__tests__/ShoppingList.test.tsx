@@ -1,15 +1,13 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import { render, screen, fireEvent, within } from '@testing-library/react';
 import ShoppingList from '../components/ShoppingList';
 
-describe('ShoppingList Component', () => {
+describe('ShoppingList', () => {
   it('renders "Shopping List" title', () => {
     render(<ShoppingList />);
     expect(screen.getByText('Shopping List')).toBeInTheDocument();
   });
 
-  it('adds a new item to the shopping list', () => {
+  it('adds a new item to the shopping list and clears inputs', () => {
     render(<ShoppingList />);
     const nameInput = screen.getByPlaceholderText('Item name');
     const quantityInput = screen.getByPlaceholderText('Quantity');
@@ -19,11 +17,19 @@ describe('ShoppingList Component', () => {
     fireEvent.change(quantityInput, { target: { value: '3' } });
     fireEvent.click(addButton);
 
-    expect(screen.getByText('Apples')).toBeInTheDocument();
-    const listItem = screen.getByText('Apples').closest('li');
-    expect(listItem).toHaveTextContent('Apples - Quantity: 3');
-    expect((nameInput as HTMLInputElement).value).toBe('');
-    expect((quantityInput as HTMLInputElement).value).toBe('1'); // Resets to default quantity
+    const shoppingList = screen.getByRole('list'); // Assuming there's only one ul, or add a data-testid
+
+    // Now, use within to query for the list item inside the ul
+    const listItems = within(shoppingList).getAllByRole('listitem');
+
+    const targetItem = listItems.find(item => {
+      const normalizedContent = (item.textContent || '').replace(/\s+/g, ' ').trim();
+      return normalizedContent === 'Apples - Quantity: 3';
+    });
+
+    expect(targetItem).toBeInTheDocument();
+    expect(nameInput).toHaveValue('');
+    expect(quantityInput).toHaveValue(1); // Resets to default quantity 1
   });
 
   it('does not add an item with an empty name', () => {
@@ -34,6 +40,6 @@ describe('ShoppingList Component', () => {
     fireEvent.change(quantityInput, { target: { value: '5' } });
     fireEvent.click(addButton);
 
-    expect(screen.queryByText('Quantity: 5')).not.toBeInTheDocument();
+    expect(screen.queryByText(/Quantity: 5/)).not.toBeInTheDocument(); // Assert the item is NOT added
   });
 });

@@ -1,9 +1,7 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import Weather from '../components/Weather';
 
-describe('Weather Component', () => {
+describe('Weather', () => {
   it('renders "It\'s cold outside!" for temperature less than 15', () => {
     render(<Weather temperature={10} />);
     expect(screen.getByText("It's cold outside! ❄️")).toBeInTheDocument();

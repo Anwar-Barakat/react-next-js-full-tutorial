@@ -1,6 +1,4 @@
-import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { UserRegistrationForm } from '../components/UserRegistrationForm';
 import { AlertCircle, CheckCircle } from 'lucide-react';
 
@@ -10,7 +8,7 @@ jest.mock('lucide-react', () => ({
   CheckCircle: () => <svg data-testid="check-circle-icon" />,
 }));
 
-describe('UserRegistrationForm Component', () => {
+describe('UserRegistrationForm', () => {
   let consoleLogSpy: jest.SpyInstance;
 
   beforeEach(() => {

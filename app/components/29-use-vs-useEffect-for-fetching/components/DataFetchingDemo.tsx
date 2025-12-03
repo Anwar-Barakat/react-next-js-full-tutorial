@@ -36,7 +36,7 @@ export const DataFetchingDemo: React.FC = () => {
       </p>
 
       <div className="flex flex-col md:flex-row justify-center items-stretch gap-6">
-        <div className="flex-1 glass glass-lg">
+        <div className="flex-1 glass glass-lg" data-testid="use-effect-container">
           <FetchWithUseEffect triggerError={triggerErrorUseEffect} />
           <div className="mt-4 flex gap-2">
             <button
@@ -58,7 +58,7 @@ export const DataFetchingDemo: React.FC = () => {
           </div>
         </div>
 
-        <div className="flex-1 glass glass-lg">
+        <div className="flex-1 glass glass-lg" data-testid="use-hook-container">
           <ErrorBoundary fallback={
             <div className="alert alert-danger">
               <h3 className="text-xl font-semibold mb-2" data-testid="use-hook-error-heading">Error with `use` Hook</h3>

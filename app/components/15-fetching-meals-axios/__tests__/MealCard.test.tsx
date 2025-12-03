@@ -1,6 +1,4 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import MealCard from '../components/MealCard';
 import Image from 'next/image';
 
@@ -13,7 +11,7 @@ jest.mock('next/image', () => ({
   },
 }));
 
-describe('MealCard Component', () => {
+describe('MealCard', () => {
   const mockMeal = {
     id: 1,
     name: 'Spaghetti Carbonara',

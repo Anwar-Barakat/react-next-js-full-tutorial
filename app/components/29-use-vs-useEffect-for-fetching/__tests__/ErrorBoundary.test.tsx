@@ -1,6 +1,4 @@
-import React from 'react';
 import { render, screen, act } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { ErrorBoundary } from '../components/ErrorBoundary';
 
 // A component that always throws an error

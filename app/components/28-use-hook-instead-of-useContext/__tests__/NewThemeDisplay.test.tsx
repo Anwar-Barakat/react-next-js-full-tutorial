@@ -1,9 +1,7 @@
 import React from 'react';
 import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { ThemeProvider } from '../ThemeProvider';
 import { NewThemeDisplay } from '../NewThemeDisplay';
-import { ThemeContext } from '../ThemeContext'; // Import ThemeContext for mocking
 
 describe('NewThemeDisplay', () => {
   it('renders theme and toggles it when wrapped in ThemeProvider', () => {

@@ -1,9 +1,7 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import GreetingConditional from '../components/GreetingConditional';
 
-describe('GreetingConditional Component', () => {
+describe('GreetingConditional', () => {
   it('renders "Good morning!" when timeOfDay is "morning"', () => {
     render(<GreetingConditional timeOfDay="morning" />);
     expect(screen.getByText('Good morning! ☀️')).toBeInTheDocument();

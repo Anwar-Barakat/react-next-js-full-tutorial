@@ -1,21 +1,16 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import Greet from '../components/Greet'; // Adjust the import path as necessary
+import Greet from '@/app/components/01-greet-component/components/Greet';
 
-describe('Greet Component', () => {
-  it('renders "Hello, Guest!" when no name prop is provided', () => {
+describe('Greet', () => {
+  it('renders a default greeting message', () => {
     render(<Greet />);
-    expect(screen.getByText('Hello, Guest!')).toBeInTheDocument();
+    const textElement = screen.getByText('Hello, Guest!');
+    expect(textElement).toBeInTheDocument();
   });
 
-  it('renders "Hello, Alice!" when name prop is "Alice"', () => {
-    render(<Greet name="Alice" />);
-    expect(screen.getByText('Hello, Alice!')).toBeInTheDocument();
-  });
-
-  it('renders "Hello, Bob!" when name prop is "Bob"', () => {
-    render(<Greet name="Bob" />);
-    expect(screen.getByText('Hello, Bob!')).toBeInTheDocument();
+  it('renders a personalized greeting message when a name is provided', () => {
+    render(<Greet name="Anwar" />);
+    const textElement = screen.getByText('Hello, Anwar!');
+    expect(textElement).toBeInTheDocument();
   });
 });

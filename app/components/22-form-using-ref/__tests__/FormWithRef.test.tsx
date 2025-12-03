@@ -1,9 +1,7 @@
-import React from 'react';
 import { render, screen, fireEvent, waitFor } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import { FormWithRef } from '../components/FormWithRef';
 
-describe('FormWithRef Component', () => {
+describe('FormWithRef', () => {
   it('renders input fields and a submit button', () => {
     render(<FormWithRef />);
     expect(screen.getByPlaceholderText('Name')).toBeInTheDocument();

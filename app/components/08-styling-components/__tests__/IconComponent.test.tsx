@@ -1,6 +1,4 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import IconComponent from '../components/IconComponent';
 
 // Mocking react-icons/fa to avoid issues with SVG rendering in JSDOM
@@ -9,13 +7,12 @@ jest.mock('react-icons/fa', () => ({
 }));
 
 describe('IconComponent', () => {
-  it('renders the title "Icon Component"', () => {
+  it('renders the icon component with a title and an icon', () => {
     render(<IconComponent />);
-    expect(screen.getByText('Icon Component')).toBeInTheDocument();
-  });
+    const title = screen.getByText('Icon Component');
+    const icon = screen.getByTestId('fa-beer-icon');
 
-  it('renders the FaBeer icon', () => {
-    render(<IconComponent />);
-    expect(screen.getByTestId('fa-beer-icon')).toBeInTheDocument();
+    expect(title).toBeInTheDocument();
+    expect(icon).toBeInTheDocument();
   });
 });

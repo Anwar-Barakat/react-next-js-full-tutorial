@@ -1,16 +1,13 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
-import MainContent from '../components/MainContent';
+import MainContent from '@/app/components/02-multiple-components/components/MainContent';
 
-describe('MainContent Component', () => {
-  it('renders the main content title', () => {
+describe('MainContent', () => {
+  it('renders the main content with a title and paragraph', () => {
     render(<MainContent />);
-    expect(screen.getByText('Main Content')).toBeInTheDocument();
-  });
+    const title = screen.getByText('Main Content');
+    const paragraph = screen.getByText('This is the main content of the page.');
 
-  it('renders the main content paragraph', () => {
-    render(<MainContent />);
-    expect(screen.getByText('This is the main content of the page.')).toBeInTheDocument();
+    expect(title).toBeInTheDocument();
+    expect(paragraph).toBeInTheDocument();
   });
 });

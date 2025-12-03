@@ -1,9 +1,7 @@
-import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
-import '@testing-library/jest-dom';
+import { render, screen, fireEvent, cleanup } from '@testing-library/react'; // Import cleanup
 import { ButtonDemo } from '../components/ButtonDemo';
 
-describe('ButtonDemo Component', () => {
+describe('ButtonDemo', () => {
   let alertSpy: jest.SpyInstance;
 
   beforeEach(() => {
@@ -12,6 +10,7 @@ describe('ButtonDemo Component', () => {
 
   afterEach(() => {
     alertSpy.mockRestore();
+    cleanup(); // Explicitly call cleanup after each test
   });
 
   it('renders a heading and two buttons', () => {

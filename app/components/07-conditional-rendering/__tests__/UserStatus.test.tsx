@@ -1,9 +1,7 @@
-import React from 'react';
 import { render, screen } from '@testing-library/react';
-import '@testing-library/jest-dom';
 import UserStatus from '../components/UserStatus';
 
-describe('UserStatus Component', () => {
+describe('UserStatus', () => {
   it('renders "Welcome Admin!" when loggedIn and isAdmin are true', () => {
     render(<UserStatus loggedIn={true} isAdmin={true} />);
     expect(screen.getByText('Welcome Admin! 👑')).toBeInTheDocument();
