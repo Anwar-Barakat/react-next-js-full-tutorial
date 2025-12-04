@@ -3,7 +3,7 @@
 
 import React, { useEffect, useState } from 'react'
 import Sidebar from './Sidebar'
-import useMarketStore from './store'
+import useMarketStore from '../store'
 import data from './data'
 import MainContent from './MainContent'
 import Header from './Header'

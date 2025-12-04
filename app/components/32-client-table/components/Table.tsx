@@ -1,6 +1,6 @@
 'use client';
 import React, { useState } from "react";
-import { data } from "./data";
+import { data } from "../data";
 
 const Table = () => {
   const [clientNameFilter, setClientNameFilter] = useState("");
@@ -65,11 +65,10 @@ const Table = () => {
                   <td className="p-4 text-foreground w-[200px]">{item.project}</td>
                   <td className="p-4 w-[100px]">
                     <span
-                      className={`px-2 py-1 rounded-full text-xs ${
-                        item.status === "Completed"
+                      className={`px-2 py-1 rounded-full text-xs ${item.status === "Completed"
                           ? "bg-green-500 text-green-400"
                           : "bg-yellow-500 text-yellow-400"
-                      }`}
+                        }`}
                     >
                       {item.status}
                     </span>
