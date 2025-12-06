@@ -160,6 +160,7 @@ import { ProductList as ProductList53 } from "./components/53-product-list-with-
 import { RegexTester as RegexTesterv54 } from "./components/54-regular-expression";
 import { App55 as Appv55 } from "./components/55-testing-with-jest-and-jsdom";
 import { App56 as Appv56 } from "./components/56-prisma-basics";
+import { App57 as Appv57 } from "./components/57-prisma-relationships";
 
 const components = {
   '01': { name: 'Greet Component', component: <Greetv01 /> },
@@ -218,6 +219,7 @@ const components = {
   '54': { name: 'Regular Expression', component: <RegexTesterv54 /> },
   '55': { name: 'Testing with Jest and JSDOM', component: <Appv55 /> },
   '56': { name: 'Prisma Basics', component: <Appv56 /> },
+  '57': { name: 'Prisma with Relationships', component: <Appv57 /> },
 };
 
 export default function Home() {

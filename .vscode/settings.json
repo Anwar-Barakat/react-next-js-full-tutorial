@@ -1,67 +1,93 @@
 {
-  "window.zoomLevel": 1,
+  "editor.wordWrap": "off",
   "files.autoSave": "afterDelay",
   "git.autofetch": true,
   "git.enableSmartCommit": true,
   "breadcrumbs.enabled": false,
   "editor.stickyScroll.enabled": false,
   "editor.minimap.enabled": false,
-  "workbench.iconTheme": "a-file-icon-vscode",
-  "editor.lineHeight": 2.5,
-  "workbench.productIconTheme": "a-file-icon-vscode-product-icon-theme",
+  "editor.lineHeight": 2,
   "workbench.colorTheme": "Dracula Theme",
   "git.confirmSync": false,
   "editor.gotoLocation.multipleDefinitions": "goto",
   "php.validate.executablePath": "",
-  "workbench.settings.applyToAllProfiles": [],
-  "[typescriptreact]": {
-    "editor.defaultFormatter": "vscode.typescript-language-features"
+  "workbench.startupEditor": "none",
+  "[blade]": {
+    "editor.defaultFormatter": "shufo.vscode-blade-formatter"
   },
-  "editor.fontFamily": "Fira Code",
-  "editor.codeLensFontFamily": "Fira Code",
-  "editor.fontLigatures": true,
   "[vue]": {
-    "editor.defaultFormatter": "esbenp.prettier-vscode",
-    "editor.formatOnSave": true,
-    "editor.tabSize": 2
+    "editor.defaultFormatter": "Wscats.vue"
   },
-  "vetur.validation.template": false,
-  "vetur.validation.style": false,
-  "vetur.validation.script": false,
-  "vetur.experimental.templateInterpolationService": true,
-  "editor.formatOnSave": true,
-  "wrap.with.session": {
-    "label": "@session",
-    "description": "@session()...@endsession",
-    "disabled": false,
-    "snippet": "@session ('${1:key}') \n\t$TM_SELECTED_TEXT\n@endsession$0"
-  },
+  "eslint.validate": [
+    "javascript",
+    "javascriptreact",
+    "vue"
+  ],
   "vetur.completion.scaffoldSnippetSources": {
     "workspace": "💼",
     "user": "🗒️",
     "vetur": "✌"
   },
+  "editor.fontFamily": "'Fira Code Medium'",
+  "editor.fontLigatures": true,
+  "vetur.validation.template": true,
+  "vetur.validation.script": true,
+  "security.promptForElevatedFileWrite": false,
+  "vetur.validation.style": true,
   "[javascript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
-  "files.associations": {
-    "*.vue": "vue"
+  "editor.codeActionsOnSave": {
+    "source.fixAll": "never"
   },
-  "vetur.ignoreProjectWarning": true,
+  "vue.languageServer.maxOldSpaceSize": 4096,
   "[jsonc]": {
+    "editor.defaultFormatter": "vscode.json-language-features"
+  },
+  "security.workspace.trust.untrustedFiles": "open",
+  "[json]": {
     "editor.defaultFormatter": "esbenp.prettier-vscode"
   },
+  "workbench.settings.applyToAllProfiles": [],
   "[typescript]": {
     "editor.defaultFormatter": "vscode.typescript-language-features"
   },
   "typescript.updateImportsOnFileMove.enabled": "always",
+  "tabnine.experimentalAutoImports": true,
+  "github.copilot.advanced": {},
+  "[scss]": {
+    "editor.defaultFormatter": "sibiraj-s.vscode-scss-formatter"
+  },
+  "editor.formatOnSave": true,
+  "chat.mcp.gallery.enabled": true,
   "[php]": {
     "editor.defaultFormatter": "bmewburn.vscode-intelephense-client"
   },
-  "terminal.integrated.defaultProfile.osx": "zsh",
+  "workbench.editorAssociations": {
+    "*.copilotmd": "vscode.markdown.preview.editor",
+    "*.sqlite": "sqlite-viewer.view"
+  },
+  "explorer.fileNesting.patterns": {
+    "*.ts": "${capture}.js",
+    "*.js": "${capture}.js.map, ${capture}.min.js, ${capture}.d.ts",
+    "*.jsx": "${capture}.js",
+    "*.tsx": "${capture}.ts",
+    "tsconfig.json": "tsconfig.*.json",
+    "package.json": "package-lock.json, yarn.lock, pnpm-lock.yaml, bun.lockb, bun.lock",
+    "*.sqlite": "${capture}.${extname}-*",
+    "*.db": "${capture}.${extname}-*",
+    "*.sqlite3": "${capture}.${extname}-*",
+    "*.db3": "${capture}.${extname}-*",
+    "*.sdb": "${capture}.${extname}-*",
+    "*.s3db": "${capture}.${extname}-*"
+  },
+  "github.copilot.nextEditSuggestions.enabled": true,
+  "settingsSync.ignoredExtensions": [],
+  "chat.tools.terminal.autoApprove": {
+    "wsl": true
+  },
   "githubPullRequests.createOnPublishBranch": "never",
-  "biome.suggestInstallingGlobally": false,
-  "diffEditor.ignoreTrimWhitespace": false,
-  "editor.largeFileOptimizations": false,
-  "git.openRepositoryInParentFolders": "never",
+  "window.zoomLevel": 1,
+  "workbench.iconTheme": "a-file-icon-vscode",
+  "geminicodeassist.displayInlineContextHint": false
 }
