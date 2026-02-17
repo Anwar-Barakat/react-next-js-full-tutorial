@@ -1,39 +1,43 @@
-================================================================================
-                    PAYMENT INTEGRATION GUIDE
-                    Stripe & MamoPay Implementation
-                    Laravel + React/TypeScript
-================================================================================
+# Payment Integration Guide
 
-TABLE OF CONTENTS
------------------
-1.  Overview
-2.  Stripe Integration
-    2.1  Setup & Configuration
-    2.2  Creating Payment Intent
-    2.3  Frontend Payment Form
-    2.4  Payment Verification
-    2.5  Webhook Handling
-3.  MamoPay Integration
-    3.1  Setup & Configuration
-    3.2  Creating Payment Link
-    3.3  Frontend Payment Form
-    3.4  Payment Verification
-    3.5  Webhook Handling
-    3.6  Understanding Charges Array
-4.  Security Best Practices
-5.  Testing & Debugging
-6.  Common Issues & Solutions
-7.  Theoretical Questions & Answers
+A comprehensive guide to Stripe & MamoPay payment implementation with Laravel + React/TypeScript.
 
-================================================================================
-1. OVERVIEW
-================================================================================
+**Last Updated**: January 2025
+
+---
+
+## Table of Contents
+
+1. [Overview](#1-overview)
+2. [Stripe Integration](#2-stripe-integration)
+   - [2.1 Setup & Configuration](#21-setup--configuration)
+   - [2.2 Creating Payment Intent](#22-creating-payment-intent)
+   - [2.3 Frontend Payment Form (Stripe)](#23-frontend-payment-form-stripe)
+   - [2.4 Payment Verification](#24-payment-verification)
+   - [2.5 Webhook Handling (Stripe)](#25-webhook-handling-stripe)
+3. [MamoPay Integration](#3-mamopay-integration)
+   - [3.1 Setup & Configuration](#31-setup--configuration)
+   - [3.2 Creating Payment Link](#32-creating-payment-link)
+   - [3.3 Frontend Payment Form (MamoPay)](#33-frontend-payment-form-mamopay)
+   - [3.4 Payment Verification](#34-payment-verification)
+   - [3.5 Webhook Handling (MamoPay)](#35-webhook-handling-mamopay)
+   - [3.6 Understanding Charges Array](#36-understanding-charges-array)
+4. [Security Best Practices](#4-security-best-practices)
+5. [Testing & Debugging](#5-testing--debugging)
+6. [Common Issues & Solutions](#6-common-issues--solutions)
+7. [Routes Summary](#7-routes-summary)
+8. [Database Migration](#8-database-migration)
+9. [Theoretical Questions & Answers](#9-theoretical-questions--answers)
+
+---
+
+## 1. Overview
 
 This document covers payment integration using:
-- Stripe: International payments (cards, Apple Pay, Google Pay)
-- MamoPay: UAE-focused payments (local cards, Apple Pay)
+- **Stripe**: International payments (cards, Apple Pay, Google Pay)
+- **MamoPay**: UAE-focused payments (local cards, Apple Pay)
 
-Payment Flow:
+**Payment Flow:**
 1. User initiates payment on frontend
 2. Backend creates payment intent/link
 3. User completes payment on secure form
@@ -41,22 +45,22 @@ Payment Flow:
 5. Backend verifies payment status
 6. Order status updated accordingly
 
-================================================================================
-2. STRIPE INTEGRATION
-================================================================================
+---
 
------------------------------------------
-2.1 Setup & Configuration
------------------------------------------
+## 2. Stripe Integration
+
+### 2.1 Setup & Configuration
 
 Install Laravel Cashier:
+
 ```bash
 composer require laravel/cashier
 php artisan vendor:publish --tag="cashier-migrations"
 php artisan migrate
 ```
 
-Environment Variables (.env):
+Environment Variables (`.env`):
+
 ```
 STRIPE_KEY=pk_test_xxxxxxxxxxxxxxxxxxxxx
 STRIPE_SECRET=sk_test_xxxxxxxxxxxxxxxxxxxxx
@@ -65,11 +69,10 @@ CASHIER_CURRENCY=usd
 CASHIER_CURRENCY_LOCALE=en_US
 ```
 
------------------------------------------
-2.2 Creating Payment Intent
------------------------------------------
+### 2.2 Creating Payment Intent
 
-Controller (app/Http/Controllers/Payment/StripeController.php):
+Controller (`app/Http/Controllers/Payment/StripeController.php`):
+
 ```php
 <?php
 
@@ -161,11 +164,10 @@ class StripeController extends Controller
 }
 ```
 
------------------------------------------
-2.3 Frontend Payment Form (Stripe)
------------------------------------------
+### 2.3 Frontend Payment Form (Stripe)
 
-React Component (resources/js/components/payment/StripePaymentForm.tsx):
+React Component (`resources/js/components/payment/StripePaymentForm.tsx`):
+
 ```tsx
 import { useState, useEffect } from 'react';
 import { loadStripe, Stripe } from '@stripe/stripe-js';
@@ -234,9 +236,7 @@ export default function StripePaymentForm({ clientSecret, publishableKey, return
 }
 ```
 
------------------------------------------
-2.4 Payment Verification
------------------------------------------
+### 2.4 Payment Verification
 
 Simple verification in callback (already shown above).
 
@@ -273,11 +273,10 @@ if ($paymentIntent->status === 'succeeded') {
 }
 ```
 
------------------------------------------
-2.5 Webhook Handling (Stripe)
------------------------------------------
+### 2.5 Webhook Handling (Stripe)
 
-Controller (app/Http/Controllers/Webhook/StripeWebhookController.php):
+Controller (`app/Http/Controllers/Webhook/StripeWebhookController.php`):
+
 ```php
 <?php
 
@@ -335,34 +334,36 @@ class StripeWebhookController extends Controller
 }
 ```
 
-Routes (routes/api.php):
+Routes (`routes/api.php`):
+
 ```php
 Route::post('/webhooks/stripe', [StripeWebhookController::class, 'handle']);
 ```
 
-Exclude from CSRF (app/Http/Middleware/VerifyCsrfToken.php):
+Exclude from CSRF (`app/Http/Middleware/VerifyCsrfToken.php`):
+
 ```php
 protected $except = [
     'api/webhooks/*',
 ];
 ```
 
-================================================================================
-3. MAMOPAY INTEGRATION
-================================================================================
+---
 
------------------------------------------
-3.1 Setup & Configuration
------------------------------------------
+## 3. MamoPay Integration
 
-Environment Variables (.env):
+### 3.1 Setup & Configuration
+
+Environment Variables (`.env`):
+
 ```
 MAMOPAY_API_KEY=your_api_key_here
 MAMOPAY_BASE_URL=https://sandbox.mamopay.com
 MAMOPAY_WEBHOOK_SECRET=your_webhook_secret
 ```
 
-Config (config/mamopay.php):
+Config (`config/mamopay.php`):
+
 ```php
 <?php
 
@@ -373,11 +374,10 @@ return [
 ];
 ```
 
------------------------------------------
-3.2 Creating Payment Link
------------------------------------------
+### 3.2 Creating Payment Link
 
-Controller (app/Http/Controllers/Payment/MamoPayController.php):
+Controller (`app/Http/Controllers/Payment/MamoPayController.php`):
+
 ```php
 <?php
 
@@ -473,11 +473,10 @@ class MamoPayController extends Controller
 }
 ```
 
------------------------------------------
-3.3 Frontend Payment Form (MamoPay)
------------------------------------------
+### 3.3 Frontend Payment Form (MamoPay)
 
-React Component (resources/js/components/payment/MamoPayForm.tsx):
+React Component (`resources/js/components/payment/MamoPayForm.tsx`):
+
 ```tsx
 import { useEffect, useState, useRef } from 'react';
 
@@ -584,15 +583,13 @@ export default function MamoPayForm({ paymentUrl, orderTotal, currency = 'AED' }
 }
 ```
 
------------------------------------------
-3.4 Payment Verification
------------------------------------------
+### 3.4 Payment Verification
 
 Simple verification (already in callback above).
 
 Key points:
 - Fetch payment link details from MamoPay API
-- Loop through charges array to find 'captured' status
+- Loop through charges array to find `captured` status
 - One link can have multiple charge attempts (retries)
 
 ```php
@@ -616,11 +613,10 @@ foreach ($data['charges'] ?? [] as $charge) {
 }
 ```
 
------------------------------------------
-3.5 Webhook Handling (MamoPay)
------------------------------------------
+### 3.5 Webhook Handling (MamoPay)
 
-Controller (app/Http/Controllers/Webhook/MamoPayWebhookController.php):
+Controller (`app/Http/Controllers/Webhook/MamoPayWebhookController.php`):
+
 ```php
 <?php
 
@@ -681,21 +677,21 @@ class MamoPayWebhookController extends Controller
 }
 ```
 
-Routes (routes/api.php):
+Routes (`routes/api.php`):
+
 ```php
 Route::post('/webhooks/mamopay', [MamoPayWebhookController::class, 'handle']);
 ```
 
------------------------------------------
-3.6 Understanding Charges Array
------------------------------------------
+### 3.6 Understanding Charges Array
 
-WHY CHARGES IS AN ARRAY:
+**Why charges is an array:**
 - One payment link can have multiple charge attempts
 - User tries card → fails → tries again → succeeds
 - Each attempt creates a new charge in the array
 
 Example MamoPay Response:
+
 ```json
 {
     "id": "MB-LINK-xxx",
@@ -716,7 +712,8 @@ Example MamoPay Response:
 }
 ```
 
-CORRECT - Loop through all:
+**Correct** — loop through all:
+
 ```php
 foreach ($data['charges'] as $charge) {
     if ($charge['status'] === 'captured') {
@@ -726,7 +723,8 @@ foreach ($data['charges'] as $charge) {
 }
 ```
 
-WRONG - Only check first/last:
+**Wrong** — only check first/last:
+
 ```php
 // Wrong! Misses retries
 if ($data['charges'][0]['status'] === 'captured') { }
@@ -736,50 +734,51 @@ $last = end($data['charges']);
 if ($last['status'] === 'captured') { }
 ```
 
-================================================================================
-4. SECURITY BEST PRACTICES
-================================================================================
+---
 
-1. NEVER Trust Client-Side Data
+## 4. Security Best Practices
+
+1. **Never Trust Client-Side Data**
    - Always verify payment on backend
    - Don't rely solely on redirect parameters
    - Use webhooks as source of truth
 
-2. Verify Payment Amounts
+2. **Verify Payment Amounts**
    - Compare paid amount with order total
    - Prevent partial payment attacks
 
-3. Idempotency
+3. **Idempotency**
    - Check if order already paid before updating
    - Handle duplicate webhooks gracefully
 
-4. Secure Webhook Endpoints
+4. **Secure Webhook Endpoints**
    - Verify signatures
    - Use HTTPS only
 
-5. Secure API Keys
-   - Store in .env (never commit)
+5. **Secure API Keys**
+   - Store in `.env` (never commit)
    - Use separate keys for test/production
 
-6. Logging
+6. **Logging**
    - Log payment events
    - Don't log card numbers/CVV
 
-================================================================================
-5. TESTING & DEBUGGING
-================================================================================
+---
 
-Stripe Test Cards:
-- Success: 4242 4242 4242 4242
-- Decline: 4000 0000 0000 0002
-- 3D Secure: 4000 0000 0000 3220
-- Insufficient funds: 4000 0000 0000 9995
+## 5. Testing & Debugging
 
-MamoPay Test Mode:
-- Use sandbox environment (MAMOPAY_BASE_URL=https://sandbox.mamopay.com)
+**Stripe Test Cards:**
+- Success: `4242 4242 4242 4242`
+- Decline: `4000 0000 0000 0002`
+- 3D Secure: `4000 0000 0000 3220`
+- Insufficient funds: `4000 0000 0000 9995`
+
+**MamoPay Test Mode:**
+- Use sandbox environment (`MAMOPAY_BASE_URL=https://sandbox.mamopay.com`)
 - Test cards in MamoPay dashboard
 
-Testing Webhooks Locally:
+**Testing Webhooks Locally:**
+
 ```bash
 # Stripe CLI
 stripe listen --forward-to localhost:8000/api/webhooks/stripe
@@ -789,35 +788,35 @@ ngrok http 8000
 # Set webhook URL: https://xxx.ngrok.io/api/webhooks/mamopay
 ```
 
-================================================================================
-6. COMMON ISSUES & SOLUTIONS
-================================================================================
+---
 
-Issue: Payment success but order not updated
+## 6. Common Issues & Solutions
+
+**Issue: Payment success but order not updated**
 - Check webhook logs
 - Verify webhook signature config
 - Ensure order lookup works
 
-Issue: MamoPay iframe not loading
-- Set data-src BEFORE loading script
+**Issue: MamoPay iframe not loading**
+- Set `data-src` BEFORE loading script
 - Check browser console for CSP errors
 - Verify payment URL is valid
 
-Issue: Stripe 3D Secure not returning
-- Verify return_url is absolute URL
+**Issue: Stripe 3D Secure not returning**
+- Verify `return_url` is absolute URL
 - Check URL whitelisted in Stripe dashboard
 
-Issue: Duplicate charges
+**Issue: Duplicate charges**
 - Check payment status before processing
 - Use idempotency keys (Stripe)
 
-Issue: Webhook timeout
+**Issue: Webhook timeout**
 - Return 200 quickly
 - Process heavy tasks in queue
 
-================================================================================
-ROUTES SUMMARY
-================================================================================
+---
+
+## 7. Routes Summary
 
 ```php
 // routes/web.php
@@ -850,9 +849,9 @@ Route::post('/webhooks/stripe', [StripeWebhookController::class, 'handle']);
 Route::post('/webhooks/mamopay', [MamoPayWebhookController::class, 'handle']);
 ```
 
-================================================================================
-DATABASE MIGRATION
-================================================================================
+---
+
+## 8. Database Migration
 
 ```php
 // Add to orders table
@@ -865,442 +864,210 @@ Schema::table('orders', function (Blueprint $table) {
 });
 ```
 
-================================================================================
-7. THEORETICAL QUESTIONS & ANSWERS
-================================================================================
-
------------------------------------------
-Q1: What is a Payment Intent?
------------------------------------------
-A: A Payment Intent is an object that represents your intent to collect payment
-   from a customer. It tracks the lifecycle of the payment process.
-
-   - Created on your server before payment
-   - Contains amount, currency, and metadata
-   - Has a client_secret used by frontend to complete payment
-   - Status changes: requires_payment_method → requires_confirmation →
-     requires_action → processing → succeeded/failed
-
------------------------------------------
-Q2: What is a Client Secret?
------------------------------------------
-A: The client_secret is a unique key that allows your frontend to complete the
-   payment without exposing your secret API key.
-
-   - Generated when you create a Payment Intent
-   - Passed to frontend to initialize Stripe Elements
-   - Allows frontend to confirm payment securely
-   - Should never be logged or stored permanently
-
------------------------------------------
-Q3: Why do we need Webhooks?
------------------------------------------
-A: Webhooks are essential because:
-
-   1. Redirects can fail - User closes browser, network issues
-   2. Async payments - Bank transfers, 3D Secure can take time
-   3. Source of truth - Webhooks come directly from payment provider
-   4. Reliability - Even if user never returns, you get notified
-
-   Rule: Never trust only the redirect. Always verify via webhook.
-
------------------------------------------
-Q4: What is 3D Secure (3DS)?
------------------------------------------
-A: 3D Secure is an additional authentication layer for card payments.
-
-   - User redirected to bank's page to verify identity
-   - Reduces fraud and chargebacks
-   - Required in EU (SCA - Strong Customer Authentication)
-   - Status becomes 'requires_action' when 3DS is needed
-
------------------------------------------
-Q5: What is Idempotency?
------------------------------------------
-A: Idempotency means the same request produces the same result, no matter
-   how many times it's executed.
-
-   Why it matters:
-   - Webhook delivered twice? Order should only be marked paid once
-   - Network retry? Should not create duplicate charges
-
-   How to implement:
-   - Check if order already paid before updating
-   - Use idempotency keys with Stripe API calls
-
------------------------------------------
-Q6: Publishable Key vs Secret Key?
------------------------------------------
-A: Two types of API keys with different purposes:
-
-   Publishable Key (pk_xxx):
-   - Safe to use in frontend/browser
-   - Can only create tokens and confirm payments
-   - Cannot read sensitive data
-
-   Secret Key (sk_xxx):
-   - Server-side only, NEVER expose to frontend
-   - Can do anything: refunds, read customer data
-   - Store in .env, never commit to git
-
------------------------------------------
-Q7: Why multiply amount by 100?
------------------------------------------
-A: Payment providers use smallest currency unit to avoid floating point errors.
-
-   - USD: cents (100 cents = $1.00)
-   - AED: fils (100 fils = 1 AED)
-   - JPY: no decimal (100 JPY = 100 JPY)
-
-   Example: $25.99 → 2599 cents
-
-   Wrong: amount: 25.99  (float can cause issues)
-   Right: amount: 2599   (integer, no precision loss)
-
------------------------------------------
-Q8: What is a Webhook Signature?
------------------------------------------
-A: A cryptographic signature that proves the webhook came from the real
-   payment provider, not an attacker.
-
-   How it works:
-   1. Provider creates hash of payload + secret
-   2. Hash sent in request header
-   3. You recreate hash with your secret
-   4. If they match, webhook is authentic
-
-   Without verification, anyone could send fake "payment succeeded" webhooks.
-
------------------------------------------
-Q9: Why is MamoPay charges an array?
------------------------------------------
-A: One payment link can have multiple payment attempts:
-
-   Scenario:
-   1. User tries Card A → Declined (charge 1: failed)
-   2. User tries Card B → Declined (charge 2: failed)
-   3. User tries Card C → Success (charge 3: captured)
-
-   Result: charges array has 3 items
-
-   You must loop through ALL charges to find if ANY succeeded.
-   Checking only first or last charge will miss successful retries.
-
------------------------------------------
-Q10: What is PCI Compliance?
------------------------------------------
-A: PCI DSS (Payment Card Industry Data Security Standard) are rules for
-   handling card data securely.
-
-   By using Stripe Elements / MamoPay iframe:
-   - Card numbers never touch your server
-   - Entered directly into provider's secure form
-   - You only receive tokens, not actual card data
-   - Greatly reduces your compliance burden
-
------------------------------------------
-Q11: Callback vs Webhook - What's the difference?
------------------------------------------
-A:
-   Callback (Redirect):
-   - User redirected to your URL after payment
-   - Happens in user's browser
-   - Can fail if user closes browser
-   - Use for: showing success page to user
-
-   Webhook:
-   - Server-to-server HTTP request
-   - Happens in background
-   - Reliable, retries on failure
-   - Use for: updating database, sending emails
-
-   Best practice: Use BOTH. Callback for UX, webhook for reliability.
-
------------------------------------------
-Q12: What payment statuses should I track?
------------------------------------------
-A: Common payment statuses:
-
-   pending      - Payment initiated, waiting for action
-   processing   - Payment being processed (bank transfers)
-   paid         - Payment successful
-   failed       - Payment failed
-   canceled     - Payment canceled by user
-   refunded     - Payment refunded
-
-   Stripe PaymentIntent statuses:
-   - requires_payment_method
-   - requires_confirmation
-   - requires_action (3D Secure)
-   - processing
-   - succeeded
-   - canceled
-
------------------------------------------
-Q13: What is a Payment Link (MamoPay)?
------------------------------------------
-A: A payment link is a hosted checkout page created via API.
-
-   Flow:
-   1. Create link via API with amount
-   2. Get payment_url back
-   3. Embed in iframe or redirect user
-   4. User pays on MamoPay's hosted page
-   5. User redirected back to your site
-   6. Verify payment via API or webhook
-
-   Benefits:
-   - No need to handle card data
-   - MamoPay handles all UI
-   - Multiple payment attempts on same link
-
------------------------------------------
-Q14: Why return 200 quickly in webhooks?
------------------------------------------
-A: Payment providers have timeout limits (usually 5-30 seconds).
-
-   If you don't respond in time:
-   - Provider thinks webhook failed
-   - They retry (causing duplicate processing)
-   - After many retries, may disable your webhook
-
-   Best practice:
-   1. Validate webhook immediately
-   2. Return 200 OK
-   3. Queue heavy tasks (emails, inventory) for background processing
-
------------------------------------------
-Q15: Test Mode vs Live Mode?
------------------------------------------
-A: Payment providers have two environments:
-
-   Test/Sandbox Mode:
-   - Fake money, no real charges
-   - Use test API keys (pk_test_, sk_test_)
-   - Use test card numbers
-   - For development and testing
-
-   Live/Production Mode:
-   - Real money, real charges
-   - Use live API keys (pk_live_, sk_live_)
-   - Real card numbers
-   - For production only
-
-   Never use test keys in production or live keys in development.
-
-================================================================================
-END OF DOCUMENT
-================================================================================
-
-Document Version: 1.0
-Last Updated: January 2025
-
-This guide covers payment integration patterns for Laravel + React applications.
-Adapt the code examples to your specific requirements.
-
-Official Documentation:
-- Stripe: https://stripe.com/docs
-- MamoPay: https://docs.mamopay.com
-- Laravel Cashier: https://laravel.com/docs/billing
-
-================================================================================
-
------------------------------------------
-Q1: What is a Payment Intent?
------------------------------------------
-A: A Payment Intent is an object that represents your intent to collect payment
-   from a customer. It tracks the lifecycle of the payment process.
-
-   - Created on your server before payment
-   - Contains amount, currency, and metadata
-   - Has a client_secret used by frontend to complete payment
-   - Status changes: requires_payment_method → requires_confirmation →
-     requires_action → processing → succeeded/failed
-
------------------------------------------
-Q2: What is a Client Secret?
------------------------------------------
-A: The client_secret is a unique key that allows your frontend to complete the
-   payment without exposing your secret API key.
-
-   - Generated when you create a Payment Intent
-   - Passed to frontend to initialize Stripe Elements
-   - Allows frontend to confirm payment securely
-   - Should never be logged or stored permanently
-
------------------------------------------
-Q3: Why do we need Webhooks?
------------------------------------------
-A: Webhooks are essential because:
-
-   1. Redirects can fail - User closes browser, network issues
-   2. Async payments - Bank transfers, 3D Secure can take time
-   3. Source of truth - Webhooks come directly from payment provider
-   4. Reliability - Even if user never returns, you get notified
-
-   Rule: Never trust only the redirect. Always verify via webhook.
-
------------------------------------------
-Q4: What is 3D Secure (3DS)?
------------------------------------------
-A: 3D Secure is an additional authentication layer for card payments.
-
-   - User redirected to bank's page to verify identity
-   - Reduces fraud and chargebacks
-   - Required in EU (SCA - Strong Customer Authentication)
-   - Status becomes 'requires_action' when 3DS is needed
-
------------------------------------------
-Q5: What is Idempotency?
------------------------------------------
-A: Idempotency means the same request produces the same result, no matter
-   how many times it's executed.
-
-   Why it matters:
-   - Webhook delivered twice? Order should only be marked paid once
-   - Network retry? Should not create duplicate charges
-
-   How to implement:
-   - Check if order already paid before updating
-   - Use idempotency keys with Stripe API calls
-
------------------------------------------
-Q6: Publishable Key vs Secret Key?
------------------------------------------
-A: Two types of API keys with different purposes:
-
-   Publishable Key (pk_xxx):
-   - Safe to use in frontend/browser
-   - Can only create tokens and confirm payments
-   - Cannot read sensitive data
-
-   Secret Key (sk_xxx):
-   - Server-side only, NEVER expose to frontend
-   - Can do anything: refunds, read customer data
-   - Store in .env, never commit to git
-
------------------------------------------
-Q7: Why multiply amount by 100?
------------------------------------------
-A: Payment providers use smallest currency unit to avoid floating point errors.
-
-   - USD: cents (100 cents = $1.00)
-   - AED: fils (100 fils = 1 AED)
-   - JPY: no decimal (100 JPY = 100 JPY)
-
-   Example: $25.99 → 2599 cents
-
-   Wrong: amount: 25.99  (float can cause issues)
-   Right: amount: 2599   (integer, no precision loss)
-
------------------------------------------
-Q8: What is a Webhook Signature?
------------------------------------------
-A: A cryptographic signature that proves the webhook came from the real
-   payment provider, not an attacker.
-
-   How it works:
-   1. Provider creates hash of payload + secret
-   2. Hash sent in request header
-   3. You recreate hash with your secret
-   4. If they match, webhook is authentic
-
-   Without verification, anyone could send fake "payment succeeded" webhooks.
-
------------------------------------------
-Q9: Why is MamoPay charges an array?
------------------------------------------
-A: One payment link can have multiple payment attempts:
-
-   Scenario:
-   1. User tries Card A → Declined (charge 1: failed)
-   2. User tries Card B → Declined (charge 2: failed)
-   3. User tries Card C → Success (charge 3: captured)
-
-   Result: charges array has 3 items
-
-   You must loop through ALL charges to find if ANY succeeded.
-   Checking only first or last charge will miss successful retries.
-
------------------------------------------
-Q10: What is PCI Compliance?
------------------------------------------
-A: PCI DSS (Payment Card Industry Data Security Standard) are rules for
-   handling card data securely.
-
-   By using Stripe Elements / MamoPay iframe:
-   - Card numbers never touch your server
-   - Entered directly into provider's secure form
-   - You only receive tokens, not actual card data
-   - Greatly reduces your compliance burden
-
------------------------------------------
-Q11: Callback vs Webhook - What's the difference?
------------------------------------------
-A:
-   Callback (Redirect):
-   - User redirected to your URL after payment
-   - Happens in user's browser
-   - Can fail if user closes browser
-   - Use for: showing success page to user
-
-   Webhook:
-   - Server-to-server HTTP request
-   - Happens in background
-   - Reliable, retries on failure
-   - Use for: updating database, sending emails
-
-   Best practice: Use BOTH. Callback for UX, webhook for reliability.
-
------------------------------------------
-Q12: What payment statuses should I track?
------------------------------------------
-A: Common payment statuses:
-
-   pending      - Payment initiated, waiting for action
-   processing   - Payment being processed (bank transfers)
-   paid         - Payment successful
-   failed       - Payment failed
-   canceled     - Payment canceled by user
-   refunded     - Payment refunded
-
-   Stripe PaymentIntent statuses:
-   - requires_payment_method
-   - requires_confirmation
-   - requires_action (3D Secure)
-   - processing
-   - succeeded
-   - canceled
-
------------------------------------------
-Q13: What is a Payment Link (MamoPay)?
------------------------------------------
-A: A payment link is a hosted checkout page created via API.
-
-   Flow:
-   1. Create link via API with amount
-   2. Get payment_url back
-   3. Embed in iframe or redirect user
-   4. User pays on MamoPay's hosted page
-   5. User redirected back to your site
-   6. Verify payment via API or webhook
-
-   Benefits:
-   - No need to handle card data
-   - MamoPay handles all UI
-   - Multiple payment attempts on same link
-
------------------------------------------
-Q14: Why return 200 quickly in webhooks?
------------------------------------------
-A: Payment providers have timeout limits (usually 5-30 seconds).
-
-   If you don't respond in time:
-   - Provider thinks webhook failed
-   - They retry (causing duplicate processing)
-   - After many retries, may disable your webhook
-
-   Best practice:
-   1. Validate webhook immediately
-   2. Return 200 OK
-   3. Queue heavy tasks (emails, inventory) for background processing
+---
+
+## 9. Theoretical Questions & Answers
+
+### Q1: What is a Payment Intent?
+
+A Payment Intent is an object that represents your intent to collect payment from a customer. It tracks the lifecycle of the payment process.
+
+- Created on your server before payment
+- Contains amount, currency, and metadata
+- Has a `client_secret` used by frontend to complete payment
+- Status changes: `requires_payment_method` → `requires_confirmation` → `requires_action` → `processing` → `succeeded/failed`
+
+### Q2: What is a Client Secret?
+
+The `client_secret` is a unique key that allows your frontend to complete the payment without exposing your secret API key.
+
+- Generated when you create a Payment Intent
+- Passed to frontend to initialize Stripe Elements
+- Allows frontend to confirm payment securely
+- Should never be logged or stored permanently
+
+### Q3: Why do we need Webhooks?
+
+Webhooks are essential because:
+
+1. **Redirects can fail** — User closes browser, network issues
+2. **Async payments** — Bank transfers, 3D Secure can take time
+3. **Source of truth** — Webhooks come directly from payment provider
+4. **Reliability** — Even if user never returns, you get notified
+
+> Rule: Never trust only the redirect. Always verify via webhook.
+
+### Q4: What is 3D Secure (3DS)?
+
+3D Secure is an additional authentication layer for card payments.
+
+- User redirected to bank's page to verify identity
+- Reduces fraud and chargebacks
+- Required in EU (SCA — Strong Customer Authentication)
+- Status becomes `requires_action` when 3DS is needed
+
+### Q5: What is Idempotency?
+
+Idempotency means the same request produces the same result, no matter how many times it's executed.
+
+**Why it matters:**
+- Webhook delivered twice? Order should only be marked paid once
+- Network retry? Should not create duplicate charges
+
+**How to implement:**
+- Check if order already paid before updating
+- Use idempotency keys with Stripe API calls
+
+### Q6: Publishable Key vs Secret Key?
+
+Two types of API keys with different purposes:
+
+**Publishable Key (`pk_xxx`):**
+- Safe to use in frontend/browser
+- Can only create tokens and confirm payments
+- Cannot read sensitive data
+
+**Secret Key (`sk_xxx`):**
+- Server-side only, NEVER expose to frontend
+- Can do anything: refunds, read customer data
+- Store in `.env`, never commit to git
+
+### Q7: Why multiply amount by 100?
+
+Payment providers use the smallest currency unit to avoid floating point errors.
+
+- USD: cents (100 cents = $1.00)
+- AED: fils (100 fils = 1 AED)
+- JPY: no decimal (100 JPY = 100 JPY)
+
+Example: `$25.99` → `2599` cents
+
+```php
+// Wrong: float can cause precision issues
+'amount' => 25.99
+
+// Right: integer, no precision loss
+'amount' => 2599
+```
+
+### Q8: What is a Webhook Signature?
+
+A cryptographic signature that proves the webhook came from the real payment provider, not an attacker.
+
+**How it works:**
+1. Provider creates hash of payload + secret
+2. Hash sent in request header
+3. You recreate hash with your secret
+4. If they match, webhook is authentic
+
+Without verification, anyone could send fake "payment succeeded" webhooks.
+
+### Q9: Why is MamoPay charges an array?
+
+One payment link can have multiple payment attempts:
+
+**Scenario:**
+1. User tries Card A → Declined (charge 1: failed)
+2. User tries Card B → Declined (charge 2: failed)
+3. User tries Card C → Success (charge 3: captured)
+
+Result: charges array has 3 items
+
+You must loop through ALL charges to find if ANY succeeded. Checking only first or last charge will miss successful retries.
+
+### Q10: What is PCI Compliance?
+
+PCI DSS (Payment Card Industry Data Security Standard) are rules for handling card data securely.
+
+By using Stripe Elements / MamoPay iframe:
+- Card numbers never touch your server
+- Entered directly into provider's secure form
+- You only receive tokens, not actual card data
+- Greatly reduces your compliance burden
+
+### Q11: Callback vs Webhook — What's the difference?
+
+**Callback (Redirect):**
+- User redirected to your URL after payment
+- Happens in user's browser
+- Can fail if user closes browser
+- Use for: showing success page to user
+
+**Webhook:**
+- Server-to-server HTTP request
+- Happens in background
+- Reliable, retries on failure
+- Use for: updating database, sending emails
+
+> Best practice: Use BOTH. Callback for UX, webhook for reliability.
+
+### Q12: What payment statuses should I track?
+
+Common payment statuses:
+
+| Status | Description |
+|--------|-------------|
+| `pending` | Payment initiated, waiting for action |
+| `processing` | Payment being processed (bank transfers) |
+| `paid` | Payment successful |
+| `failed` | Payment failed |
+| `canceled` | Payment canceled by user |
+| `refunded` | Payment refunded |
+
+Stripe PaymentIntent statuses: `requires_payment_method`, `requires_confirmation`, `requires_action` (3D Secure), `processing`, `succeeded`, `canceled`
+
+### Q13: What is a Payment Link (MamoPay)?
+
+A payment link is a hosted checkout page created via API.
+
+**Flow:**
+1. Create link via API with amount
+2. Get `payment_url` back
+3. Embed in iframe or redirect user
+4. User pays on MamoPay's hosted page
+5. User redirected back to your site
+6. Verify payment via API or webhook
+
+**Benefits:**
+- No need to handle card data
+- MamoPay handles all UI
+- Multiple payment attempts on same link
+
+### Q14: Why return 200 quickly in webhooks?
+
+Payment providers have timeout limits (usually 5–30 seconds).
+
+If you don't respond in time:
+- Provider thinks webhook failed
+- They retry (causing duplicate processing)
+- After many retries, may disable your webhook
+
+**Best practice:**
+1. Validate webhook immediately
+2. Return `200 OK`
+3. Queue heavy tasks (emails, inventory) for background processing
+
+### Q15: Test Mode vs Live Mode?
+
+Payment providers have two environments:
+
+**Test/Sandbox Mode:**
+- Fake money, no real charges
+- Use test API keys (`pk_test_`, `sk_test_`)
+- Use test card numbers
+- For development and testing
+
+**Live/Production Mode:**
+- Real money, real charges
+- Use live API keys (`pk_live_`, `sk_live_`)
+- Real card numbers
+- For production only
+
+> Never use test keys in production or live keys in development.
+
+---
+
+**Official Documentation:**
+- [Stripe](https://stripe.com/docs)
+- [MamoPay](https://docs.mamopay.com)
+- [Laravel Cashier](https://laravel.com/docs/billing)

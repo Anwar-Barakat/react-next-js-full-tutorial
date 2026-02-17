@@ -1,49 +1,87 @@
-01. What is testing and why test?
+# Testing Guide
 
-🟣 Testing is the process of verifying that your code works correctly.
-🟣 Helps catch bugs before users encounter them.
-🟣 Makes refactoring safer and easier.
-🟣 Serves as documentation for how code should behave.
-🟣 Increases confidence when shipping code.
-🟣 Reduces debugging time in production.
+A comprehensive guide to JavaScript testing with Jest and React Testing Library.
 
------------------------------------------
+## Table of Contents
 
-02. What are the different types of tests?
+1. [What is testing and why test?](#1-what-is-testing-and-why-test)
+2. [What are the different types of tests?](#2-what-are-the-different-types-of-tests)
+3. [What is Jest?](#3-what-is-jest)
+5. [What is the basic structure of a Jest test?](#5-what-is-the-basic-structure-of-a-jest-test)
+6. [What are Jest matchers?](#6-what-are-jest-matchers)
+7. [What is the difference between toBe and toEqual?](#7-what-is-the-difference-between-tobe-and-toequal)
+8. [What are setup and teardown methods in Jest?](#8-what-are-setup-and-teardown-methods-in-jest)
+9. [What is mocking in Jest?](#9-what-is-mocking-in-jest)
+10. [What is jest.fn(), jest.mock(), and jest.spyOn()?](#10-what-is-jestfn-jestmock-and-jestspyon)
+11. [How do you test async code in Jest?](#11-how-do-you-test-async-code-in-jest)
+12. [What is React Testing Library (RTL)?](#12-what-is-react-testing-library-rtl)
+13. [What is the difference between React Testing Library and Enzyme?](#13-what-is-the-difference-between-react-testing-library-and-enzyme)
+14. [What are the main RTL queries?](#14-what-are-the-main-rtl-queries)
+15. [What is the difference between getBy, queryBy, and findBy?](#15-what-is-the-difference-between-getby-queryby-and-findby)
+16. [How do you test a React component with RTL?](#16-how-do-you-test-a-react-component-with-rtl)
+17. [What is the difference between fireEvent and userEvent?](#17-what-is-the-difference-between-fireevent-and-userevent)
+18. [How do you test forms with RTL?](#18-how-do-you-test-forms-with-rtl)
+19. [How do you test async operations in RTL?](#19-how-do-you-test-async-operations-in-rtl)
+20. [How do you test custom hooks?](#20-how-do-you-test-custom-hooks)
+21. [How do you test components with Context?](#21-how-do-you-test-components-with-context)
+22. [How do you test components with Redux?](#22-how-do-you-test-components-with-redux)
+23. [How do you test React Router components?](#23-how-do-you-test-react-router-components)
+24. [What is snapshot testing?](#24-what-is-snapshot-testing)
+25. [What is code coverage?](#25-what-is-code-coverage)
+26. [What should you test vs not test?](#26-what-should-you-test-vs-not-test)
+27. [What is the AAA pattern in testing?](#27-what-is-the-aaa-pattern-in-testing)
+28. [What are testing best practices?](#28-what-are-testing-best-practices)
+29. [How do you debug failing tests?](#29-how-do-you-debug-failing-tests)
+30. [What is TDD (Test-Driven Development)?](#30-what-is-tdd-test-driven-development)
 
-🟣 Unit Tests: Test individual functions or components in isolation.
-   ▫️ Fast and focused.
-   ▫️ Most common type.
-   ▫️ Example: Testing a single function or component.
-🟣 End-to-End (E2E) Tests: Test complete user flows.
-   ▫️ Slowest but most realistic.
-   ▫️ Test entire application.
-   ▫️ Example: Full user journey from login to checkout.
-🟣 Snapshot Tests: Capture component output and compare on future runs.
-   ▫️ Detect unexpected UI changes.
-   ▫️ Common with Jest.
+---
 
------------------------------------------
+## 1. What is testing and why test?
 
-03. What is Jest?
+- Testing is the process of verifying that your code works correctly.
+- Helps catch bugs before users encounter them.
+- Makes refactoring safer and easier.
+- Serves as documentation for how code should behave.
+- Increases confidence when shipping code.
+- Reduces debugging time in production.
 
-🟣 Jest is a JavaScript testing framework.
-🟣 Developed by Facebook (Meta).
-🟣 Works with React, Vue, Node.js, TypeScript.
-🟣 Zero configuration needed.
-🟣 Built-in features: mocking, coverage, assertions.
-🟣 Fast parallel test execution.
+---
 
------------------------------------------
+## 2. What are the different types of tests?
 
-05. What is the basic structure of a Jest test?
+- Unit Tests: Test individual functions or components in isolation.
+  - Fast and focused.
+  - Most common type.
+  - Example: Testing a single function or component.
+- End-to-End (E2E) Tests: Test complete user flows.
+  - Slowest but most realistic.
+  - Test entire application.
+  - Example: Full user journey from login to checkout.
+- Snapshot Tests: Capture component output and compare on future runs.
+  - Detect unexpected UI changes.
+  - Common with Jest.
 
-🟣 Tests are organized using describe and test/it blocks.
-🟣 describe: Groups related tests together.
-🟣 test/it: Individual test case.
-🟣 expect: Makes assertions.
+---
 
-************* 🟣🟣🟣 *************
+## 3. What is Jest?
+
+- Jest is a JavaScript testing framework.
+- Developed by Facebook (Meta).
+- Works with React, Vue, Node.js, TypeScript.
+- Zero configuration needed.
+- Built-in features: mocking, coverage, assertions.
+- Fast parallel test execution.
+
+---
+
+## 5. What is the basic structure of a Jest test?
+
+- Tests are organized using describe and test/it blocks.
+- describe: Groups related tests together.
+- test/it: Individual test case.
+- expect: Makes assertions.
+
+```javascript
 // Basic test structure
 describe('Math operations', () => {
   test('adds two numbers', () => {
@@ -59,23 +97,23 @@ describe('Math operations', () => {
 
 // test and it are the same
 // Use whichever reads better
-************* 🟣🟣🟣 *************
+```
 
------------------------------------------
+---
 
-06. What are Jest matchers?
+## 6. What are Jest matchers?
 
-🟣 Matchers are methods to test values in different ways.
-🟣 Common matchers:
-   ▫️ toBe(): Exact equality (===)
-   ▫️ toEqual(): Deep equality (for objects/arrays)
-   ▫️ toBeNull(): Check if null
-   ▫️ toBeUndefined(): Check if undefined
-   ▫️ toBeTruthy() / toBeFalsy(): Truthy/falsy check
-   ▫️ toContain(): Array/string contains value
-   ▫️ toThrow(): Function throws error
+- Matchers are methods to test values in different ways.
+- Common matchers:
+  - toBe(): Exact equality (===)
+  - toEqual(): Deep equality (for objects/arrays)
+  - toBeNull(): Check if null
+  - toBeUndefined(): Check if undefined
+  - toBeTruthy() / toBeFalsy(): Truthy/falsy check
+  - toContain(): Array/string contains value
+  - toThrow(): Function throws error
 
-************* 🟣🟣🟣 *************
+```javascript
 // Equality
 expect(2 + 2).toBe(4);
 expect({ name: 'Anwar' }).toEqual({ name: 'Anwar' });
@@ -103,16 +141,16 @@ expect(() => {
 
 // Not matcher
 expect(2 + 2).not.toBe(5);
-************* 🟣🟣🟣 *************
+```
 
------------------------------------------
+---
 
-07. What is the difference between toBe and toEqual?
+## 7. What is the difference between toBe and toEqual?
 
-🟣 toBe: Uses === (strict equality), checks same reference.
-🟣 toEqual: Checks deep equality (values inside objects/arrays).
+- toBe: Uses === (strict equality), checks same reference.
+- toEqual: Checks deep equality (values inside objects/arrays).
 
-************* 🟣🟣🟣 *************
+```javascript
 // Primitives - both work the same
 expect(5).toBe(5);
 expect(5).toEqual(5);
@@ -129,21 +167,21 @@ expect(user1).toEqual(user2); // ✅ Same values
 // Arrays
 expect([1, 2, 3]).toEqual([1, 2, 3]); // ✅
 expect([1, 2, 3]).toBe([1, 2, 3]); // ❌
-************* 🟣🟣🟣 *************
+```
 
------------------------------------------
+---
 
-08. What are setup and teardown methods in Jest?
+## 8. What are setup and teardown methods in Jest?
 
-🟣 Setup: Code that runs before tests.
-🟣 Teardown: Code that runs after tests.
-🟣 Methods:
-   ▫️ beforeEach(): Runs before each test
-   ▫️ afterEach(): Runs after each test
-   ▫️ beforeAll(): Runs once before all tests
-   ▫️ afterAll(): Runs once after all tests
+- Setup: Code that runs before tests.
+- Teardown: Code that runs after tests.
+- Methods:
+  - beforeEach(): Runs before each test
+  - afterEach(): Runs after each test
+  - beforeAll(): Runs once before all tests
+  - afterAll(): Runs once after all tests
 
-************* 🟣🟣🟣 *************
+```javascript
 describe('Database tests', () => {
   let db;
 
@@ -178,18 +216,18 @@ describe('Database tests', () => {
     expect(db.users).toHaveLength(0);
   });
 });
-************* 🟣🟣🟣 *************
+```
 
------------------------------------------
+---
 
-09. What is mocking in Jest?
+## 9. What is mocking in Jest?
 
-🟣 Mocking replaces real functions/modules with fake versions.
-🟣 Allows testing in isolation without dependencies.
-🟣 Control function behavior and return values.
-🟣 Track how functions are called.
+- Mocking replaces real functions/modules with fake versions.
+- Allows testing in isolation without dependencies.
+- Control function behavior and return values.
+- Track how functions are called.
 
-************* 🟣🟣🟣 *************
+```javascript
 // Mock a function
 const mockFn = jest.fn();
 mockFn('hello');
@@ -216,17 +254,17 @@ console.log(getValue()); // 3
 const fetchUser = jest.fn().mockResolvedValue({ name: 'Anwar' });
 const user = await fetchUser();
 expect(user.name).toBe('Anwar');
-************* 🟣🟣🟣 *************
+```
 
------------------------------------------
+---
 
-10. What is jest.fn(), jest.mock(), and jest.spyOn()?
+## 10. What is jest.fn(), jest.mock(), and jest.spyOn()?
 
-🟣 jest.fn(): Creates a mock function.
-🟣 jest.mock(): Mocks entire module.
-🟣 jest.spyOn(): Spies on existing method.
+- jest.fn(): Creates a mock function.
+- jest.mock(): Mocks entire module.
+- jest.spyOn(): Spies on existing method.
 
-************* 🟣🟣🟣 *************
+```javascript
 // jest.fn() - Create mock function
 const mockCallback = jest.fn((x) => x + 1);
 [1, 2, 3].forEach(mockCallback);
@@ -245,18 +283,18 @@ const spy = jest.spyOn(user, 'getName');
 user.getName();
 expect(spy).toHaveBeenCalled();
 spy.mockRestore(); // Restore original
-************* 🟣🟣🟣 *************
+```
 
------------------------------------------
+---
 
-11. How do you test async code in Jest?
+## 11. How do you test async code in Jest?
 
-🟣 Three ways to test async code:
-   ▫️ async/await (recommended)
-   ▫️ Promises with return
-   ▫️ Callbacks with done
+- Three ways to test async code:
+  - async/await (recommended)
+  - Promises with return
+  - Callbacks with done
 
-************* 🟣🟣🟣 *************
+```javascript
 // Method 1: async/await (best)
 test('fetches user data', async () => {
   const data = await fetchUser(1);
@@ -282,37 +320,37 @@ test('fetches user data', (done) => {
 test('fails to fetch user', async () => {
   await expect(fetchUser(999)).rejects.toThrow('Not found');
 });
-************* 🟣🟣🟣 *************
+```
 
------------------------------------------
+---
 
-12. What is React Testing Library (RTL)?
+## 12. What is React Testing Library (RTL)?
 
-🟣 A library for testing React components.
-🟣 Focuses on testing user behavior, not implementation.
-🟣 Encourages accessible and maintainable tests.
-🟣 Built on top of DOM Testing Library.
-🟣 Philosophy: "Test how users interact with your app."
+- A library for testing React components.
+- Focuses on testing user behavior, not implementation.
+- Encourages accessible and maintainable tests.
+- Built on top of DOM Testing Library.
+- Philosophy: "Test how users interact with your app."
 
------------------------------------------
+---
 
-13. What is the difference between React Testing Library and Enzyme?
+## 13. What is the difference between React Testing Library and Enzyme?
 
-🟣 RTL: Tests user behavior (what users see/do).
-🟣 Enzyme: Tests implementation details (internal state/methods).
-🟣 RTL encourages better testing practices.
-🟣 RTL is recommended by React team.
-🟣 Enzyme is deprecated and less maintained.
+- RTL: Tests user behavior (what users see/do).
+- Enzyme: Tests implementation details (internal state/methods).
+- RTL encourages better testing practices.
+- RTL is recommended by React team.
+- Enzyme is deprecated and less maintained.
 
------------------------------------------
+---
 
-14. What are the main RTL queries?
+## 14. What are the main RTL queries?
 
-🟣 Queries find elements on the page.
-🟣 Three types: getBy, queryBy, findBy.
-🟣 Each has variants: ByRole, ByText, ByLabelText, etc.
+- Queries find elements on the page.
+- Three types: getBy, queryBy, findBy.
+- Each has variants: ByRole, ByText, ByLabelText, etc.
 
-************* 🟣🟣🟣 *************
+```javascript
 import { render, screen } from '@testing-library/react';
 
 // getBy* - Throws error if not found (most common)
@@ -330,17 +368,17 @@ const message = await screen.findByText('Loaded');
 // *AllBy* - Returns array of elements
 const items = screen.getAllByRole('listitem');
 expect(items).toHaveLength(3);
-************* 🟣🟣🟣 *************
+```
 
------------------------------------------
+---
 
-15. What is the difference between getBy, queryBy, and findBy?
+## 15. What is the difference between getBy, queryBy, and findBy?
 
-🟣 getBy*: Throws error if element not found. Use for elements that should exist.
-🟣 queryBy*: Returns null if not found. Use to check element doesn't exist.
-🟣 findBy*: Async, waits for element. Use for elements that appear after loading.
+- getBy*: Throws error if element not found. Use for elements that should exist.
+- queryBy*: Returns null if not found. Use to check element doesn't exist.
+- findBy*: Async, waits for element. Use for elements that appear after loading.
 
-************* 🟣🟣🟣 *************
+```javascript
 // getBy - Element must exist
 const button = screen.getByRole('button'); // ❌ Throws if missing
 
@@ -350,18 +388,18 @@ expect(error).not.toBeInTheDocument(); // ✅ null is ok
 
 // findBy - Wait for async element
 const data = await screen.findByText('Loaded'); // ✅ Waits up to 1s
-************* 🟣🟣🟣 *************
+```
 
------------------------------------------
+---
 
-16. How do you test a React component with RTL?
+## 16. How do you test a React component with RTL?
 
-🟣 Use render() to render component.
-🟣 Use screen to query elements.
-🟣 Use user interactions to test behavior.
-🟣 Use expect() for assertions.
+- Use render() to render component.
+- Use screen to query elements.
+- Use user interactions to test behavior.
+- Use expect() for assertions.
 
-************* 🟣🟣🟣 *************
+```javascript
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -384,24 +422,24 @@ describe('Counter', () => {
   test('increments count on button click', async () => {
     const user = userEvent.setup();
     render(<Counter />);
-    
+
     const button = screen.getByRole('button', { name: 'Increment' });
     await user.click(button);
-    
+
     expect(screen.getByText('Count: 1')).toBeInTheDocument();
   });
 });
-************* 🟣🟣🟣 *************
+```
 
------------------------------------------
+---
 
-17. What is the difference between fireEvent and userEvent?
+## 17. What is the difference between fireEvent and userEvent?
 
-🟣 fireEvent: Dispatches DOM events directly (low-level).
-🟣 userEvent: Simulates real user interactions (high-level, recommended).
-🟣 userEvent is more realistic and triggers all related events.
+- fireEvent: Dispatches DOM events directly (low-level).
+- userEvent: Simulates real user interactions (high-level, recommended).
+- userEvent is more realistic and triggers all related events.
 
-************* 🟣🟣🟣 *************
+```javascript
 import { fireEvent } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -416,20 +454,20 @@ await user.type(input, 'Hello'); // Types each character
 // userEvent triggers more realistic events
 await user.click(button); // hover → mousedown → mouseup → click
 fireEvent.click(button); // Only click event
-************* 🟣🟣🟣 *************
+```
 
-🟣 Always prefer userEvent over fireEvent.
+- Always prefer userEvent over fireEvent.
 
------------------------------------------
+---
 
-18. How do you test forms with RTL?
+## 18. How do you test forms with RTL?
 
-🟣 Find input elements.
-🟣 Simulate user input.
-🟣 Submit form.
-🟣 Assert results.
+- Find input elements.
+- Simulate user input.
+- Submit form.
+- Assert results.
 
-************* 🟣🟣🟣 *************
+```javascript
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -445,10 +483,10 @@ function LoginForm({ onSubmit }) {
     }}>
       <label htmlFor="username">Username</label>
       <input id="username" name="username" />
-      
+
       <label htmlFor="password">Password</label>
       <input id="password" name="password" type="password" />
-      
+
       <button type="submit">Login</button>
     </form>
   );
@@ -457,33 +495,33 @@ function LoginForm({ onSubmit }) {
 test('submits form with user data', async () => {
   const user = userEvent.setup();
   const onSubmit = jest.fn();
-  
+
   render(<LoginForm onSubmit={onSubmit} />);
-  
+
   // Fill form
   await user.type(screen.getByLabelText('Username'), 'anwar');
   await user.type(screen.getByLabelText('Password'), 'pass123');
-  
+
   // Submit
   await user.click(screen.getByRole('button', { name: 'Login' }));
-  
+
   // Assert
   expect(onSubmit).toHaveBeenCalledWith({
     username: 'anwar',
     password: 'pass123'
   });
 });
-************* 🟣🟣🟣 *************
+```
 
------------------------------------------
+---
 
-19. How do you test async operations in RTL?
+## 19. How do you test async operations in RTL?
 
-🟣 Use findBy queries (async).
-🟣 Use waitFor for custom waiting.
-🟣 Mock API calls.
+- Use findBy queries (async).
+- Use waitFor for custom waiting.
+- Mock API calls.
 
-************* 🟣🟣🟣 *************
+```javascript
 import { render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 
@@ -508,15 +546,15 @@ import { fetchUser } from './api';
 
 test('loads and displays user', async () => {
   fetchUser.mockResolvedValue({ name: 'Anwar' });
-  
+
   render(<UserProfile userId={1} />);
-  
+
   // Initially loading
   expect(screen.getByText('Loading...')).toBeInTheDocument();
-  
+
   // Wait for user to load (findBy is async)
   expect(await screen.findByText('Anwar')).toBeInTheDocument();
-  
+
   // Loading should be gone
   expect(screen.queryByText('Loading...')).not.toBeInTheDocument();
 });
@@ -524,24 +562,24 @@ test('loads and displays user', async () => {
 // Using waitFor for custom conditions
 test('displays error message', async () => {
   fetchUser.mockRejectedValue(new Error('Failed'));
-  
+
   render(<UserProfile userId={1} />);
-  
+
   await waitFor(() => {
     expect(screen.getByText('Error loading user')).toBeInTheDocument();
   });
 });
-************* 🟣🟣🟣 *************
+```
 
------------------------------------------
+---
 
-20. How do you test custom hooks?
+## 20. How do you test custom hooks?
 
-🟣 Use renderHook from RTL.
-🟣 Access hook result.
-🟣 Test hook behavior.
+- Use renderHook from RTL.
+- Access hook result.
+- Test hook behavior.
 
-************* 🟣🟣🟣 *************
+```javascript
 import { renderHook, act } from '@testing-library/react';
 
 function useCounter(initialValue = 0) {
@@ -553,16 +591,16 @@ function useCounter(initialValue = 0) {
 
 test('useCounter increments and decrements', () => {
   const { result } = renderHook(() => useCounter(5));
-  
+
   // Initial value
   expect(result.current.count).toBe(5);
-  
+
   // Increment
   act(() => {
     result.current.increment();
   });
   expect(result.current.count).toBe(6);
-  
+
   // Decrement
   act(() => {
     result.current.decrement();
@@ -576,24 +614,24 @@ test('useCounter with different initial value', () => {
     ({ initial }) => useCounter(initial),
     { initialProps: { initial: 10 } }
   );
-  
+
   expect(result.current.count).toBe(10);
-  
+
   // Change props
   rerender({ initial: 20 });
   expect(result.current.count).toBe(20);
 });
-************* 🟣🟣🟣 *************
+```
 
------------------------------------------
+---
 
-21. How do you test components with Context?
+## 21. How do you test components with Context?
 
-🟣 Wrap component with context provider.
-🟣 Pass test values through context.
-🟣 Create custom render function.
+- Wrap component with context provider.
+- Pass test values through context.
+- Create custom render function.
 
-************* 🟣🟣🟣 *************
+```javascript
 import { render, screen } from '@testing-library/react';
 
 const ThemeContext = createContext();
@@ -610,7 +648,7 @@ test('renders with theme', () => {
       <ThemedButton />
     </ThemeContext.Provider>
   );
-  
+
   const button = screen.getByRole('button');
   expect(button).toHaveStyle({ color: 'red' });
 });
@@ -627,21 +665,21 @@ function renderWithTheme(ui, { theme = { color: 'blue' }, ...options } = {}) {
 
 test('renders with custom theme', () => {
   renderWithTheme(<ThemedButton />, { theme: { color: 'green' } });
-  
+
   const button = screen.getByRole('button');
   expect(button).toHaveStyle({ color: 'green' });
 });
-************* 🟣🟣🟣 *************
+```
 
------------------------------------------
+---
 
-22. How do you test components with Redux?
+## 22. How do you test components with Redux?
 
-🟣 Wrap component with Redux Provider.
-🟣 Create test store with initial state.
-🟣 Test component behavior with store.
+- Wrap component with Redux Provider.
+- Create test store with initial state.
+- Test component behavior with store.
 
-************* 🟣🟣🟣 *************
+```javascript
 import { render, screen } from '@testing-library/react';
 import { Provider } from 'react-redux';
 import { configureStore } from '@reduxjs/toolkit';
@@ -673,7 +711,7 @@ test('displays user name from Redux', () => {
       user: { name: 'Anwar' }
     }
   });
-  
+
   expect(screen.getByText('Hello, Anwar')).toBeInTheDocument();
 });
 
@@ -684,27 +722,27 @@ test('updates user on action', async () => {
     reducer: { user: userReducer },
     preloadedState: { user: { name: 'Anwar' } }
   });
-  
+
   render(
     <Provider store={store}>
       <UserProfile />
     </Provider>
   );
-  
+
   await user.click(screen.getByRole('button', { name: 'Update Name' }));
   expect(store.getState().user.name).toBe('Sara');
 });
-************* 🟣🟣🟣 *************
+```
 
------------------------------------------
+---
 
-23. How do you test React Router components?
+## 23. How do you test React Router components?
 
-🟣 Wrap component with Router.
-🟣 Use MemoryRouter for testing.
-🟣 Test navigation and route changes.
+- Wrap component with Router.
+- Use MemoryRouter for testing.
+- Test navigation and route changes.
 
-************* 🟣🟣🟣 *************
+```javascript
 import { render, screen } from '@testing-library/react';
 import { MemoryRouter, Routes, Route } from 'react-router-dom';
 import userEvent from '@testing-library/user-event';
@@ -724,7 +762,7 @@ function About() {
 
 test('navigates to about page', async () => {
   const user = userEvent.setup();
-  
+
   render(
     <MemoryRouter initialEntries={['/']}>
       <Routes>
@@ -733,11 +771,11 @@ test('navigates to about page', async () => {
       </Routes>
     </MemoryRouter>
   );
-  
+
   expect(screen.getByText('Home')).toBeInTheDocument();
-  
+
   await user.click(screen.getByText('About'));
-  
+
   expect(screen.getByText('About')).toBeInTheDocument();
 });
 
@@ -750,21 +788,21 @@ test('displays user by id', () => {
       </Routes>
     </MemoryRouter>
   );
-  
+
   expect(screen.getByText('User ID: 123')).toBeInTheDocument();
 });
-************* 🟣🟣🟣 *************
+```
 
------------------------------------------
+---
 
-24. What is snapshot testing?
+## 24. What is snapshot testing?
 
-🟣 Snapshot testing captures component output and saves it.
-🟣 Future runs compare against saved snapshot.
-🟣 Detects unexpected changes in UI.
-🟣 Common for testing component rendering.
+- Snapshot testing captures component output and saves it.
+- Future runs compare against saved snapshot.
+- Detects unexpected changes in UI.
+- Common for testing component rendering.
 
-************* 🟣🟣🟣 *************
+```javascript
 import { render } from '@testing-library/react';
 
 function Button({ label, onClick }) {
@@ -780,22 +818,22 @@ test('matches snapshot', () => {
 // Future runs: compares against saved snapshot
 
 // Update snapshots with: jest -u
-************* 🟣🟣🟣 *************
+```
 
-🟣 Pros: Fast, catches unintended changes.
-🟣 Cons: Can be noisy, doesn't test behavior.
-🟣 Use sparingly, focus on behavior tests.
+- Pros: Fast, catches unintended changes.
+- Cons: Can be noisy, doesn't test behavior.
+- Use sparingly, focus on behavior tests.
 
------------------------------------------
+---
 
-25. What is code coverage?
+## 25. What is code coverage?
 
-🟣 Code coverage measures how much code is tested.
-🟣 Shows which lines/branches/functions are covered.
-🟣 Helps identify untested code.
-🟣 Run with: jest --coverage
+- Code coverage measures how much code is tested.
+- Shows which lines/branches/functions are covered.
+- Helps identify untested code.
+- Run with: jest --coverage
 
-************* 🟣🟣🟣 *************
+```javascript
 // Coverage metrics:
 // - Statements: % of statements executed
 // - Branches: % of if/else branches tested
@@ -810,40 +848,40 @@ File         | % Stmts | % Branch | % Funcs | % Lines
 -------------|---------|----------|---------|--------
 Button.js    |   100   |   100    |   100   |   100
 Form.js      |   80    |   75     |   90    |   82
-************* 🟣🟣🟣 *************
+```
 
-🟣 Good coverage doesn't guarantee good tests.
-🟣 Aim for 70-80% coverage.
-🟣 Focus on critical code paths.
+- Good coverage doesn't guarantee good tests.
+- Aim for 70-80% coverage.
+- Focus on critical code paths.
 
------------------------------------------
+---
 
-26. What should you test vs not test?
+## 26. What should you test vs not test?
 
-🟣 DO TEST:
-   ▫️ User interactions (clicks, typing, form submission)
-   ▫️ Conditional rendering
-   ▫️ API calls and data fetching
-   ▫️ Error handling
-   ▫️ Edge cases
-   ▫️ Accessibility
+- DO TEST:
+  - User interactions (clicks, typing, form submission)
+  - Conditional rendering
+  - API calls and data fetching
+  - Error handling
+  - Edge cases
+  - Accessibility
 
-🟣 DON'T TEST:
-   ▫️ Third-party libraries
-   ▫️ Implementation details
-   ▫️ Internal state directly
-   ▫️ CSS styling (unless critical)
-   ▫️ Browser APIs
+- DON'T TEST:
+  - Third-party libraries
+  - Implementation details
+  - Internal state directly
+  - CSS styling (unless critical)
+  - Browser APIs
 
-************* 🟣🟣🟣 *************
+```javascript
 // ✅ Good - Tests user behavior
 test('shows error on invalid email', async () => {
   const user = userEvent.setup();
   render(<LoginForm />);
-  
+
   await user.type(screen.getByLabelText('Email'), 'invalid');
   await user.click(screen.getByRole('button', { name: 'Submit' }));
-  
+
   expect(screen.getByText('Invalid email')).toBeInTheDocument();
 });
 
@@ -853,46 +891,46 @@ test('updates state on input change', () => {
   // Testing internal state directly
   expect(wrapper.state('email')).toBe('');
 });
-************* 🟣🟣🟣 *************
+```
 
------------------------------------------
+---
 
-27. What is the AAA pattern in testing?
+## 27. What is the AAA pattern in testing?
 
-🟣 AAA stands for Arrange, Act, Assert.
-🟣 A testing pattern that organizes test structure.
-🟣 Makes tests clear and readable.
+- AAA stands for Arrange, Act, Assert.
+- A testing pattern that organizes test structure.
+- Makes tests clear and readable.
 
-************* 🟣🟣🟣 *************
+```javascript
 test('increments counter on button click', async () => {
   // Arrange - Set up test data and render
   const user = userEvent.setup();
   render(<Counter initialCount={5} />);
-  
+
   // Act - Perform action
   const button = screen.getByRole('button', { name: 'Increment' });
   await user.click(button);
-  
+
   // Assert - Check result
   expect(screen.getByText('Count: 6')).toBeInTheDocument();
 });
-************* 🟣🟣🟣 *************
+```
 
------------------------------------------
+---
 
-28. What are testing best practices?
+## 28. What are testing best practices?
 
-🟣 Test user behavior, not implementation.
-🟣 Write clear test names.
-🟣 Keep tests isolated and independent.
-🟣 Use data-testid sparingly (prefer accessible queries).
-🟣 Mock external dependencies.
-🟣 Test one thing per test.
-🟣 Avoid testing internal state.
-🟣 Use meaningful assertions.
-🟣 Keep tests fast.
+- Test user behavior, not implementation.
+- Write clear test names.
+- Keep tests isolated and independent.
+- Use data-testid sparingly (prefer accessible queries).
+- Mock external dependencies.
+- Test one thing per test.
+- Avoid testing internal state.
+- Use meaningful assertions.
+- Keep tests fast.
 
-************* 🟣🟣🟣 *************
+```javascript
 // ✅ Good test name
 test('displays error message when login fails', () => {});
 
@@ -910,49 +948,49 @@ expect(screen.getByText('Success!')).toBeInTheDocument();
 
 // ❌ Test implementation
 expect(component.state.showSuccess).toBe(true);
-************* 🟣🟣🟣 *************
+```
 
------------------------------------------
+---
 
-29. How do you debug failing tests?
+## 29. How do you debug failing tests?
 
-🟣 Use screen.debug() to print DOM.
-🟣 Use screen.logTestingPlaygroundURL() for query suggestions.
-🟣 Add --verbose flag for detailed output.
-🟣 Use console.log() to inspect values.
-🟣 Check test output carefully.
+- Use screen.debug() to print DOM.
+- Use screen.logTestingPlaygroundURL() for query suggestions.
+- Add --verbose flag for detailed output.
+- Use console.log() to inspect values.
+- Check test output carefully.
 
-************* 🟣🟣🟣 *************
+```javascript
 import { render, screen } from '@testing-library/react';
 
 test('debugging example', () => {
   render(<MyComponent />);
-  
+
   // Print entire DOM
   screen.debug();
-  
+
   // Print specific element
   screen.debug(screen.getByRole('button'));
-  
+
   // Get query suggestions
   screen.logTestingPlaygroundURL();
-  
+
   // Check what's rendered
   console.log(screen.getByRole('button').textContent);
 });
-************* 🟣🟣🟣 *************
+```
 
------------------------------------------
+---
 
-30. What is TDD (Test-Driven Development)?
+## 30. What is TDD (Test-Driven Development)?
 
-🟣 TDD is a development approach where you write tests first.
-🟣 Process: Red → Green → Refactor
-   ▫️ Red: Write failing test
-   ▫️ Green: Write minimum code to pass
-   ▫️ Refactor: Improve code without breaking tests
+- TDD is a development approach where you write tests first.
+- Process: Red → Green → Refactor
+  - Red: Write failing test
+  - Green: Write minimum code to pass
+  - Refactor: Improve code without breaking tests
 
-************* 🟣🟣🟣 *************
+```javascript
 // 1. Write test first (RED)
 test('adds two numbers', () => {
   expect(add(2, 3)).toBe(5); // Fails - add() doesn't exist
@@ -967,9 +1005,7 @@ function add(a, b) {
 function add(a, b) {
   return Number(a) + Number(b); // Handle strings
 }
-************* 🟣🟣🟣 *************
+```
 
-🟣 Benefits: Better design, full coverage, confidence.
-🟣 Challenges: Takes time, requires discipline.
-
------------------------------------------
+- Benefits: Better design, full coverage, confidence.
+- Challenges: Takes time, requires discipline.

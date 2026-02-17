@@ -2,27 +2,27 @@
 
 ## Table of Contents
 
-1. Security Notice
-2. Active Server Credentials (REMOVE BEFORE COMMIT!)
-3. Initial Server Setup
-4. Nginx Installation & Configuration
-5. PHP Installation & Configuration
-6. MySQL Installation & Configuration
-7. Composer Installation
-8. Node.js & NPM Installation
-9. Laravel Project Setup
-10. Git Configuration
-11. Nginx Server Blocks
-12. SSL Configuration
-13. File Upload Limits
-14. Maintenance Commands
-15. Git Troubleshooting
-16. Queue Workers & Supervisor
-17. Cron Jobs Setup
-18. Common Issues & Solutions
-19. Summary
+1. [Security Notice](#1-security-notice)
+2. [Active Server Credentials (REMOVE BEFORE COMMIT!)](#2-active-server-credentials-remove-before-commit)
+3. [Initial Server Setup](#3-initial-server-setup)
+4. [Nginx Installation & Configuration](#4-nginx-installation--configuration)
+5. [PHP Installation & Configuration](#5-php-installation--configuration)
+6. [MySQL Installation & Configuration](#6-mysql-installation--configuration)
+7. [Composer Installation](#7-composer-installation)
+8. [Node.js & NPM Installation](#8-nodejs--npm-installation)
+9. [Laravel Project Setup](#9-laravel-project-setup)
+10. [Git Configuration](#10-git-configuration)
+11. [Nginx Server Blocks](#11-nginx-server-blocks)
+12. [SSL Configuration](#12-ssl-configuration)
+13. [File Upload Limits](#13-file-upload-limits)
+14. [Maintenance Commands](#14-maintenance-commands)
+15. [Git Troubleshooting](#15-git-troubleshooting)
+16. [Queue Workers & Supervisor](#16-queue-workers--supervisor)
+17. [Cron Jobs Setup](#17-cron-jobs-setup)
+18. [Common Issues & Solutions](#18-common-issues--solutions)
+19. [Summary](#19-summary)
 
-----------------------------------------------------------------------------------
+---
 
 ## 1. Security Notice
 
@@ -39,7 +39,7 @@
 
 **Recommended:** Replace all credentials in this document with placeholders before committing to version control.
 
-----------------------------------------------------------------------------------
+---
 
 ### Version Recommendations (Updated February 2026)
 
@@ -60,38 +60,36 @@
 - Check Laravel compatibility before updating PHP versions
 - Replace version numbers in commands (e.g., `php8.3-fpm`) with your installed version
 
-----------------------------------------------------------------------------------
+---
 
-## 2. Active Server Credentials (REMOVE BEFORE COMMIT!)
+## 2. Server Credentials Template
 
-**⚠️ CRITICAL WARNING ⚠️**
+**Store real credentials in a password manager (1Password, Bitwarden, etc.) — never in this file.**
 
-**DELETE THIS ENTIRE SECTION BEFORE COMMITTING TO GIT!**
+Use this template as a reference for what to record securely.
 
-This section contains real production credentials and MUST NOT be committed to version control.
+---
 
-----------------------------------------------------------------------------------
-
-### Production Server - SchoolMaster2026
+### Production Server Template
 
 **Server Access:**
 ```bash
 # SSH Connection
-Host: 188.166.171.244
+Host: YOUR_SERVER_IP
 User: root
-Password: DzVxT%d.857@_tCX.3Yw
+Password: YOUR_SSH_PASSWORD   # prefer SSH keys over passwords
 
 # SSH Command
-ssh root@188.166.171.244
+ssh root@YOUR_SERVER_IP
 ```
 
 **Database Configuration:**
 ```sql
-# MySQL Commands (run after: sudo mysql)
-CREATE USER 'sysop_x7'@'localhost' IDENTIFIED BY 'Qm#9vL!2@xKd$8wZ';
-GRANT ALL PRIVILEGES ON *.* TO 'sysop_x7'@'localhost';
+-- MySQL Commands (run after: sudo mysql)
+CREATE USER 'your_db_user'@'localhost' IDENTIFIED BY 'your_db_password';
+GRANT ALL PRIVILEGES ON *.* TO 'your_db_user'@'localhost';
 FLUSH PRIVILEGES;
-CREATE DATABASE app_core_db;
+CREATE DATABASE your_database_name;
 SHOW DATABASES;
 EXIT;
 ```
@@ -101,39 +99,37 @@ EXIT;
 DB_CONNECTION=mysql
 DB_HOST=127.0.0.1
 DB_PORT=3306
-DB_DATABASE=app_core_db
-DB_USERNAME=sysop_x7
-DB_PASSWORD=Qm#9vL!2@xKd$8wZ
+DB_DATABASE=your_database_name
+DB_USERNAME=your_db_user
+DB_PASSWORD=your_db_password
 ```
 
-**Server Details:**
-- **IP Address:** 188.166.171.244
-- **OS:** Ubuntu 24.04.3 LTS (Noble)
-- **Hostname:** SchoolMaster2026
-- **Database Name:** app_core_db
-- **Database User:** sysop_x7
+**Server Details (fill in your own):**
+- **IP Address:** YOUR_SERVER_IP
+- **OS:** Ubuntu 24.04 LTS (Noble)
+- **Hostname:** your-server-hostname
+- **Database Name:** your_database_name
+- **Database User:** your_db_user
 - **Project Path:** /var/www/html
-- **GitHub Repo:** https://github.com/NasserJasim/OneSchool.git
-- **Project Name:** OneSchool
+- **GitHub Repo:** https://github.com/your-org/your-repo.git
+- **Project Name:** YourProject
 
 **Quick Connect:**
 ```bash
 # SSH into server
-ssh root@188.166.171.244
+ssh root@YOUR_SERVER_IP
 
 # Connect to MySQL
-mysql -u sysop_x7 -p app_core_db
-# Password: Qm#9vL!2@xKd$8wZ
+mysql -u your_db_user -p your_database_name
 ```
 
-**REMEMBER:**
-1. ❌ DELETE THIS SECTION before `git commit`
-2. ❌ NEVER push these credentials to GitHub
-3. ✅ Store in password manager (1Password, Bitwarden, etc.)
-4. ✅ Use environment variables in production
-5. ✅ Rotate passwords every 90 days
+**Credential Security Checklist:**
+1. Store all credentials in a password manager
+2. Use SSH keys instead of passwords where possible
+3. Never commit credentials to Git
+4. Rotate passwords every 90 days
 
-----------------------------------------------------------------------------------
+---
 
 ### Checking Installed Versions
 
@@ -162,7 +158,7 @@ nginx -v
 lsb_release -a
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Upgrade Guidance
 
@@ -218,7 +214,7 @@ composer self-update
 composer self-update --2
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ## 3. Initial Server Setup
 
@@ -248,7 +244,7 @@ sudo ufw enable
 sudo ufw status
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Open Required Ports
 
@@ -268,7 +264,7 @@ sudo ufw reload
 
 **Warning:** Always allow SSH (port 22) before enabling UFW, or you'll be locked out!
 
-----------------------------------------------------------------------------------
+---
 
 ## 4. Nginx Installation & Configuration
 
@@ -285,7 +281,7 @@ sudo apt install nginx
 sudo systemctl status nginx
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### File Upload Size Configuration
 
@@ -311,7 +307,7 @@ sudo nginx -s reload
 sudo systemctl restart nginx
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ## 5. PHP Installation & Configuration
 
@@ -328,7 +324,7 @@ sudo apt install php8.2-{gd,zip,mysql,oauth,yaml,fpm,mbstring,memcache,curl,xml}
 sudo apt-get install php-oauth
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### PHP 8.3 Installation
 
@@ -343,7 +339,7 @@ sudo apt install php8.3-{gd,zip,mysql,oauth,yaml,fpm,mbstring,memcache,curl,xml}
 sudo apt-get install php-oauth
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### PHP 8.4 Installation (Latest)
 
@@ -364,7 +360,7 @@ sudo apt install php8.4-{gd,zip,mysql,oauth,yaml,fpm,mbstring,memcache,curl,xml}
 sudo apt-get install php-oauth
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### PHP Upload Limits Configuration
 
@@ -389,7 +385,7 @@ sudo systemctl restart php8.3-fpm
 - Replace `8.3` with your installed PHP version (8.2, 8.3, or 8.4)
 - Check your PHP version with: `php -v`
 
-----------------------------------------------------------------------------------
+---
 
 ### PHP Version Comparison
 
@@ -401,7 +397,7 @@ sudo systemctl restart php8.3-fpm
 
 **Recommendation:** Use PHP 8.3 or 8.4 for new projects. PHP 8.2 reaches end-of-life in December 2025.
 
-----------------------------------------------------------------------------------
+---
 
 ## 6. MySQL Installation & Configuration
 
@@ -438,7 +434,7 @@ sudo mysql_secure_installation
 - Remove test database: Yes
 - Reload privilege tables: Yes
 
-----------------------------------------------------------------------------------
+---
 
 ### Creating Database & User
 
@@ -465,7 +461,7 @@ SHOW DATABASES;
 EXIT;
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Import Database from SQL File
 
@@ -477,7 +473,7 @@ mysql -u destination -p laravel_atrix < laravel_atrix.sql
 # The database 'laravel_atrix' must exist before importing
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Uninstalling MySQL (if needed)
 
@@ -500,7 +496,7 @@ sudo rm -rf /etc/mysql /var/lib/mysql
 sudo apt purge mysql-server mysql-client mysql-common mysql-server-core-* mysql-client-core-*
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ## 7. Composer Installation
 
@@ -547,7 +543,7 @@ sudo mv composer.phar /usr/local/bin/composer
 composer --version
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ## 8. Node.js & NPM Installation
 
@@ -612,7 +608,7 @@ npm -v
 
 **Recommendation:** Use Node 20 (LTS) for production applications.
 
-----------------------------------------------------------------------------------
+---
 
 ## 9. Laravel Project Setup
 
@@ -632,7 +628,7 @@ git clone https://github.com/Anwar-Barakat/school-entertainments.git
 cd edcare-project
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Edcare Project Setup
 
@@ -675,7 +671,7 @@ nano .env
 SESSION_SECURE_COOKIE=false
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### TRIPZ Project Setup
 
@@ -723,7 +719,7 @@ php artisan migrate
 SESSION_SECURE_COOKIE=false
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Laravel Permissions Explained
 
@@ -737,7 +733,7 @@ SESSION_SECURE_COOKIE=false
 **Owner:** www-data (Nginx/PHP-FPM user)
 **Group:** www-data
 
-----------------------------------------------------------------------------------
+---
 
 ## 10. Git Configuration
 
@@ -755,7 +751,7 @@ git config --global --add safe.directory /var/www/html/Submissions
 git config --global --get-all safe.directory
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ## 11. Nginx Server Blocks
 
@@ -771,7 +767,7 @@ server {
     root /var/www/tripz/tripz/public;
     index index.php;
 
-    server_name 138.68.184.140;
+    server_name YOUR_SERVER_IP;
 
     location / {
         # Try to serve file, then directory, then Laravel router
@@ -802,7 +798,7 @@ server {
 - `try_files` - Laravel routing fallback
 - `fastcgi_pass` - PHP-FPM socket path
 
-----------------------------------------------------------------------------------
+---
 
 ## 12. SSL Configuration
 
@@ -873,7 +869,7 @@ server {
 - `gzip` - Compress responses (faster page loads)
 - Redirect www to non-www (or vice versa, be consistent)
 
-----------------------------------------------------------------------------------
+---
 
 ### SSL Certificate Locations
 
@@ -889,7 +885,7 @@ server {
 chmod 600 /etc/ssl/tripz.me.key
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ## 13. File Upload Limits
 
@@ -899,7 +895,7 @@ chmod 600 /etc/ssl/tripz.me.key
 
 **Solution:** Configure limits in both Nginx and PHP.
 
-----------------------------------------------------------------------------------
+---
 
 ### Nginx Configuration
 
@@ -920,7 +916,7 @@ sudo nginx -s reload
 sudo systemctl restart nginx
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### PHP Configuration
 
@@ -938,7 +934,7 @@ memory_limit = 256M
 sudo systemctl restart php8.3-fpm
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Recommended Upload Limits
 
@@ -951,7 +947,7 @@ sudo systemctl restart php8.3-fpm
 
 **Rule:** `post_max_size` should be slightly larger than `upload_max_filesize`.
 
-----------------------------------------------------------------------------------
+---
 
 ## 14. Maintenance Commands
 
@@ -984,7 +980,7 @@ sudo tail -f /var/log/nginx/error.log
 sudo tail -f /var/log/nginx/access.log
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### PHP-FPM Commands
 
@@ -1002,7 +998,7 @@ sudo systemctl status php8.3-fpm
 sudo tail -f /var/log/php8.3-fpm.log
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### System Reload Sequence
 
@@ -1023,7 +1019,7 @@ sudo systemctl restart php8.3-fpm
 sudo ufw reload
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ## 15. Git Troubleshooting
 
@@ -1046,7 +1042,7 @@ rm -f .git/index.lock
 git add -A -- .
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Undo Last Commit
 
@@ -1068,7 +1064,7 @@ git reset HEAD~
 git reset --soft HEAD~1
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Pull with Existing Commits
 
@@ -1084,7 +1080,7 @@ git pull --tags origin master --no-rebase
 git pull --rebase origin master
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Git Reset Comparison
 
@@ -1094,7 +1090,7 @@ git pull --rebase origin master
 | git reset (--mixed)  | ✅ Reset       | ❌ Reset     | ✅ Keep           |
 | git reset --hard     | ✅ Reset       | ❌ Reset     | ❌ Reset          |
 
-----------------------------------------------------------------------------------
+---
 
 ## 16. Queue Workers & Supervisor
 
@@ -1102,7 +1098,7 @@ git pull --rebase origin master
 
 **Purpose:** Automatically restart queue workers if they crash.
 
-----------------------------------------------------------------------------------
+---
 
 ### Install Supervisor
 
@@ -1120,7 +1116,7 @@ sudo systemctl start supervisor
 sudo systemctl enable supervisor
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Queue Worker Configuration
 
@@ -1147,7 +1143,7 @@ stdout_logfile=/var/www/tripz/tripz/storage/logs/worker.log
 - `numprocs` - Number of worker processes
 - `stdout_logfile` - Log file location
 
-----------------------------------------------------------------------------------
+---
 
 ### Reverb Worker Configuration
 
@@ -1167,7 +1163,7 @@ redirect_stderr=true
 stdout_logfile=/var/www/tripz/tripz/storage/logs/reverb.log
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Scheduled Task Workers
 
@@ -1201,7 +1197,7 @@ redirect_stderr=true
 stdout_logfile=/var/www/tripz/tripz/storage/logs/truncate-telescope-tables.log
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Supervisor Management Commands
 
@@ -1234,13 +1230,13 @@ sudo supervisorctl tail -f queue-worker
 sudo systemctl restart supervisor
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ## 17. Cron Jobs Setup
 
 **Purpose:** Schedule tasks to run automatically at specific times.
 
-----------------------------------------------------------------------------------
+---
 
 ### Edit Root Crontab
 
@@ -1251,7 +1247,7 @@ sudo crontab -e
 # Select editor (nano recommended for beginners)
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Cron Schedule Configuration
 
@@ -1266,7 +1262,7 @@ sudo crontab -e
 0 1 * * * supervisorctl start truncate-telescope-tables
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Cron Syntax Explained
 
@@ -1291,7 +1287,7 @@ sudo crontab -e
 | Every Monday 9 AM  | 0 9 * * 1        | Run Mondays at 09:00           |
 | First of month     | 0 0 1 * *        | Run at 00:00 on 1st of month   |
 
-----------------------------------------------------------------------------------
+---
 
 ### Verify Cron Jobs
 
@@ -1309,7 +1305,7 @@ grep CRON /var/log/syslog
 supervisorctl start update-booking-status
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ## 18. Common Issues & Solutions
 
@@ -1335,7 +1331,7 @@ sudo systemctl restart nginx
 sudo systemctl restart php8.3-fpm
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Issue: 502 Bad Gateway
 
@@ -1354,7 +1350,7 @@ sudo systemctl restart php8.3-fpm
 # Should match: /var/run/php/php8.3-fpm.sock
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Issue: 500 Internal Server Error
 
@@ -1381,7 +1377,7 @@ sudo chown -R www-data:www-data storage
 sudo chmod -R 775 storage
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Issue: Storage Link Not Working
 
@@ -1400,7 +1396,7 @@ php artisan storage:link
 ls -la public/storage
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Issue: Composer Install Fails
 
@@ -1417,7 +1413,7 @@ sudo nano /etc/php/8.3/cli/php.ini
 # Update: memory_limit = 512M
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Issue: Queue Jobs Not Processing
 
@@ -1439,7 +1435,7 @@ sudo supervisorctl tail -f queue-worker
 php artisan queue:work --tries=3
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Issue: Database Connection Failed
 
@@ -1461,7 +1457,7 @@ mysql -u username -p database_name
 cat .env | grep DB_
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Debugging Checklist
 
@@ -1499,7 +1495,7 @@ When troubleshooting server issues:
    composer --version
    ```
 
-----------------------------------------------------------------------------------
+---
 
 ## 19. Summary
 
@@ -1532,7 +1528,7 @@ When troubleshooting server issues:
 - **Cron** - Runs scheduled tasks
 - Triggers Supervisor programs
 
-----------------------------------------------------------------------------------
+---
 
 ### Configuration Flow
 
@@ -1560,7 +1556,7 @@ When troubleshooting server issues:
 4. Cron jobs (scheduled tasks)
 5. Monitoring & logging
 
-----------------------------------------------------------------------------------
+---
 
 ### File Locations Reference
 
@@ -1578,7 +1574,7 @@ When troubleshooting server issues:
 | Laravel logs       | storage/logs/laravel.log              | Application errors         |
 | SSL certificates   | /etc/ssl/                             | HTTPS certificates         |
 
-----------------------------------------------------------------------------------
+---
 
 ### Essential Commands Quick Reference
 
@@ -1624,7 +1620,7 @@ rm -f .git/index.lock            # Remove lock file
 git reset --hard HEAD~1          # Undo last commit
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Security Best Practices
 
@@ -1652,7 +1648,7 @@ git reset --hard HEAD~1          # Undo last commit
 - ✅ Revoke unused access tokens
 - ✅ Enable 2FA on critical accounts
 
-----------------------------------------------------------------------------------
+---
 
 ### Monitoring & Maintenance
 
