@@ -1,40 +1,42 @@
 # JavaScript Fundamentals Guide
 
+A comprehensive guide to JavaScript fundamentals, patterns, and best practices.
+
 ## Table of Contents
 
-1. Compiled vs Interpreted Languages
-2. What is JavaScript?
-3. Data Types
-4. Variables (var, let, const)
-5. Hoisting
-6. Equality Operators (== vs ===)
-7. null vs undefined
-8. Functions
-9. Function Types
-10. Advanced Function Concepts
-11. Objects
-12. Arrays & Iteration
-13. Spread Operator & Destructuring
-14. Asynchronous JavaScript
-15. Event Loop & Task Queues
-16. Promises & Async/Await
-17. DOM Manipulation
-18. Prototypal Inheritance
-19. Events
-20. Array Methods
-21. Performance Optimization
-22. Browser Storage
-23. HTTP Requests
-24. ES6+ Features
-25. Security
-26. Modules
-27. Error Handling
-28. Scope & Closures
-29. Type Coercion
-30. Best Practices
-31. Summary
+1. [Compiled vs Interpreted Languages](#1-compiled-vs-interpreted-languages)
+2. [What is JavaScript?](#2-what-is-javascript)
+3. [Data Types](#3-data-types)
+4. [Variables (var, let, const)](#4-variables-var-let-const)
+5. [Hoisting](#5-hoisting)
+6. [Equality Operators (== vs ===)](#6-equality-operators--vs-)
+7. [null vs undefined](#7-null-vs-undefined)
+8. [Functions](#8-functions)
+9. [Function Types](#9-function-types)
+10. [Advanced Function Concepts](#10-advanced-function-concepts)
+11. [Objects](#11-objects)
+12. [Arrays & Iteration](#12-arrays--iteration)
+13. [Spread Operator & Destructuring](#13-spread-operator--destructuring)
+14. [Asynchronous JavaScript](#14-asynchronous-javascript)
+15. [Event Loop & Task Queues](#15-event-loop--task-queues)
+16. [Promises & Async/Await](#16-promises--asyncawait)
+17. [DOM Manipulation](#17-dom-manipulation)
+18. [Prototypal Inheritance](#18-prototypal-inheritance)
+19. [Events](#19-events)
+20. [Array Methods](#20-array-methods)
+21. [Performance Optimization](#21-performance-optimization)
+22. [Browser Storage](#22-browser-storage)
+23. [HTTP Requests](#23-http-requests)
+24. [ES6+ Features](#24-es6-features)
+25. [Security](#25-security)
+26. [Modules](#26-modules)
+27. [Error Handling](#27-error-handling)
+28. [Scope & Closures](#28-scope--closures)
+29. [Type Coercion](#29-type-coercion)
+30. [Best Practices](#30-best-practices)
+31. [Summary](#31-summary)
 
-----------------------------------------------------------------------------------
+---
 
 ## 1. Compiled vs Interpreted Languages
 
@@ -53,7 +55,7 @@
 - **Early error detection** - Catches bugs before execution
 - **Optimized** - Compiler can optimize code
 
-----------------------------------------------------------------------------------
+---
 
 ### Interpreted Language
 
@@ -72,7 +74,7 @@
 
 **Trade-off:** Slower than compiled languages (but modern engines like V8 use JIT compilation to speed up).
 
-----------------------------------------------------------------------------------
+---
 
 ## 2. What is JavaScript?
 
@@ -98,7 +100,7 @@
 - Store data locally (localStorage, cookies)
 - Perform calculations and logic
 
-----------------------------------------------------------------------------------
+---
 
 ## 3. Data Types
 
@@ -118,7 +120,7 @@
 
 **Key point:** Primitives are **immutable** (cannot be changed). Operations create new values.
 
-----------------------------------------------------------------------------------
+---
 
 ### Reference Types (Objects)
 
@@ -161,7 +163,7 @@ When you change obj2.name:
 | Comparison   | Compares values            | Compares memory addresses  |
 | Mutability   | Immutable                  | Mutable                    |
 
-----------------------------------------------------------------------------------
+---
 
 ### undefined vs not defined
 
@@ -170,7 +172,7 @@ When you change obj2.name:
 | undefined   | Variable declared, no value   | let x; console.log(x); // undefined |
 | not defined | Variable not declared at all  | console.log(y); // ReferenceError  |
 
-----------------------------------------------------------------------------------
+---
 
 ## 4. Variables (var, let, const)
 
@@ -182,7 +184,7 @@ When you change obj2.name:
 - Kitchen items: Only accessible inside the kitchen (block scope)
 - House entrance items: Visible from any room (function/global scope)
 
-----------------------------------------------------------------------------------
+---
 
 ### var - Function Scope
 
@@ -215,7 +217,7 @@ function testBlock() {
 
 **Problem with var:** Ignores block scope, can cause unexpected behavior.
 
-----------------------------------------------------------------------------------
+---
 
 ### let - Block Scope
 
@@ -239,7 +241,7 @@ function testLet() {
 
 **Use case:** Preferred for variables that will change.
 
-----------------------------------------------------------------------------------
+---
 
 ### const - Block Scope + Immutable Binding
 
@@ -260,7 +262,7 @@ obj = {};  // ❌ Error - reassigning variable
 
 **Use case:** Preferred default choice for variables that won't be reassigned.
 
-----------------------------------------------------------------------------------
+---
 
 ### Comparison
 
@@ -278,7 +280,7 @@ obj = {};  // ❌ Error - reassigning variable
 - **If reassignment needed:** Use `let`
 - **Never:** Use `var` (legacy code only)
 
-----------------------------------------------------------------------------------
+---
 
 ## 5. Hoisting
 
@@ -293,7 +295,7 @@ obj = {};  // ❌ Error - reassigning variable
 - Function expressions
 - Arrow functions
 
-----------------------------------------------------------------------------------
+---
 
 ### var Hoisting
 
@@ -309,7 +311,7 @@ x = 5;  // Assignment stays in place
 console.log(x);  // 5
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### let/const Hoisting (Temporal Dead Zone)
 
@@ -325,7 +327,7 @@ let y = 10;
 
 **Temporal Dead Zone (TDZ):** The period between entering scope and variable declaration where the variable exists but cannot be accessed.
 
-----------------------------------------------------------------------------------
+---
 
 ### Function Hoisting
 
@@ -349,7 +351,7 @@ var sayBye = function() {
 - **Function declaration:** Entire function hoisted (can call before definition)
 - **Function expression:** Only variable hoisted (as undefined), not the function
 
-----------------------------------------------------------------------------------
+---
 
 ## 6. Equality Operators (== vs ===)
 
@@ -366,7 +368,7 @@ null == undefined  // true - special case
 
 **Problem:** Unpredictable behavior due to type coercion.
 
-----------------------------------------------------------------------------------
+---
 
 ### === (Strict Equality)
 
@@ -381,7 +383,7 @@ null === undefined  // false - different types
 
 **Best practice:** Always use === to avoid unexpected behavior.
 
-----------------------------------------------------------------------------------
+---
 
 ### Comparison Table
 
@@ -393,7 +395,7 @@ null === undefined  // false - different types
 | [] == false          | true      | false      | [] → "" → 0               |
 | "0" == 0             | true      | false      | "0" → 0                   |
 
-----------------------------------------------------------------------------------
+---
 
 ## 7. null vs undefined
 
@@ -418,7 +420,7 @@ const obj = {};
 console.log(obj.name);  // undefined
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### null
 
@@ -433,7 +435,7 @@ console.log(obj.name);  // undefined
 let user = null;  // Explicitly no user
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Comparison
 
@@ -451,7 +453,7 @@ typeof undefined  // "undefined"
 typeof null       // "object" - historical bug in JavaScript
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ## 8. Functions
 
@@ -464,7 +466,7 @@ typeof null       // "object" - historical bug in JavaScript
 - Can be passed as arguments
 - Can be returned from other functions
 
-----------------------------------------------------------------------------------
+---
 
 ### Function Declaration
 
@@ -481,7 +483,7 @@ greet("Anwar");  // "Hello, Anwar!"
 - Has a name
 - Uses `function` keyword
 
-----------------------------------------------------------------------------------
+---
 
 ### Function Expression
 
@@ -498,7 +500,7 @@ greet("Anwar");  // "Hello, Anwar!"
 - Assigned to a variable
 - Can be anonymous
 
-----------------------------------------------------------------------------------
+---
 
 ### Arrow Functions (ES6+)
 
@@ -517,7 +519,7 @@ const greet = name => `Hello, ${name}!`;
 - Cannot be used as constructors
 - No `arguments` object
 
-----------------------------------------------------------------------------------
+---
 
 ### Default Parameters
 
@@ -532,7 +534,7 @@ greet("Anwar");  // "Hello, Anwar!"
 
 **Use case:** Provide fallback values when arguments not provided or undefined.
 
-----------------------------------------------------------------------------------
+---
 
 ### Rest Parameters
 
@@ -549,7 +551,7 @@ sum(1, 2, 3, 4, 5);  // 15
 
 **Syntax:** `...paramName` (must be last parameter)
 
-----------------------------------------------------------------------------------
+---
 
 ## 9. Function Types
 
@@ -583,7 +585,7 @@ const f = function() {
 };
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ## 10. Advanced Function Concepts
 
@@ -607,7 +609,7 @@ processData(5, function(result) {
 - Array methods (map, filter, forEach)
 - Asynchronous operations
 
-----------------------------------------------------------------------------------
+---
 
 ### Closures
 
@@ -640,7 +642,7 @@ console.log(counter());  // 3
 - Event handlers that need to remember state
 - Memoization
 
-----------------------------------------------------------------------------------
+---
 
 ### Higher-Order Functions
 
@@ -669,7 +671,7 @@ console.log(double(5));  // 10
 
 **Examples:** map, filter, reduce, forEach, setTimeout
 
-----------------------------------------------------------------------------------
+---
 
 ### Pure Functions
 
@@ -700,7 +702,7 @@ function addToTotal(n) {
 - Can be cached (memoization)
 - Can be run in parallel
 
-----------------------------------------------------------------------------------
+---
 
 ### Function Composition
 
@@ -721,7 +723,7 @@ console.log(addThenMultiply(5));  // 12
 
 **Use case:** Building complex operations from simple, reusable functions.
 
-----------------------------------------------------------------------------------
+---
 
 ## 11. Objects
 
@@ -735,7 +737,7 @@ const user = {
 };
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Accessing Properties
 
@@ -759,7 +761,7 @@ const person = {
 console.log(person["first name"]);  // "Anwar"
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### JSON
 
@@ -775,7 +777,7 @@ console.log(person["first name"]);  // "Anwar"
 - localStorage (stores only strings)
 - Configuration files
 
-----------------------------------------------------------------------------------
+---
 
 ### Object Copying
 
@@ -806,7 +808,7 @@ const obj3 = JSON.parse(JSON.stringify(obj1));
 const obj4 = structuredClone(obj1);  // Modern method
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ## 12. Arrays & Iteration
 
@@ -839,7 +841,7 @@ for (let value of arr) {
 | Works with | Objects            | Arrays, strings, Map, Set |
 | Returns    | Keys/indices       | Values              |
 
-----------------------------------------------------------------------------------
+---
 
 ### Common Array Methods
 
@@ -882,7 +884,7 @@ nested.flat(Infinity);  // [1, 2, 3, 4]
 [1, 2].flatMap(x => [x, x * 2]);  // [1, 2, 2, 4]
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Set - Unique Values
 
@@ -904,7 +906,7 @@ set.size;        // 3
 - Check membership efficiently
 - Store unique items
 
-----------------------------------------------------------------------------------
+---
 
 ## 13. Spread Operator & Destructuring
 
@@ -944,7 +946,7 @@ const merged = { ...obj1, ...obj2 };  // { a: 1, b: 2, c: 3 }
 const updated = { ...obj1, b: 99 };  // { a: 1, b: 99 }
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Destructuring
 
@@ -989,7 +991,7 @@ const { name, ...rest } = user;
 console.log(rest);  // { age: 30, city: "NYC" }
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ## 14. Asynchronous JavaScript
 
@@ -1018,7 +1020,7 @@ console.log("C");
 - Async operations (network requests, file I/O) take time
 - Don't want to block the entire application while waiting
 
-----------------------------------------------------------------------------------
+---
 
 ### Single-Threaded Explained
 
@@ -1036,7 +1038,7 @@ console.log("C");
 - They allow JavaScript to do other work while waiting
 - Use event loop to manage async operations
 
-----------------------------------------------------------------------------------
+---
 
 ### PHP vs JavaScript Concurrency
 
@@ -1054,7 +1056,7 @@ console.log("C");
 - Non-blocking by default (async operations)
 - More efficient for I/O-heavy operations
 
-----------------------------------------------------------------------------------
+---
 
 ## 15. Event Loop & Task Queues
 
@@ -1064,7 +1066,7 @@ console.log("C");
 
 **Purpose:** Allows single-threaded JavaScript to handle async operations without blocking.
 
-----------------------------------------------------------------------------------
+---
 
 ### Three Main Parts
 
@@ -1092,7 +1094,7 @@ first();
 - **Microtask Queue** - Promises, async/await (HIGH priority)
 - **Macrotask Queue** - setTimeout, setInterval, DOM events (LOW priority)
 
-----------------------------------------------------------------------------------
+---
 
 ### How Event Loop Works
 
@@ -1131,7 +1133,7 @@ console.log("D");
 7. Check macrotask queue → Run setTimeout → Output: B
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Microtasks vs Macrotasks
 
@@ -1150,7 +1152,7 @@ console.log("D");
 5. Check microtasks again → Repeat
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ## 16. Promises & Async/Await
 
@@ -1191,7 +1193,7 @@ promise
   });
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Promise Chaining
 
@@ -1206,7 +1208,7 @@ fetch("/api/user")
 
 **Best practice:** Return promises from .then() to chain properly.
 
-----------------------------------------------------------------------------------
+---
 
 ### Promise Methods
 
@@ -1259,7 +1261,7 @@ Promise.any([p1, p2, p3])
   .catch(error => console.log("All failed"));
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Async/Await
 
@@ -1306,7 +1308,7 @@ async function getData() {
 - Better error handling (try/catch)
 - Simpler debugging
 
-----------------------------------------------------------------------------------
+---
 
 ## 17. DOM Manipulation
 
@@ -1324,7 +1326,7 @@ document
           └── p
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Selecting Elements
 
@@ -1345,7 +1347,7 @@ const el = document.querySelector(".myClass");
 const els = document.querySelectorAll(".myClass");
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Creating & Adding Elements
 
@@ -1369,7 +1371,7 @@ parent.prepend(div);  // Add as first child
 parent.append(div);   // Add as last child
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Modifying Elements
 
@@ -1394,7 +1396,7 @@ el.getAttribute("href");
 el.removeAttribute("href");
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Removing Elements
 
@@ -1406,7 +1408,7 @@ el.remove();  // Modern
 parent.removeChild(child);  // Legacy
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ## 18. Prototypal Inheritance
 
@@ -1414,7 +1416,7 @@ parent.removeChild(child);  // Legacy
 
 **Purpose:** Share properties and methods across objects (inheritance).
 
-----------------------------------------------------------------------------------
+---
 
 ### How It Works
 
@@ -1435,7 +1437,7 @@ user → user.__proto__ (Object.prototype) → null
 
 If property not found on object → look in prototype → look in prototype's prototype → until null.
 
-----------------------------------------------------------------------------------
+---
 
 ### __proto__ vs prototype
 
@@ -1468,7 +1470,7 @@ Constructor Function.prototype → Object with shared methods
 Instance.__proto__ → Points to Constructor Function.prototype
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Prototype Chain Example
 
@@ -1506,7 +1508,7 @@ console.log(dog.bark());   // "Rex barks!" (own method)
 dog → Dog.prototype → Animal.prototype → Object.prototype → null
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ## 19. Events
 
@@ -1549,7 +1551,7 @@ btn.addEventListener("click", function() {
 | Event options    | No                     | Yes (capture, once, etc.)  |
 | Best practice    | Avoid                  | Preferred                  |
 
-----------------------------------------------------------------------------------
+---
 
 ### Event Bubbling & Capturing
 
@@ -1593,7 +1595,7 @@ child.addEventListener("click", (event) => {
 // Now only "Child" logs, parent doesn't receive event
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ## 20. Array Methods
 
@@ -1624,7 +1626,7 @@ const doubled = numbers.map(n => n * 2);  // [2, 4, 6]
 | Chaining      | No                  | Yes                  |
 | Use when      | console.log, update DOM | Create new array |
 
-----------------------------------------------------------------------------------
+---
 
 ### reduce() Deep Dive
 
@@ -1672,7 +1674,7 @@ const counts = fruits.reduce((acc, fruit) => {
 // Result: { apple: 3, banana: 2, orange: 1 }
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### String to Array
 
@@ -1689,7 +1691,7 @@ const chars = Array.from("hello");  // ["h", "e", "l", "l", "o"]
 const chars = [..."hello"];  // ["h", "e", "l", "l", "o"]
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Array Max/Min
 
@@ -1705,7 +1707,7 @@ const max = numbers.reduce((max, n) => n > max ? n : max);
 const min = numbers.reduce((min, n) => n < min ? n : min);
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ## 21. Performance Optimization
 
@@ -1741,7 +1743,7 @@ searchInput.addEventListener("input", handleSearch);
 - User types again → Cancel previous timer, start new one
 - User stops typing → Timer completes, function runs
 
-----------------------------------------------------------------------------------
+---
 
 ### Throttling
 
@@ -1774,7 +1776,7 @@ window.addEventListener("scroll", handleScroll);
 - Subsequent calls within 200ms → Ignored
 - After 200ms → Next call executes
 
-----------------------------------------------------------------------------------
+---
 
 ### Debouncing vs Throttling
 
@@ -1785,7 +1787,7 @@ window.addEventListener("scroll", handleScroll);
 | Best for     | Search input, resize          | Scroll, mouse move          |
 | Example      | Wait 500ms after last keypress | Run once every 200ms        |
 
-----------------------------------------------------------------------------------
+---
 
 ### Memoization
 
@@ -1818,7 +1820,7 @@ console.log(memoized(5));  // "Calculating..." → 25
 console.log(memoized(5));  // 25 (from cache, no calculation)
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Lazy Loading
 
@@ -1852,7 +1854,7 @@ lazyImages.forEach(img => imageObserver.observe(img));
 </script>
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ## 22. Browser Storage
 
@@ -1897,7 +1899,7 @@ const user = JSON.parse(localStorage.getItem("user"));
 
 **Important:** Both store key-value pairs as strings. Objects must be converted to JSON.
 
-----------------------------------------------------------------------------------
+---
 
 ## 23. HTTP Requests
 
@@ -1918,7 +1920,7 @@ xhr.send();
 
 **Problem:** Callback-based, verbose syntax.
 
-----------------------------------------------------------------------------------
+---
 
 ### Fetch API (Modern)
 
@@ -1967,7 +1969,7 @@ async function getUsers() {
 - `response.blob()` - Get as binary data
 - `response.formData()` - Get as FormData
 
-----------------------------------------------------------------------------------
+---
 
 ### AJAX Explained
 
@@ -1984,7 +1986,7 @@ async function getUsers() {
 - JSON is the standard (smaller, faster, easier)
 - "AJAX" now means any async HTTP request
 
-----------------------------------------------------------------------------------
+---
 
 ## 24. ES6+ Features
 
@@ -2013,7 +2015,7 @@ const html = `
 const message = `Result: ${calculateTotal()}`;
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Optional Chaining (?.)
 
@@ -2041,7 +2043,7 @@ const result = user.getName?.();  // undefined if getName doesn't exist
 const first = users?.[0];  // undefined if users is null/undefined
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Nullish Coalescing (??)
 
@@ -2067,7 +2069,7 @@ const displayName = name ?? "Guest";   // "" (?? only checks null/undefined)
 | \|\|     | All falsy (0, "", false, null, undefined) | x \|\| 10 → 10 |
 | ??       | Only null/undefined                | x ?? 10 → 0          |
 
-----------------------------------------------------------------------------------
+---
 
 ### Logical Operators
 
@@ -2090,7 +2092,7 @@ const c = "hello" && null;   // null (first falsy)
 user && console.log(user.name);  // Only logs if user exists
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ## 25. Security
 
@@ -2121,7 +2123,7 @@ element.textContent = userInput;  // Treated as text, not HTML
 - **Content Security Policy** - HTTP header restricting script sources
 - **Sanitize libraries** - DOMPurify, sanitize-html
 
-----------------------------------------------------------------------------------
+---
 
 ### CSRF (Cross-Site Request Forgery)
 
@@ -2142,7 +2144,7 @@ element.textContent = userInput;  // Treated as text, not HTML
 - **Verify origin** - Check Referer/Origin headers
 - **Re-authentication** - Require password for sensitive actions
 
-----------------------------------------------------------------------------------
+---
 
 ## 26. Modules
 
@@ -2154,7 +2156,7 @@ element.textContent = userInput;  // Treated as text, not HTML
 - Reusability
 - Dependency management
 
-----------------------------------------------------------------------------------
+---
 
 ### Named Exports
 
@@ -2183,7 +2185,7 @@ import { add as sum } from "./math.js";
 console.log(sum(5, 3));  // 8
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Default Exports
 
@@ -2210,7 +2212,7 @@ export const ROLE_ADMIN = "admin";
 import User, { ROLE_ADMIN } from "./user.js";
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Comparison
 
@@ -2222,7 +2224,7 @@ import User, { ROLE_ADMIN } from "./user.js";
 | Rename          | import { old as new }       | Not needed (any name)     |
 | Best for        | Utilities, constants        | Main class/component      |
 
-----------------------------------------------------------------------------------
+---
 
 ## 27. Error Handling
 
@@ -2249,7 +2251,7 @@ try {
 2. If error occurs → jump to catch block
 3. finally block always executes (even if error or return)
 
-----------------------------------------------------------------------------------
+---
 
 ### throw vs return
 
@@ -2292,7 +2294,7 @@ try {
 | Best for       | Valid results             | Error conditions           |
 | Catchable      | No                        | Yes (try...catch)          |
 
-----------------------------------------------------------------------------------
+---
 
 ### Custom Errors
 
@@ -2325,7 +2327,7 @@ try {
 }
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ## 28. Scope & Closures
 
@@ -2361,7 +2363,7 @@ if (true) {
 console.log(blockVar);  // ❌ ReferenceError
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Lexical Scope
 
@@ -2400,7 +2402,7 @@ function outer() {
 }
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Closures (Detailed)
 
@@ -2490,13 +2492,13 @@ for (var i = 0; i < 3; i++) {
 }
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ## 29. Type Coercion
 
 **Type coercion** - Automatic or manual conversion of values from one type to another.
 
-----------------------------------------------------------------------------------
+---
 
 ### Implicit Coercion
 
@@ -2521,7 +2523,7 @@ if (0) { }        // false (falsy)
 - **Implicit:** Friend yawns → You understand they're tired (unspoken)
 - **Explicit:** Friend says "I am tired" (spoken)
 
-----------------------------------------------------------------------------------
+---
 
 ### Explicit Coercion
 
@@ -2545,7 +2547,7 @@ Boolean(0)         // false
 !!1                // true (double negation)
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### Truthy vs Falsy
 
@@ -2576,7 +2578,7 @@ if ([]) { }          // Runs (object)
 if ({}) { }          // Runs (object)
 ```
 
-----------------------------------------------------------------------------------
+---
 
 ### NaN (Not a Number)
 
@@ -2600,7 +2602,7 @@ Number.isNaN("hello") // false (doesn't convert)
 
 **Best practice:** Use `Number.isNaN()` (doesn't coerce).
 
-----------------------------------------------------------------------------------
+---
 
 ## 30. Best Practices
 
@@ -2614,7 +2616,7 @@ Number.isNaN("hello") // false (doesn't convert)
 - **Use async/await** - Cleaner than promise chains
 - **Handle errors** - Always use try/catch with async code
 
-----------------------------------------------------------------------------------
+---
 
 ### Performance
 
@@ -2625,7 +2627,7 @@ Number.isNaN("hello") // false (doesn't convert)
 - **Lazy load** - Load resources when needed
 - **Minimize reflows** - Batch DOM changes
 
-----------------------------------------------------------------------------------
+---
 
 ### Security
 
@@ -2635,7 +2637,7 @@ Number.isNaN("hello") // false (doesn't convert)
 - **HTTPS only** - Encrypt data in transit
 - **Content Security Policy** - Restrict resource loading
 
-----------------------------------------------------------------------------------
+---
 
 ### Code Organization
 
@@ -2645,7 +2647,7 @@ Number.isNaN("hello") // false (doesn't convert)
 - **Comment complex logic** - Explain why, not what
 - **Consistent formatting** - Use linter (ESLint)
 
-----------------------------------------------------------------------------------
+---
 
 ## 31. Summary
 

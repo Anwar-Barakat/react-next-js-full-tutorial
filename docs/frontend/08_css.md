@@ -1,5 +1,7 @@
 # CSS - Complete Guide
 
+A comprehensive guide to CSS styling, layouts, and modern CSS techniques.
+
 ## Table of Contents
 
 1. [What is CSS?](#1-what-is-css)
