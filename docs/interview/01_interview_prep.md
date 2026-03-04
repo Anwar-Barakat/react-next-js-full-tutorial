@@ -53,6 +53,7 @@ A comprehensive guide covering personal introduction, project experience, and HR
 38. [Do you have any questions for us?](#38-do-you-have-any-questions-for-us)
 39. [What do you think about using AI in writing code?](#39-what-do-you-think-about-using-ai-in-writing-code) *(see also: [02_ai_interview.md](./02_ai_interview.md) for full AI questions)*
 40. [Do you know Node.js or Express?](#40-do-you-know-nodejs-or-express)
+41. [Useful Interview Phrases (When You Need a Moment)](#41-useful-interview-phrases-when-you-need-a-moment)
 
 ---
 
@@ -726,3 +727,51 @@ app.listen(3000, () => {
 - The most important skill is **the ability to learn fast**, not memorizing one specific framework.
 
 **In short:** Yes, I know Node.js and Express. My main experience is with Laravel, but the backend concepts are transferable. And with AI tools available today, picking up any new technology is faster than ever. What matters is understanding the fundamentals — the rest is syntax.
+
+---
+
+## 41. Useful Interview Phrases (When You Need a Moment)
+
+### When you don't understand the question
+
+- "Could you please repeat the question? I want to make sure I understand it correctly."
+- "Could you rephrase that, please? I want to give you the best answer."
+- "Just to clarify — are you asking about [your understanding]? I want to make sure we're on the same page."
+- "That's a great question. Could you give me a bit more context so I can answer it properly?"
+
+### When you need time to think
+
+- "That's a great question. Let me think about it for a moment."
+- "Give me a second to organize my thoughts on this."
+- "I want to give you a clear answer, so let me take a moment to think."
+
+### When you don't know the answer
+
+- "I haven't worked with that specific technology yet, but I'm familiar with the concept and I'm confident I can learn it quickly."
+- "I don't have direct experience with that, but I've worked on something similar using [related technology]."
+- "Honestly, I'm not sure about that specific detail, but I would research it and get back to you. I believe in being honest rather than guessing."
+- "That's something I haven't encountered yet, but I'm always eager to learn new things — especially with AI tools that make learning much faster."
+
+### When you want to redirect to your strengths
+
+- "I haven't used that exact tool, but in my experience with [similar tool], I handled it by..."
+- "That's an interesting area. In my projects, I focused more on [your strength], where I..."
+- "While I haven't done exactly that, the underlying concept is similar to what I did in [project name]."
+
+### When the interviewer mentions something you're not familiar with
+
+- "I'm not deeply familiar with that yet, but could you tell me more about how your team uses it? I'd love to understand the context."
+- "I've heard of it but haven't used it in production. I'm happy to learn more about it."
+
+### When you want to confirm your answer
+
+- "Does that answer your question, or would you like me to go deeper into a specific part?"
+- "I hope that gives you a clear picture. Let me know if you'd like more details."
+
+### General tips
+
+- **Never lie.** If you don't know, say so honestly — interviewers respect honesty over fake confidence.
+- **Always connect back** to what you do know — show you can learn and adapt.
+- **Stay calm.** Taking a moment to think shows confidence, not weakness.
+- **Smile and stay positive.** Your attitude matters as much as your technical skills.
+- **It's okay to ask for clarification.** Good communication starts with understanding the question.

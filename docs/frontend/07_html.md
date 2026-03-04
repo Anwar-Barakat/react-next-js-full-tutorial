@@ -14,21 +14,22 @@ A comprehensive guide to modern HTML, bundlers, and web security fundamentals.
 5. [Code Splitting](#5-code-splitting)
 6. [Build Optimization](#6-build-optimization)
 7. [Package Managers: npm vs npx vs yarn vs pnpm vs bun](#7-package-managers-npm-vs-npx-vs-yarn-vs-pnpm-vs-bun)
+8. [Linters and Formatters: ESLint, Prettier, and Biome](#8-linters-and-formatters-eslint-prettier-and-biome)
 
 ### HTML Fundamentals
-8. [Semantic HTML](#8-semantic-html)
-9. [HTML5 APIs](#9-html5-apis)
-10. [Data Attributes](#10-data-attributes)
-11. [Script Loading Strategies](#11-script-loading-strategies)
+9. [Semantic HTML](#9-semantic-html)
+10. [HTML5 APIs](#10-html5-apis)
+11. [Data Attributes](#11-data-attributes)
+12. [Script Loading Strategies](#12-script-loading-strategies)
 
 ### Web Security
-12. [XSS (Cross-Site Scripting)](#12-xss-cross-site-scripting)
-13. [CSRF (Cross-Site Request Forgery)](#13-csrf-cross-site-request-forgery)
-14. [CORS (Cross-Origin Resource Sharing)](#14-cors-cross-origin-resource-sharing)
-15. [Content Security Policy (CSP)](#15-content-security-policy-csp)
-16. [Secure Cookies](#16-secure-cookies)
-17. [Input Validation and Sanitization](#17-input-validation-and-sanitization)
-18. [Summary](#18-summary)
+13. [XSS (Cross-Site Scripting)](#13-xss-cross-site-scripting)
+14. [CSRF (Cross-Site Request Forgery)](#14-csrf-cross-site-request-forgery)
+15. [CORS (Cross-Origin Resource Sharing)](#15-cors-cross-origin-resource-sharing)
+16. [Content Security Policy (CSP)](#16-content-security-policy-csp)
+17. [Secure Cookies](#17-secure-cookies)
+18. [Input Validation and Sanitization](#18-input-validation-and-sanitization)
+19. [Summary](#19-summary)
 
 ---
 
@@ -456,9 +457,134 @@ npx prettier --write .        # Runs once, no install needed
 
 ---
 
+## 8. Linters and Formatters: ESLint, Prettier, and Biome
+
+### What is the difference between a Linter and a Formatter?
+
+- **Linter** — Finds **bugs and bad patterns** in your code (unused variables, missing imports, wrong logic).
+- **Formatter** — Fixes **code style** automatically (indentation, quotes, semicolons, line length).
+
+### ESLint (Linter)
+
+- The most popular JavaScript/TypeScript **linter**.
+- Finds bugs, enforces coding rules, and catches potential errors.
+- Highly configurable with plugins (React, TypeScript, Next.js, etc.).
+
+```bash
+npm install -D eslint
+npx eslint --init
+```
+
+```javascript
+// eslint.config.js
+export default [
+  {
+    rules: {
+      'no-unused-vars': 'warn',
+      'no-console': 'warn',
+      'prefer-const': 'error',
+    },
+  },
+];
+```
+
+**What ESLint catches:**
+- Unused variables and imports.
+- Missing dependencies in React hooks.
+- Unreachable code.
+- Incorrect use of `==` instead of `===`.
+- React-specific issues (missing keys, invalid JSX).
+
+### Prettier (Formatter)
+
+- The most popular **code formatter**.
+- Formats your code automatically — no arguments about style.
+- Supports JavaScript, TypeScript, CSS, HTML, JSON, Markdown, and more.
+
+```bash
+npm install -D prettier
+npx prettier --write .
+```
+
+```json
+// .prettierrc
+{
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "printWidth": 80
+}
+```
+
+**What Prettier does:**
+- Fixes indentation and spacing.
+- Adds or removes semicolons.
+- Converts quotes (single/double).
+- Wraps long lines.
+- Formats consistently across the entire project.
+
+### Biome (Linter + Formatter in One)
+
+- A **modern, fast** tool that replaces both ESLint and Prettier.
+- Written in **Rust** — extremely fast (10-100x faster than ESLint + Prettier).
+- One tool instead of two — simpler configuration and fewer dependencies.
+
+```bash
+npm install -D --save-exact @biomejs/biome
+npx @biomejs/biome init
+```
+
+```json
+// biome.json
+{
+  "formatter": {
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 80
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  }
+}
+```
+
+```bash
+# Lint and format in one command
+npx @biomejs/biome check --write .
+```
+
+### ESLint + Prettier vs Biome
+
+**ESLint + Prettier (traditional):**
+- Two separate tools — linter and formatter.
+- Large ecosystem of plugins (React, TypeScript, Next.js, Tailwind, etc.).
+- Slower — runs JavaScript to analyze code.
+- Requires configuration to avoid conflicts between ESLint and Prettier.
+- The industry standard for years.
+
+**Biome (modern):**
+- One tool — linter and formatter combined.
+- Written in Rust — much faster.
+- Fewer plugins available (still growing).
+- Zero configuration to start.
+- No conflicts — formatting and linting are unified.
+- Growing rapidly in adoption.
+
+### Which one should you use?
+
+- **ESLint + Prettier** — If you need specific plugins (React, Next.js, Tailwind), or your team already uses them.
+- **Biome** — If you want speed, simplicity, and a modern tool. Great for new projects.
+- Both are valid choices — the important thing is to **use a linter and formatter** in every project.
+
+---
+
 ## HTML Fundamentals
 
-## 8. Semantic HTML
+## 9. Semantic HTML
 
 **What it is:**
 Using HTML tags that describe content purpose, not just appearance.
@@ -520,7 +646,7 @@ Using HTML tags that describe content purpose, not just appearance.
 
 ---
 
-## 9. HTML5 APIs
+## 10. HTML5 APIs
 
 **What they are:**
 Browser features you can use with JavaScript to build advanced web applications.
@@ -615,7 +741,7 @@ async function getData() {
 
 ---
 
-## 10. Data Attributes
+## 11. Data Attributes
 
 **What they are:**
 Custom attributes to store extra information on HTML elements.
@@ -693,7 +819,7 @@ function UserCard({ user }) {
 
 ---
 
-## 11. Script Loading Strategies
+## 12. Script Loading Strategies
 
 **The problem:**
 Browser reads HTML from top to bottom. When it meets a `<script>` tag, it must decide whether to stop and run JavaScript now or continue reading HTML.
@@ -757,7 +883,7 @@ Browser reads HTML from top to bottom. When it meets a `<script>` tag, it must d
 
 ## Web Security
 
-## 12. XSS (Cross-Site Scripting)
+## 13. XSS (Cross-Site Scripting)
 
 **What it is:**
 XSS injects malicious scripts into web pages that run in victim's browser.
@@ -845,7 +971,7 @@ function SafeHtml({ html }) {
 
 ---
 
-## 13. CSRF (Cross-Site Request Forgery)
+## 14. CSRF (Cross-Site Request Forgery)
 
 **What it is:**
 CSRF tricks users into performing unwanted actions while authenticated.
@@ -926,7 +1052,7 @@ app.post('/transfer', (req, res) => {
 
 ---
 
-## 14. CORS (Cross-Origin Resource Sharing)
+## 15. CORS (Cross-Origin Resource Sharing)
 
 **What it is:**
 CORS controls which domains can access your API - a browser security feature.
@@ -1020,7 +1146,7 @@ Access-Control-Allow-Origin: https://specific-domain.com
 
 ---
 
-## 15. Content Security Policy (CSP)
+## 16. Content Security Policy (CSP)
 
 **What it is:**
 CSP is a security rule that tells the browser what content is allowed to load.
@@ -1107,7 +1233,7 @@ Browser sends violations to `/csp-report` for monitoring.
 
 ---
 
-## 16. Secure Cookies
+## 17. Secure Cookies
 
 **What they are:**
 Cookies store small data (login, session) - secure cookies protect this data.
@@ -1206,7 +1332,7 @@ res.clearCookie('session');
 
 ---
 
-## 17. Input Validation and Sanitization
+## 18. Input Validation and Sanitization
 
 **What they are:**
 - **Validation** - Check if input meets requirements
@@ -1322,7 +1448,7 @@ execFile('ping', [userInput], (error, stdout) => {
 
 ---
 
-## 18. Summary
+## 19. Summary
 
 **Key takeaways:**
 
