@@ -13,21 +13,23 @@ A comprehensive guide to modern HTML, bundlers, and web security fundamentals.
 4. [Webpack vs Vite](#4-webpack-vs-vite)
 5. [Code Splitting](#5-code-splitting)
 6. [Build Optimization](#6-build-optimization)
+7. [Package Managers: npm vs npx vs yarn vs pnpm vs bun](#7-package-managers-npm-vs-npx-vs-yarn-vs-pnpm-vs-bun)
+8. [Linters and Formatters: ESLint, Prettier, and Biome](#8-linters-and-formatters-eslint-prettier-and-biome)
 
 ### HTML Fundamentals
-7. [Semantic HTML](#7-semantic-html)
-8. [HTML5 APIs](#8-html5-apis)
-9. [Data Attributes](#9-data-attributes)
-10. [Script Loading Strategies](#10-script-loading-strategies)
+9. [Semantic HTML](#9-semantic-html)
+10. [HTML5 APIs](#10-html5-apis)
+11. [Data Attributes](#11-data-attributes)
+12. [Script Loading Strategies](#12-script-loading-strategies)
 
 ### Web Security
-11. [XSS (Cross-Site Scripting)](#11-xss-cross-site-scripting)
-12. [CSRF (Cross-Site Request Forgery)](#12-csrf-cross-site-request-forgery)
-13. [CORS (Cross-Origin Resource Sharing)](#13-cors-cross-origin-resource-sharing)
-14. [Content Security Policy (CSP)](#14-content-security-policy-csp)
-15. [Secure Cookies](#15-secure-cookies)
-16. [Input Validation and Sanitization](#16-input-validation-and-sanitization)
-17. [Summary](#17-summary)
+13. [XSS (Cross-Site Scripting)](#13-xss-cross-site-scripting)
+14. [CSRF (Cross-Site Request Forgery)](#14-csrf-cross-site-request-forgery)
+15. [CORS (Cross-Origin Resource Sharing)](#15-cors-cross-origin-resource-sharing)
+16. [Content Security Policy (CSP)](#16-content-security-policy-csp)
+17. [Secure Cookies](#17-secure-cookies)
+18. [Input Validation and Sanitization](#18-input-validation-and-sanitization)
+19. [Summary](#19-summary)
 
 ---
 
@@ -238,9 +240,351 @@ export default defineConfig({
 
 ---
 
+## 7. Package Managers: npm vs npx vs yarn vs pnpm vs bun
+
+**What is a package manager?**
+A tool that automates installing, updating, and managing third-party libraries (packages) your project depends on.
+
+### npm (Node Package Manager)
+
+**The default** package manager that comes with Node.js.
+
+```bash
+# Install all dependencies from package.json
+npm install
+
+# Add a package as dependency
+npm install axios
+
+# Add a package as dev dependency
+npm install --save-dev eslint
+
+# Install a package globally
+npm install -g typescript
+
+# Run a script defined in package.json
+npm run dev
+
+# Remove a package
+npm uninstall axios
+```
+
+**Key characteristics:**
+- Comes pre-installed with Node.js
+- Uses `package-lock.json` for deterministic installs
+- Largest registry of open-source packages
+- Sequential installation (slower than alternatives)
+
+### npx (Node Package Execute)
+
+**npx is NOT a package manager** - it's a package runner that comes with npm (v5.2+).
+
+**Purpose:** Run packages without installing them globally.
+
+```bash
+# Without npx - must install globally first
+npm install -g create-react-app
+create-react-app my-app
+
+# With npx - runs directly without global install
+npx create-react-app my-app
+
+# Run a specific version
+npx typescript@5.0 --version
+
+# Run a locally installed package
+npx eslint .
+
+# Run one-time commands
+npx prisma init
+npx shadcn-ui@latest add button
+```
+
+**When to use npx:**
+- One-time commands (scaffolding tools like `create-next-app`)
+- Running locally installed CLI tools
+- Testing different versions of a package
+- Avoiding global installs that pollute your system
+
+### yarn
+
+**Created by Facebook** as a faster, more reliable alternative to npm.
+
+```bash
+# Install all dependencies
+yarn
+
+# Add a package
+yarn add axios
+
+# Add a dev dependency
+yarn add --dev eslint
+
+# Add a global package
+yarn global add typescript
+
+# Run a script
+yarn dev
+
+# Remove a package
+yarn remove axios
+```
+
+**Key characteristics:**
+- Uses `yarn.lock` for deterministic installs
+- Parallel installation (faster than npm)
+- Workspaces support for monorepos
+- Plug'n'Play (PnP) mode eliminates `node_modules`
+- Offline caching of downloaded packages
+
+### pnpm (Performant npm)
+
+**The most disk-efficient** package manager.
+
+```bash
+# Install all dependencies
+pnpm install
+
+# Add a package
+pnpm add axios
+
+# Add a dev dependency
+pnpm add -D eslint
+
+# Add a global package
+pnpm add -g typescript
+
+# Run a script
+pnpm dev
+
+# Remove a package
+pnpm remove axios
+```
+
+**Key characteristics:**
+- Uses a global content-addressable store (packages stored once on disk)
+- Symlinks packages instead of copying them
+- Saves significant disk space across projects
+- Strict dependency resolution (prevents phantom dependencies)
+- Built-in monorepo support with workspaces
+- Fastest install times for repeated installs
+
+**How pnpm saves disk space:**
+
+```
+# npm/yarn: each project copies packages
+project-a/node_modules/lodash/  (1.5MB)
+project-b/node_modules/lodash/  (1.5MB)  ← duplicate
+project-c/node_modules/lodash/  (1.5MB)  ← duplicate
+
+# pnpm: stores once, symlinks everywhere
+~/.pnpm-store/lodash/           (1.5MB)  ← single copy
+project-a/node_modules/lodash → symlink
+project-b/node_modules/lodash → symlink
+project-c/node_modules/lodash → symlink
+```
+
+### bun
+
+**An all-in-one** JavaScript runtime and toolkit (not just a package manager).
+
+```bash
+# Install all dependencies
+bun install
+
+# Add a package
+bun add axios
+
+# Add a dev dependency
+bun add --dev eslint
+
+# Add a global package
+bun add -g typescript
+
+# Run a script
+bun run dev
+
+# Remove a package
+bun remove axios
+
+# Run a JavaScript/TypeScript file directly
+bun run index.ts
+```
+
+**Key characteristics:**
+- Written in Zig (extremely fast)
+- Runtime + package manager + bundler + test runner in one tool
+- Native TypeScript and JSX support (no transpiler needed)
+- Compatible with npm packages and `node_modules`
+- Uses `bun.lockb` (binary lockfile for speed)
+- Drop-in replacement for Node.js in many cases
+
+### Comparison
+
+| Feature | npm | yarn | pnpm | bun |
+|---------|-----|------|------|-----|
+| **Install speed** | Slow | Fast | Faster | Fastest |
+| **Disk usage** | High | High | Low | Medium |
+| **Lockfile** | `package-lock.json` | `yarn.lock` | `pnpm-lock.yaml` | `bun.lockb` |
+| **Monorepo support** | Basic (workspaces) | Good | Excellent | Good |
+| **Comes with** | Node.js | Separate install | Separate install | Separate install |
+| **Phantom deps** | Allowed | Allowed | Blocked | Allowed |
+| **Offline mode** | Limited | Yes | Yes | Yes |
+| **Also a runtime** | No | No | No | Yes |
+
+### npm vs npx - Key Difference
+
+```bash
+# npm INSTALLS packages
+npm install prettier          # Adds to project
+npm install -g prettier       # Adds globally
+
+# npx RUNS packages (without permanent install)
+npx prettier --write .        # Runs once, no install needed
+```
+
+**Simple rule:**
+- **npm** = "I want this package in my project" (install)
+- **npx** = "I want to run this command once" (execute)
+
+### Which One Should You Use?
+
+- **npm** - Default choice, works everywhere, largest community
+- **yarn** - If you need PnP mode or prefer its CLI
+- **pnpm** - If you care about disk space or work with monorepos
+- **bun** - If you want maximum speed and are okay with a newer ecosystem
+- **npx** - For running one-off commands regardless of your package manager
+
+---
+
+## 8. Linters and Formatters: ESLint, Prettier, and Biome
+
+### What is the difference between a Linter and a Formatter?
+
+- **Linter** — Finds **bugs and bad patterns** in your code (unused variables, missing imports, wrong logic).
+- **Formatter** — Fixes **code style** automatically (indentation, quotes, semicolons, line length).
+
+### ESLint (Linter)
+
+- The most popular JavaScript/TypeScript **linter**.
+- Finds bugs, enforces coding rules, and catches potential errors.
+- Highly configurable with plugins (React, TypeScript, Next.js, etc.).
+
+```bash
+npm install -D eslint
+npx eslint --init
+```
+
+```javascript
+// eslint.config.js
+export default [
+  {
+    rules: {
+      'no-unused-vars': 'warn',
+      'no-console': 'warn',
+      'prefer-const': 'error',
+    },
+  },
+];
+```
+
+**What ESLint catches:**
+- Unused variables and imports.
+- Missing dependencies in React hooks.
+- Unreachable code.
+- Incorrect use of `==` instead of `===`.
+- React-specific issues (missing keys, invalid JSX).
+
+### Prettier (Formatter)
+
+- The most popular **code formatter**.
+- Formats your code automatically — no arguments about style.
+- Supports JavaScript, TypeScript, CSS, HTML, JSON, Markdown, and more.
+
+```bash
+npm install -D prettier
+npx prettier --write .
+```
+
+```json
+// .prettierrc
+{
+  "semi": true,
+  "singleQuote": true,
+  "tabWidth": 2,
+  "trailingComma": "es5",
+  "printWidth": 80
+}
+```
+
+**What Prettier does:**
+- Fixes indentation and spacing.
+- Adds or removes semicolons.
+- Converts quotes (single/double).
+- Wraps long lines.
+- Formats consistently across the entire project.
+
+### Biome (Linter + Formatter in One)
+
+- A **modern, fast** tool that replaces both ESLint and Prettier.
+- Written in **Rust** — extremely fast (10-100x faster than ESLint + Prettier).
+- One tool instead of two — simpler configuration and fewer dependencies.
+
+```bash
+npm install -D --save-exact @biomejs/biome
+npx @biomejs/biome init
+```
+
+```json
+// biome.json
+{
+  "formatter": {
+    "indentStyle": "space",
+    "indentWidth": 2,
+    "lineWidth": 80
+  },
+  "linter": {
+    "enabled": true,
+    "rules": {
+      "recommended": true
+    }
+  }
+}
+```
+
+```bash
+# Lint and format in one command
+npx @biomejs/biome check --write .
+```
+
+### ESLint + Prettier vs Biome
+
+**ESLint + Prettier (traditional):**
+- Two separate tools — linter and formatter.
+- Large ecosystem of plugins (React, TypeScript, Next.js, Tailwind, etc.).
+- Slower — runs JavaScript to analyze code.
+- Requires configuration to avoid conflicts between ESLint and Prettier.
+- The industry standard for years.
+
+**Biome (modern):**
+- One tool — linter and formatter combined.
+- Written in Rust — much faster.
+- Fewer plugins available (still growing).
+- Zero configuration to start.
+- No conflicts — formatting and linting are unified.
+- Growing rapidly in adoption.
+
+### Which one should you use?
+
+- **ESLint + Prettier** — If you need specific plugins (React, Next.js, Tailwind), or your team already uses them.
+- **Biome** — If you want speed, simplicity, and a modern tool. Great for new projects.
+- Both are valid choices — the important thing is to **use a linter and formatter** in every project.
+
+---
+
 ## HTML Fundamentals
 
-## 7. Semantic HTML
+## 9. Semantic HTML
 
 **What it is:**
 Using HTML tags that describe content purpose, not just appearance.
@@ -302,7 +646,7 @@ Using HTML tags that describe content purpose, not just appearance.
 
 ---
 
-## 8. HTML5 APIs
+## 10. HTML5 APIs
 
 **What they are:**
 Browser features you can use with JavaScript to build advanced web applications.
@@ -397,7 +741,7 @@ async function getData() {
 
 ---
 
-## 9. Data Attributes
+## 11. Data Attributes
 
 **What they are:**
 Custom attributes to store extra information on HTML elements.
@@ -475,7 +819,7 @@ function UserCard({ user }) {
 
 ---
 
-## 10. Script Loading Strategies
+## 12. Script Loading Strategies
 
 **The problem:**
 Browser reads HTML from top to bottom. When it meets a `<script>` tag, it must decide whether to stop and run JavaScript now or continue reading HTML.
@@ -539,7 +883,7 @@ Browser reads HTML from top to bottom. When it meets a `<script>` tag, it must d
 
 ## Web Security
 
-## 11. XSS (Cross-Site Scripting)
+## 13. XSS (Cross-Site Scripting)
 
 **What it is:**
 XSS injects malicious scripts into web pages that run in victim's browser.
@@ -627,7 +971,7 @@ function SafeHtml({ html }) {
 
 ---
 
-## 12. CSRF (Cross-Site Request Forgery)
+## 14. CSRF (Cross-Site Request Forgery)
 
 **What it is:**
 CSRF tricks users into performing unwanted actions while authenticated.
@@ -708,7 +1052,7 @@ app.post('/transfer', (req, res) => {
 
 ---
 
-## 13. CORS (Cross-Origin Resource Sharing)
+## 15. CORS (Cross-Origin Resource Sharing)
 
 **What it is:**
 CORS controls which domains can access your API - a browser security feature.
@@ -802,7 +1146,7 @@ Access-Control-Allow-Origin: https://specific-domain.com
 
 ---
 
-## 14. Content Security Policy (CSP)
+## 16. Content Security Policy (CSP)
 
 **What it is:**
 CSP is a security rule that tells the browser what content is allowed to load.
@@ -889,7 +1233,7 @@ Browser sends violations to `/csp-report` for monitoring.
 
 ---
 
-## 15. Secure Cookies
+## 17. Secure Cookies
 
 **What they are:**
 Cookies store small data (login, session) - secure cookies protect this data.
@@ -988,7 +1332,7 @@ res.clearCookie('session');
 
 ---
 
-## 16. Input Validation and Sanitization
+## 18. Input Validation and Sanitization
 
 **What they are:**
 - **Validation** - Check if input meets requirements
@@ -1104,15 +1448,17 @@ execFile('ping', [userInput], (error, stdout) => {
 
 ---
 
-## 17. Summary
+## 19. Summary
 
 **Key takeaways:**
 
-### Bundlers
+### Bundlers & Package Managers
 1. **Webpack** - Powerful, configurable, slower builds
 2. **Vite** - Fast, modern, instant dev server
 3. **Code splitting** - Load code on demand for better performance
 4. **Build optimization** - Minification, tree shaking, compression
+5. **Package managers** - npm (default), yarn (parallel), pnpm (disk-efficient), bun (fastest)
+6. **npx** - Package runner, not a manager - runs commands without global installs
 
 ### HTML
 1. **Semantic HTML** - Use meaningful tags for better accessibility and SEO
