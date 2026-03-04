@@ -63,7 +63,7 @@ class User extends Model
 
 ---
 
-## 3. What is the purpose of $fillable and $guarded?
+## 3. What is the purpose of $fillable and  $guarded?
 
 - They protect your model from unwanted data when using mass assignment (like `Model::create()`).
 

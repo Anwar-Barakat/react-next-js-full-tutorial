@@ -53,7 +53,19 @@ A comprehensive guide covering personal introduction, project experience, and HR
 38. [Do you have any questions for us?](#38-do-you-have-any-questions-for-us)
 39. [What do you think about using AI in writing code?](#39-what-do-you-think-about-using-ai-in-writing-code) *(see also: [02_ai_interview.md](./02_ai_interview.md) for full AI questions)*
 40. [Do you know Node.js or Express?](#40-do-you-know-nodejs-or-express)
-41. [Useful Interview Phrases (When You Need a Moment)](#41-useful-interview-phrases-when-you-need-a-moment)
+41. [Tell me about a time you disagreed with a teammate](#41-tell-me-about-a-time-you-disagreed-with-a-teammate)
+42. [What motivates you?](#42-what-motivates-you)
+43. [What is your biggest professional achievement?](#43-what-is-your-biggest-professional-achievement)
+44. [Are you interviewing with other companies?](#44-are-you-interviewing-with-other-companies)
+45. [How do you handle ambiguity or unclear requirements?](#45-how-do-you-handle-ambiguity-or-unclear-requirements)
+46. [How do you prioritize when you have multiple tasks?](#46-how-do-you-prioritize-when-you-have-multiple-tasks)
+47. [What is your experience with Agile/Scrum?](#47-what-is-your-experience-with-agile-scrum)
+48. [How do you approach debugging a production issue?](#48-how-do-you-approach-debugging-a-production-issue)
+49. [What makes you different from other candidates?](#49-what-makes-you-different-from-other-candidates)
+
+### Interview Etiquette & Practical Tips
+50. [Phone and Video Call Etiquette](#50-phone-and-video-call-etiquette)
+51. [Useful Interview Phrases (When You Need a Moment)](#51-useful-interview-phrases-when-you-need-a-moment)
 
 ---
 
@@ -730,7 +742,177 @@ app.listen(3000, () => {
 
 ---
 
-## 41. Useful Interview Phrases (When You Need a Moment)
+## 41. Tell me about a time you disagreed with a teammate
+
+- In Tripz, during the planning phase, there was a discussion about which frontend framework to use.
+- A senior team member preferred Vue because it integrates well with Laravel.
+- I recommended React because it handles complex state better and has a larger ecosystem.
+- Instead of arguing, I presented my reasoning clearly — I showed how React works well with TypeScript, has more UI libraries, and handles the complex booking workflows we needed.
+- We discussed it openly, and the project lead agreed with my recommendation.
+- The key was: I respected the other person's opinion, explained my reasoning with facts, and we made a decision together.
+
+**How I handle disagreements in general:**
+- I listen first and try to understand the other person's perspective.
+- I focus on facts and project needs, not personal preferences.
+- I stay respectful — the goal is the best outcome for the project, not winning an argument.
+- If we still disagree, I'm comfortable letting the team lead or manager make the final decision.
+
+---
+
+## 42. What motivates you?
+
+- Building real products that people actually use — seeing my code in production is the best feeling.
+- Solving complex problems — I enjoy breaking down complicated features into clear, working solutions.
+- Continuous learning — every project teaches me something new, and I love that about this field.
+- Working with a good team — collaborating with people who care about quality and push each other to grow.
+- Seeing the impact — in Tripz, knowing that schools are booking trips faster because of what I built is very motivating.
+
+---
+
+## 43. What is your biggest professional achievement?
+
+- My biggest achievement was leading the Vue-to-React migration in Tripz.
+- The entire frontend had to be rewritten while keeping the system stable and all features working.
+- I completed the migration in a short time, and the new React version was faster, more maintainable, and easier to scale.
+- This was also a personal milestone — I proved that I could learn React quickly while building a production system at the same time.
+- Another achievement is Wa3i — being selected for this project after achieving the highest score in my training program was a proud moment. It was my first real project and it gave me confidence that I could contribute to real-world systems.
+
+---
+
+## 44. Are you interviewing with other companies?
+
+- Yes, I am exploring opportunities with a few companies.
+- However, I am genuinely interested in this role because [mention something specific about the company — product, team, tech stack].
+- I want to make the right decision for both sides, so I am being thoughtful about my process.
+- I am not in a rush — I want to find the right fit where I can grow and contribute meaningfully.
+
+**Tips for answering this:**
+- Be honest — saying "no" when you are interviewing elsewhere can backfire.
+- Don't name other companies — keep it general.
+- Show genuine interest in this specific role.
+- Don't use it as pressure — keep it professional.
+
+---
+
+## 45. How do you handle ambiguity or unclear requirements?
+
+- First, I ask clarifying questions — I never assume what the client or product owner means.
+- I break the task into smaller parts and confirm each part with the team.
+- If I still don't have full clarity, I build a small prototype or proof of concept and share it early for feedback.
+- I communicate frequently — I'd rather ask too many questions than build the wrong thing.
+
+**Real example:**
+- In Ednet, the AI quiz feature had unclear requirements at first — we didn't know exactly how the AI should generate questions or how many variations were needed.
+- I started with a basic version, tested it with the team, got feedback, and improved it step by step.
+- This iterative approach helped us build the right solution without wasting time.
+
+---
+
+## 46. How do you prioritize when you have multiple tasks?
+
+- I start by identifying what is urgent vs. what is important — not everything urgent is important.
+- I focus on tasks that block other people first — if my work is needed for someone else to continue, I do it first.
+- I break large tasks into smaller steps so I can make progress on multiple things.
+- I communicate with my team — if I can't finish everything, I let them know early and we adjust priorities together.
+- I use task management tools to track progress and stay organized.
+
+**Real example:**
+- In Tripz, I often had to balance building new features, fixing bugs, and doing code reviews at the same time.
+- I prioritized bugs that affected users first, then worked on features during focused blocks of time, and did code reviews between tasks.
+
+---
+
+## 47. What is your experience with Agile/Scrum?
+
+- I am familiar with Agile methodology and have worked in Agile environments.
+- In my projects, we used sprints (usually 1-2 weeks) to plan and deliver features.
+- We had daily standups to share progress and blockers.
+- We used tools like Jira and Trello for task management and tracking.
+- At the end of each sprint, we reviewed what was completed and planned the next sprint.
+
+**Key Agile concepts I practice:**
+- **Sprint planning** — breaking features into small, deliverable tasks.
+- **Daily standups** — quick updates on what I did, what I'm doing, and if I'm blocked.
+- **Sprint review** — demonstrating completed features to the team or stakeholders.
+- **Retrospective** — discussing what went well and what to improve.
+- **Iterative development** — delivering working features in small increments rather than building everything at once.
+
+---
+
+## 48. How do you approach debugging a production issue?
+
+- **Step 1: Stay calm** — panicking doesn't help. I focus on understanding the issue first.
+- **Step 2: Reproduce the issue** — I try to replicate the bug locally or understand the exact steps that cause it.
+- **Step 3: Check logs** — I look at error logs, server logs, and browser console for clues.
+- **Step 4: Isolate the problem** — I narrow down which part of the system is failing (frontend, backend, database, third-party service).
+- **Step 5: Fix and test** — I apply the fix, test it thoroughly, and make sure it doesn't break anything else.
+- **Step 6: Deploy carefully** — I deploy the fix and monitor it closely to make sure the issue is resolved.
+- **Step 7: Post-mortem** — I document what happened, why it happened, and how to prevent it in the future.
+
+**Real example:**
+- In Tripz, we had a payment issue where some transactions were not being recorded correctly.
+- I checked the Stripe webhook logs, found that some events were failing silently, added proper error handling and retry logic, and the issue was resolved.
+- I also added monitoring so we would catch similar issues early in the future.
+
+---
+
+## 49. What makes you different from other candidates?
+
+- I have hands-on experience building real, production-level platforms — not just tutorials or small projects.
+- I work across the full stack — from database design and API development to frontend interfaces and deployment.
+- I have experience with complex systems: real-time features, payment integration, role-based access control, and AI-powered features.
+- I adapt quickly — I migrated an entire frontend from Vue to React while learning React at the same time.
+- I actively use AI tools like Claude Code in my workflow, which makes me significantly more productive.
+- I care about code quality — I write clean, maintainable code and always think about long-term stability.
+
+---
+
+## Interview Etiquette & Practical Tips
+
+## 50. Phone and Video Call Etiquette
+
+### Before the call
+
+- **Find a quiet place** — no background noise, TV, or people talking.
+- **Test your equipment** — check microphone, camera (for video calls), and internet connection.
+- **Charge your phone/laptop** — don't let your battery die during the call.
+- **Be ready 5 minutes early** — open the link or have your phone ready before the scheduled time.
+- **Have your resume open** — so you can reference your experience quickly.
+- **Prepare a glass of water** — in case your throat gets dry.
+- **Dress appropriately** — even for phone calls, dressing professionally puts you in the right mindset. For video calls, it's essential.
+
+### During the call
+
+- **Answer professionally** — "Hello, this is Anwar. Thank you for calling."
+- **Speak clearly and slowly** — don't rush. It's okay to pause.
+- **Smile** — even on a phone call, smiling changes your tone of voice.
+- **Don't interrupt** — let the interviewer finish their question before answering.
+- **Take brief notes** — write down key points or questions you want to ask.
+- **Use the interviewer's name** — it shows attentiveness: "That's a great question, Hala."
+- **If the connection drops** — call back immediately or send a quick message: "Apologies, the call dropped. Can I call you back?"
+
+### For video calls specifically
+
+- **Look at the camera** — not the screen. This creates eye contact.
+- **Good lighting** — face a window or light source. Don't sit with a bright light behind you.
+- **Clean background** — a tidy, professional background. Use a blur or virtual background if needed.
+- **Mute when not speaking** — if there's any background noise.
+- **Close other tabs and notifications** — focus entirely on the call.
+
+### After the call
+
+- **Send a follow-up email within 24 hours** — thank them for their time.
+- **Mention something specific** from the conversation to show you were engaged.
+- **Keep it short** — 3-4 sentences is enough.
+- **Example follow-up email:**
+  - Subject: Thank you for the interview — Anwar Barakat
+  - "Hi [Name], thank you for taking the time to speak with me today. I enjoyed learning about [something specific they mentioned]. I'm excited about the opportunity and look forward to the next steps. Best regards, Anwar"
+
+*(See also: [04_career_guide.md](./04_career_guide.md) for detailed follow-up email templates and career guidance)*
+
+---
+
+## 51. Useful Interview Phrases (When You Need a Moment)
 
 ### When you don't understand the question
 
@@ -767,6 +949,12 @@ app.listen(3000, () => {
 
 - "Does that answer your question, or would you like me to go deeper into a specific part?"
 - "I hope that gives you a clear picture. Let me know if you'd like more details."
+
+### When you get an unexpected technical question on an HR call
+
+- "That's a great technical question. Let me share what I know..."
+- "I've worked with something similar in [project]. Here's how I approached it..."
+- "I'm not deeply experienced with that specific tool, but the concept is similar to [what you know]. I'm confident I could pick it up quickly."
 
 ### General tips
 
