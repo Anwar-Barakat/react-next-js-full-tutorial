@@ -189,10 +189,8 @@ Gate::allows('access-admin'); // true or false
 
 **Two authentication styles:**
 
-| Style | Best For | How |
-|-------|----------|-----|
-| **Cookie-based auth** | SPAs (same domain) | Session cookies + CSRF |
-| **API token auth** | Mobile apps, external APIs | Bearer token in header |
+- **Cookie-based auth** — Best for SPAs (same domain), uses session cookies + CSRF
+- **API token auth** — Best for mobile apps and external APIs, uses bearer token in header
 
 **Why Sanctum is popular:**
 - Very simple to use.
@@ -285,17 +283,15 @@ class UserCollection extends ResourceCollection
 
 ## 12. How do you secure a Laravel application?
 
-| Practice | Why |
-|----------|-----|
-| **Keep Laravel & packages updated** | Fixes security bugs and vulnerabilities. |
-| **Use HTTPS** | Encrypts data between users and the server. |
-| **Enable CSRF protection** | Prevents attackers from submitting fake requests. |
-| **Validate & sanitize input** | Stops bad or malicious data from entering the system. |
-| **Use proper auth & authorization** | Ensures users can only do what they're permitted. |
-| **Protect against SQL Injection & XSS** | Eloquent ORM + Blade auto-escaping (`{{ }}`) handle this. |
-| **Enable rate limiting** | Blocks abuse and brute-force attacks. |
-| **Handle errors safely** | Never show stack traces in production (`APP_DEBUG=false`). |
-| **Store secrets in .env** | Never commit API keys or passwords to Git. |
+- **Keep Laravel & packages updated** — Fixes security bugs and vulnerabilities.
+- **Use HTTPS** — Encrypts data between users and the server.
+- **Enable CSRF protection** — Prevents attackers from submitting fake requests.
+- **Validate & sanitize input** — Stops bad or malicious data from entering the system.
+- **Use proper auth & authorization** — Ensures users can only do what they're permitted.
+- **Protect against SQL Injection & XSS** — Eloquent ORM + Blade auto-escaping (`{{ }}`) handle this.
+- **Enable rate limiting** — Blocks abuse and brute-force attacks.
+- **Handle errors safely** — Never show stack traces in production (`APP_DEBUG=false`).
+- **Store secrets in .env** — Never commit API keys or passwords to Git.
 
 In short: Laravel security relies on validation, authentication, authorization, CSRF protection, HTTPS, rate limiting, and safe configuration using environment variables.
 
@@ -315,11 +311,9 @@ User → has Role(s) → Role has Permission(s) → Permission allows Action
 
 **Example:**
 
-| Role | Permissions |
-|------|------------|
-| `admin` | create, read, update, delete, manage users |
-| `editor` | create, read, update posts |
-| `viewer` | read posts only |
+- **`admin`** — create, read, update, delete, manage users
+- **`editor`** — create, read, update posts
+- **`viewer`** — read posts only
 
 **Why RBAC matters:**
 - Scalable — add roles without changing code.

@@ -950,15 +950,23 @@ export default function Checkout({ checkoutUrl }: Props) {
 
 **Checkout Session vs Payment Intent:**
 
-| Feature | Payment Intent | Checkout Session |
-|---------|---------------|-----------------|
-| UI | Your own form (Stripe Elements) | Stripe-hosted page |
-| Customization | Full control over design | Limited to Stripe's theme |
-| Setup complexity | More code, more control | Less code, quick setup |
-| Payment methods | You choose what to show | Stripe auto-shows relevant methods |
-| Subscriptions | Requires Cashier setup | Built-in mode |
-| 3D Secure | Handled by Elements | Handled automatically |
-| Best for | Custom checkout experience | Quick implementation, simple flows |
+**Payment Intent:**
+- **UI** — Your own form (Stripe Elements)
+- **Customization** — Full control over design
+- **Setup complexity** — More code, more control
+- **Payment methods** — You choose what to show
+- **Subscriptions** — Requires Cashier setup
+- **3D Secure** — Handled by Elements
+- **Best for** — Custom checkout experience
+
+**Checkout Session:**
+- **UI** — Stripe-hosted page
+- **Customization** — Limited to Stripe's theme
+- **Setup complexity** — Less code, quick setup
+- **Payment methods** — Stripe auto-shows relevant methods
+- **Subscriptions** — Built-in mode
+- **3D Secure** — Handled automatically
+- **Best for** — Quick implementation, simple flows
 
 **Webhook for Checkout Session:**
 
@@ -2532,15 +2540,13 @@ $link = $response->json();
 
 **Common API Error Codes:**
 
-| HTTP Status | Meaning | Typical Cause |
-|------------|---------|---------------|
-| 400 | Bad Request | Missing/invalid parameters |
-| 401 | Unauthorized | Invalid or missing API key |
-| 403 | Forbidden | API key lacks permission |
-| 404 | Not Found | Link/charge ID does not exist |
-| 422 | Unprocessable Entity | Validation error (e.g., invalid currency) |
-| 429 | Too Many Requests | Rate limit exceeded |
-| 500 | Server Error | MamoPay internal error |
+- **400 Bad Request** — Missing/invalid parameters
+- **401 Unauthorized** — Invalid or missing API key
+- **403 Forbidden** — API key lacks permission
+- **404 Not Found** — Link/charge ID does not exist
+- **422 Unprocessable Entity** — Validation error (e.g., invalid currency)
+- **429 Too Many Requests** — Rate limit exceeded
+- **500 Server Error** — MamoPay internal error
 
 **Handling Errors Gracefully:**
 
@@ -2959,14 +2965,12 @@ By using Stripe Elements / MamoPay iframe:
 
 Common payment statuses:
 
-| Status | Description |
-|--------|-------------|
-| `pending` | Payment initiated, waiting for action |
-| `processing` | Payment being processed (bank transfers) |
-| `paid` | Payment successful |
-| `failed` | Payment failed |
-| `canceled` | Payment canceled by user |
-| `refunded` | Payment refunded |
+- **`pending`** — Payment initiated, waiting for action
+- **`processing`** — Payment being processed (bank transfers)
+- **`paid`** — Payment successful
+- **`failed`** — Payment failed
+- **`canceled`** — Payment canceled by user
+- **`refunded`** — Payment refunded
 
 Stripe PaymentIntent statuses: `requires_payment_method`, `requires_confirmation`, `requires_action` (3D Secure), `processing`, `succeeded`, `canceled`
 

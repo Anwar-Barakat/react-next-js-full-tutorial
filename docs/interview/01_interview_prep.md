@@ -73,7 +73,7 @@ A comprehensive guide covering personal introduction, project experience, and HR
 
 ## 1. Do you use Next.js in Real Projects?
 
-I am really interested in Next.js, a full-stack framework built on React. I haven't worked on a real project with it yet, but I'm excited to use it in my next challenge. It provides many built-in features and helps write clean, well-organized code, unlike plain React where many things require extra libraries or custom setup.
+I am really interested in Next.js, a full-stack framework built on React. I am currently learning and practicing Next.js, and I am also building my portfolio using it. It provides many built-in features like server-side rendering, file-based routing, API routes, and image optimization, and it helps write clean, well-organized code, unlike plain React where many things require extra libraries or custom setup.
 
 ---
 
@@ -570,6 +570,13 @@ You learn by building real features, not just reading theory.
 - I'm currently based in the UAE, specifically in Dubai (Al Nahda).
 - I'm open to on-site or hybrid work depending on the role.
 - If relocation is more suitable, I'm ready to relocate immediately.
+
+---
+
+## 31.1. What is your marital status?
+
+- I'm single.
+- I have no family commitments, which means I'm flexible with working hours, travel, and relocation if needed.
 
 ---
 

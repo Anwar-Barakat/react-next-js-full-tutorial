@@ -42,14 +42,12 @@ A comprehensive guide to Redux and Redux Toolkit for predictable state managemen
 
 **Different ways to manage state in React:**
 
-| Method | Scope | Use Case |
-|--------|-------|----------|
-| **useState** | Component-level | Local component state |
-| **useReducer** | Component-level | Complex local state logic |
-| **Context API** | Cross-component tree | Infrequent updates (theme, auth) |
-| **Redux** | Global | Complex, frequently changing state |
-| **Zustand** | Global | Simple global state |
-| **MobX** | Global | Observable state |
+- **useState** — Scope: Component-level; Use Case: Local component state
+- **useReducer** — Scope: Component-level; Use Case: Complex local state logic
+- **Context API** — Scope: Cross-component tree; Use Case: Infrequent updates (theme, auth)
+- **Redux** — Scope: Global; Use Case: Complex, frequently changing state
+- **Zustand** — Scope: Global; Use Case: Simple global state
+- **MobX** — Scope: Global; Use Case: Observable state
 
 **When to use each:**
 - **useState** - Simple component state (forms, toggles)
@@ -478,16 +476,14 @@ dispatch(fetchUser(123));
 
 ## 9. Redux vs Context API
 
-| Feature | Redux | Context API |
-|---------|-------|-------------|
-| Setup | More complex | Simple |
-| Boilerplate | High (RTK reduces it) | Low |
-| Performance | Optimized | Can be slow |
-| Re-renders | Selective | All consumers |
-| DevTools | Excellent | None |
-| Middleware | Yes | No |
-| Async logic | Built-in (Thunk, RTK) | Custom |
-| Best for | Large apps, complex logic | Simple state sharing |
+- **Setup** — Redux: More complex; Context API: Simple
+- **Boilerplate** — Redux: High (RTK reduces it); Context API: Low
+- **Performance** — Redux: Optimized; Context API: Can be slow
+- **Re-renders** — Redux: Selective; Context API: All consumers
+- **DevTools** — Redux: Excellent; Context API: None
+- **Middleware** — Redux: Yes; Context API: No
+- **Async logic** — Redux: Built-in (Thunk, RTK); Context API: Custom
+- **Best for** — Redux: Large apps, complex logic; Context API: Simple state sharing
 
 **When to use Redux:**
 - Large applications
@@ -526,14 +522,12 @@ Classic Redux problems:
 
 **Classic Redux vs RTK:**
 
-| Classic Redux | Redux Toolkit |
-|---------------|---------------|
-| Action types constants | Auto-generated |
-| Action creators | Auto-generated |
-| Switch statements | `createSlice` |
-| Manual immutability | Immer (looks mutable) |
-| Separate files | One slice file |
-| Redux Thunk separate | Built-in |
+- **Action types constants** — Classic Redux: Manual; Redux Toolkit: Auto-generated
+- **Action creators** — Classic Redux: Manual; Redux Toolkit: Auto-generated
+- **Switch statements** — Classic Redux: Yes; Redux Toolkit: `createSlice`
+- **Manual immutability** — Classic Redux: Required; Redux Toolkit: Immer (looks mutable)
+- **Separate files** — Classic Redux: Yes; Redux Toolkit: One slice file
+- **Redux Thunk separate** — Classic Redux: Yes; Redux Toolkit: Built-in
 
 **RTK includes:**
 - `configureStore` - Simplified store setup
@@ -862,12 +856,8 @@ Handles loading, caching, refetching automatically for API data.
 
 **Client state vs Server state:**
 
-| Client State | Server State |
-|--------------|--------------|
-| UI state (theme, modal) | Data from API (users, posts) |
-| User inputs | External data |
-| Local preferences | Cached data |
-| Redux | RTK Query |
+- **Client State** — UI state (theme, modal), User inputs, Local preferences, managed by Redux
+- **Server State** — Data from API (users, posts), External data, Cached data, managed by RTK Query
 
 **Creating an API:**
 
@@ -1128,17 +1118,15 @@ export const store = configureStore({
 
 ## 19. Redux vs Zustand
 
-| Feature | Redux (RTK) | Zustand |
-|---------|-------------|---------|
-| Boilerplate | Medium | Minimal |
-| Learning curve | Moderate | Easy |
-| Structure | Strict | Flexible |
-| Best for | Large apps | Small-medium apps |
-| Async logic | createAsyncThunk | Built-in |
-| Provider | Required | Not required |
-| DevTools | Built-in | Middleware |
-| Middleware | Extensive | Limited |
-| TypeScript | Excellent | Excellent |
+- **Boilerplate** — Redux (RTK): Medium; Zustand: Minimal
+- **Learning curve** — Redux (RTK): Moderate; Zustand: Easy
+- **Structure** — Redux (RTK): Strict; Zustand: Flexible
+- **Best for** — Redux (RTK): Large apps; Zustand: Small-medium apps
+- **Async logic** — Redux (RTK): createAsyncThunk; Zustand: Built-in
+- **Provider** — Redux (RTK): Required; Zustand: Not required
+- **DevTools** — Redux (RTK): Built-in; Zustand: Middleware
+- **Middleware** — Redux (RTK): Extensive; Zustand: Limited
+- **TypeScript** — Redux (RTK): Excellent; Zustand: Excellent
 
 **Redux is better for:**
 - Large applications

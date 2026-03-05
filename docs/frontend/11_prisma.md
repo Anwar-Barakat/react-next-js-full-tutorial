@@ -61,15 +61,13 @@ Comprehensive guide to using Prisma ORM with TypeScript for database management 
 
 **Key Features**:
 
-| Feature | Description |
-|---------|-------------|
-| **Type Safety** | Auto-generated TypeScript types from your schema |
-| **Intuitive API** | Clean, readable database queries |
-| **Migrations** | Version control for your database schema |
-| **Prisma Studio** | Visual database browser and editor |
-| **Multiple Databases** | PostgreSQL, MySQL, SQLite, SQL Server, MongoDB, CockroachDB |
-| **Auto-completion** | Full IntelliSense support |
-| **Validation** | Runtime and compile-time validation |
+- **Type Safety** — Auto-generated TypeScript types from your schema
+- **Intuitive API** — Clean, readable database queries
+- **Migrations** — Version control for your database schema
+- **Prisma Studio** — Visual database browser and editor
+- **Multiple Databases** — PostgreSQL, MySQL, SQLite, SQL Server, MongoDB, CockroachDB
+- **Auto-completion** — Full IntelliSense support
+- **Validation** — Runtime and compile-time validation
 
 ### Prisma Components
 
@@ -166,11 +164,9 @@ model User {
 
 **Components**:
 
-| Component | Purpose | Example |
-|-----------|---------|---------|
-| `generator` | Specifies what to generate | Prisma Client |
-| `datasource` | Database connection | PostgreSQL, MySQL |
-| `model` | Database table definition | User, Post, Comment |
+- **`generator`** — Purpose: Specifies what to generate; Example: Prisma Client
+- **`datasource`** — Purpose: Database connection; Example: PostgreSQL, MySQL
+- **`model`** — Purpose: Database table definition; Example: User, Post, Comment
 
 ### Data Models
 
@@ -204,17 +200,15 @@ enum Role {
 
 **Scalar Types**:
 
-| Prisma Type | PostgreSQL | MySQL | SQLite | TypeScript |
-|-------------|------------|-------|--------|------------|
-| `String` | `text` | `varchar` | `text` | `string` |
-| `Boolean` | `boolean` | `tinyint(1)` | `integer` | `boolean` |
-| `Int` | `integer` | `int` | `integer` | `number` |
-| `BigInt` | `bigint` | `bigint` | `integer` | `bigint` |
-| `Float` | `double` | `double` | `real` | `number` |
-| `Decimal` | `decimal` | `decimal` | `decimal` | `Decimal` |
-| `DateTime` | `timestamp` | `datetime` | `datetime` | `Date` |
-| `Json` | `jsonb` | `json` | `text` | `object` |
-| `Bytes` | `bytea` | `blob` | `blob` | `Buffer` |
+- **`String`** — PostgreSQL: `text`; MySQL: `varchar`; SQLite: `text`; TypeScript: `string`
+- **`Boolean`** — PostgreSQL: `boolean`; MySQL: `tinyint(1)`; SQLite: `integer`; TypeScript: `boolean`
+- **`Int`** — PostgreSQL: `integer`; MySQL: `int`; SQLite: `integer`; TypeScript: `number`
+- **`BigInt`** — PostgreSQL: `bigint`; MySQL: `bigint`; SQLite: `integer`; TypeScript: `bigint`
+- **`Float`** — PostgreSQL: `double`; MySQL: `double`; SQLite: `real`; TypeScript: `number`
+- **`Decimal`** — PostgreSQL: `decimal`; MySQL: `decimal`; SQLite: `decimal`; TypeScript: `Decimal`
+- **`DateTime`** — PostgreSQL: `timestamp`; MySQL: `datetime`; SQLite: `datetime`; TypeScript: `Date`
+- **`Json`** — PostgreSQL: `jsonb`; MySQL: `json`; SQLite: `text`; TypeScript: `object`
+- **`Bytes`** — PostgreSQL: `bytea`; MySQL: `blob`; SQLite: `blob`; TypeScript: `Buffer`
 
 **Special Types**:
 
@@ -239,14 +233,12 @@ enum Status {
 
 **Field Attributes**:
 
-| Attribute | Purpose | Example |
-|-----------|---------|---------|
-| `@id` | Primary key | `id Int @id` |
-| `@default()` | Default value | `@default(now())` |
-| `@unique` | Unique constraint | `email String @unique` |
-| `@updatedAt` | Auto-update timestamp | `updatedAt DateTime @updatedAt` |
-| `@map()` | Custom column name | `@map("user_email")` |
-| `@db.*` | Database-specific type | `@db.VarChar(255)` |
+- **`@id`** — Purpose: Primary key; Example: `id Int @id`
+- **`@default()`** — Purpose: Default value; Example: `@default(now())`
+- **`@unique`** — Purpose: Unique constraint; Example: `email String @unique`
+- **`@updatedAt`** — Purpose: Auto-update timestamp; Example: `updatedAt DateTime @updatedAt`
+- **`@map()`** — Purpose: Custom column name; Example: `@map("user_email")`
+- **`@db.*`** — Purpose: Database-specific type; Example: `@db.VarChar(255)`
 
 **Block Attributes**:
 
@@ -441,11 +433,9 @@ await prisma.user.update({
 
 **Relationship Comparison**:
 
-| Relationship | Relation Field | Foreign Key | Example |
-|--------------|----------------|-------------|---------|
-| **One-to-One** | Optional (`?`) | `@unique` on FK | User ↔ Profile |
-| **One-to-Many** | Array (`[]`) | Regular FK | User → Posts |
-| **Many-to-Many** | Array on both | Join table | Posts ↔ Categories |
+- **One-to-One** — Relation Field: Optional (`?`); Foreign Key: `@unique` on FK; Example: User ↔ Profile
+- **One-to-Many** — Relation Field: Array (`[]`); Foreign Key: Regular FK; Example: User → Posts
+- **Many-to-Many** — Relation Field: Array on both; Foreign Key: Join table; Example: Posts ↔ Categories
 
 ---
 
@@ -493,11 +483,9 @@ export async function getUsers() {
 
 **Configuration Options**:
 
-| Option | Purpose | Example |
-|--------|---------|---------|
-| `log` | Logging level | `['query', 'error']` |
-| `errorFormat` | Error formatting | `'pretty'`, `'minimal'` |
-| `datasources` | Override connection | `{ db: { url: newUrl } }` |
+- **`log`** — Purpose: Logging level; Example: `['query', 'error']`
+- **`errorFormat`** — Purpose: Error formatting; Example: `'pretty'`, `'minimal'`
+- **`datasources`** — Purpose: Override connection; Example: `{ db: { url: newUrl } }`
 
 ---
 
@@ -616,11 +604,9 @@ const users = await prisma.user.findMany({
 
 **Include vs Select Comparison**:
 
-| Method | Purpose | Returns |
-|--------|---------|---------|
-| ✅ **include** | Add related data | All fields + relations |
-| ✅ **select** | Pick specific fields | Only selected fields |
-| ❌ **Both** | Cannot use together | Error |
+- **include** — Purpose: Add related data; Returns: All fields + relations
+- **select** — Purpose: Pick specific fields; Returns: Only selected fields
+- **Both** — Cannot use together; Returns: Error
 
 ```typescript
 // ✅ Correct - Use include
@@ -757,12 +743,10 @@ model Post {
 
 **CRUD Operation Summary**:
 
-| Operation | Single | Multiple | Returns Count |
-|-----------|--------|----------|---------------|
-| **Create** | `create()` | `createMany()` | ✅ (Many) |
-| **Read** | `findUnique()`, `findFirst()` | `findMany()` | ❌ |
-| **Update** | `update()`, `upsert()` | `updateMany()` | ✅ (Many) |
-| **Delete** | `delete()` | `deleteMany()` | ✅ (Many) |
+- **Create** — Single: `create()`; Multiple: `createMany()`; Returns Count: Yes (Many)
+- **Read** — Single: `findUnique()`, `findFirst()`; Multiple: `findMany()`; Returns Count: No
+- **Update** — Single: `update()`, `upsert()`; Multiple: `updateMany()`; Returns Count: Yes (Many)
+- **Delete** — Single: `delete()`; Multiple: `deleteMany()`; Returns Count: Yes (Many)
 
 ---
 
@@ -962,16 +946,14 @@ const users = await prisma.user.findMany({
 
 **Filter Comparison**:
 
-| Filter | Operator | Example | Use Case |
-|--------|----------|---------|----------|
-| `equals` | `=` | `{ role: 'ADMIN' }` | Exact match |
-| `not` | `!=` | `{ not: 'ADMIN' }` | Not equal |
-| `in` | `IN` | `{ in: ['ADMIN', 'USER'] }` | Match any value |
-| `gt`, `gte` | `>`, `>=` | `{ gte: 18 }` | Numeric comparison |
-| `lt`, `lte` | `<`, `<=` | `{ lte: 65 }` | Numeric comparison |
-| `contains` | `LIKE` | `{ contains: 'example' }` | Substring search |
-| `startsWith` | `LIKE` | `{ startsWith: 'John' }` | Prefix search |
-| `endsWith` | `LIKE` | `{ endsWith: 'Doe' }` | Suffix search |
+- **`equals`** — Operator: `=`; Example: `{ role: 'ADMIN' }`; Use Case: Exact match
+- **`not`** — Operator: `!=`; Example: `{ not: 'ADMIN' }`; Use Case: Not equal
+- **`in`** — Operator: `IN`; Example: `{ in: ['ADMIN', 'USER'] }`; Use Case: Match any value
+- **`gt`, `gte`** — Operator: `>`, `>=`; Example: `{ gte: 18 }`; Use Case: Numeric comparison
+- **`lt`, `lte`** — Operator: `<`, `<=`; Example: `{ lte: 65 }`; Use Case: Numeric comparison
+- **`contains`** — Operator: `LIKE`; Example: `{ contains: 'example' }`; Use Case: Substring search
+- **`startsWith`** — Operator: `LIKE`; Example: `{ startsWith: 'John' }`; Use Case: Prefix search
+- **`endsWith`** — Operator: `LIKE`; Example: `{ endsWith: 'Doe' }`; Use Case: Suffix search
 
 ### Sorting
 
@@ -1060,10 +1042,8 @@ const users = await prisma.user.findMany({
 
 **Pagination Pattern Comparison**:
 
-| Pattern | Pros | Cons | Best For |
-|---------|------|------|----------|
-| **Offset** | Simple, jump to any page | Slow on large datasets | Small datasets, page numbers |
-| **Cursor** | Fast, consistent | Can't jump to arbitrary page | Large datasets, infinite scroll |
+- **Offset** — Pros: Simple, jump to any page; Cons: Slow on large datasets; Best For: Small datasets, page numbers
+- **Cursor** — Pros: Fast, consistent; Cons: Can't jump to arbitrary page; Best For: Large datasets, infinite scroll
 
 ### Relations
 
@@ -1195,13 +1175,11 @@ const result = await prisma.user.groupBy({
 
 **Aggregation Functions**:
 
-| Function | Purpose | Example |
-|----------|---------|---------|
-| `_count` | Count records | `_count: { id: true }` |
-| `_avg` | Average value | `_avg: { age: true }` |
-| `_sum` | Sum values | `_sum: { price: true }` |
-| `_min` | Minimum value | `_min: { age: true }` |
-| `_max` | Maximum value | `_max: { age: true }` |
+- **`_count`** — Purpose: Count records; Example: `_count: { id: true }`
+- **`_avg`** — Purpose: Average value; Example: `_avg: { age: true }`
+- **`_sum`** — Purpose: Sum values; Example: `_sum: { price: true }`
+- **`_min`** — Purpose: Minimum value; Example: `_min: { age: true }`
+- **`_max`** — Purpose: Maximum value; Example: `_max: { age: true }`
 
 ---
 
@@ -1312,10 +1290,8 @@ await prisma.$transaction(
 
 **Transaction Comparison**:
 
-| Type | Use Case | Pros | Cons |
-|------|----------|------|------|
-| **Sequential** | Simple operations | Easy, automatic | Limited control |
-| **Interactive** | Complex logic, conditionals | Full control, rollback | More complex |
+- **Sequential** — Use Case: Simple operations; Pros: Easy, automatic; Cons: Limited control
+- **Interactive** — Use Case: Complex logic, conditionals; Pros: Full control, rollback; Cons: More complex
 
 ---
 
@@ -1386,25 +1362,21 @@ npx prisma migrate reset
 
 **Best Practices**:
 
-| Practice | Description |
-|----------|-------------|
-| ✅ **Version Control** | Commit migration files to Git |
-| ✅ **Descriptive Names** | Use clear migration names: `add_user_email_index` |
-| ✅ **Review SQL** | Always review generated SQL before applying |
-| ✅ **Backup Production** | Backup database before running migrations |
-| ✅ **Test Migrations** | Test on staging before production |
-| ❌ **Manual Edits** | Don't manually edit applied migrations |
-| ❌ **Delete Migrations** | Don't delete migration files after applying |
+- **Version Control** — Commit migration files to Git
+- **Descriptive Names** — Use clear migration names: `add_user_email_index`
+- **Review SQL** — Always review generated SQL before applying
+- **Backup Production** — Backup database before running migrations
+- **Test Migrations** — Test on staging before production
+- **Manual Edits** — Don't manually edit applied migrations
+- **Delete Migrations** — Don't delete migration files after applying
 
 **Migration Commands Summary**:
 
-| Command | Environment | Purpose |
-|---------|-------------|---------|
-| `migrate dev` | Development | Create and apply migration |
-| `migrate deploy` | Production | Apply pending migrations |
-| `migrate reset` | Development | Reset DB and replay migrations |
-| `migrate status` | Any | Check migration status |
-| `migrate resolve` | Any | Mark migration as applied/rolled back |
+- **`migrate dev`** — Environment: Development; Purpose: Create and apply migration
+- **`migrate deploy`** — Environment: Production; Purpose: Apply pending migrations
+- **`migrate reset`** — Environment: Development; Purpose: Reset DB and replay migrations
+- **`migrate status`** — Environment: Any; Purpose: Check migration status
+- **`migrate resolve`** — Environment: Any; Purpose: Mark migration as applied/rolled back
 
 ---
 
@@ -1537,14 +1509,12 @@ model User {
 
 **Characteristics**:
 
-| Aspect | Details |
-|--------|---------|
-| **Format** | Standard 128-bit identifier |
-| **Example** | `550e8400-e29b-41d4-a716-446655440000` |
-| **Database Type** | Native type in PostgreSQL (`uuid`) |
-| **Generation** | Uses `gen_random_uuid()` |
-| **Sortable** | No (unless using UUIDv7) |
-| **Use Case** | Distributed systems, global uniqueness |
+- **Format** — Standard 128-bit identifier
+- **Example** — `550e8400-e29b-41d4-a716-446655440000`
+- **Database Type** — Native type in PostgreSQL (`uuid`)
+- **Generation** — Uses `gen_random_uuid()`
+- **Sortable** — No (unless using UUIDv7)
+- **Use Case** — Distributed systems, global uniqueness
 
 **CUID (Collision-resistant Unique ID)**:
 
@@ -1557,25 +1527,21 @@ model User {
 
 **Characteristics**:
 
-| Aspect | Details |
-|--------|---------|
-| **Format** | Custom format, starts with timestamp |
-| **Example** | `clh3qo9w80000356m2r4g7b9e` |
-| **Database Type** | Stored as `text` or `varchar` |
-| **Generation** | Generated by Prisma Client |
-| **Sortable** | Yes (sortable by creation time) |
-| **Use Case** | APIs, URLs, human-readable IDs |
+- **Format** — Custom format, starts with timestamp
+- **Example** — `clh3qo9w80000356m2r4g7b9e`
+- **Database Type** — Stored as `text` or `varchar`
+- **Generation** — Generated by Prisma Client
+- **Sortable** — Yes (sortable by creation time)
+- **Use Case** — APIs, URLs, human-readable IDs
 
 **Comparison**:
 
-| Feature | UUID | CUID |
-|---------|------|------|
-| **Standard** | ✅ Industry standard | ❌ Custom format |
-| **Database Support** | ✅ Native type | ❌ Stored as text |
-| **Sortable** | ❌ Random | ✅ Timestamp-based |
-| **URL-friendly** | ⚠️ Contains hyphens | ✅ More readable |
-| **Performance** | ✅ Slightly faster | ✅ Good |
-| **Size** | 36 characters (with hyphens) | 25 characters |
+- **Standard** — UUID: Industry standard; CUID: Custom format
+- **Database Support** — UUID: Native type; CUID: Stored as text
+- **Sortable** — UUID: Random; CUID: Timestamp-based
+- **URL-friendly** — UUID: Contains hyphens; CUID: More readable
+- **Performance** — UUID: Slightly faster; CUID: Good
+- **Size** — UUID: 36 characters (with hyphens); CUID: 25 characters
 
 **When to use**:
 
@@ -1625,12 +1591,10 @@ model User {
 
 **ID Type Comparison**:
 
-| Type | Size | Example | Pros | Cons |
-|------|------|---------|------|------|
-| `Int` | 4 bytes | `1`, `2`, `3` | Simple, fast | Max ~2 billion |
-| `BigInt` | 8 bytes | `1n`, `2n` | Larger range | Slightly slower |
-| `String (UUID)` | 36 chars | `550e8400-...` | Globally unique | Larger storage |
-| `String (CUID)` | 25 chars | `clh3qo9w8...` | Sortable, unique | Not standard |
+- **`Int`** — Size: 4 bytes; Example: `1`, `2`, `3`; Pros: Simple, fast; Cons: Max ~2 billion
+- **`BigInt`** — Size: 8 bytes; Example: `1n`, `2n`; Pros: Larger range; Cons: Slightly slower
+- **`String (UUID)`** — Size: 36 chars; Example: `550e8400-...`; Pros: Globally unique; Cons: Larger storage
+- **`String (CUID)`** — Size: 25 chars; Example: `clh3qo9w8...`; Pros: Sortable, unique; Cons: Not standard
 
 ---
 
@@ -1688,13 +1652,11 @@ try {
 
 ### Error Codes
 
-| Code | Error | Description |
-|------|-------|-------------|
-| `P2000` | Value too long | Value exceeds column length |
-| `P2001` | Record not found | Record searched for does not exist |
-| `P2002` | Unique constraint | Unique constraint violation |
-| `P2003` | Foreign key constraint | Foreign key constraint failed |
-| `P2025` | Record not found | Record to update/delete not found |
+- **`P2000`** — Value too long: Value exceeds column length
+- **`P2001`** — Record not found: Record searched for does not exist
+- **`P2002`** — Unique constraint: Unique constraint violation
+- **`P2003`** — Foreign key constraint: Foreign key constraint failed
+- **`P2025`** — Record not found: Record to update/delete not found
 
 ### Error Handling Pattern
 
@@ -1732,15 +1694,13 @@ async function createUser(email: string, name: string) {
 
 **Best Practices**:
 
-| Practice | Example |
-|----------|---------|
-| ✅ **Use meaningful names** | `User`, `Post`, `Comment` (not `tbl_usr`) |
-| ✅ **Consistent naming** | PascalCase for models, camelCase for fields |
-| ✅ **Add timestamps** | `createdAt`, `updatedAt` |
-| ✅ **Add indexes** | Index foreign keys and frequently queried fields |
-| ✅ **Use enums** | For fixed value sets (role, status) |
-| ✅ **Validate at schema** | Use `@db` attributes for length, precision |
-| ❌ **Avoid generic names** | Don't use `data`, `info`, `value` |
+- **Use meaningful names** — `User`, `Post`, `Comment` (not `tbl_usr`)
+- **Consistent naming** — PascalCase for models, camelCase for fields
+- **Add timestamps** — `createdAt`, `updatedAt`
+- **Add indexes** — Index foreign keys and frequently queried fields
+- **Use enums** — For fixed value sets (role, status)
+- **Validate at schema** — Use `@db` attributes for length, precision
+- **Avoid generic names** — Don't use `data`, `info`, `value`
 
 ```prisma
 // ✅ Good schema design
@@ -1911,14 +1871,12 @@ const prisma = new PrismaClient({
 
 ### Query Optimization Tips
 
-| Tip | Description | Example |
-|-----|-------------|---------|
-| **Select specific fields** | Don't fetch unnecessary data | `select: { id: true, name: true }` |
-| **Use indexes** | Speed up WHERE clauses | `@@index([email])` |
-| **Batch operations** | Use `createMany`, `updateMany` | `createMany({ data: [...] })` |
-| **Cursor pagination** | Faster than offset for large datasets | `cursor: { id: lastId }` |
-| **Avoid deep nesting** | Limit relation depth | Max 3-4 levels |
-| **Use raw queries** | For complex queries | `prisma.$queryRaw` |
+- **Select specific fields** — Don't fetch unnecessary data; Example: `select: { id: true, name: true }`
+- **Use indexes** — Speed up WHERE clauses; Example: `@@index([email])`
+- **Batch operations** — Use `createMany`, `updateMany`; Example: `createMany({ data: [...] })`
+- **Cursor pagination** — Faster than offset for large datasets; Example: `cursor: { id: lastId }`
+- **Avoid deep nesting** — Limit relation depth; Example: Max 3-4 levels
+- **Use raw queries** — For complex queries; Example: `prisma.$queryRaw`
 
 ---
 

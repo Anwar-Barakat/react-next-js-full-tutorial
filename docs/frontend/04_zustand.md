@@ -786,17 +786,15 @@ afterEach(() => {
 
 ## 19. Zustand vs Redux
 
-| Feature | Zustand | Redux | Redux Toolkit |
-|---------|---------|-------|---------------|
-| Boilerplate | Minimal | High | Medium |
-| Learning curve | Easy | Steep | Moderate |
-| Bundle size | <1KB | ~20KB | ~10KB |
-| Setup | One function | Store, reducers, actions | configureStore |
-| Async logic | Built-in | Requires middleware | createAsyncThunk |
-| DevTools | Optional middleware | Built-in | Built-in |
-| Provider | Not needed | Required | Required |
-| TypeScript | Excellent | Good | Excellent |
-| Best for | Small-medium apps | Large apps | Large apps |
+- **Boilerplate** — Zustand: Minimal; Redux: High; Redux Toolkit: Medium
+- **Learning curve** — Zustand: Easy; Redux: Steep; Redux Toolkit: Moderate
+- **Bundle size** — Zustand: <1KB; Redux: ~20KB; Redux Toolkit: ~10KB
+- **Setup** — Zustand: One function; Redux: Store, reducers, actions; Redux Toolkit: configureStore
+- **Async logic** — Zustand: Built-in; Redux: Requires middleware; Redux Toolkit: createAsyncThunk
+- **DevTools** — Zustand: Optional middleware; Redux: Built-in; Redux Toolkit: Built-in
+- **Provider** — Zustand: Not needed; Redux: Required; Redux Toolkit: Required
+- **TypeScript** — Zustand: Excellent; Redux: Good; Redux Toolkit: Excellent
+- **Best for** — Zustand: Small-medium apps; Redux: Large apps; Redux Toolkit: Large apps
 
 **When to choose Zustand:**
 - Simple state management needs
@@ -814,16 +812,14 @@ afterEach(() => {
 
 ## 20. Zustand vs Context API
 
-| Feature | Zustand | Context API |
-|---------|---------|-------------|
-| Re-renders | Selective | All consumers |
-| Performance | Excellent | Can be slow |
-| Setup | Simple | Requires Provider |
-| Multiple stores | Easy | Multiple contexts |
-| Middleware | Yes | No |
-| Persistence | Built-in | Custom |
-| DevTools | Yes | No |
-| Best for | Frequent updates | Infrequent updates |
+- **Re-renders** — Zustand: Selective; Context API: All consumers
+- **Performance** — Zustand: Excellent; Context API: Can be slow
+- **Setup** — Zustand: Simple; Context API: Requires Provider
+- **Multiple stores** — Zustand: Easy; Context API: Multiple contexts
+- **Middleware** — Zustand: Yes; Context API: No
+- **Persistence** — Zustand: Built-in; Context API: Custom
+- **DevTools** — Zustand: Yes; Context API: No
+- **Best for** — Zustand: Frequent updates; Context API: Infrequent updates
 
 **Context API re-render problem:**
 

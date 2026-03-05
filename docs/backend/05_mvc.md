@@ -125,15 +125,13 @@ In short: Controllers decide what your app does when a user visits a page or sen
 php artisan make:controller PostController --resource
 ```
 
-| Method | URI | Action |
-|--------|-----|--------|
-| GET | `/posts` | `index` |
-| GET | `/posts/create` | `create` |
-| POST | `/posts` | `store` |
-| GET | `/posts/{post}` | `show` |
-| GET | `/posts/{post}/edit` | `edit` |
-| PUT/PATCH | `/posts/{post}` | `update` |
-| DELETE | `/posts/{post}` | `destroy` |
+- **GET** `/posts` — `index`
+- **GET** `/posts/create` — `create`
+- **POST** `/posts` — `store`
+- **GET** `/posts/{post}` — `show`
+- **GET** `/posts/{post}/edit` — `edit`
+- **PUT/PATCH** `/posts/{post}` — `update`
+- **DELETE** `/posts/{post}` — `destroy`
 
 In short: A resource controller is a shortcut that gives you all CRUD methods for a model in one controller.
 

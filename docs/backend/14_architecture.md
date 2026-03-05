@@ -73,12 +73,10 @@ In short: EDA decouples side effects from the main action — each listener hand
 
 Laravel has a first-class event system:
 
-| Component | Role |
-|-----------|------|
-| **Event** | A plain PHP class that represents something that happened |
-| **Listener** | A class that handles an event when it fires |
-| **Observer** | Automatically fires events based on Eloquent model lifecycle |
-| **Queue** | Runs listeners asynchronously in the background |
+- **Event** — A plain PHP class that represents something that happened
+- **Listener** — A class that handles an event when it fires
+- **Observer** — Automatically fires events based on Eloquent model lifecycle
+- **Queue** — Runs listeners asynchronously in the background
 
 **Create an event and listener:**
 
@@ -224,12 +222,10 @@ In short: Async listeners keep your HTTP responses fast — heavy work happens i
 - You need strict ordering or transactions across listeners.
 - Debugging complexity outweighs the decoupling benefit.
 
-| Scenario | Recommendation |
-|----------|---------------|
-| User registers → send welcome email | ✅ EDA — async listener |
-| Order placed → 5 different side effects | ✅ EDA — multiple listeners |
-| Update user name → just save to DB | ❌ Direct call — EDA is overkill |
-| Payment failed → retry + alert + log | ✅ EDA — async, separate concerns |
+- **User registers → send welcome email** — ✅ EDA — async listener
+- **Order placed → 5 different side effects** — ✅ EDA — multiple listeners
+- **Update user name → just save to DB** — ❌ Direct call — EDA is overkill
+- **Payment failed → retry + alert + log** — ✅ EDA — async, separate concerns
 
 ---
 
@@ -264,17 +260,38 @@ In short: Modular Monolith gives you clean module boundaries without the complex
 
 ## 7. Modular Monolith vs Microservices vs Standard Monolith
 
-| Feature | Standard Monolith | Modular Monolith | Microservices |
-|---------|------------------|-----------------|---------------|
-| **Deployment** | Single app | Single app | Multiple services |
-| **Code structure** | Flat, mixed | Organized modules | Separate codebases |
-| **Boundaries** | Weak / none | Strong (enforced) | Hard (network) |
-| **Communication** | Direct calls | Events / interfaces | HTTP / gRPC / MQ |
-| **Database** | Shared | Can be shared or per-module | Separate per service |
-| **Scalability** | Scale whole app | Scale whole app | Scale independently |
-| **Complexity** | Low | Medium | High |
-| **Team size** | Solo / small | Small to medium | Large / multiple teams |
-| **Migration path** | Hard to split | Easy to extract modules | Already split |
+**Standard Monolith:**
+- **Deployment** — Single app
+- **Code structure** — Flat, mixed
+- **Boundaries** — Weak / none
+- **Communication** — Direct calls
+- **Database** — Shared
+- **Scalability** — Scale whole app
+- **Complexity** — Low
+- **Team size** — Solo / small
+- **Migration path** — Hard to split
+
+**Modular Monolith:**
+- **Deployment** — Single app
+- **Code structure** — Organized modules
+- **Boundaries** — Strong (enforced)
+- **Communication** — Events / interfaces
+- **Database** — Can be shared or per-module
+- **Scalability** — Scale whole app
+- **Complexity** — Medium
+- **Team size** — Small to medium
+- **Migration path** — Easy to extract modules
+
+**Microservices:**
+- **Deployment** — Multiple services
+- **Code structure** — Separate codebases
+- **Boundaries** — Hard (network)
+- **Communication** — HTTP / gRPC / MQ
+- **Database** — Separate per service
+- **Scalability** — Scale independently
+- **Complexity** — High
+- **Team size** — Large / multiple teams
+- **Migration path** — Already split
 
 **Modular Monolith is the best of both worlds** — clean architecture without distributed system complexity.
 
@@ -557,13 +574,11 @@ class UserController extends Controller
 
 **When to use vs when it's overkill:**
 
-| Scenario | Recommendation |
-|----------|---------------|
-| Large app with complex queries | Use it — keeps controllers clean |
-| Multiple data sources (DB + API + cache) | Use it — swap implementations easily |
-| Need to unit test without DB | Use it — mock the interface |
-| Small CRUD app with 5 models | Skip it — Eloquent directly is fine |
-| Prototype / MVP | Skip it — adds unnecessary abstraction |
+- **Large app with complex queries** — Use it — keeps controllers clean
+- **Multiple data sources (DB + API + cache)** — Use it — swap implementations easily
+- **Need to unit test without DB** — Use it — mock the interface
+- **Small CRUD app with 5 models** — Skip it — Eloquent directly is fine
+- **Prototype / MVP** — Skip it — adds unnecessary abstraction
 
 In short: Repository Pattern is valuable in medium-to-large apps where you want testability and data access abstraction. For small apps, using Eloquent directly in services is perfectly fine.
 
@@ -672,13 +687,19 @@ class OrderController extends Controller
 
 **Fat vs Thin controller comparison:**
 
-| Aspect | Fat Controller | Thin Controller + Service |
-|--------|---------------|--------------------------|
-| **Testability** | Hard — must test through HTTP | Easy — unit test the service directly |
-| **Reusability** | None — logic locked in controller | High — call service from anywhere |
-| **Readability** | Long methods, hard to follow | Clear separation of concerns |
-| **Maintenance** | Changes risk breaking HTTP layer | Business logic isolated from HTTP |
-| **SRP** | Violates SRP | Each class has one responsibility |
+**Fat Controller:**
+- **Testability** — Hard — must test through HTTP
+- **Reusability** — None — logic locked in controller
+- **Readability** — Long methods, hard to follow
+- **Maintenance** — Changes risk breaking HTTP layer
+- **SRP** — Violates SRP
+
+**Thin Controller + Service:**
+- **Testability** — Easy — unit test the service directly
+- **Reusability** — High — call service from anywhere
+- **Readability** — Clear separation of concerns
+- **Maintenance** — Business logic isolated from HTTP
+- **SRP** — Each class has one responsibility
 
 In short: Move business logic into service classes. Controllers handle HTTP in, services handle logic, events handle side effects.
 
@@ -693,12 +714,10 @@ In short: Move business logic into service classes. Controllers handle HTTP in, 
 
 **When to use Actions vs Services:**
 
-| Use Case | Action | Service |
-|----------|--------|---------|
-| Single operation (create user, send invoice) | Best fit | Overkill |
-| Group of related operations | Too many classes | Best fit |
-| Reusable from controllers, jobs, commands | Best fit | Also good |
-| Complex orchestration of multiple steps | Combine actions | Best fit |
+- **Single operation (create user, send invoice)** — Action: Best fit, Service: Overkill
+- **Group of related operations** — Action: Too many classes, Service: Best fit
+- **Reusable from controllers, jobs, commands** — Action: Best fit, Service: Also good
+- **Complex orchestration of multiple steps** — Action: Combine actions, Service: Best fit
 
 **Example Action:**
 
@@ -883,14 +902,21 @@ class UserService
 
 **DTO vs Array comparison:**
 
-| Aspect | Array | DTO |
-|--------|-------|-----|
-| **Type safety** | None | Full — PHP enforces types |
-| **IDE support** | No autocomplete | Full autocomplete + refactoring |
-| **Validation** | Runtime only | Compile-time + runtime |
-| **Documentation** | Must read code/comments | Self-documenting via properties |
-| **Immutability** | Mutable by default | `readonly` enforces immutability |
-| **Boilerplate** | Less code | Slightly more code |
+**Array:**
+- **Type safety** — None
+- **IDE support** — No autocomplete
+- **Validation** — Runtime only
+- **Documentation** — Must read code/comments
+- **Immutability** — Mutable by default
+- **Boilerplate** — Less code
+
+**DTO:**
+- **Type safety** — Full — PHP enforces types
+- **IDE support** — Full autocomplete + refactoring
+- **Validation** — Compile-time + runtime
+- **Documentation** — Self-documenting via properties
+- **Immutability** — `readonly` enforces immutability
+- **Boilerplate** — Slightly more code
 
 **When to use DTOs:**
 - Passing data between layers (request -> service -> repository).
@@ -1028,13 +1054,11 @@ class OrderController extends Controller
 
 **When to use CQRS:**
 
-| Scenario | Recommendation |
-|----------|---------------|
-| Read-heavy app (dashboard, reporting) | Use it — optimize reads separately |
-| Complex write logic with simple reads | Use it — keep write path clean |
-| Different read/write scaling needs | Use it — scale independently |
-| Simple CRUD app | Skip it — standard MVC is fine |
-| Small team, tight deadline | Skip it — adds structural overhead |
+- **Read-heavy app (dashboard, reporting)** — Use it — optimize reads separately
+- **Complex write logic with simple reads** — Use it — keep write path clean
+- **Different read/write scaling needs** — Use it — scale independently
+- **Simple CRUD app** — Skip it — standard MVC is fine
+- **Small team, tight deadline** — Skip it — adds structural overhead
 
 In short: CQRS separates the "ask" from the "do." Start with simple separation in your code structure; you don't need separate databases or event sourcing to benefit from the pattern.
 
@@ -1072,12 +1096,10 @@ Dependency Rule: arrows point INWARD only
 
 **How it maps to Laravel:**
 
-| Clean Architecture Layer | Laravel Equivalent |
-|--------------------------|-------------------|
-| **Entities** | Domain models, value objects, business rules (plain PHP classes, not Eloquent) |
-| **Use Cases** | Service classes, Actions, Command/Query handlers |
-| **Interface Adapters** | Controllers, Form Requests, API Resources, Repository implementations |
-| **Frameworks & Drivers** | Eloquent, Blade, Queue, Mail, HTTP kernel, config |
+- **Entities** — Domain models, value objects, business rules (plain PHP classes, not Eloquent)
+- **Use Cases** — Service classes, Actions, Command/Query handlers
+- **Interface Adapters** — Controllers, Form Requests, API Resources, Repository implementations
+- **Frameworks & Drivers** — Eloquent, Blade, Queue, Mail, HTTP kernel, config
 
 **Example structure:**
 
@@ -1175,13 +1197,11 @@ class EloquentUserRepository implements UserRepositoryInterface
 
 **When to use Clean Architecture:**
 
-| Scenario | Recommendation |
-|----------|---------------|
-| Long-lived enterprise app (5+ years) | Use it — investment pays off |
-| Complex domain logic (finance, healthcare) | Use it — domain layer stays pure |
-| Potential framework migration | Use it — business logic is framework-free |
-| Small-to-medium CRUD app | Skip it — too much indirection |
-| Short-lived project / prototype | Skip it — standard Laravel is faster |
+- **Long-lived enterprise app (5+ years)** — Use it — investment pays off
+- **Complex domain logic (finance, healthcare)** — Use it — domain layer stays pure
+- **Potential framework migration** — Use it — business logic is framework-free
+- **Small-to-medium CRUD app** — Skip it — too much indirection
+- **Short-lived project / prototype** — Skip it — standard Laravel is faster
 
 In short: Clean Architecture protects your business logic from framework changes. It's worth the investment for complex, long-lived applications. For typical Laravel CRUD apps, standard MVC with services is sufficient.
 
@@ -1360,12 +1380,10 @@ class OrderServiceTest extends TestCase
 
 **DI binding types summary:**
 
-| Method | Behavior | Use When |
-|--------|----------|----------|
-| `bind()` | New instance every time | Stateful services, unique per usage |
-| `singleton()` | One instance for app lifecycle | Expensive setup, shared state (config, cache) |
-| `scoped()` | One instance per request | Request-specific state (current user context) |
-| `instance()` | Bind an existing object | You already have the object (testing) |
-| `when()->needs()->give()` | Context-specific binding | Different classes need different implementations |
+- **`bind()`** — New instance every time. Use when: stateful services, unique per usage
+- **`singleton()`** — One instance for app lifecycle. Use when: expensive setup, shared state (config, cache)
+- **`scoped()`** — One instance per request. Use when: request-specific state (current user context)
+- **`instance()`** — Bind an existing object. Use when: you already have the object (testing)
+- **`when()->needs()->give()`** — Context-specific binding. Use when: different classes need different implementations
 
 In short: Laravel's service container handles dependency injection automatically for concrete classes. Use explicit bindings when you need interface-to-implementation mapping, singletons, or contextual resolution. DI is the foundation that makes all other architecture patterns (Repository, Service, Action) work cleanly.

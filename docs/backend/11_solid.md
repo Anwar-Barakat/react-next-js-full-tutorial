@@ -20,13 +20,11 @@ A comprehensive guide to SOLID principles and related PHP/Laravel concepts.
 - SOLID is a set of five principles that help you write clean, maintainable, and scalable object-oriented code.
 - Each letter stands for one principle.
 
-| Letter | Principle | Short Meaning |
-|--------|-----------|---------------|
-| **S** | Single Responsibility | One class = one job |
-| **O** | Open/Closed | Open to extend, closed to modify |
-| **L** | Liskov Substitution | Child classes must work as their parent |
-| **I** | Interface Segregation | Don't force classes to implement unused methods |
-| **D** | Dependency Inversion | Depend on abstractions, not concrete classes |
+- **S — Single Responsibility** — One class = one job
+- **O — Open/Closed** — Open to extend, closed to modify
+- **L — Liskov Substitution** — Child classes must work as their parent
+- **I — Interface Segregation** — Don't force classes to implement unused methods
+- **D — Dependency Inversion** — Depend on abstractions, not concrete classes
 
 In short: SOLID principles guide you to write code that is easy to understand, extend, and maintain.
 
@@ -71,10 +69,8 @@ In short: Traits let you share methods between multiple classes without using in
 
 ## 3. Difference between == and === for objects
 
-| Operator | Checks | Objects |
-|----------|--------|---------|
-| `==` | Same property values | True if same class and equal properties |
-| `===` | Same instance in memory | True only if the exact same object |
+- **`==`** — Checks same property values. For objects, true if same class and equal properties.
+- **`===`** — Checks same instance in memory. For objects, true only if the exact same object.
 
 ```php
 class Point {

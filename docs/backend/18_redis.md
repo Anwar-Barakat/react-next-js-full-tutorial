@@ -368,12 +368,26 @@ SESSION_LIFETIME=120
 
 **Comparison:**
 
-| Feature | File | Database | Redis |
-|---|---|---|---|
-| Speed | Slow | Medium | Fast |
-| Multi-server | No | Yes | Yes |
-| Auto-expiration | No | No | Yes (TTL) |
-| Extra infra | None | None | Redis server |
+### File
+
+- **Speed** — Slow
+- **Multi-server** — No
+- **Auto-expiration** — No
+- **Extra infra** — None
+
+### Database
+
+- **Speed** — Medium
+- **Multi-server** — Yes
+- **Auto-expiration** — No
+- **Extra infra** — None
+
+### Redis
+
+- **Speed** — Fast
+- **Multi-server** — Yes
+- **Auto-expiration** — Yes (TTL)
+- **Extra infra** — Redis server
 
 Session API stays the same regardless of driver:
 
@@ -388,15 +402,25 @@ session()->forget('cart_id');
 
 ## 8. Redis vs Memcached
 
-| Feature | Redis | Memcached |
-|---|---|---|
-| Data types | Strings, lists, sets, hashes, sorted sets, streams | Strings only |
-| Persistence | Yes (RDB + AOF) | No |
-| Pub/Sub | Yes | No |
-| Replication | Yes (master-replica) | No |
-| Threading | Single-threaded | Multithreaded |
-| Memory overhead | Higher | Lower for simple strings |
-| Laravel integration | Deep (cache, queues, sessions, broadcasting) | Cache only |
+### Redis
+
+- **Data types** — Strings, lists, sets, hashes, sorted sets, streams
+- **Persistence** — Yes (RDB + AOF)
+- **Pub/Sub** — Yes
+- **Replication** — Yes (master-replica)
+- **Threading** — Single-threaded
+- **Memory overhead** — Higher
+- **Laravel integration** — Deep (cache, queues, sessions, broadcasting)
+
+### Memcached
+
+- **Data types** — Strings only
+- **Persistence** — No
+- **Pub/Sub** — No
+- **Replication** — No
+- **Threading** — Multithreaded
+- **Memory overhead** — Lower for simple strings
+- **Laravel integration** — Cache only
 
 **Choose Redis** for most Laravel apps. **Choose Memcached** for simple, high-throughput string caching only.
 

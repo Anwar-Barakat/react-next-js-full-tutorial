@@ -71,14 +71,12 @@ greet(null); // ✅ Compile error: Argument of type 'null' is not assignable to 
 
 ## 2. Why Use TypeScript
 
-| Benefit | Description | Impact |
-|---------|-------------|--------|
-| **Type Safety** | Catch errors at compile time | Fewer runtime bugs |
-| **Better Tooling** | Autocomplete, intellisense, refactoring | Faster development |
-| **Self-Documentation** | Types explain code intent | Easier maintenance |
-| **Easier Refactoring** | Confident code changes | Reduced fear of breaking changes |
-| **Better for Large Teams** | Shared type contracts | Improved collaboration |
-| **Optional** | Gradually adoptable | No big rewrite needed |
+- **Type Safety** — Catch errors at compile time; Impact: Fewer runtime bugs
+- **Better Tooling** — Autocomplete, intellisense, refactoring; Impact: Faster development
+- **Self-Documentation** — Types explain code intent; Impact: Easier maintenance
+- **Easier Refactoring** — Confident code changes; Impact: Reduced fear of breaking changes
+- **Better for Large Teams** — Shared type contracts; Impact: Improved collaboration
+- **Optional** — Gradually adoptable; Impact: No big rewrite needed
 
 **Comparison:**
 
@@ -104,24 +102,20 @@ calculateTotal('10', '5'); // ✅ Compile error: Type 'string' is not assignable
 
 **Primitive Types:**
 
-| Type | Description | Example |
-|------|-------------|---------|
-| `string` | Text values | `'hello'`, `"world"`, `` `template` `` |
-| `number` | Integers and floats | `42`, `3.14`, `NaN`, `Infinity` |
-| `boolean` | True/false values | `true`, `false` |
-| `null` | Intentional absence | `null` |
-| `undefined` | Not yet assigned | `undefined` |
-| `symbol` | Unique identifiers | `Symbol('id')` |
-| `bigint` | Large integers | `100n`, `BigInt(100)` |
+- **`string`** — Text values; Example: `'hello'`, `"world"`, `` `template` ``
+- **`number`** — Integers and floats; Example: `42`, `3.14`, `NaN`, `Infinity`
+- **`boolean`** — True/false values; Example: `true`, `false`
+- **`null`** — Intentional absence; Example: `null`
+- **`undefined`** — Not yet assigned; Example: `undefined`
+- **`symbol`** — Unique identifiers; Example: `Symbol('id')`
+- **`bigint`** — Large integers; Example: `100n`, `BigInt(100)`
 
 **Special Types:**
 
-| Type | Description | Use Case |
-|------|-------------|----------|
-| `any` | Disables type checking | ❌ Avoid if possible |
-| `unknown` | Type-safe version of any | ✅ Prefer over `any` |
-| `void` | No return value | Functions that don't return |
-| `never` | Never returns | Infinite loops, throw errors |
+- **`any`** — Disables type checking; Use Case: Avoid if possible
+- **`unknown`** — Type-safe version of any; Use Case: Prefer over `any`
+- **`void`** — No return value; Use Case: Functions that don't return
+- **`never`** — Never returns; Use Case: Infinite loops, throw errors
 
 **Examples:**
 
@@ -262,12 +256,10 @@ let example: StringNumberBooleans = ['hello', 42, true, false, true];
 
 **Array vs Tuple:**
 
-| Feature | Array | Tuple |
-|---------|-------|-------|
-| Length | Variable | Fixed |
-| Types | Homogeneous (same type) | Heterogeneous (mixed types) |
-| Order | Not enforced | Strictly enforced |
-| Use Case | Lists of similar items | Fixed structure data |
+- **Length** — Array: Variable; Tuple: Fixed
+- **Types** — Array: Homogeneous (same type); Tuple: Heterogeneous (mixed types)
+- **Order** — Array: Not enforced; Tuple: Strictly enforced
+- **Use Case** — Array: Lists of similar items; Tuple: Fixed structure data
 
 ---
 
@@ -277,12 +269,10 @@ Both `any` and `unknown` can hold any value, but `unknown` is type-safe.
 
 **Comparison:**
 
-| Aspect | any | unknown |
-|--------|-----|---------|
-| **Type Safety** | ❌ None | ✅ Type-safe |
-| **Type Checking** | Disabled | Required before use |
-| **Operations** | All allowed | Must narrow type first |
-| **Recommendation** | Avoid | Prefer over `any` |
+- **Type Safety** — any: None; unknown: Type-safe
+- **Type Checking** — any: Disabled; unknown: Required before use
+- **Operations** — any: All allowed; unknown: Must narrow type first
+- **Recommendation** — any: Avoid; unknown: Prefer over `any`
 
 ```typescript
 // any - No safety (dangerous)
@@ -492,17 +482,15 @@ const dict: StringDictionary = {
 
 Both can describe object shapes, but have key differences.
 
-**Comparison Table:**
+**Comparison:**
 
-| Feature | Type | Interface |
-|---------|------|-----------|
-| **Primitives** | ✅ Can define | ❌ Cannot |
-| **Union Types** | ✅ Supported | ❌ Not supported |
-| **Intersection** | `&` operator | `extends` keyword |
-| **Declaration Merging** | ❌ Not supported | ✅ Supported |
-| **Computed Properties** | ✅ Supported | ❌ Limited |
-| **Performance** | Slightly slower | Slightly faster |
-| **Use Case** | Unions, primitives, complex types | Object shapes, classes |
+- **Primitives** — Type: Can define; Interface: Cannot
+- **Union Types** — Type: Supported; Interface: Not supported
+- **Intersection** — Type: `&` operator; Interface: `extends` keyword
+- **Declaration Merging** — Type: Not supported; Interface: Supported
+- **Computed Properties** — Type: Supported; Interface: Limited
+- **Performance** — Type: Slightly slower; Interface: Slightly faster
+- **Use Case** — Type: Unions, primitives, complex types; Interface: Object shapes, classes
 
 **Examples:**
 
@@ -797,12 +785,10 @@ function getArea(shape: Shape): number {
 
 **Void vs Never:**
 
-| Aspect | void | never |
-|--------|------|-------|
-| **Returns** | Nothing (undefined) | Never returns |
-| **Completes** | Function completes | Function never completes |
-| **Use Case** | Functions with side effects | Errors, infinite loops |
-| **Can assign** | `undefined` | Nothing can be assigned |
+- **Returns** — void: Nothing (undefined); never: Never returns
+- **Completes** — void: Function completes; never: Function never completes
+- **Use Case** — void: Functions with side effects; never: Errors, infinite loops
+- **Can assign** — void: `undefined`; never: Nothing can be assigned
 
 ---
 
@@ -1495,14 +1481,12 @@ Both represent a set of possible values, but work differently.
 
 **Comparison:**
 
-| Feature | Enum | Union Type |
-|---------|------|------------|
-| **Runtime Presence** | ✅ Exists as object | ❌ Compile-time only |
-| **Reverse Mapping** | ✅ Numeric enums only | ❌ No |
-| **Bundle Size** | Larger (runtime code) | Smaller (no runtime) |
-| **Iteration** | ✅ Can iterate | ❌ Cannot iterate |
-| **Flexibility** | Less flexible | More flexible |
-| **TypeScript Feature** | Specific to TS | JavaScript compatible |
+- **Runtime Presence** — Enum: Exists as object; Union Type: Compile-time only
+- **Reverse Mapping** — Enum: Numeric enums only; Union Type: No
+- **Bundle Size** — Enum: Larger (runtime code); Union Type: Smaller (no runtime)
+- **Iteration** — Enum: Can iterate; Union Type: Cannot iterate
+- **Flexibility** — Enum: Less flexible; Union Type: More flexible
+- **TypeScript Feature** — Enum: Specific to TS; Union Type: JavaScript compatible
 
 ```typescript
 // Enum - creates runtime object

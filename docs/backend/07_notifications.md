@@ -48,14 +48,12 @@ In short: Laravel notifications let you send messages via email, database, and r
 
 ## 2. What notification channels does Laravel support?
 
-| Channel | Description |
-|---------|-------------|
-| `mail` | Sends an email |
-| `database` | Stores in DB for in-app notifications |
-| `broadcast` | Real-time via WebSockets |
-| `vonage` / `nexmo` | SMS messages |
-| `slack` | Slack messages |
-| Custom | Any custom channel |
+- **`mail`** — Sends an email
+- **`database`** — Stores in DB for in-app notifications
+- **`broadcast`** — Real-time via WebSockets
+- **`vonage` / `nexmo`** — SMS messages
+- **`slack`** — Slack messages
+- **Custom** — Any custom channel
 
 **Example: When a user places an order:**
 - Email → Order confirmation.
@@ -113,11 +111,9 @@ In short: Laravel broadcasting sends real-time events from the server to the fro
 
 **Types of channels:**
 
-| Channel | Who Can Listen | Example Use |
-|---------|---------------|-------------|
-| **Public** | Anyone | Live public notifications |
-| **Private** | Authenticated users only | Private notifications |
-| **Presence** | Authenticated users + shows who is online | Chat rooms |
+- **Public** — Anyone can listen (e.g. live public notifications)
+- **Private** — Authenticated users only (e.g. private notifications)
+- **Presence** — Authenticated users + shows who is online (e.g. chat rooms)
 
 In short: Channels control who can hear real-time events — everyone, logged-in users, or logged-in users with presence info.
 
@@ -290,16 +286,27 @@ user=www-data
 
 ## 10. Laravel Reverb vs Pusher
 
-| Feature | Laravel Reverb | Pusher |
-|---------|---------------|--------|
-| **Cost** | Free (self-hosted) | Paid after free tier |
-| **Hosting** | Your own server | External cloud service |
-| **Setup** | `php artisan install:broadcasting` | API keys + SDK |
-| **Performance** | High (ReactPHP) | Very high (managed) |
-| **Scaling** | Manual (horizontal scaling possible) | Automatic |
-| **Laravel integration** | First-party, native | Official adapter |
-| **Maintenance** | You manage the server | Pusher manages it |
-| **Best for** | Full control, no external dependency | Quick setup, managed service |
+### Laravel Reverb
+
+- **Cost** — Free (self-hosted)
+- **Hosting** — Your own server
+- **Setup** — `php artisan install:broadcasting`
+- **Performance** — High (ReactPHP)
+- **Scaling** — Manual (horizontal scaling possible)
+- **Laravel integration** — First-party, native
+- **Maintenance** — You manage the server
+- **Best for** — Full control, no external dependency
+
+### Pusher
+
+- **Cost** — Paid after free tier
+- **Hosting** — External cloud service
+- **Setup** — API keys + SDK
+- **Performance** — Very high (managed)
+- **Scaling** — Automatic
+- **Laravel integration** — Official adapter
+- **Maintenance** — Pusher manages it
+- **Best for** — Quick setup, managed service
 
 ```php
 // config/broadcasting.php — switching is just a config change

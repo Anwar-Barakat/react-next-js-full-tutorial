@@ -72,16 +72,14 @@ Complete guide to implementing internationalization (i18n) in React applications
 
 ### Key Features
 
-| Feature | Description |
-|---------|-------------|
-| **Namespaces** | Organize translations by feature or module |
-| **Interpolation** | Dynamic values: `{{variable}}` |
-| **Pluralization** | Automatic singular/plural handling |
-| **RTL Support** | Automatic direction switching for RTL languages |
-| **LocalStorage** | Persist user language preference |
-| **Fallback** | Fallback to default language if key missing |
-| **Lazy Loading** | Load translations on demand |
-| **TypeScript** | Full type support |
+- **Namespaces** — Organize translations by feature or module
+- **Interpolation** — Dynamic values: `{{variable}}`
+- **Pluralization** — Automatic singular/plural handling
+- **RTL Support** — Automatic direction switching for RTL languages
+- **LocalStorage** — Persist user language preference
+- **Fallback** — Fallback to default language if key missing
+- **Lazy Loading** — Load translations on demand
+- **TypeScript** — Full type support
 
 ### Storage
 
@@ -145,16 +143,14 @@ export default i18n;
 
 ### Configuration Options
 
-| Option | Value | Purpose |
-|--------|-------|---------|
-| `resources` | Object | Translation resources by language |
-| `fallbackLng` | `'en'` | Fallback language if key missing |
-| `lng` | `'en'` | Initial/current language |
-| `defaultNS` | `'common'` | Default namespace |
-| `fallbackNS` | `['common']` | Fallback namespaces |
-| `escapeValue` | `false` | React handles escaping (prevent double-escaping) |
-| `interpolation` | Object | Interpolation configuration |
-| `debug` | `false` | Enable debug logging |
+- **`resources`** — Value: Object; Purpose: Translation resources by language
+- **`fallbackLng`** — Value: `'en'`; Purpose: Fallback language if key missing
+- **`lng`** — Value: `'en'`; Purpose: Initial/current language
+- **`defaultNS`** — Value: `'common'`; Purpose: Default namespace
+- **`fallbackNS`** — Value: `['common']`; Purpose: Fallback namespaces
+- **`escapeValue`** — Value: `false`; Purpose: React handles escaping (prevent double-escaping)
+- **`interpolation`** — Value: Object; Purpose: Interpolation configuration
+- **`debug`** — Value: `false`; Purpose: Enable debug logging
 
 ### Importing i18n
 
@@ -195,12 +191,10 @@ resources/js/locales/
 
 ### File Purposes
 
-| File | Purpose | Example Content |
-|------|---------|-----------------|
-| `common.json` | Shared UI elements across all modules | Buttons, labels, generic messages |
-| `auth.json` | Authentication pages | Login, register, reset password |
-| `dashboard.json` | Dashboard/home pages | Dashboard title, stats, widgets |
-| `[feature].json` | Feature-specific translations | User management, settings, reports |
+- **`common.json`** — Purpose: Shared UI elements across all modules; Example Content: Buttons, labels, generic messages
+- **`auth.json`** — Purpose: Authentication pages; Example Content: Login, register, reset password
+- **`dashboard.json`** — Purpose: Dashboard/home pages; Example Content: Dashboard title, stats, widgets
+- **`[feature].json`** — Purpose: Feature-specific translations; Example Content: User management, settings, reports
 
 ---
 
@@ -212,13 +206,11 @@ resources/js/locales/
 
 **Common Namespaces**:
 
-| Namespace | Purpose | Example Keys |
-|-----------|---------|--------------|
-| `common` | Shared across all modules | `save`, `cancel`, `loading` |
-| `auth` | Authentication | `login`, `register`, `forgotPassword` |
-| `dashboard` | Dashboard/home | `welcome`, `stats`, `recentActivity` |
-| `users` | User management | `userList`, `addUser`, `editUser` |
-| `settings` | Application settings | `preferences`, `notifications`, `privacy` |
+- **`common`** — Purpose: Shared across all modules; Example Keys: `save`, `cancel`, `loading`
+- **`auth`** — Purpose: Authentication; Example Keys: `login`, `register`, `forgotPassword`
+- **`dashboard`** — Purpose: Dashboard/home; Example Keys: `welcome`, `stats`, `recentActivity`
+- **`users`** — Purpose: User management; Example Keys: `userList`, `addUser`, `editUser`
+- **`settings`** — Purpose: Application settings; Example Keys: `preferences`, `notifications`, `privacy`
 
 ### Using Namespaces
 
@@ -335,10 +327,8 @@ const { t } = useTranslation('dashboard');
 
 **Comparison**:
 
-| Pattern | Translation | Usage | Output |
-|---------|-------------|-------|--------|
-| ✅ **Correct** | `"hello": "Hello {{name}}"` | `t('hello', { name: 'John' })` | "Hello John" |
-| ❌ **Wrong** | `"hello": "Hello {name}"` | `t('hello', { name: 'John' })` | "Hello {name}" |
+- **Correct** — Translation: `"hello": "Hello {{name}}"`; Usage: `t('hello', { name: 'John' })`; Output: "Hello John"
+- **Wrong** — Translation: `"hello": "Hello {name}"`; Usage: `t('hello', { name: 'John' })`; Output: "Hello {name}"
 
 ### Pluralization
 
@@ -378,11 +368,9 @@ const { t } = useTranslation();
 
 **Plural Forms Comparison**:
 
-| Language | Plural Forms | Example |
-|----------|--------------|---------|
-| English | 2 (one, other) | 1 item, 2 items |
-| Arabic | 6 (zero, one, two, few, many, other) | Complex plural rules |
-| Chinese | 1 (other) | No pluralization |
+- **English** — Plural Forms: 2 (one, other); Example: 1 item, 2 items
+- **Arabic** — Plural Forms: 6 (zero, one, two, few, many, other); Example: Complex plural rules
+- **Chinese** — Plural Forms: 1 (other); Example: No pluralization
 
 ### Page Titles
 
@@ -586,14 +574,12 @@ i18n.use(initReactI18next).init({
 
 **Use camelCase with dot notation:**
 
-| Pattern | Example | Status |
-|---------|---------|--------|
-| ✅ **Correct** | `dashboard.pageTitle` | camelCase + dot notation |
-| ✅ **Correct** | `profile.form.firstName` | Nested structure |
-| ✅ **Correct** | `messages.saveSuccess` | Clear and descriptive |
-| ❌ **Wrong** | `Dashboard.PageTitle` | PascalCase (inconsistent) |
-| ❌ **Wrong** | `profile-form-name` | kebab-case (harder to read) |
-| ❌ **Wrong** | `profile_form_name` | snake_case (inconsistent) |
+- **Correct** — `dashboard.pageTitle`: camelCase + dot notation
+- **Correct** — `profile.form.firstName`: Nested structure
+- **Correct** — `messages.saveSuccess`: Clear and descriptive
+- **Wrong** — `Dashboard.PageTitle`: PascalCase (inconsistent)
+- **Wrong** — `profile-form-name`: kebab-case (harder to read)
+- **Wrong** — `profile_form_name`: snake_case (inconsistent)
 
 **Key Naming Best Practices**:
 
@@ -650,14 +636,12 @@ i18n.on('languageChanged', (lng) => {
 
 **RTL Languages**:
 
-| Language | Code | Direction | Script |
-|----------|------|-----------|--------|
-| Arabic | `ar` | RTL | Arabic |
-| Hebrew | `he` | RTL | Hebrew |
-| Persian/Farsi | `fa` | RTL | Persian |
-| Urdu | `ur` | RTL | Arabic |
-| English | `en` | LTR | Latin |
-| Spanish | `es` | LTR | Latin |
+- **Arabic** — Code: `ar`; Direction: RTL; Script: Arabic
+- **Hebrew** — Code: `he`; Direction: RTL; Script: Hebrew
+- **Persian/Farsi** — Code: `fa`; Direction: RTL; Script: Persian
+- **Urdu** — Code: `ur`; Direction: RTL; Script: Arabic
+- **English** — Code: `en`; Direction: LTR; Script: Latin
+- **Spanish** — Code: `es`; Direction: LTR; Script: Latin
 
 ### Checking RTL Status
 
@@ -694,14 +678,12 @@ Use logical properties that automatically adapt to text direction:
 
 **Logical Property Mapping**:
 
-| Logical Property | LTR Equivalent | RTL Equivalent |
-|------------------|----------------|----------------|
-| `padding-inline-start` | `padding-left` | `padding-right` |
-| `padding-inline-end` | `padding-right` | `padding-left` |
-| `margin-inline-start` | `margin-left` | `margin-right` |
-| `margin-inline-end` | `margin-right` | `margin-left` |
-| `border-inline-start` | `border-left` | `border-right` |
-| `inset-inline-start` | `left` | `right` |
+- **`padding-inline-start`** — LTR: `padding-left`; RTL: `padding-right`
+- **`padding-inline-end`** — LTR: `padding-right`; RTL: `padding-left`
+- **`margin-inline-start`** — LTR: `margin-left`; RTL: `margin-right`
+- **`margin-inline-end`** — LTR: `margin-right`; RTL: `margin-left`
+- **`border-inline-start`** — LTR: `border-left`; RTL: `border-right`
+- **`inset-inline-start`** — LTR: `left`; RTL: `right`
 
 **Method 2: Conditional Classes**
 
@@ -725,11 +707,9 @@ const isRTL = i18n.dir() === 'rtl';
 
 **Comparison**:
 
-| Method | Pros | Cons |
-|--------|------|------|
-| ✅ **Logical Properties** | Automatic, clean, standard | Limited browser support (modern browsers only) |
-| ✅ **Tailwind** | Easy, automatic | Requires Tailwind CSS |
-| ⚠️ **Conditional Classes** | Works everywhere | Verbose, manual |
+- **Logical Properties** — Pros: Automatic, clean, standard; Cons: Limited browser support (modern browsers only)
+- **Tailwind** — Pros: Easy, automatic; Cons: Requires Tailwind CSS
+- **Conditional Classes** — Pros: Works everywhere; Cons: Verbose, manual
 
 ### RTL Icons
 
@@ -754,13 +734,11 @@ const NavigationButton = () => {
 
 **Icons That Should Flip**:
 
-| Icon Type | Should Flip? | Example |
-|-----------|--------------|---------|
-| ✅ **Arrows** | Yes | `→` becomes `←` |
-| ✅ **Chevrons** | Yes | `›` becomes `‹` |
-| ✅ **Navigation** | Yes | Back/Forward buttons |
-| ❌ **Symbols** | No | ✓ ✗ ⚠️ |
-| ❌ **Media Controls** | No | Play ▶ Pause ⏸ |
+- **Arrows** — Should Flip: Yes; Example: `→` becomes `←`
+- **Chevrons** — Should Flip: Yes; Example: `›` becomes `‹`
+- **Navigation** — Should Flip: Yes; Example: Back/Forward buttons
+- **Symbols** — Should Flip: No; Example: check, X, warning
+- **Media Controls** — Should Flip: No; Example: Play, Pause
 
 ---
 
@@ -900,11 +878,9 @@ const DateDisplay = ({ date }) => {
 
 **Date Format Comparison**:
 
-| Language | Format | Example |
-|----------|--------|---------|
-| English (`en`) | Month DD, YYYY | February 12, 2026 |
-| Arabic (`ar`) | DD Month YYYY | ١٢ فبراير ٢٠٢٦ |
-| Spanish (`es`) | DD de Month de YYYY | 12 de febrero de 2026 |
+- **English (`en`)** — Format: Month DD, YYYY; Example: February 12, 2026
+- **Arabic (`ar`)** — Format: DD Month YYYY; Example: ١٢ فبراير ٢٠٢٦
+- **Spanish (`es`)** — Format: DD de Month de YYYY; Example: 12 de febrero de 2026
 
 ---
 
@@ -1047,17 +1023,15 @@ const DateDisplay = ({ date }) => {
 
 ### Common vs Specific Namespace
 
-| Content Type | Namespace | Example |
-|--------------|-----------|---------|
-| **Button labels** | `common` | Save, Cancel, Submit, Delete |
-| **Loading states** | `common` | Loading..., Please wait... |
-| **Generic errors** | `common` | An error occurred, Try again |
-| **Shared UI elements** | `common` | Close, Open, Expand, Collapse |
-| **Form actions** | `common` | Add, Edit, Remove, Clear |
-| **Page titles** | Specific | User Management, Dashboard |
-| **Feature content** | Specific | User profile form labels |
-| **Form labels (module)** | Specific | Product name, Category |
-| **Module messages** | Specific | Invoice created, Order shipped |
+- **Button labels** — Namespace: `common`; Example: Save, Cancel, Submit, Delete
+- **Loading states** — Namespace: `common`; Example: Loading..., Please wait...
+- **Generic errors** — Namespace: `common`; Example: An error occurred, Try again
+- **Shared UI elements** — Namespace: `common`; Example: Close, Open, Expand, Collapse
+- **Form actions** — Namespace: `common`; Example: Add, Edit, Remove, Clear
+- **Page titles** — Namespace: Specific; Example: User Management, Dashboard
+- **Feature content** — Namespace: Specific; Example: User profile form labels
+- **Form labels (module)** — Namespace: Specific; Example: Product name, Category
+- **Module messages** — Namespace: Specific; Example: Invoice created, Order shipped
 
 **Example Structure**:
 
@@ -1154,13 +1128,11 @@ toast.success(t('messages.createSuccess'));
 
 **Possible Causes**:
 
-| Cause | Solution |
-|-------|----------|
-| Key doesn't exist in JSON file | Add the key to translation file |
-| Wrong namespace in `useTranslation()` | Use correct namespace: `useTranslation('users')` |
-| JSON syntax error | Validate JSON (missing comma, quote, etc.) |
-| Typo in key path | Check spelling: `users.title` vs `user.title` |
-| File not imported in config | Import file in `locales.ts` |
+- **Key doesn't exist in JSON file** — Solution: Add the key to translation file
+- **Wrong namespace in `useTranslation()`** — Solution: Use correct namespace: `useTranslation('users')`
+- **JSON syntax error** — Solution: Validate JSON (missing comma, quote, etc.)
+- **Typo in key path** — Solution: Check spelling: `users.title` vs `user.title`
+- **File not imported in config** — Solution: Import file in `locales.ts`
 
 **Debug Steps**:
 
@@ -1227,12 +1199,10 @@ i18n.init({
 
 **Possible Causes**:
 
-| Cause | Solution |
-|-------|----------|
-| Font doesn't support language | Use web-safe or Google Fonts with language support |
-| `dir` attribute not set | Set `document.documentElement.dir = 'rtl'` |
-| Text encoding issues | Ensure UTF-8 encoding |
-| CSS overriding direction | Check for `direction: ltr` in CSS |
+- **Font doesn't support language** — Solution: Use web-safe or Google Fonts with language support
+- **`dir` attribute not set** — Solution: Set `document.documentElement.dir = 'rtl'`
+- **Text encoding issues** — Solution: Ensure UTF-8 encoding
+- **CSS overriding direction** — Solution: Check for `direction: ltr` in CSS
 
 **Solution**:
 
@@ -1393,14 +1363,12 @@ const exists = i18n.exists('namespace:key');
 
 ### Common Methods
 
-| Method | Usage | Example |
-|--------|-------|---------|
-| `t(key)` | Translate key | `t('save')` |
-| `i18n.changeLanguage(lang)` | Change language | `i18n.changeLanguage('ar')` |
-| `i18n.language` | Get current language | `'en'`, `'ar'` |
-| `i18n.dir()` | Get text direction | `'ltr'`, `'rtl'` |
-| `i18n.exists(key)` | Check if key exists | `true`, `false` |
-| `i18n.languages` | Get available languages | `['en', 'ar']` |
+- **`t(key)`** — Usage: Translate key; Example: `t('save')`
+- **`i18n.changeLanguage(lang)`** — Usage: Change language; Example: `i18n.changeLanguage('ar')`
+- **`i18n.language`** — Usage: Get current language; Example: `'en'`, `'ar'`
+- **`i18n.dir()`** — Usage: Get text direction; Example: `'ltr'`, `'rtl'`
+- **`i18n.exists(key)`** — Usage: Check if key exists; Example: `true`, `false`
+- **`i18n.languages`** — Usage: Get available languages; Example: `['en', 'ar']`
 
 ---
 

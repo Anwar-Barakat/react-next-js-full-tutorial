@@ -64,16 +64,14 @@ In short: Inertia acts as the bridge — full HTML on first load, JSON on naviga
 
 ## 3. Inertia vs Traditional API (SPA approach)
 
-| Feature | Inertia.js | API + React (Next.js / CRA) |
-|---------|-----------|---------------------------|
-| **Backend** | Laravel (routes + controllers) | Laravel (API only) |
-| **Frontend** | React pages (no router needed) | React + React Router / Next.js |
-| **Data fetching** | Props from controller | `fetch` / `axios` API calls |
-| **Auth** | Laravel session (cookies) | JWT / Sanctum tokens |
-| **SSR** | Optional (Inertia SSR) | Built-in (Next.js) |
-| **SEO** | Needs SSR for SEO | Next.js has built-in SSR |
-| **Complexity** | Low — one codebase | Higher — two separate systems |
-| **Best for** | Internal tools, admin panels, CRUD apps | Public sites needing SEO, complex frontends |
+- **Backend** — Inertia.js: Laravel (routes + controllers). API + React: Laravel (API only)
+- **Frontend** — Inertia.js: React pages (no router needed). API + React: React + React Router / Next.js
+- **Data fetching** — Inertia.js: Props from controller. API + React: `fetch` / `axios` API calls
+- **Auth** — Inertia.js: Laravel session (cookies). API + React: JWT / Sanctum tokens
+- **SSR** — Inertia.js: Optional (Inertia SSR). API + React: Built-in (Next.js)
+- **SEO** — Inertia.js: Needs SSR for SEO. API + React: Next.js has built-in SSR
+- **Complexity** — Inertia.js: Low, one codebase. API + React: Higher, two separate systems
+- **Best for** — Inertia.js: Internal tools, admin panels, CRUD apps. API + React: Public sites needing SEO, complex frontends
 
 In short: Inertia is simpler and faster to build — great when you don't need SSR or a public API.
 
@@ -640,18 +638,16 @@ export default function FlashMessage() {
 
 ## 15. Inertia vs Next.js
 
-| Feature | Inertia.js | Next.js |
-|---------|-----------|---------|
-| **Backend** | Laravel (full) | Node.js / any API |
-| **Routing** | Laravel routes | File-based routing |
-| **Data fetching** | Controller props | `getServerSideProps`, `fetch` |
-| **SSR** | Optional plugin | Built-in |
-| **SEO** | Needs SSR setup | Excellent built-in SSR |
-| **Auth** | Laravel session | Custom (NextAuth, etc.) |
-| **API layer** | Not needed | Required |
-| **Learning curve** | Low (Laravel devs) | Medium |
-| **Best for** | Admin panels, CRUD, internal tools | Public sites, SEO, complex frontends |
-| **Real-time** | Laravel Reverb + Echo | Pusher / custom |
+- **Backend** — Inertia.js: Laravel (full). Next.js: Node.js / any API
+- **Routing** — Inertia.js: Laravel routes. Next.js: File-based routing
+- **Data fetching** — Inertia.js: Controller props. Next.js: `getServerSideProps`, `fetch`
+- **SSR** — Inertia.js: Optional plugin. Next.js: Built-in
+- **SEO** — Inertia.js: Needs SSR setup. Next.js: Excellent built-in SSR
+- **Auth** — Inertia.js: Laravel session. Next.js: Custom (NextAuth, etc.)
+- **API layer** — Inertia.js: Not needed. Next.js: Required
+- **Learning curve** — Inertia.js: Low (Laravel devs). Next.js: Medium
+- **Best for** — Inertia.js: Admin panels, CRUD, internal tools. Next.js: Public sites, SEO, complex frontends
+- **Real-time** — Inertia.js: Laravel Reverb + Echo. Next.js: Pusher / custom
 
 **When to use Inertia:**
 - You want to keep Laravel as your full framework (routing, auth, middleware).

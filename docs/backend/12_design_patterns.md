@@ -133,12 +133,19 @@ In short: Services hold business logic so controllers stay thin and focused on H
 
 ## 3. Difference between Service and Repository
 
-| | Repository | Service |
-|-|------------|---------|
-| **Purpose** | Database access | Business logic |
-| **Contains** | Queries, CRUD | Rules, workflows, calculations |
-| **Talks to** | Database / Eloquent | Repositories, external APIs |
-| **Example** | `UserRepository::findById()` | `OrderService::placeOrder()` |
+### Repository
+
+- **Purpose** — Database access
+- **Contains** — Queries, CRUD
+- **Talks to** — Database / Eloquent
+- **Example** — `UserRepository::findById()`
+
+### Service
+
+- **Purpose** — Business logic
+- **Contains** — Rules, workflows, calculations
+- **Talks to** — Repositories, external APIs
+- **Example** — `OrderService::placeOrder()`
 
 ```
 Request → Controller → Service → Repository → Database
@@ -552,11 +559,9 @@ class UserController extends Controller {
 
 **Types of Dependency Injection:**
 
-| Type | How |
-|------|-----|
-| **Constructor Injection** | Via `__construct()` (most common) |
-| **Method Injection** | Via method parameters |
-| **Property Injection** | Via public properties (less common) |
+- **Constructor Injection** — Via `__construct()` (most common)
+- **Method Injection** — Via method parameters
+- **Property Injection** — Via public properties (less common)
 
 In short: DI gives a class what it needs from outside — makes code testable, flexible, and decoupled.
 
@@ -566,11 +571,9 @@ In short: DI gives a class what it needs from outside — makes code testable, f
 
 - MVC (Model–View–Controller) separates the app into three layers, each with a clear responsibility.
 
-| Layer | Responsibility | Laravel Example |
-|-------|---------------|-----------------|
-| **Model** | Data & database logic | `User`, `Post` (Eloquent models) |
-| **View** | Display / UI | Blade templates, JSON responses |
-| **Controller** | Handles requests, connects M and V | `UserController` |
+- **Model** — Data & database logic (e.g. `User`, `Post` Eloquent models)
+- **View** — Display / UI (e.g. Blade templates, JSON responses)
+- **Controller** — Handles requests, connects M and V (e.g. `UserController`)
 
 ```
 Browser → Request → Router → Controller → Model → Database
@@ -684,12 +687,10 @@ In short: Chain of Responsibility passes a request through a chain — each hand
 
 Design patterns are grouped into four main categories:
 
-| Category | Purpose | Examples |
-|----------|---------|---------|
-| **Creational** | How objects are created | Factory, Singleton, Builder |
-| **Structural** | How objects are composed | Adapter, Decorator, Facade |
-| **Behavioral** | How objects communicate | Observer, Strategy, Command, Chain of Responsibility |
-| **Architectural** | How the whole system is organized | MVC, Repository, Service |
+- **Creational** — How objects are created (Factory, Singleton, Builder)
+- **Structural** — How objects are composed (Adapter, Decorator, Facade)
+- **Behavioral** — How objects communicate (Observer, Strategy, Command, Chain of Responsibility)
+- **Architectural** — How the whole system is organized (MVC, Repository, Service)
 
 **Creational Patterns** — Object creation:
 - **Factory**: Creates objects without specifying the exact class.
