@@ -28,6 +28,10 @@ A comprehensive guide to Eloquent ORM, migrations, relationships, and database o
 22. [PostgreSQL vs MySQL](#22-postgresql-vs-mysql)
 23. [Database Indexing Deep Dive](#23-database-indexing-deep-dive)
 24. [Elasticsearch](#24-elasticsearch)
+25. [What is ACID?](#25-what-is-acid)
+26. [What is MongoDB?](#26-what-is-mongodb)
+27. [MongoDB vs MySQL/PostgreSQL](#27-mongodb-vs-mysqlpostgresql)
+28. [Common MongoDB Interview Questions](#28-common-mongodb-interview-questions)
 
 ---
 
@@ -698,40 +702,27 @@ DB::statement("CREATE INDEX idx_lower_email ON users (LOWER(email))");
 
 ### What is an Index?
 
-An index is a data structure that the database maintains alongside your table to speed up lookups. Without an index, the database must scan every row (**full table scan**). With an index, it jumps directly to matching rows.
+- An index helps the database find data faster — like a table of contents in a book.
+- Without an index → the database reads every row to find what you need (slow).
+- With an index → the database jumps directly to the right row (fast).
 
-**Analogy:** A book's index lets you find "Chapter 5" instantly instead of flipping through every page.
+> **Analogy:** Finding a contact in your phone.
+> - Without index = scrolling through every name.
+> - With index = jumping to the letter "A" and finding "Ahmed" instantly.
 
 ### How Indexes Work Internally
 
-Most databases use a **B-Tree** (balanced tree) structure:
-
-```
-                    [M]
-                   /   \
-              [D, H]    [R, X]
-             / | \      / | \
-           [A-C][E-G][I-L][N-Q][S-W][Y-Z]
-                          ↓
-                     Leaf nodes point
-                     to actual table rows
-```
-
-- **B-Tree** — the default index type. Good for equality (`=`) and range queries (`>`, `<`, `BETWEEN`).
-- Lookup time: **O(log n)** — scanning 1 million rows takes ~20 steps instead of 1,000,000.
+- The database builds a tree structure (called **B-Tree**) that organizes your data.
+- Instead of checking every row, it follows the tree branches to find the answer quickly.
+- For 1 million rows, it only needs ~20 steps instead of 1,000,000.
 
 ### Index Types
 
-- **Primary Key** — Auto-created, unique row identifier → `$table->id()`
-- **Unique Index** — Ensures no duplicate values → `$table->unique('email')`
-- **Regular Index** — Speeds up lookups on frequently queried columns → `$table->index('status')`
-- **Composite Index** — Index on multiple columns (order matters) → `$table->index(['user_id', 'created_at'])`
-- **Full-Text Index** — Text search across large text fields → `$table->fullText(['title', 'body'])`
-- **Partial Index** — Index only rows matching a condition (PostgreSQL) → `WHERE active = true`
-- **Expression Index** — Index on computed values (PostgreSQL) → `LOWER(email)`
-- **GIN Index** — Generalized Inverted Index — JSONB, arrays, full-text (PostgreSQL) → `USING GIN (metadata)`
-- **GiST Index** — Generalized Search Tree — geospatial, range types (PostgreSQL) → `USING GiST (location)`
-- **Hash Index** — Equality-only lookups (faster than B-Tree for `=`) → `USING HASH (email)`
+- **Primary Key** — The main ID of each row, created automatically → `$table->id()`
+- **Unique Index** — Makes sure no two rows have the same value → `$table->unique('email')`
+- **Regular Index** — Speeds up searches on a column → `$table->index('status')`
+- **Composite Index** — Index on multiple columns together (order matters) → `$table->index(['user_id', 'created_at'])`
+- **Full-Text Index** — For searching inside long text (articles, descriptions) → `$table->fullText(['title', 'body'])`
 
 ### Creating Indexes in Laravel
 
@@ -771,7 +762,8 @@ Schema::table('users', function (Blueprint $table) {
 
 ### Composite Index Rules
 
-The **order of columns** in a composite index matters. The index follows the **leftmost prefix rule**.
+- When you create an index on multiple columns, the **order matters**.
+- The database uses the index **from left to right** — it must start with the first column.
 
 ```php
 // Composite index on (user_id, status, created_at)
@@ -781,53 +773,52 @@ $table->index(['user_id', 'status', 'created_at']);
 This index is used for:
 
 ```php
-// ✅ Uses index (matches left-to-right)
+// ✅ Uses index (starts from the first column)
 Order::where('user_id', 1)->get();
 Order::where('user_id', 1)->where('status', 'paid')->get();
 Order::where('user_id', 1)->where('status', 'paid')->where('created_at', '>', now()->subMonth())->get();
 
-// ❌ Does NOT use index (skips user_id)
+// ❌ Does NOT use index (skipped user_id — the first column)
 Order::where('status', 'paid')->get();
 Order::where('created_at', '>', now()->subMonth())->get();
 Order::where('status', 'paid')->where('created_at', '>', now()->subMonth())->get();
 ```
 
-**Rule of thumb:** Put the most selective (most unique values) column first, then the next most selective.
+> **Rule:** Always start with the most important column first (the one you filter by most).
 
 ### When to Add Indexes
 
-**Add indexes on:**
+**Add indexes on columns you search or filter by often:**
 
-- Columns in `WHERE` clauses — `where('status', 'active')`
+- Columns in `WHERE` — `where('status', 'active')`
 - Columns in `ORDER BY` — `orderBy('created_at')`
-- Foreign keys — `user_id`, `post_id` (Laravel adds these automatically with `foreignId`)
-- Columns in `JOIN` conditions
-- Columns used in `GROUP BY`
-- Columns with unique constraints
+- Foreign keys — `user_id`, `post_id` (Laravel adds these automatically)
+- Columns you use in `JOIN` or `GROUP BY`
 
-**Do NOT add indexes on:**
+**Do NOT add indexes when:**
 
-- Tables with very few rows (< 1,000) — full scan is fast enough.
-- Columns that change very frequently — indexes slow down writes.
-- Columns with very low cardinality (e.g., a `gender` column with only 2 values) — index won't help much.
-- Every column — too many indexes slow down `INSERT`, `UPDATE`, `DELETE`.
+- The table is small (less than 1,000 rows) — already fast enough without index.
+- The column only has 2-3 different values (like `gender` = male/female) — index won't help much.
+- The column changes very often — indexes slow down `INSERT`, `UPDATE`, `DELETE`.
+- Don't add indexes on every column — too many indexes = slower writes.
 
-### Measuring Index Performance
+### How to Check if Your Index is Working
+
+Use `EXPLAIN` to see how the database runs your query:
 
 ```sql
--- MySQL: EXPLAIN shows how a query uses indexes
+-- MySQL
 EXPLAIN SELECT * FROM orders WHERE user_id = 5 AND status = 'paid';
 
--- PostgreSQL: EXPLAIN ANALYZE shows actual execution time
+-- PostgreSQL
 EXPLAIN ANALYZE SELECT * FROM orders WHERE user_id = 5 AND status = 'paid';
 ```
 
-**Key fields to check:**
+**What to look for:**
 
-- `type` (MySQL) — Good: `ref`, `range`, `const` — Bad: `ALL` (full table scan)
-- `rows` — Good: low number — Bad: same as total rows
-- `Extra` — Good: `Using index` — Bad: `Using filesort`, `Using temporary`
-- `Seq Scan` (PostgreSQL) — Good: not present — Bad: present (means no index used)
+- If it says `ALL` (MySQL) or `Seq Scan` (PostgreSQL) → the index is NOT being used (bad).
+- If it says `ref`, `range`, or `Using index` → the index IS being used (good).
+- Check the `rows` number — if it's very high, the query is scanning too many rows.
 
 **Laravel debug:**
 
@@ -843,17 +834,59 @@ dd(DB::getQueryLog());
 // Or use Laravel Debugbar / Telescope for visual query analysis
 ```
 
-### Index Costs
+### Index Trade-offs
 
-Indexes are **not free**:
+- Indexes make **reading faster** but make **writing slower**.
+- Every time you insert, update, or delete a row, the database must also update the index.
+- Indexes also use extra disk space.
 
-- `SELECT` (read) — Without index: slow (full scan) — With index: fast (index lookup)
-- `INSERT` — Without index: fast — With index: slower (must update index)
-- `UPDATE` — Without index: fast — With index: slower (must update index)
-- `DELETE` — Without index: fast — With index: slower (must update index)
-- Disk space — Without index: less — With index: more (index stored separately)
+> **In short:** Add indexes on columns you search often. Don't add too many — they slow down writes. Use `EXPLAIN` to check if your indexes are actually being used.
 
-**Balance:** Add indexes for columns you query often. Remove indexes you don't use. Monitor with `EXPLAIN`.
+### What is O(n) and O(log n)?
+
+When we talk about indexes, we mention **O(n)** and **O(log n)**. These describe how many steps the database needs to find your data.
+
+**How to read them:**
+
+- **O(n)** → read as "Big O of n" or "Order of n"
+- **O(log n)** → read as "Big O of log n" or "Order of log n"
+- **O(1)** → read as "Big O of one" (constant time — always 1 step no matter the data size)
+- **O(n²)** → read as "Big O of n squared"
+
+The "O" stands for **Order** — it describes how fast the time increases as data grows.
+
+**O(n) — Linear Time (Without Index)**
+
+You have a list of 1,000 names and you're looking for "Ahmed". You start from the first name and check one by one until you find it. In the worst case, you check all 1,000 names.
+
+- 1,000 items → up to 1,000 steps
+- 1,000,000 items → up to 1,000,000 steps
+
+More data = more time, directly proportional.
+
+**O(log n) — Logarithmic Time (With Index)**
+
+Now imagine the same 1,000 names but they are **sorted alphabetically**. Instead of checking one by one, you open the middle:
+
+1. Open the middle → "M". Ahmed starts with "A", so go to the left half.
+2. Open the middle of the left half → "D". Ahmed is before "D", go left again.
+3. Keep cutting in half...
+
+In about **10 steps**, you find Ahmed out of 1,000. Because every step cuts the remaining data in half.
+
+- 1,000 items → ~10 steps
+- 1,000,000 items → ~20 steps
+
+More data = barely more time.
+
+**The difference:**
+
+- 10 items → O(n) = 10 steps, O(log n) = 3 steps
+- 100 items → O(n) = 100 steps, O(log n) = 7 steps
+- 1,000 items → O(n) = 1,000 steps, O(log n) = 10 steps
+- 1,000,000 items → O(n) = 1,000,000 steps, O(log n) = 20 steps
+
+> **In short:** O(n) means the database checks every row one by one (slow). O(log n) means it cuts the data in half at each step using the B-Tree structure (fast). That's why indexes make such a huge difference.
 
 ---
 
@@ -861,452 +894,69 @@ Indexes are **not free**:
 
 ### What is Elasticsearch?
 
-Elasticsearch is an open-source, distributed **search and analytics engine** built on Apache Lucene. It stores data as JSON documents and provides near-real-time full-text search.
+- Elasticsearch is a **search engine** for your app — like Google but for your own data.
+- You type "wireles headphons" (with typos) → it still finds "Wireless Headphones".
+- It searches millions of records almost instantly.
+- It ranks results by how relevant they are (best match first).
 
-**Key characteristics:**
+> **Analogy:** MySQL search is like searching for a word in a book by reading every page. Elasticsearch is like having a smart assistant who instantly knows which page to open.
 
-- **Full-text search** — advanced text matching with relevance scoring, fuzzy matching, stemming, synonyms.
-- **Near-real-time** — documents are searchable within ~1 second of indexing.
-- **Distributed** — scales horizontally across multiple nodes.
-- **Schema-free** — stores JSON documents (but you should define mappings for production).
-- **RESTful API** — all operations via HTTP/JSON.
+**When to use it:**
+- You have a lot of products/articles and need fast search.
+- You want autocomplete (suggestions while typing).
+- You want search that handles typos.
 
-**When to use Elasticsearch:**
+**When NOT to use it:**
+- Small datasets (under 10,000 records) — MySQL/PostgreSQL is enough.
+- As your main database — always keep MySQL/PostgreSQL as your primary database.
 
-- Full-text search across large datasets (products, articles, logs).
-- Autocomplete / search-as-you-type.
-- Log aggregation and analysis (ELK stack: Elasticsearch, Logstash, Kibana).
-- Analytics and metrics dashboards.
-- Geospatial search (find stores near me).
+---
 
-**When NOT to use Elasticsearch:**
+### How It Works (Simple Overview)
 
-- As your primary database — it's not ACID compliant.
-- Simple `WHERE` queries on small datasets — use MySQL/PostgreSQL indexes.
-- Transactional data — use a relational database.
+1. Your main data lives in MySQL/PostgreSQL (as usual).
+2. You **copy** the searchable data to Elasticsearch.
+3. When a user searches, you ask Elasticsearch (not MySQL).
+4. Elasticsearch returns the results instantly.
+
+```
+User types "laptop" → Your App → Elasticsearch → Returns matching products
+                                                     ↓
+                                        Your App shows results to user
+```
+
+---
 
 ### Core Concepts
 
-- **Index** (like a Database) — A collection of documents with similar structure
-- **Document** (like a Row) — A single JSON record
-- **Field** (like a Column) — A key-value pair in a document
-- **Mapping** (like a Schema) — Defines field types and how they're indexed
-- **Shard** (like a Partition) — A subset of an index distributed across nodes
-- **Replica** (like a Read replica) — A copy of a shard for availability and read performance
+- **Index** = like a table — where your searchable data lives
+- **Document** = like a row — one record (stored as JSON)
+- **Field** = like a column — a key inside the JSON (name, price, category)
+- **Mapping** = like a schema — tells Elasticsearch the type of each field
 
-### Setup with Laravel
+---
 
-**Install Elasticsearch PHP client:**
+### The Easy Way: Laravel Scout
 
-```bash
-composer require elasticsearch/elasticsearch
-```
+Laravel Scout is the **simplest way** to add Elasticsearch to your Laravel app. Instead of writing complex Elasticsearch queries, you just use `Product::search('...')`:
 
-**Configuration (`config/elasticsearch.php`):**
-
-```php
-return [
-    'hosts' => [
-        env('ELASTICSEARCH_HOST', 'http://localhost:9200'),
-    ],
-    'username' => env('ELASTICSEARCH_USERNAME', null),
-    'password' => env('ELASTICSEARCH_PASSWORD', null),
-];
-```
-
-```env
-ELASTICSEARCH_HOST=http://localhost:9200
-```
-
-**Service Provider (`app/Providers/ElasticsearchServiceProvider.php`):**
-
-```php
-use Elastic\Elasticsearch\ClientBuilder;
-
-class ElasticsearchServiceProvider extends ServiceProvider
-{
-    public function register(): void
-    {
-        $this->app->singleton('elasticsearch', function () {
-            return ClientBuilder::create()
-                ->setHosts(config('elasticsearch.hosts'))
-                ->build();
-        });
-    }
-}
-```
-
-### Creating an Index with Mapping
-
-```php
-use Elastic\Elasticsearch\Client;
-
-class ProductSearchService
-{
-    public function __construct(
-        private Client $client
-    ) {}
-
-    /**
-     * Create index with mapping (run once)
-     */
-    public function createIndex(): void
-    {
-        $this->client->indices()->create([
-            'index' => 'products',
-            'body' => [
-                'settings' => [
-                    'number_of_shards' => 1,
-                    'number_of_replicas' => 1,
-                    'analysis' => [
-                        'analyzer' => [
-                            'product_analyzer' => [
-                                'type' => 'custom',
-                                'tokenizer' => 'standard',
-                                'filter' => ['lowercase', 'stop', 'snowball'],
-                            ],
-                        ],
-                    ],
-                ],
-                'mappings' => [
-                    'properties' => [
-                        'name' => [
-                            'type' => 'text',
-                            'analyzer' => 'product_analyzer',
-                            'fields' => [
-                                'keyword' => ['type' => 'keyword'], // for exact match & sorting
-                            ],
-                        ],
-                        'description' => ['type' => 'text', 'analyzer' => 'product_analyzer'],
-                        'price' => ['type' => 'float'],
-                        'category' => ['type' => 'keyword'],
-                        'tags' => ['type' => 'keyword'],
-                        'in_stock' => ['type' => 'boolean'],
-                        'created_at' => ['type' => 'date'],
-                        'location' => ['type' => 'geo_point'],
-                    ],
-                ],
-            ],
-        ]);
-    }
-}
-```
-
-### Indexing Documents
-
-```php
-class ProductSearchService
-{
-    /**
-     * Index a single product
-     */
-    public function indexProduct(Product $product): void
-    {
-        $this->client->index([
-            'index' => 'products',
-            'id' => $product->id,
-            'body' => [
-                'name' => $product->name,
-                'description' => $product->description,
-                'price' => $product->price,
-                'category' => $product->category->name,
-                'tags' => $product->tags->pluck('name')->toArray(),
-                'in_stock' => $product->stock > 0,
-                'created_at' => $product->created_at->toIso8601String(),
-            ],
-        ]);
-    }
-
-    /**
-     * Bulk index all products (faster for large datasets)
-     */
-    public function indexAll(): void
-    {
-        $params = ['body' => []];
-
-        Product::with('category', 'tags')->chunk(500, function ($products) use (&$params) {
-            foreach ($products as $product) {
-                $params['body'][] = [
-                    'index' => [
-                        '_index' => 'products',
-                        '_id' => $product->id,
-                    ],
-                ];
-                $params['body'][] = [
-                    'name' => $product->name,
-                    'description' => $product->description,
-                    'price' => $product->price,
-                    'category' => $product->category->name,
-                    'tags' => $product->tags->pluck('name')->toArray(),
-                    'in_stock' => $product->stock > 0,
-                    'created_at' => $product->created_at->toIso8601String(),
-                ];
-            }
-
-            $this->client->bulk($params);
-            $params = ['body' => []];
-        });
-    }
-
-    /**
-     * Remove a product from the index
-     */
-    public function removeProduct(int $productId): void
-    {
-        $this->client->delete([
-            'index' => 'products',
-            'id' => $productId,
-        ]);
-    }
-}
-```
-
-### Searching
-
-```php
-class ProductSearchService
-{
-    /**
-     * Full-text search with filters
-     */
-    public function search(string $query, array $filters = [], int $page = 1, int $perPage = 20): array
-    {
-        $body = [
-            'from' => ($page - 1) * $perPage,
-            'size' => $perPage,
-            'query' => [
-                'bool' => [
-                    // Full-text search across name and description
-                    'must' => [
-                        'multi_match' => [
-                            'query' => $query,
-                            'fields' => ['name^3', 'description'], // name has 3x weight
-                            'fuzziness' => 'AUTO', // handles typos
-                        ],
-                    ],
-                    'filter' => [],
-                ],
-            ],
-            'highlight' => [
-                'fields' => [
-                    'name' => new \stdClass(),
-                    'description' => new \stdClass(),
-                ],
-            ],
-            'sort' => [
-                '_score', // relevance first
-                ['created_at' => 'desc'],
-            ],
-        ];
-
-        // Apply filters
-        if (!empty($filters['category'])) {
-            $body['query']['bool']['filter'][] = [
-                'term' => ['category' => $filters['category']],
-            ];
-        }
-
-        if (!empty($filters['min_price']) || !empty($filters['max_price'])) {
-            $range = [];
-            if (!empty($filters['min_price'])) $range['gte'] = $filters['min_price'];
-            if (!empty($filters['max_price'])) $range['lte'] = $filters['max_price'];
-            $body['query']['bool']['filter'][] = ['range' => ['price' => $range]];
-        }
-
-        if (isset($filters['in_stock'])) {
-            $body['query']['bool']['filter'][] = [
-                'term' => ['in_stock' => $filters['in_stock']],
-            ];
-        }
-
-        $response = $this->client->search([
-            'index' => 'products',
-            'body' => $body,
-        ]);
-
-        return [
-            'total' => $response['hits']['total']['value'],
-            'products' => collect($response['hits']['hits'])->map(fn ($hit) => [
-                'id' => $hit['_id'],
-                'score' => $hit['_score'],
-                'highlight' => $hit['highlight'] ?? [],
-                ...$hit['_source'],
-            ]),
-        ];
-    }
-}
-```
-
-### Autocomplete (Search-as-You-Type)
-
-```php
-/**
- * Autocomplete suggestions
- */
-public function autocomplete(string $query, int $limit = 5): array
-{
-    $response = $this->client->search([
-        'index' => 'products',
-        'body' => [
-            'size' => $limit,
-            'query' => [
-                'bool' => [
-                    'should' => [
-                        // Prefix match (starts with)
-                        [
-                            'match_phrase_prefix' => [
-                                'name' => [
-                                    'query' => $query,
-                                    'max_expansions' => 10,
-                                ],
-                            ],
-                        ],
-                        // Fuzzy match (handles typos)
-                        [
-                            'fuzzy' => [
-                                'name.keyword' => [
-                                    'value' => $query,
-                                    'fuzziness' => 'AUTO',
-                                ],
-                            ],
-                        ],
-                    ],
-                ],
-            ],
-            '_source' => ['name', 'category'],
-        ],
-    ]);
-
-    return collect($response['hits']['hits'])->map(fn ($hit) => [
-        'id' => $hit['_id'],
-        'name' => $hit['_source']['name'],
-        'category' => $hit['_source']['category'],
-    ])->toArray();
-}
-```
-
-### Aggregations (Faceted Search)
-
-```php
-/**
- * Get filter facets (categories, price ranges, etc.)
- */
-public function getFacets(string $query): array
-{
-    $response = $this->client->search([
-        'index' => 'products',
-        'body' => [
-            'size' => 0, // no results, only aggregations
-            'query' => [
-                'multi_match' => [
-                    'query' => $query,
-                    'fields' => ['name', 'description'],
-                ],
-            ],
-            'aggs' => [
-                'categories' => [
-                    'terms' => ['field' => 'category', 'size' => 20],
-                ],
-                'price_ranges' => [
-                    'range' => [
-                        'field' => 'price',
-                        'ranges' => [
-                            ['key' => 'Under $25', 'to' => 25],
-                            ['key' => '$25-$50', 'from' => 25, 'to' => 50],
-                            ['key' => '$50-$100', 'from' => 50, 'to' => 100],
-                            ['key' => 'Over $100', 'from' => 100],
-                        ],
-                    ],
-                ],
-                'avg_price' => [
-                    'avg' => ['field' => 'price'],
-                ],
-            ],
-        ],
-    ]);
-
-    return [
-        'categories' => $response['aggregations']['categories']['buckets'],
-        'price_ranges' => $response['aggregations']['price_ranges']['buckets'],
-        'avg_price' => $response['aggregations']['avg_price']['value'],
-    ];
-}
-```
-
-### Keeping Elasticsearch in Sync
-
-Use model observers to keep Elasticsearch updated when data changes in your database:
-
-```php
-class ProductObserver
-{
-    public function __construct(
-        private ProductSearchService $search
-    ) {}
-
-    public function created(Product $product): void
-    {
-        $this->search->indexProduct($product);
-    }
-
-    public function updated(Product $product): void
-    {
-        $this->search->indexProduct($product);
-    }
-
-    public function deleted(Product $product): void
-    {
-        $this->search->removeProduct($product->id);
-    }
-}
-
-// Register in AppServiceProvider
-Product::observe(ProductObserver::class);
-```
-
-For high-traffic apps, dispatch index updates to a queue:
-
-```php
-class IndexProductJob implements ShouldQueue
-{
-    public function __construct(public int $productId) {}
-
-    public function handle(ProductSearchService $search): void
-    {
-        $product = Product::with('category', 'tags')->find($this->productId);
-        if ($product) {
-            $search->indexProduct($product);
-        }
-    }
-}
-
-// In observer
-public function updated(Product $product): void
-{
-    IndexProductJob::dispatch($product->id);
-}
-```
-
-### Using with Laravel Scout
-
-Laravel Scout provides a simple driver-based interface for search. Use the Elasticsearch driver for a cleaner API:
+**Step 1: Install**
 
 ```bash
 composer require laravel/scout
 composer require babenkoivan/elastic-scout-driver
 ```
 
-```php
-// config/scout.php
-'driver' => env('SCOUT_DRIVER', 'elastic'),
+**Step 2: Add `Searchable` to your model**
 
-// In your model
+```php
 use Laravel\Scout\Searchable;
 
 class Product extends Model
 {
     use Searchable;
 
+    // Tell Scout which fields to send to Elasticsearch
     public function toSearchableArray(): array
     {
         return [
@@ -1318,49 +968,54 @@ class Product extends Model
         ];
     }
 }
+```
 
-// Search (simple API)
+**Step 3: Search**
+
+```php
+// Search for products — that's it!
 $products = Product::search('wireless headphones')
     ->where('category', 'Electronics')
     ->paginate(20);
 ```
 
-### Controller and Routes Example
+**Step 4: Configure `.env`**
+
+```env
+SCOUT_DRIVER=elastic
+ELASTICSEARCH_HOST=http://localhost:9200
+```
+
+> **In short:** With Laravel Scout, you add `use Searchable` to your model, and you get `Product::search()` for free. Scout automatically keeps Elasticsearch in sync when you create, update, or delete products.
+
+---
+
+### Keeping Data in Sync
+
+When you use Laravel Scout, it **automatically** syncs your data:
+
+- You create a product → Scout adds it to Elasticsearch.
+- You update a product → Scout updates it in Elasticsearch.
+- You delete a product → Scout removes it from Elasticsearch.
+
+No extra code needed — Scout handles it.
+
+---
+
+### Search Controller Example
 
 ```php
 class SearchController extends Controller
 {
-    public function __construct(
-        private ProductSearchService $search
-    ) {}
-
     public function search(Request $request)
     {
         $request->validate([
             'q' => 'required|string|min:1|max:200',
-            'category' => 'nullable|string',
-            'min_price' => 'nullable|numeric|min:0',
-            'max_price' => 'nullable|numeric|min:0',
-            'in_stock' => 'nullable|boolean',
-            'page' => 'nullable|integer|min:1',
         ]);
 
-        $results = $this->search->search(
-            query: $request->input('q'),
-            filters: $request->only(['category', 'min_price', 'max_price', 'in_stock']),
-            page: $request->input('page', 1),
-        );
+        $products = Product::search($request->input('q'))->paginate(20);
 
-        return response()->json($results);
-    }
-
-    public function autocomplete(Request $request)
-    {
-        $request->validate(['q' => 'required|string|min:1|max:100']);
-
-        return response()->json(
-            $this->search->autocomplete($request->input('q'))
-        );
+        return response()->json($products);
     }
 }
 ```
@@ -1368,147 +1023,383 @@ class SearchController extends Controller
 ```php
 // routes/api.php
 Route::get('/search', [SearchController::class, 'search']);
-Route::get('/search/autocomplete', [SearchController::class, 'autocomplete']);
 ```
 
-### Frontend Search Component
+---
 
-```tsx
-import { useState, useEffect, useRef } from 'react';
+### When to Use What?
 
-interface SearchResult {
-    id: string;
-    name: string;
-    description: string;
-    price: number;
-    category: string;
-    score: number;
-    highlight: Record<string, string[]>;
+- **Less than 10,000 records** → Use normal `WHERE` / `LIKE` — simple and enough.
+- **10,000 to 1 million records** → Use PostgreSQL full-text search — fast, no extra setup.
+- **More than 1 million records** or you need autocomplete/typo handling → Use **Elasticsearch**.
+
+**Key differences:**
+- **MySQL `LIKE`** — Simple, no setup, slow on big data, no typo handling. Best for small apps.
+- **PostgreSQL Full-Text** — Fast, built-in, some advanced features. Best for medium apps.
+- **Elasticsearch** — Very fast, handles typos, autocomplete, smart ranking. Best for large apps. Needs extra setup.
+
+> **In short:** Start with normal database search. Move to Elasticsearch only when your data is big or you need smart search features like autocomplete and typo handling.
+
+---
+
+## 25. What is ACID?
+
+ACID is a set of **4 rules** that make sure your database keeps data safe and correct — especially when multiple things happen at the same time.
+
+**A — Atomicity (All or Nothing)**
+
+- A group of operations either **all succeed** or **all fail** together.
+- If one step fails, everything is rolled back — no half-done changes.
+
+> **Analogy:** Transferring money from Account A to Account B. Either the money leaves A AND arrives in B, or nothing happens at all. You never lose money in between.
+
+```php
+// Laravel example
+DB::transaction(function () {
+    // Step 1: Take money from sender
+    $sender->balance -= 500;
+    $sender->save();
+
+    // Step 2: Give money to receiver
+    $receiver->balance += 500;
+    $receiver->save();
+});
+// If step 2 fails → step 1 is also undone automatically
+```
+
+---
+
+**C — Consistency (Data stays correct)**
+
+- The database always moves from one valid state to another.
+- Rules you set (unique emails, positive balances, foreign keys) are always respected.
+- No invalid data is ever saved.
+
+> **Analogy:** A bank account can never go below $0 if that's the rule. Even if 100 people try to withdraw at the same time, the database won't allow a negative balance.
+
+---
+
+**I — Isolation (Transactions don't interfere)**
+
+- Multiple transactions running at the same time don't mess with each other.
+- Each transaction thinks it's the only one running.
+- The final result is the same as if they ran one after another.
+
+> **Analogy:** Two cashiers at a store can serve customers at the same time, but they won't accidentally sell the last item to both customers.
+
+---
+
+**D — Durability (Data is saved permanently)**
+
+- Once a transaction is done (committed), the data is **permanently saved**.
+- Even if the server crashes or loses power, the data is still there when it comes back.
+
+> **Analogy:** Once the bank confirms your transfer, the money is moved. Even if the bank's computer crashes right after, your transfer is safe.
+
+---
+
+**Which databases support ACID?**
+
+- **MySQL (InnoDB)** — Yes
+- **PostgreSQL** — Yes (always)
+- **MongoDB** — Partially (supports ACID for single documents, multi-document transactions added in v4.0+, but not as strong as relational databases)
+
+> **In short:** ACID = your data is always safe, correct, and permanent. This is why relational databases (MySQL, PostgreSQL) are used for important data like payments, orders, and user accounts.
+
+---
+
+## 26. What is MongoDB?
+
+- MongoDB is a **NoSQL** database — it stores data as **JSON-like documents** instead of rows and tables.
+- There are no strict schemas — each document can have different fields.
+- It's designed for flexibility and speed with large amounts of unstructured data.
+
+**How MongoDB stores data:**
+
+```javascript
+// A "document" in MongoDB (like a row in MySQL)
+{
+    "_id": "64a1b2c3d4e5f6a7b8c9d0e1",
+    "name": "Ahmed",
+    "email": "ahmed@example.com",
+    "age": 28,
+    "address": {
+        "city": "Dubai",
+        "country": "UAE"
+    },
+    "skills": ["Laravel", "React", "Node.js"]
 }
+```
 
-export default function SearchBar() {
-    const [query, setQuery] = useState('');
-    const [suggestions, setSuggestions] = useState<{ id: string; name: string }[]>([]);
-    const [results, setResults] = useState<SearchResult[]>([]);
-    const [loading, setLoading] = useState(false);
-    const debounceRef = useRef<NodeJS.Timeout>();
+**MongoDB terms vs MySQL terms:**
 
-    // Autocomplete on typing
-    useEffect(() => {
-        if (query.length < 2) {
-            setSuggestions([]);
-            return;
+- **Database** → Database (same)
+- **Collection** → Table
+- **Document** → Row
+- **Field** → Column
+- **`_id`** → Primary Key (auto-generated)
+
+**Key features:**
+
+- **Flexible schema** — You don't need to define columns first. You can add new fields anytime without migrations.
+- **Nested data** — You can store objects inside objects (like `address.city` above). No need for joins.
+- **Arrays** — You can store lists directly (like `skills` above).
+- **Horizontal scaling** — Easy to split data across multiple servers (sharding).
+- **Fast reads/writes** — Great for apps that need high speed with large data.
+
+**When to use MongoDB:**
+
+- Real-time apps (chat, notifications, IoT sensors).
+- Apps with data that changes structure often (CMS, product catalogs with different attributes).
+- Logging and analytics (storing millions of logs).
+- When you need to store nested/complex JSON data naturally.
+
+**When NOT to use MongoDB:**
+
+- Apps that need complex joins between tables (use MySQL/PostgreSQL).
+- Apps that need strict data rules and relationships (e-commerce orders, banking).
+- When ACID transactions are critical for every operation.
+
+---
+
+## 27. MongoDB vs MySQL/PostgreSQL
+
+**Data structure:**
+- **MySQL/PostgreSQL** — Data is in tables with rows and columns. Every row follows the same structure.
+- **MongoDB** — Data is in collections with documents (JSON). Each document can have different fields.
+
+**Schema:**
+- **MySQL/PostgreSQL** — Fixed schema. You must define columns first using migrations. Changing structure needs a migration.
+- **MongoDB** — Flexible schema. No migrations needed. You can add fields anytime.
+
+**Relationships:**
+- **MySQL/PostgreSQL** — Uses foreign keys and JOINs to connect tables. Great for related data.
+- **MongoDB** — Stores related data inside the document (nested). Avoids JOINs. Bad for complex relationships.
+
+**Joins:**
+- **MySQL/PostgreSQL** — Powerful JOINs (INNER, LEFT, RIGHT, etc.). Made for this.
+- **MongoDB** — Has `$lookup` (like a JOIN) but it's slower and not recommended for heavy use.
+
+**ACID:**
+- **MySQL/PostgreSQL** — Full ACID support. Safe for critical data.
+- **MongoDB** — ACID for single documents. Multi-document transactions supported but weaker.
+
+**Scaling:**
+- **MySQL/PostgreSQL** — Scales vertically (bigger server). Horizontal scaling is harder.
+- **MongoDB** — Scales horizontally easily (add more servers, split data across them).
+
+**Speed:**
+- **MySQL/PostgreSQL** — Faster for complex queries with JOINs and aggregations.
+- **MongoDB** — Faster for simple reads/writes with large amounts of data.
+
+**Best for:**
+- **MySQL/PostgreSQL** — E-commerce, banking, CRM, blogs, any app with structured data and relationships.
+- **MongoDB** — Real-time apps, IoT, logging, CMS, apps with flexible or changing data structures.
+
+> **In short:** Use MySQL/PostgreSQL when your data has clear relationships and you need strict rules. Use MongoDB when your data is flexible, nested, or changes structure often.
+
+---
+
+## 28. Common MongoDB Interview Questions
+
+### Q1: What is the difference between SQL and NoSQL?
+
+- **SQL** (MySQL, PostgreSQL) — Stores data in tables with rows and columns. Uses structured query language. Has strict schema. Best for structured, relational data.
+- **NoSQL** (MongoDB, Redis, Cassandra) — Stores data in documents, key-value pairs, or graphs. Flexible schema. Best for unstructured or fast-changing data.
+
+---
+
+### Q2: What are the types of NoSQL databases?
+
+- **Document** — Stores JSON-like documents. Example: **MongoDB**.
+- **Key-Value** — Stores data as key-value pairs (like a dictionary). Example: **Redis**.
+- **Column-family** — Stores data in columns instead of rows. Example: **Cassandra**.
+- **Graph** — Stores data as nodes and relationships. Example: **Neo4j**.
+
+---
+
+### Q3: What is a Collection in MongoDB?
+
+- A collection is like a **table** in MySQL.
+- It holds a group of documents (records).
+- Unlike tables, a collection doesn't enforce a schema — documents inside can have different fields.
+
+---
+
+### Q4: What is a Document in MongoDB?
+
+- A document is like a **row** in MySQL, but stored as JSON.
+- Each document has a unique `_id` field (auto-generated if you don't provide one).
+- Documents can contain nested objects and arrays.
+
+---
+
+### Q5: How do you do CRUD in MongoDB?
+
+```javascript
+// CREATE — insert a new document
+db.users.insertOne({
+    name: "Ahmed",
+    email: "ahmed@example.com",
+    age: 28
+});
+
+// READ — find documents
+db.users.find({ age: { $gte: 18 } });         // find users with age >= 18
+db.users.findOne({ email: "ahmed@example.com" }); // find one user
+
+// UPDATE — update a document
+db.users.updateOne(
+    { email: "ahmed@example.com" },       // filter: which document
+    { $set: { age: 29 } }                 // update: what to change
+);
+
+// DELETE — remove a document
+db.users.deleteOne({ email: "ahmed@example.com" });
+```
+
+---
+
+### Q6: What is `$lookup` in MongoDB?
+
+- `$lookup` is like a **JOIN** in MySQL — it lets you combine data from two collections.
+- It's part of the aggregation pipeline.
+
+```javascript
+// Get orders with user details (like a LEFT JOIN)
+db.orders.aggregate([
+    {
+        $lookup: {
+            from: "users",           // the other collection
+            localField: "user_id",   // field in orders
+            foreignField: "_id",     // field in users
+            as: "user"               // name for the result
         }
+    }
+]);
+```
 
-        clearTimeout(debounceRef.current);
-        debounceRef.current = setTimeout(async () => {
-            const res = await fetch(`/api/search/autocomplete?q=${encodeURIComponent(query)}`);
-            const data = await res.json();
-            setSuggestions(data);
-        }, 300); // debounce 300ms
-    }, [query]);
+> **Note:** `$lookup` works but is slower than SQL JOINs. If you need many joins, MongoDB might not be the best choice.
 
-    // Full search on submit
-    const handleSearch = async (e: React.FormEvent) => {
-        e.preventDefault();
-        if (!query.trim()) return;
+---
 
-        setLoading(true);
-        setSuggestions([]);
+### Q7: What is Embedding vs Referencing?
 
-        const res = await fetch(`/api/search?q=${encodeURIComponent(query)}`);
-        const data = await res.json();
-        setResults(data.products);
-        setLoading(false);
-    };
+Two ways to handle related data in MongoDB:
 
-    return (
-        <div className="max-w-2xl mx-auto">
-            <form onSubmit={handleSearch} className="relative">
-                <input
-                    type="text"
-                    value={query}
-                    onChange={(e) => setQuery(e.target.value)}
-                    placeholder="Search products..."
-                    className="w-full p-3 border rounded-lg"
-                />
-                <button type="submit" className="absolute right-2 top-2 bg-blue-600 text-white px-4 py-1 rounded">
-                    Search
-                </button>
+**Embedding (nested data)** — Store related data inside the document:
 
-                {suggestions.length > 0 && (
-                    <ul className="absolute w-full bg-white border rounded-lg mt-1 shadow-lg z-10">
-                        {suggestions.map((s) => (
-                            <li
-                                key={s.id}
-                                onClick={() => { setQuery(s.name); setSuggestions([]); }}
-                                className="p-3 hover:bg-gray-100 cursor-pointer"
-                            >
-                                {s.name}
-                            </li>
-                        ))}
-                    </ul>
-                )}
-            </form>
-
-            {loading && <p className="mt-4 text-gray-500">Searching...</p>}
-
-            <div className="mt-6 space-y-4">
-                {results.map((product) => (
-                    <div key={product.id} className="border rounded-lg p-4">
-                        <h3 className="font-bold">{product.name}</h3>
-                        <p className="text-gray-600 text-sm">{product.category}</p>
-                        <p className="text-lg font-semibold mt-1">${product.price.toFixed(2)}</p>
-                        {product.highlight?.description && (
-                            <p
-                                className="text-sm text-gray-500 mt-2"
-                                dangerouslySetInnerHTML={{ __html: product.highlight.description[0] }}
-                            />
-                        )}
-                    </div>
-                ))}
-            </div>
-        </div>
-    );
+```javascript
+// User with embedded address — good when data is always read together
+{
+    "name": "Ahmed",
+    "address": {
+        "city": "Dubai",
+        "country": "UAE"
+    }
 }
 ```
 
-### Elasticsearch vs Database Search
+**Referencing (like foreign key)** — Store just the ID and look it up:
 
-**MySQL/PostgreSQL `LIKE`:**
-- Speed — Slow on large data
-- Fuzzy matching — No
-- Relevance scoring — No
-- Autocomplete — Manual
-- Faceted search — Manual `GROUP BY`
-- Synonyms — No
-- Scalability — Single server
-- Setup complexity — None
-- Best for — Small datasets, simple search
+```javascript
+// User with reference to address collection
+{
+    "name": "Ahmed",
+    "address_id": "64a1b2c3..."  // points to another collection
+}
+```
 
-**PostgreSQL Full-Text:**
-- Speed — Fast
-- Fuzzy matching — Limited
-- Relevance scoring — Basic
-- Autocomplete — Manual
-- Faceted search — Manual
-- Synonyms — Yes
-- Scalability — Single server
-- Setup complexity — Low
-- Best for — Medium datasets
+**When to embed:** Data is read together, rarely changes, and is not too large.
+**When to reference:** Data is shared between documents, changes often, or is very large.
 
-**Elasticsearch:**
-- Speed — Very fast
-- Fuzzy matching — Yes (handles typos)
-- Relevance scoring — Advanced
-- Autocomplete — Built-in
-- Faceted search — Built-in aggregations
-- Synonyms — Yes
-- Scalability — Distributed cluster
-- Setup complexity — Medium-High
-- Best for — Large datasets, complex search
+---
 
-**Rule of thumb:**
-- < 10K records with simple search → use `LIKE` or `WHERE`.
-- 10K-1M records with text search → use PostgreSQL full-text search.
-- > 1M records or need autocomplete/facets/fuzzy → use Elasticsearch.
+### Q8: What is the Aggregation Pipeline?
+
+- A way to process and transform data step by step (like a factory assembly line).
+- Each step does one thing: filter, group, sort, calculate.
+
+```javascript
+// Example: Get total sales per category
+db.orders.aggregate([
+    { $match: { status: "paid" } },              // Step 1: filter only paid orders
+    { $group: {                                    // Step 2: group by category
+        _id: "$category",
+        totalSales: { $sum: "$amount" },
+        count: { $sum: 1 }
+    }},
+    { $sort: { totalSales: -1 } }                 // Step 3: sort by highest sales
+]);
+```
+
+---
+
+### Q9: What is Indexing in MongoDB?
+
+- Same concept as MySQL — indexes make queries faster.
+- Without index → MongoDB scans every document (slow).
+- With index → MongoDB jumps directly to matching documents (fast).
+
+```javascript
+// Create an index on the email field
+db.users.createIndex({ email: 1 });        // 1 = ascending
+
+// Compound index (multiple fields)
+db.users.createIndex({ age: 1, name: 1 });
+
+// Unique index (no duplicate values)
+db.users.createIndex({ email: 1 }, { unique: true });
+```
+
+---
+
+### Q10: What is Sharding in MongoDB?
+
+- **Sharding** means splitting your data across multiple servers.
+- Each server holds a piece of the data (a "shard").
+- This lets MongoDB handle very large datasets and high traffic.
+
+> **Analogy:** Instead of one library with all the books, you have 5 libraries — each holds books for certain letters (A-E, F-J, etc.). When someone asks for a book, they go to the right library.
+
+- **When to shard:** Your data is too big for one server, or you have too many requests for one server to handle.
+- **Most apps don't need sharding** — a single server can handle millions of documents.
+
+---
+
+### Q11: Can you use MongoDB with Laravel?
+
+Yes, using the `mongodb/laravel-mongodb` package:
+
+```bash
+composer require mongodb/laravel-mongodb
+```
+
+```php
+use MongoDB\Laravel\Eloquent\Model;
+
+class Product extends Model
+{
+    protected $connection = 'mongodb';
+    protected $collection = 'products'; // collection name (like table name)
+
+    protected $fillable = ['name', 'price', 'tags', 'details'];
+}
+
+// Use it like normal Eloquent
+Product::create([
+    'name' => 'Laptop',
+    'price' => 999,
+    'tags' => ['electronics', 'computers'],
+    'details' => [
+        'brand' => 'Dell',
+        'ram' => '16GB',
+    ],
+]);
+
+// Query
+$products = Product::where('price', '>', 500)->get();
+$electronics = Product::where('tags', 'electronics')->get();
+```
+
+> **In short:** MongoDB with Laravel works almost the same as MySQL Eloquent. The main difference is you can store arrays and nested objects directly without extra tables.

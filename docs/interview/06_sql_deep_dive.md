@@ -932,6 +932,62 @@ ORDER BY month DESC;
 
 **In short:** `GROUP BY` splits rows into groups for aggregate calculations. `WHERE` filters rows before grouping; `HAVING` filters groups after aggregation. You can use both together. Understanding the SQL execution order (FROM -> WHERE -> GROUP BY -> HAVING -> SELECT -> ORDER BY -> LIMIT) is crucial for writing correct queries.
 
+### Interview Question: What is the Difference Between ORDER BY, GROUP BY, and HAVING?
+
+This is one of the most common SQL interview questions. Here's the simple answer:
+
+| Keyword | What It Does | When It Runs |
+|---------|-------------|--------------|
+| `ORDER BY` | **Sorts** the final results (ascending or descending) | Last (after everything else) |
+| `GROUP BY` | **Groups** rows together so you can use aggregate functions (COUNT, SUM, AVG...) | Middle (after WHERE) |
+| `HAVING` | **Filters groups** created by GROUP BY | After GROUP BY |
+
+> **Simple analogy:** Imagine you have a pile of receipts.
+> - `GROUP BY` = sort receipts into piles by store name
+> - `HAVING` = throw away any pile with less than 3 receipts
+> - `ORDER BY` = arrange the remaining piles from highest total to lowest
+
+**Example — All three together:**
+
+```sql
+-- "Show me each user's total spending on completed orders,
+--  but only users who spent more than 500, sorted by highest spender first"
+SELECT
+    u.name,
+    COUNT(o.id) AS order_count,
+    SUM(o.amount) AS total_spent
+FROM users u
+INNER JOIN orders o ON u.id = o.user_id
+WHERE o.status = 'completed'        -- 1. Filter rows first
+GROUP BY u.id, u.name               -- 2. Group by user
+HAVING SUM(o.amount) > 500          -- 3. Filter groups (only big spenders)
+ORDER BY total_spent DESC;           -- 4. Sort the final result
+```
+
+**Key differences to remember:**
+
+- `ORDER BY` does NOT change the data — it only changes how results are displayed
+- `GROUP BY` changes the structure — it collapses multiple rows into one row per group
+- `HAVING` only works with `GROUP BY` — you cannot use HAVING without GROUP BY
+- `WHERE` filters individual rows, `HAVING` filters groups — don't confuse them
+- You can use `ORDER BY` without `GROUP BY`, but you cannot use `HAVING` without `GROUP BY`
+
+**Wrong vs Right:**
+
+```sql
+-- ❌ WRONG: Using HAVING without GROUP BY
+SELECT * FROM orders HAVING amount > 100;
+
+-- ✅ RIGHT: Use WHERE for individual row filtering
+SELECT * FROM orders WHERE amount > 100;
+
+-- ❌ WRONG: Using WHERE with aggregate function
+SELECT user_id, COUNT(*) FROM orders WHERE COUNT(*) > 3 GROUP BY user_id;
+
+-- ✅ RIGHT: Use HAVING for aggregate filtering
+SELECT user_id, COUNT(*) FROM orders GROUP BY user_id HAVING COUNT(*) > 3;
+```
+
 ---
 
 ## Advanced Queries
