@@ -14,6 +14,7 @@ A comprehensive guide to notifications, broadcasting, WebSockets, and real-time 
 8. [What is Laravel Reverb?](#8-what-is-laravel-reverb)
 9. [Setting up Laravel Reverb](#9-setting-up-laravel-reverb)
 10. [Laravel Reverb vs Pusher](#10-laravel-reverb-vs-pusher)
+11. [Dispatch Methods — When to Use Each](#11-dispatch-methods--when-to-use-each)
 
 ---
 
@@ -327,3 +328,67 @@ user=www-data
 ```
 
 In short: Reverb = free, self-hosted, full control. Pusher = managed service, easier to scale but has cost at volume.
+
+---
+
+## 11. Dispatch Methods — When to Use Each
+
+All dispatch methods send a Job for execution. The difference is **when** and **how** it runs.
+
+**`dispatch()`** — The standard way. Job goes to the queue, a worker executes it later. The user does not wait.
+
+```php
+SendEmailJob::dispatch($user);
+SendEmailJob::dispatch($user)->onQueue('emails');
+SendEmailJob::dispatch($user)->delay(now()->addMinutes(5));
+```
+
+Best for: heavy tasks like sending emails, processing images, generating reports.
+
+**`dispatchSync()`** — No queue at all. The job runs immediately inside the current request. The user waits.
+
+```php
+SendEmailJob::dispatchSync($user);
+```
+
+Best for: testing, or when you need the result right away before responding.
+
+**`dispatchAfterResponse()`** — The job runs after Laravel sends the response to the user. No queue worker needed, but the PHP process stays alive until the job finishes.
+
+```php
+SendEmailJob::dispatchAfterResponse($user);
+```
+
+Best for: lightweight tasks that should not delay the response but don't need a full queue setup (logging, analytics, cleanup).
+
+**`dispatchIf()`** — Dispatches to the queue only if a condition is `true`.
+
+```php
+SendEmailJob::dispatchIf($user->is_active, $user);
+
+// Same as:
+if ($user->is_active) {
+    SendEmailJob::dispatch($user);
+}
+```
+
+**`dispatchUnless()`** — The opposite. Dispatches unless the condition is `true`.
+
+```php
+SendEmailJob::dispatchUnless($user->is_banned, $user);
+
+// Same as:
+if (! $user->is_banned) {
+    SendEmailJob::dispatch($user);
+}
+```
+
+**Summary:**
+
+- `dispatch()` — Queue (async, worker handles it)
+- `dispatchSync()` — Immediate (sync, user waits)
+- `dispatchAfterResponse()` — After response is sent (no worker needed)
+- `dispatchIf()` — Queue only if condition is true
+- `dispatchUnless()` — Queue unless condition is true
+
+In short: All do the same thing — run a job. The difference is timing and execution method, which affects performance and user experience.

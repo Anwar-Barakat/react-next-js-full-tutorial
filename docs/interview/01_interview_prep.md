@@ -411,7 +411,7 @@ You learn by building real features, not just reading theory.
 **You:** I write clean and organized code, can build complete systems from backend to frontend, solve problems step by step, communicate well with teams, and understand real production systems, not just demos.
 
 **HR:** And your weaknesses?
-**You:** Sometimes I focus too much on details. I'm learning to balance speed and quality better, and now I prioritize tasks and manage my time more effectively.
+**You:** Sometimes I focus too much on details, but I'm learning to balance speed and quality and prioritize my tasks better.
 
 **HR:** Why should we hire you?
 **You:** I have real experience building live platforms with users. I understand payments, real-time systems, and role-based access. I work well independently and in teams, and I care about quality, performance, and long-term stability.
