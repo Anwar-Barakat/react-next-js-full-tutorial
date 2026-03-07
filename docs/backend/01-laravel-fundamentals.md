@@ -296,13 +296,21 @@ class OrderController
 
 ### Comparison
 
-| Aspect | Tight Coupling | Loose Coupling |
-|--------|---------------|----------------|
-| **Depends on** | Concrete class (`StripePayment`) | Abstraction (`PaymentInterface`) |
-| **Swap implementation** | Must change class code | Change only the binding |
-| **Testing** | Hard to mock | Easy to mock |
-| **Flexibility** | Low | High |
-| **Maintenance** | Changes ripple through code | Changes are isolated |
+**Tight Coupling:**
+
+- **Depends on** — Concrete class (`StripePayment`)
+- **Swap implementation** — Must change class code
+- **Testing** — Hard to mock
+- **Flexibility** — Low
+- **Maintenance** — Changes ripple through code
+
+**Loose Coupling:**
+
+- **Depends on** — Abstraction (`PaymentInterface`)
+- **Swap implementation** — Change only the binding
+- **Testing** — Easy to mock
+- **Flexibility** — High
+- **Maintenance** — Changes are isolated
 
 **Rule of thumb:** If you see `new SomeClass()` inside a controller or service, that's a sign of tight coupling. Use dependency injection and interfaces instead.
 
@@ -531,11 +539,9 @@ php artisan queue:forget {id}
 
 **Types of Cache:**
 
-| Type | Description | Best For |
-|------|-------------|----------|
-| **File Cache** | Stores data in files on the server disk | Local development |
-| **Database Cache** | Stores cached data in database tables | When Redis is not available |
-| **Redis Cache** | Stores data in memory (RAM), very fast | Production, high traffic |
+- **File Cache** — Stores data in files on the server disk. Best for local development.
+- **Database Cache** — Stores cached data in database tables. Best when Redis is not available.
+- **Redis Cache** — Stores data in memory (RAM), very fast. Best for production, high traffic.
 
 ---
 

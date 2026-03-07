@@ -72,14 +72,12 @@ function Welcome({ name }) {
 
 ## 2. Main Features of React
 
-| Feature | Description | Benefit |
-|---------|-------------|---------|
-| **Component-Based** | Encapsulated components that manage their own state | Reusability, maintainability |
-| **Virtual DOM** | Lightweight copy of the real DOM | Performance optimization |
-| **JSX** | Syntax extension that looks like HTML | Intuitive component structure |
-| **Unidirectional Data Flow** | Data flows from parent to child | Predictable state management |
-| **Declarative** | Describe UI state, React updates DOM | Less imperative code |
-| **React Hooks** | Use state and lifecycle without classes | Simpler component logic |
+- **Component-Based** — Encapsulated components that manage their own state. Benefit: Reusability, maintainability
+- **Virtual DOM** — Lightweight copy of the real DOM. Benefit: Performance optimization
+- **JSX** — Syntax extension that looks like HTML. Benefit: Intuitive component structure
+- **Unidirectional Data Flow** — Data flows from parent to child. Benefit: Predictable state management
+- **Declarative** — Describe UI state, React updates DOM. Benefit: Less imperative code
+- **React Hooks** — Use state and lifecycle without classes. Benefit: Simpler component logic
 
 **Important Terms:**
 
@@ -138,12 +136,10 @@ React.createElement('h1', { className: 'title' }, 'Hello')
 
 ## 4. React vs ReactDOM
 
-| Aspect | React | ReactDOM |
-|--------|-------|----------|
-| **Purpose** | Core library for creating components | Renders components to the DOM |
-| **Platform** | Platform-agnostic | Web-specific |
-| **Functions** | `createElement`, `useState`, `useEffect` | `render`, `createRoot`, `hydrate` |
-| **Usage** | Define component logic | Mount components to browser DOM |
+- **Purpose** — React: Core library for creating components. ReactDOM: Renders components to the DOM
+- **Platform** — React: Platform-agnostic. ReactDOM: Web-specific
+- **Functions** — React: `createElement`, `useState`, `useEffect`. ReactDOM: `render`, `createRoot`, `hydrate`
+- **Usage** — React: Define component logic. ReactDOM: Mount components to browser DOM
 
 **Example:**
 
@@ -206,10 +202,8 @@ function Counter() {
 
 **Component Types:**
 
-| Type | Syntax | State | Lifecycle |
-|------|--------|-------|-----------|
-| **Function Component** | `function` or arrow | useState hook | useEffect hook |
-| **Class Component** | `class` extending `React.Component` | this.state | lifecycle methods |
+- **Function Component** — Syntax: `function` or arrow. State: useState hook. Lifecycle: useEffect hook
+- **Class Component** — Syntax: `class` extending `React.Component`. State: this.state. Lifecycle: lifecycle methods
 
 **Function Component (Modern):**
 
@@ -354,13 +348,11 @@ function Card({ children }) {
 
 ## 8. Props vs State
 
-| Aspect | Props | State |
-|--------|-------|-------|
-| **Source** | Passed from parent component | Managed within component |
-| **Mutability** | Read-only, immutable | Can be changed with setState/useState |
-| **Ownership** | Owned by parent | Owned by component |
-| **Re-render** | Parent change triggers re-render | State change triggers re-render |
-| **Access** | Via function parameters or this.props | Via useState hook or this.state |
+- **Source** — Props: Passed from parent component. State: Managed within component
+- **Mutability** — Props: Read-only, immutable. State: Can be changed with setState/useState
+- **Ownership** — Props: Owned by parent. State: Owned by component
+- **Re-render** — Props: Parent change triggers re-render. State: State change triggers re-render
+- **Access** — Props: Via function parameters or this.props. State: Via useState hook or this.state
 
 **Example:**
 
@@ -506,15 +498,13 @@ function EventExamples() {
 
 **Common React Events:**
 
-| Event | Use Case | Event Type |
-|-------|----------|------------|
-| `onClick` | Button, div clicks | `MouseEvent` |
-| `onChange` | Input, select, textarea changes | `ChangeEvent` |
-| `onSubmit` | Form submission | `FormEvent` |
-| `onFocus` | Element gains focus | `FocusEvent` |
-| `onBlur` | Element loses focus | `FocusEvent` |
-| `onKeyDown` | Key pressed | `KeyboardEvent` |
-| `onMouseEnter` | Mouse enters element | `MouseEvent` |
+- **`onClick`** — Button, div clicks. Event type: `MouseEvent`
+- **`onChange`** — Input, select, textarea changes. Event type: `ChangeEvent`
+- **`onSubmit`** — Form submission. Event type: `FormEvent`
+- **`onFocus`** — Element gains focus. Event type: `FocusEvent`
+- **`onBlur`** — Element loses focus. Event type: `FocusEvent`
+- **`onKeyDown`** — Key pressed. Event type: `KeyboardEvent`
+- **`onMouseEnter`** — Mouse enters element. Event type: `MouseEvent`
 
 ---
 
@@ -657,12 +647,10 @@ function ListExamples() {
 
 **Key Best Practices:**
 
-| Practice | Reason |
-|----------|--------|
-| ✅ Use unique IDs from data | Stable across renders |
-| ✅ Use stable identifiers | Doesn't change between renders |
-| ❌ Avoid array index | Breaks with reordering/filtering |
-| ❌ Avoid generating keys in render | Creates new keys each render |
+- **Use unique IDs from data** — Stable across renders
+- **Use stable identifiers** — Doesn't change between renders
+- **Avoid array index** — Breaks with reordering/filtering
+- **Avoid generating keys in render** — Creates new keys each render
 
 ---
 
@@ -672,12 +660,10 @@ React provides two approaches to handle forms: **Controlled** and **Uncontrolled
 
 **Controlled vs Uncontrolled:**
 
-| Aspect | Controlled | Uncontrolled |
-|--------|-----------|--------------|
-| **State** | React state controls value | DOM controls value |
-| **Access** | Via state variable | Via ref |
-| **Validation** | Real-time, on every change | On submit or manual check |
-| **React Way** | ✅ Recommended | Occasional use cases |
+- **State** — Controlled: React state controls value. Uncontrolled: DOM controls value
+- **Access** — Controlled: Via state variable. Uncontrolled: Via ref
+- **Validation** — Controlled: Real-time, on every change. Uncontrolled: On submit or manual check
+- **React Way** — Controlled: Recommended. Uncontrolled: Occasional use cases
 
 **Controlled Component:**
 
@@ -783,16 +769,14 @@ function UncontrolledForm() {
 
 **Common React Hooks:**
 
-| Hook | Purpose | Returns |
-|------|---------|---------|
-| `useState` | Add state to component | `[state, setState]` |
-| `useEffect` | Side effects, lifecycle | Cleanup function |
-| `useContext` | Access context value | Context value |
-| `useRef` | Store mutable value, DOM access | Ref object |
-| `useReducer` | Complex state logic | `[state, dispatch]` |
-| `useMemo` | Memoize expensive calculations | Memoized value |
-| `useCallback` | Memoize function definitions | Memoized function |
-| `useLayoutEffect` | Synchronous effects before paint | Cleanup function |
+- **`useState`** — Add state to component. Returns: `[state, setState]`
+- **`useEffect`** — Side effects, lifecycle. Returns: Cleanup function
+- **`useContext`** — Access context value. Returns: Context value
+- **`useRef`** — Store mutable value, DOM access. Returns: Ref object
+- **`useReducer`** — Complex state logic. Returns: `[state, dispatch]`
+- **`useMemo`** — Memoize expensive calculations. Returns: Memoized value
+- **`useCallback`** — Memoize function definitions. Returns: Memoized function
+- **`useLayoutEffect`** — Synchronous effects before paint. Returns: Cleanup function
 
 ---
 
@@ -856,12 +840,10 @@ function EffectExamples() {
 
 **useEffect vs useLayoutEffect:**
 
-| Aspect | useEffect | useLayoutEffect |
-|--------|-----------|-----------------|
-| **Timing** | After browser paint | Before browser paint |
-| **Blocking** | Non-blocking | Blocks visual updates |
-| **Use Case** | Data fetching, subscriptions | DOM measurements, layout fixes |
-| **User Experience** | Sees UI first, then effect runs | No flicker, but slower initial render |
+- **Timing** — useEffect: After browser paint. useLayoutEffect: Before browser paint
+- **Blocking** — useEffect: Non-blocking. useLayoutEffect: Blocks visual updates
+- **Use Case** — useEffect: Data fetching, subscriptions. useLayoutEffect: DOM measurements, layout fixes
+- **User Experience** — useEffect: Sees UI first, then effect runs. useLayoutEffect: No flicker, but slower initial render
 
 ```jsx
 // useEffect - Non-blocking (most common)
@@ -1055,12 +1037,10 @@ function RefExamples() {
 
 **useState vs useRef:**
 
-| Aspect | useState | useRef |
-|--------|----------|--------|
-| **Triggers re-render** | Yes | No |
-| **Persists between renders** | Yes | Yes |
-| **Use for** | UI data | Non-UI data, DOM access |
-| **Update** | Asynchronous | Synchronous |
+- **Triggers re-render** — useState: Yes. useRef: No
+- **Persists between renders** — useState: Yes. useRef: Yes
+- **Use for** — useState: UI data. useRef: Non-UI data, DOM access
+- **Update** — useState: Asynchronous. useRef: Synchronous
 
 ---
 
@@ -1139,13 +1119,11 @@ function TodoApp() {
 
 **useState vs useReducer:**
 
-| Use Case | useState | useReducer |
-|----------|----------|------------|
-| Simple state | ✅ | ❌ |
-| Multiple related values | ❌ | ✅ |
-| Complex updates | ❌ | ✅ |
-| State depends on previous | ✅ | ✅ |
-| Many actions | ❌ | ✅ |
+- **Simple state** — useState: Yes. useReducer: No
+- **Multiple related values** — useState: No. useReducer: Yes
+- **Complex updates** — useState: No. useReducer: Yes
+- **State depends on previous** — useState: Yes. useReducer: Yes
+- **Many actions** — useState: No. useReducer: Yes
 
 ---
 
@@ -1261,10 +1239,8 @@ const memoizedFunction = useCallback(() => doSomething(a, b), [a, b]);
 const memoizedFunction = useMemo(() => () => doSomething(a, b), [a, b]);
 ```
 
-| Hook | Returns | Use Case |
-|------|---------|----------|
-| `useMemo` | Memoized value | Expensive calculations |
-| `useCallback` | Memoized function | Passing callbacks to optimized children |
+- **`useMemo`** — Returns: Memoized value. Use case: Expensive calculations
+- **`useCallback`** — Returns: Memoized function. Use case: Passing callbacks to optimized children
 
 ---
 
@@ -1378,11 +1354,9 @@ function ResponsiveComponent() {
 
 **Lifecycle Phases:**
 
-| Phase | Description | Function Component |
-|-------|-------------|-------------------|
-| **Mounting** | Component created and inserted into DOM | `useEffect(() => {}, [])` |
-| **Updating** | Component re-renders due to state/props changes | `useEffect(() => {}, [deps])` |
-| **Unmounting** | Component removed from DOM | `useEffect(() => () => {}, [])` |
+- **Mounting** — Component created and inserted into DOM. Function component: `useEffect(() => {}, [])`
+- **Updating** — Component re-renders due to state/props changes. Function component: `useEffect(() => {}, [deps])`
+- **Unmounting** — Component removed from DOM. Function component: `useEffect(() => () => {}, [])`
 
 **Lifecycle with Hooks:**
 
@@ -1531,13 +1505,11 @@ Vite automatically splits chunks on dynamic imports and provides `manualChunks` 
 
 **Common Performance Issues and Solutions:**
 
-| Issue | Solution | Tool |
-|-------|----------|------|
-| Unnecessary re-renders | `React.memo`, `useMemo`, `useCallback` | React DevTools Profiler |
-| Large bundle size | Code splitting with `React.lazy` | Bundle analyzer |
-| Expensive calculations | `useMemo` | Performance.now() |
-| Creating functions in render | `useCallback` or define outside | ESLint rules |
-| Large lists | Virtualization (`react-window`) | Chrome DevTools |
+- **Unnecessary re-renders** — Solution: `React.memo`, `useMemo`, `useCallback`. Tool: React DevTools Profiler
+- **Large bundle size** — Solution: Code splitting with `React.lazy`. Tool: Bundle analyzer
+- **Expensive calculations** — Solution: `useMemo`. Tool: Performance.now()
+- **Creating functions in render** — Solution: `useCallback` or define outside. Tool: ESLint rules
+- **Large lists** — Solution: Virtualization (`react-window`). Tool: Chrome DevTools
 
 **Optimization Techniques:**
 
@@ -1977,11 +1949,9 @@ function UserForm() {
 
 **Three Categories of State:**
 
-| State Type | Scope | Use Case | Solutions |
-|------------|-------|----------|-----------|
-| **Local State** | Single component | Component-specific data | `useState`, `useReducer` |
-| **Cross-Component State** | Parent → Children | Shared between related components | Props, Context API |
-| **App-Wide State** | Entire application | Global data needed everywhere | Context API, Redux, Zustand |
+- **Local State** — Scope: Single component. Use case: Component-specific data. Solutions: `useState`, `useReducer`
+- **Cross-Component State** — Scope: Parent to Children. Use case: Shared between related components. Solutions: Props, Context API
+- **App-Wide State** — Scope: Entire application. Use case: Global data needed everywhere. Solutions: Context API, Redux, Zustand
 
 **Examples:**
 

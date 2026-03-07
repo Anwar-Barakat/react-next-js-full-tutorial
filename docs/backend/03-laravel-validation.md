@@ -7,6 +7,7 @@ A comprehensive guide to request validation in Laravel.
 1. [What is validation in Laravel?](#1-what-is-validation-in-laravel)
 2. [What are validation rules in Laravel?](#2-what-are-validation-rules-in-laravel)
 3. [What is Form Request validation?](#3-what-is-form-request-validation)
+4. [How to create a custom validation rule?](#4-how-to-create-a-custom-validation-rule)
 
 ---
 
@@ -79,5 +80,48 @@ public function store(StoreUserRequest $request)
 {
     // Validation already passed
     User::create($request->validated());
+}
+```
+
+---
+
+## 4. How to create a custom validation rule?
+
+- Use `php artisan make:rule` to create a custom rule class.
+- Custom rules let you validate data that built-in rules can't handle (e.g., no bad words, valid phone format, business logic).
+- The `validate` method receives the attribute name, value, and a `$fail` callback to trigger failure.
+
+```bash
+php artisan make:rule NoBadWords
+```
+
+```php
+class NoBadWords implements ValidationRule
+{
+    public function validate(string $attribute, mixed $value, Closure $fail): void
+    {
+        $badWords = ['spam', 'fake', 'banned'];
+
+        if (in_array(strtolower($value), $badWords)) {
+            $fail('The :attribute contains a prohibited word.');
+        }
+    }
+}
+```
+
+### Using it:
+
+```php
+// In controller
+$request->validate([
+    'username' => ['required', 'string', new NoBadWords],
+]);
+
+// Or in Form Request
+public function rules(): array
+{
+    return [
+        'username' => ['required', 'string', new NoBadWords],
+    ];
 }
 ```

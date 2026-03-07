@@ -112,13 +112,10 @@ The **box model** describes how elements take up space. Every element is a recta
 }
 ```
 
-**Comparison Table:**
+**Comparison:**
 
-| Property | content-box (default) | border-box |
-|----------|----------------------|------------|
-| Width calculation | Content only | Content + padding + border |
-| Total width | width + padding + border | Always equals width |
-| Best for | Legacy code | Modern layouts |
+- **content-box (default)** — Width calculation: Content only; Total width: width + padding + border; Best for: Legacy code
+- **border-box** — Width calculation: Content + padding + border; Total width: Always equals width; Best for: Modern layouts
 
 ---
 
@@ -150,14 +147,10 @@ The **box model** describes how elements take up space. Every element is a recta
 /* Total padding = 40px */
 ```
 
-**Comparison Table:**
+**Comparison:**
 
-| Feature | Padding | Margin |
-|---------|---------|--------|
-| Location | Inside element | Outside element |
-| Background | Shows element's background | Transparent |
-| Collapsing | Never collapses | Can collapse vertically |
-| Negative values | Not allowed | Allowed |
+- **Padding** — Location: Inside element; Background: Shows element's background; Collapsing: Never collapses; Negative values: Not allowed
+- **Margin** — Location: Outside element; Background: Transparent; Collapsing: Can collapse vertically; Negative values: Allowed
 
 ---
 
@@ -193,14 +186,12 @@ p { color: blue !important; }  /* Overrides everything, hard to maintain */
 .text-primary { color: blue; }
 ```
 
-**Specificity Calculation Table:**
+**Specificity Calculation:**
 
-| Selector | Inline | IDs | Classes/Attributes/Pseudo-classes | Elements | Total |
-|----------|--------|-----|----------------------------------|----------|-------|
-| `p` | 0 | 0 | 0 | 1 | 0,0,0,1 |
-| `.text` | 0 | 0 | 1 | 0 | 0,0,1,0 |
-| `#main` | 0 | 1 | 0 | 0 | 0,1,0,0 |
-| `#main .text p` | 0 | 1 | 1 | 1 | 0,1,1,1 |
+- **`p`** — Inline: 0, IDs: 0, Classes/Attributes/Pseudo-classes: 0, Elements: 1, Total: 0,0,0,1
+- **`.text`** — Inline: 0, IDs: 0, Classes/Attributes/Pseudo-classes: 1, Elements: 0, Total: 0,0,1,0
+- **`#main`** — Inline: 0, IDs: 1, Classes/Attributes/Pseudo-classes: 0, Elements: 0, Total: 0,1,0,0
+- **`#main .text p`** — Inline: 0, IDs: 1, Classes/Attributes/Pseudo-classes: 1, Elements: 1, Total: 0,1,1,1
 
 ---
 
@@ -249,15 +240,13 @@ html { font-size: 16px; }
 
 **Best practice**: Use `rem` for font sizes, `px` for borders, `%` or viewport units for layouts.
 
-**Comparison Table:**
+**Comparison:**
 
-| Unit | Type | Relative to | Best for |
-|------|------|-------------|----------|
-| `px` | Absolute | Fixed | Borders, small elements |
-| `%` | Relative | Parent element | Widths, responsive layouts |
-| `em` | Relative | Parent font-size | Spacing within components |
-| `rem` | Relative | Root font-size | Font sizes, consistent spacing |
-| `vw/vh` | Relative | Viewport | Full-screen sections |
+- **`px`** — Type: Absolute; Relative to: Fixed; Best for: Borders, small elements
+- **`%`** — Type: Relative; Relative to: Parent element; Best for: Widths, responsive layouts
+- **`em`** — Type: Relative; Relative to: Parent font-size; Best for: Spacing within components
+- **`rem`** — Type: Relative; Relative to: Root font-size; Best for: Font sizes, consistent spacing
+- **`vw/vh`** — Type: Relative; Relative to: Viewport; Best for: Full-screen sections
 
 ---
 
@@ -288,15 +277,10 @@ html { font-size: 16px; }
 /* Always relative to root, no compounding */
 ```
 
-**Comparison Table:**
+**Comparison:**
 
-| Feature | em | rem |
-|---------|-----|-----|
-| Relative to | Parent font-size | Root font-size |
-| Compounding | Yes | No |
-| Predictability | Less predictable | More predictable |
-| Use case | Component-specific spacing | Global font sizing |
-| Best for | Padding/margin within component | Font sizes, consistent spacing |
+- **em** — Relative to: Parent font-size; Compounding: Yes; Predictability: Less predictable; Use case: Component-specific spacing; Best for: Padding/margin within component
+- **rem** — Relative to: Root font-size; Compounding: No; Predictability: More predictable; Use case: Global font sizing; Best for: Font sizes, consistent spacing
 
 ---
 
@@ -494,16 +478,10 @@ Use Flexbox for simple layouts, Grid for complex layouts.
 - **Flexbox**: Navigation bars, button groups, centering items, card content
 - **Grid**: Page layouts, complex card layouts, dashboards, photo galleries
 
-**Comparison Table:**
+**Comparison:**
 
-| Feature | Flexbox | Grid |
-|---------|---------|------|
-| Dimensions | 1D (row or column) | 2D (rows and columns) |
-| Content flow | Content-first | Layout-first |
-| Best for | Components, simple layouts | Page layouts, complex layouts |
-| Learning curve | Easier | Steeper |
-| Browser support | Excellent | Excellent (modern) |
-| Alignment | One axis at a time | Both axes simultaneously |
+- **Flexbox** — Dimensions: 1D (row or column); Content flow: Content-first; Best for: Components, simple layouts; Learning curve: Easier; Browser support: Excellent; Alignment: One axis at a time
+- **Grid** — Dimensions: 2D (rows and columns); Content flow: Layout-first; Best for: Page layouts, complex layouts; Learning curve: Steeper; Browser support: Excellent (modern); Alignment: Both axes simultaneously
 
 ---
 
@@ -547,15 +525,13 @@ The **position** property controls how elements are positioned.
 }
 ```
 
-**Comparison Table:**
+**Comparison:**
 
-| Position | Relative to | Affects layout | Scrolls | Common use |
-|----------|-------------|----------------|---------|------------|
-| `static` | Normal flow | Yes | Yes | Default |
-| `relative` | Normal position | Yes | Yes | Minor adjustments |
-| `absolute` | Positioned ancestor | No | Yes | Overlays, tooltips |
-| `fixed` | Viewport | No | No | Fixed headers, modals |
-| `sticky` | Normal flow / Viewport | Yes / No | Partially | Sticky headers |
+- **`static`** — Relative to: Normal flow; Affects layout: Yes; Scrolls: Yes; Common use: Default
+- **`relative`** — Relative to: Normal position; Affects layout: Yes; Scrolls: Yes; Common use: Minor adjustments
+- **`absolute`** — Relative to: Positioned ancestor; Affects layout: No; Scrolls: Yes; Common use: Overlays, tooltips
+- **`fixed`** — Relative to: Viewport; Affects layout: No; Scrolls: No; Common use: Fixed headers, modals
+- **`sticky`** — Relative to: Normal flow / Viewport; Affects layout: Yes / No; Scrolls: Partially; Common use: Sticky headers
 
 ---
 
@@ -645,15 +621,13 @@ h1, h2, h3 { color: navy; }
 div.container { } /* div with class container */
 ```
 
-**Selector Specificity Table:**
+**Selector Specificity:**
 
-| Selector | Type | Specificity | Example |
-|----------|------|-------------|---------|
-| `*` | Universal | 0 | `* { margin: 0; }` |
-| `element` | Type | 1 | `p { }` |
-| `.class` | Class | 10 | `.text { }` |
-| `#id` | ID | 100 | `#main { }` |
-| `[attribute]` | Attribute | 10 | `[type="text"]` |
+- **`*`** — Type: Universal; Specificity: 0; Example: `* { margin: 0; }`
+- **`element`** — Type: Type; Specificity: 1; Example: `p { }`
+- **`.class`** — Type: Class; Specificity: 10; Example: `.text { }`
+- **`#id`** — Type: ID; Specificity: 100; Example: `#main { }`
+- **`[attribute]`** — Type: Attribute; Specificity: 10; Example: `[type="text"]`
 
 ---
 
@@ -700,12 +674,10 @@ input::placeholder {
 }
 ```
 
-**Comparison Table:**
+**Comparison:**
 
-| Type | Syntax | Purpose | Example |
-|------|--------|---------|---------|
-| Pseudo-class | `:` | Style element states | `:hover`, `:focus`, `:first-child` |
-| Pseudo-element | `::` | Style element parts | `::before`, `::after`, `::first-line` |
+- **Pseudo-class** — Syntax: `:`; Purpose: Style element states; Example: `:hover`, `:focus`, `:first-child`
+- **Pseudo-element** — Syntax: `::`; Purpose: Style element parts; Example: `::before`, `::after`, `::first-line`
 
 ---
 
@@ -932,15 +904,10 @@ transition: all 0.3s ease-in-out; /* Slow start and end */
 }
 ```
 
-**Comparison Table:**
+**Comparison:**
 
-| Feature | Transitions | Animations |
-|---------|-------------|------------|
-| Complexity | Simple | Complex |
-| Trigger | State change (hover, focus) | Automatic or on-demand |
-| Keyframes | No | Yes |
-| Reusable | No | Yes |
-| Control | Limited | Full control |
+- **Transitions** — Complexity: Simple; Trigger: State change (hover, focus); Keyframes: No; Reusable: No; Control: Limited
+- **Animations** — Complexity: Complex; Trigger: Automatic or on-demand; Keyframes: Yes; Reusable: Yes; Control: Full control
 
 ---
 
@@ -1302,13 +1269,11 @@ Three ways to hide elements with different behaviors:
 <!-- Layout: [   ][   ]D  (A removed, B and C take space, D visible) -->
 ```
 
-**Comparison Table:**
+**Comparison:**
 
-| Property | Takes space | Clickable | Screen readers | Transitions | Use case |
-|----------|-------------|-----------|----------------|-------------|----------|
-| `display: none` | No | No | No | No | Toggle visibility |
-| `visibility: hidden` | Yes | No | No | Yes | Hide but maintain layout |
-| `opacity: 0` | Yes | Yes | Yes | Yes | Fade animations |
+- **`display: none`** — Takes space: No; Clickable: No; Screen readers: No; Transitions: No; Use case: Toggle visibility
+- **`visibility: hidden`** — Takes space: Yes; Clickable: No; Screen readers: No; Transitions: Yes; Use case: Hide but maintain layout
+- **`opacity: 0`** — Takes space: Yes; Clickable: Yes; Screen readers: Yes; Transitions: Yes; Use case: Fade animations
 
 ---
 
@@ -1358,13 +1323,11 @@ span, a, strong, em {
 <!-- On same line, but with width -->
 ```
 
-**Comparison Table:**
+**Comparison:**
 
-| Display | New line | Width/Height | Vertical margin/padding | Use case |
-|---------|----------|--------------|------------------------|----------|
-| `block` | Yes | Yes | Yes | Containers, sections |
-| `inline` | No | No | No | Text, links |
-| `inline-block` | No | Yes | Yes | Buttons, badges |
+- **`block`** — New line: Yes; Width/Height: Yes; Vertical margin/padding: Yes; Use case: Containers, sections
+- **`inline`** — New line: No; Width/Height: No; Vertical margin/padding: No; Use case: Text, links
+- **`inline-block`** — New line: No; Width/Height: Yes; Vertical margin/padding: Yes; Use case: Buttons, badges
 
 ---
 
@@ -1438,13 +1401,11 @@ $font-size: 16px;
 
 **Sass vs Modern CSS:**
 
-| Feature | Sass | Modern CSS |
-|---------|------|------------|
-| Variables | `$var` | `--var` (CSS Custom Properties) |
-| Nesting | Yes | Yes (CSS Nesting Module) |
-| Mixins | Yes | No (use CSS variables) |
-| Functions | Yes | Limited (`calc()`, `clamp()`) |
-| Imports | `@import` | `@import` (deprecated), `@layer` |
+- **Variables** — Sass: `$var`; Modern CSS: `--var` (CSS Custom Properties)
+- **Nesting** — Sass: Yes; Modern CSS: Yes (CSS Nesting Module)
+- **Mixins** — Sass: Yes; Modern CSS: No (use CSS variables)
+- **Functions** — Sass: Yes; Modern CSS: Limited (`calc()`, `clamp()`)
+- **Imports** — Sass: `@import`; Modern CSS: `@import` (deprecated), `@layer`
 
 ---
 
@@ -1577,15 +1538,13 @@ They can work together.
 
 **Decision Matrix:**
 
-| Scenario | Use |
-|----------|-----|
-| Navigation bar | Flexbox |
-| Page layout | Grid |
-| Card list | Grid (container) + Flexbox (cards) |
-| Button group | Flexbox |
-| Dashboard | Grid |
-| Centering content | Flexbox |
-| Photo gallery | Grid |
+- **Navigation bar** — Use Flexbox
+- **Page layout** — Use Grid
+- **Card list** — Use Grid (container) + Flexbox (cards)
+- **Button group** — Use Flexbox
+- **Dashboard** — Use Grid
+- **Centering content** — Use Flexbox
+- **Photo gallery** — Use Grid
 
 ---
 
@@ -1641,14 +1600,12 @@ div div div p { }        /* Deeply nested */
 
 **Properties Performance:**
 
-| Property | Performance | Why |
-|----------|-------------|-----|
-| `transform` | Fast | GPU-accelerated |
-| `opacity` | Fast | GPU-accelerated |
-| `width/height` | Slow | Triggers layout |
-| `top/left` | Slow | Triggers layout |
-| `box-shadow` | Medium | Painting overhead |
-| `color` | Fast | Paint only |
+- **`transform`** — Performance: Fast; Why: GPU-accelerated
+- **`opacity`** — Performance: Fast; Why: GPU-accelerated
+- **`width/height`** — Performance: Slow; Why: Triggers layout
+- **`top/left`** — Performance: Slow; Why: Triggers layout
+- **`box-shadow`** — Performance: Medium; Why: Painting overhead
+- **`color`** — Performance: Fast; Why: Paint only
 
 ---
 
@@ -1706,15 +1663,11 @@ input, button, textarea, select {
 }
 ```
 
-**Comparison Table:**
+**Comparison:**
 
-| Feature | Reset CSS | Normalize CSS | Modern Reset |
-|---------|-----------|---------------|--------------|
-| Approach | Remove all styles | Preserve useful defaults | Selective reset |
-| File size | Small | Medium | Small |
-| Accessibility | May break | Preserves | Preserves |
-| Browser consistency | High | High | High |
-| Starting point | Blank slate | Styled baseline | Styled baseline |
+- **Reset CSS** — Approach: Remove all styles; File size: Small; Accessibility: May break; Browser consistency: High; Starting point: Blank slate
+- **Normalize CSS** — Approach: Preserve useful defaults; File size: Medium; Accessibility: Preserves; Browser consistency: High; Starting point: Styled baseline
+- **Modern Reset** — Approach: Selective reset; File size: Small; Accessibility: Preserves; Browser consistency: High; Starting point: Styled baseline
 
 ---
 

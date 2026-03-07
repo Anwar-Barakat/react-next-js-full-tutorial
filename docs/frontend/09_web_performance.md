@@ -50,12 +50,10 @@ A comprehensive guide to web performance optimization and Core Web Vitals.
 
 **Performance Impact:**
 
-| Delay | Impact |
-|-------|--------|
-| 100ms | 1% decrease in conversions |
-| 1 second | 11% fewer page views |
-| 3 seconds | 53% of mobile users bounce |
-| 5 seconds | 90% of users abandon |
+- **100ms delay** — 1% decrease in conversions
+- **1 second delay** — 11% fewer page views
+- **3 seconds delay** — 53% of mobile users bounce
+- **5 seconds delay** — 90% of users abandon
 
 ---
 
@@ -71,12 +69,10 @@ A comprehensive guide to web performance optimization and Core Web Vitals.
 
 **Core Web Vitals Thresholds:**
 
-| Metric | Good | Needs Improvement | Poor |
-|--------|------|------------------|------|
-| **LCP** | < 2.5s | 2.5s - 4.0s | > 4.0s |
-| **FID** | < 100ms | 100ms - 300ms | > 300ms |
-| **INP** | < 200ms | 200ms - 500ms | > 500ms |
-| **CLS** | < 0.1 | 0.1 - 0.25 | > 0.25 |
+- **LCP** — Good: < 2.5s. Needs Improvement: 2.5s - 4.0s. Poor: > 4.0s
+- **FID** — Good: < 100ms. Needs Improvement: 100ms - 300ms. Poor: > 300ms
+- **INP** — Good: < 200ms. Needs Improvement: 200ms - 500ms. Poor: > 500ms
+- **CLS** — Good: < 0.1. Needs Improvement: 0.1 - 0.25. Poor: > 0.25
 
 **Why Core Web Vitals Matter:**
 - Used for Google SEO ranking
@@ -144,14 +140,12 @@ A comprehensive guide to web performance optimization and Core Web Vitals.
 
 **LCP Optimization Strategies:**
 
-| Strategy | Impact | Difficulty |
-|----------|--------|------------|
-| Use CDN | High | Easy |
-| Optimize images | High | Easy |
-| Reduce server response time | High | Medium |
-| Preload critical resources | Medium | Easy |
-| Remove render-blocking resources | High | Medium |
-| Implement critical CSS | Medium | Hard |
+- **Use CDN** — Impact: High. Difficulty: Easy
+- **Optimize images** — Impact: High. Difficulty: Easy
+- **Reduce server response time** — Impact: High. Difficulty: Medium
+- **Preload critical resources** — Impact: Medium. Difficulty: Easy
+- **Remove render-blocking resources** — Impact: High. Difficulty: Medium
+- **Implement critical CSS** — Impact: Medium. Difficulty: Hard
 
 ---
 
@@ -230,13 +224,11 @@ worker.onmessage = (e) => {
 
 **FID/INP Optimization Strategies:**
 
-| Strategy | Impact | Difficulty |
-|----------|--------|------------|
-| Code splitting | High | Medium |
-| Debounce/throttle events | High | Easy |
-| Use web workers | High | Hard |
-| Break up long tasks | High | Medium |
-| Reduce JavaScript execution time | High | Medium |
+- **Code splitting** — Impact: High. Difficulty: Medium
+- **Debounce/throttle events** — Impact: High. Difficulty: Easy
+- **Use web workers** — Impact: High. Difficulty: Hard
+- **Break up long tasks** — Impact: High. Difficulty: Medium
+- **Reduce JavaScript execution time** — Impact: High. Difficulty: Medium
 
 ---
 
@@ -315,13 +307,11 @@ worker.onmessage = (e) => {
 
 **CLS Prevention Checklist:**
 
-| Element Type | Solution |
-|-------------|----------|
-| Images | Set width and height attributes |
-| Ads/Embeds | Reserve space with min-height |
-| Fonts | Use font-display: swap |
-| Dynamic content | Reserve space or use placeholders |
-| Animations | Use transform instead of top/left |
+- **Images** — Set width and height attributes
+- **Ads/Embeds** — Reserve space with min-height
+- **Fonts** — Use font-display: swap
+- **Dynamic content** — Reserve space or use placeholders
+- **Animations** — Use transform instead of top/left
 
 ---
 
@@ -343,14 +333,12 @@ Request → TTFB → FCP → LCP → TTI
 
 **Metrics Comparison:**
 
-| Metric | What it Measures | Good Threshold | Importance |
-|--------|------------------|----------------|------------|
-| **TTFB** | Server response time | < 600ms | Server performance |
-| **FCP** | First content visible | < 1.8s | Perceived loading |
-| **LCP** | Largest content visible | < 2.5s | Loading performance |
-| **TTI** | Page fully interactive | < 3.8s | Usability |
-| **TBT** | Main thread blocking | < 200ms | Responsiveness |
-| **Speed Index** | Visual progress | < 3.4s | User experience |
+- **TTFB** — Measures server response time. Good: < 600ms. Importance: Server performance
+- **FCP** — Measures first content visible. Good: < 1.8s. Importance: Perceived loading
+- **LCP** — Measures largest content visible. Good: < 2.5s. Importance: Loading performance
+- **TTI** — Measures page fully interactive. Good: < 3.8s. Importance: Usability
+- **TBT** — Measures main thread blocking. Good: < 200ms. Importance: Responsiveness
+- **Speed Index** — Measures visual progress. Good: < 3.4s. Importance: User experience
 
 ### TTFB (Time to First Byte)
 - Measures server response time
@@ -437,13 +425,11 @@ observer.observe({ entryTypes: ['largest-contentful-paint'] });
 
 **Performance Measurement Tools:**
 
-| Tool | Type | Use Case |
-|------|------|----------|
-| **Lighthouse** | Lab | Development testing |
-| **WebPageTest** | Lab | Detailed waterfall analysis |
-| **PageSpeed Insights** | Lab + Field | Google's official tool |
-| **Chrome UX Report** | Field | Real user data |
-| **Web Vitals Library** | Field | Production monitoring |
+- **Lighthouse** — Type: Lab. Use case: Development testing
+- **WebPageTest** — Type: Lab. Use case: Detailed waterfall analysis
+- **PageSpeed Insights** — Type: Lab + Field. Use case: Google's official tool
+- **Chrome UX Report** — Type: Field. Use case: Real user data
+- **Web Vitals Library** — Type: Field. Use case: Production monitoring
 
 ---
 
@@ -453,13 +439,11 @@ Images are often the largest assets on a page. Optimization significantly improv
 
 ### Choose the Right Format
 
-| Format | Best For | Pros | Cons |
-|--------|---------|------|------|
-| **JPEG** | Photos | Good compression | No transparency |
-| **PNG** | Graphics with transparency | Lossless | Large file size |
-| **WebP** | Modern format | Smaller, good quality | Limited old browser support |
-| **AVIF** | Newest format | Best compression | Very limited support |
-| **SVG** | Icons, logos | Scalable, tiny | Only for vector graphics |
+- **JPEG** — Best for photos. Pros: Good compression. Cons: No transparency
+- **PNG** — Best for graphics with transparency. Pros: Lossless. Cons: Large file size
+- **WebP** — Best as modern format. Pros: Smaller, good quality. Cons: Limited old browser support
+- **AVIF** — Best as newest format. Pros: Best compression. Cons: Very limited support
+- **SVG** — Best for icons, logos. Pros: Scalable, tiny. Cons: Only for vector graphics
 
 ### Responsive Images
 
@@ -592,11 +576,9 @@ function App() {
 
 **Lazy Loading Comparison:**
 
-| Method | Browser Support | Ease of Use | Control |
-|--------|----------------|-------------|---------|
-| Native `loading="lazy"` | Modern browsers | Very easy | Limited |
-| Intersection Observer | All modern browsers | Medium | High |
-| React `lazy()` | All (with polyfill) | Easy | Medium |
+- **Native `loading="lazy"`** — Browser support: Modern browsers. Ease of use: Very easy. Control: Limited
+- **Intersection Observer** — Browser support: All modern browsers. Ease of use: Medium. Control: High
+- **React `lazy()`** — Browser support: All (with polyfill). Ease of use: Easy. Control: Medium
 
 ---
 
@@ -676,12 +658,10 @@ button.addEventListener('click', async () => {
 
 **Code Splitting Strategies:**
 
-| Strategy | When to Use | Impact |
-|----------|-------------|--------|
-| Route-based | Different pages/routes | High |
-| Component-based | Heavy modals, charts | Medium |
-| Library splitting | Large dependencies | High |
-| Vendor splitting | Third-party libraries | Medium |
+- **Route-based** — When to use: Different pages/routes. Impact: High
+- **Component-based** — When to use: Heavy modals, charts. Impact: Medium
+- **Library splitting** — When to use: Large dependencies. Impact: High
+- **Vendor splitting** — When to use: Third-party libraries. Impact: Medium
 
 ---
 
@@ -739,11 +719,9 @@ Or specify files with side effects:
 
 **Tree Shaking Comparison:**
 
-| Approach | Bundle Size | Works With |
-|----------|------------|------------|
-| Import all | Large | CommonJS, ES6 |
-| Named imports | Small (with tree shaking) | ES6 only |
-| Default imports | Medium | Both |
+- **Import all** — Bundle size: Large. Works with: CommonJS, ES6
+- **Named imports** — Bundle size: Small (with tree shaking). Works with: ES6 only
+- **Default imports** — Bundle size: Medium. Works with: Both
 
 ---
 
@@ -773,11 +751,9 @@ function calculateTotal(e,t,n){const a=e*t,l=a*(n/100);return a-l}
 
 **File Size Comparison:**
 
-| Version | Size |
-|---------|------|
-| React (development) | 1.3 MB |
-| React (production minified) | 42 KB |
-| React (minified + gzipped) | 13 KB |
+- **React (development)** — 1.3 MB
+- **React (production minified)** — 42 KB
+- **React (minified + gzipped)** — 13 KB
 
 **Tools:**
 - **Terser** - JavaScript minification
@@ -797,11 +773,9 @@ function calculateTotal(e,t,n){const a=e*t,l=a*(n/100);return a-l}
 
 **Comparison:**
 
-| Compression | Reduction | Browser Support | Speed |
-|------------|-----------|----------------|-------|
-| None | 0% | All | N/A |
-| **gzip** | ~70% | All | Fast |
-| **Brotli** | ~20% better than gzip | Modern | Slower encode, faster decode |
+- **None** — Reduction: 0%. Browser support: All
+- **gzip** — Reduction: ~70%. Browser support: All. Speed: Fast
+- **Brotli** — Reduction: ~20% better than gzip. Browser support: Modern. Speed: Slower encode, faster decode
 
 ### Nginx Configuration
 
@@ -834,12 +808,10 @@ module.exports = {
 
 **File Size Comparison:**
 
-| Stage | Size | Reduction |
-|-------|------|-----------|
-| Original | 1000 KB | - |
-| Minified | 400 KB | 60% |
-| Gzipped | 120 KB | 70% from minified |
-| Brotli | 95 KB | 76% from minified |
+- **Original** — 1000 KB
+- **Minified** — 400 KB (60% reduction)
+- **Gzipped** — 120 KB (70% reduction from minified)
+- **Brotli** — 95 KB (76% reduction from minified)
 
 **What to Compress:**
 - ✅ Text files (JS, CSS, HTML, JSON, XML)
@@ -869,12 +841,10 @@ Cache-Control: max-age=31536000, immutable
 
 ### Caching Strategies
 
-| Resource Type | Strategy | Header |
-|--------------|----------|--------|
-| HTML | No cache (always fresh) | `no-cache` |
-| Hashed assets | Long-term cache | `max-age=31536000, immutable` |
-| API responses | Short cache | `max-age=60` |
-| User-specific content | No cache | `no-store, private` |
+- **HTML** — Strategy: No cache (always fresh). Header: `no-cache`
+- **Hashed assets** — Strategy: Long-term cache. Header: `max-age=31536000, immutable`
+- **API responses** — Strategy: Short cache. Header: `max-age=60`
+- **User-specific content** — Strategy: No cache. Header: `no-store, private`
 
 ### Service Worker Caching
 
@@ -940,14 +910,12 @@ Latency: ~10ms
 
 **CDN Benefits:**
 
-| Benefit | Impact |
-|---------|--------|
-| Faster load times | High |
-| Reduced server load | High |
-| Better availability | High |
-| DDoS protection | Medium |
-| Automatic compression | Medium |
-| Image optimization | High |
+- **Faster load times** — Impact: High
+- **Reduced server load** — Impact: High
+- **Better availability** — Impact: High
+- **DDoS protection** — Impact: Medium
+- **Automatic compression** — Impact: Medium
+- **Image optimization** — Impact: High
 
 ---
 
@@ -957,12 +925,10 @@ Resource hints to optimize loading.
 
 **Comparison:**
 
-| Hint | Priority | When to Use | Example |
-|------|----------|-------------|---------|
-| **preload** | High | Critical resources for current page | Fonts, hero images, critical CSS |
-| **prefetch** | Low | Resources for next page | Next route in SPA |
-| **preconnect** | Medium | External domains | APIs, font providers |
-| **dns-prefetch** | Low | DNS resolution only | Analytics, ads |
+- **preload** — Priority: High. When to use: Critical resources for current page. Example: Fonts, hero images, critical CSS
+- **prefetch** — Priority: Low. When to use: Resources for next page. Example: Next route in SPA
+- **preconnect** — Priority: Medium. When to use: External domains. Example: APIs, font providers
+- **dns-prefetch** — Priority: Low. When to use: DNS resolution only. Example: Analytics, ads
 
 ### Preload (Critical Resources)
 
@@ -1068,12 +1034,10 @@ Resources that prevent page from rendering until loaded.
 
 ### Render-blocking Comparison
 
-| Resource Type | Blocks Rendering | Solution |
-|--------------|-----------------|----------|
-| CSS in `<head>` | Yes | Inline critical CSS, defer non-critical |
-| Synchronous `<script>` | Yes | Use `defer` or `async` |
-| JavaScript in `<head>` | Yes | Move to end of `<body>` or use `defer` |
-| Images | No | - |
+- **CSS in `<head>`** — Blocks rendering: Yes. Solution: Inline critical CSS, defer non-critical
+- **Synchronous `<script>`** — Blocks rendering: Yes. Solution: Use `defer` or `async`
+- **JavaScript in `<head>`** — Blocks rendering: Yes. Solution: Move to end of `<body>` or use `defer`
+- **Images** — Blocks rendering: No
 
 ```html
 <!-- ❌ Render-blocking CSS -->
@@ -1099,11 +1063,9 @@ Resources that prevent page from rendering until loaded.
 
 **defer vs async:**
 
-| Attribute | Download | Execution | Order | Use Case |
-|-----------|----------|-----------|-------|----------|
-| None | Blocks | Blocks | Sequential | Avoid |
-| `defer` | Parallel | After HTML parse | Sequential | App scripts |
-| `async` | Parallel | When ready | Random | Analytics, ads |
+- **None** — Download: Blocks. Execution: Blocks. Order: Sequential. Use case: Avoid
+- **`defer`** — Download: Parallel. Execution: After HTML parse. Order: Sequential. Use case: App scripts
+- **`async`** — Download: Parallel. Execution: When ready. Order: Random. Use case: Analytics, ads
 
 ---
 
@@ -1166,10 +1128,8 @@ Techniques to reduce function call frequency and improve performance.
 
 **Comparison:**
 
-| Technique | Behavior | Use Case |
-|-----------|----------|----------|
-| **Debouncing** | Wait until action stops, then execute once | Search input, window resize |
-| **Throttling** | Execute at most once per interval | Scroll events, mouse movement |
+- **Debouncing** — Wait until action stops, then execute once. Use case: Search input, window resize
+- **Throttling** — Execute at most once per interval. Use case: Scroll events, mouse movement
 
 ### Debouncing
 
@@ -1252,14 +1212,12 @@ Control which resources load first using `fetchpriority` attribute.
 
 **Default Browser Priorities:**
 
-| Resource | Priority |
-|----------|----------|
-| CSS | High |
-| Fonts | High |
-| Images in viewport | High |
-| Scripts | Medium |
-| Out-of-viewport images | Low |
-| Prefetch resources | Lowest |
+- **CSS** — Priority: High
+- **Fonts** — Priority: High
+- **Images in viewport** — Priority: High
+- **Scripts** — Priority: Medium
+- **Out-of-viewport images** — Priority: Low
+- **Prefetch resources** — Priority: Lowest
 
 ### Increase Priority
 
@@ -1317,14 +1275,12 @@ Modern HTTP protocols that improve performance.
 
 **Protocol Comparison:**
 
-| Feature | HTTP/1.1 | HTTP/2 | HTTP/3 |
-|---------|---------|--------|--------|
-| **Transport** | TCP | TCP | QUIC (UDP) |
-| **Multiplexing** | No | Yes | Yes |
-| **Header compression** | No | Yes | Yes |
-| **Server push** | No | Yes | Yes |
-| **Connection setup** | Slow | Medium | Fast |
-| **Packet loss handling** | Poor | Poor | Good |
+- **Transport** — HTTP/1.1: TCP. HTTP/2: TCP. HTTP/3: QUIC (UDP)
+- **Multiplexing** — HTTP/1.1: No. HTTP/2: Yes. HTTP/3: Yes
+- **Header compression** — HTTP/1.1: No. HTTP/2: Yes. HTTP/3: Yes
+- **Server push** — HTTP/1.1: No. HTTP/2: Yes. HTTP/3: Yes
+- **Connection setup** — HTTP/1.1: Slow. HTTP/2: Medium. HTTP/3: Fast
+- **Packet loss handling** — HTTP/1.1: Poor. HTTP/2: Poor. HTTP/3: Good
 
 ### HTTP/2 Benefits
 
@@ -1458,13 +1414,11 @@ Web fonts can significantly impact rendering performance.
 
 **font-display Comparison:**
 
-| Strategy | Behavior | Use Case |
-|----------|----------|----------|
-| `auto` | Browser decides | Default |
-| `block` | FOIT - Hide up to 3s | Branding fonts |
-| `swap` | FOUT - Always swap | Body text (Recommended) |
-| `fallback` | Brief hide, then fallback | Compromise |
-| `optional` | Use if cached | Decorative fonts |
+- **`auto`** — Browser decides. Use case: Default
+- **`block`** — FOIT, hide up to 3s. Use case: Branding fonts
+- **`swap`** — FOUT, always swap. Use case: Body text (Recommended)
+- **`fallback`** — Brief hide, then fallback. Use case: Compromise
+- **`optional`** — Use if cached. Use case: Decorative fonts
 
 ### Preload Critical Fonts
 
@@ -1698,17 +1652,15 @@ export default function Layout({ children }) {
 
 **Performance Impact Summary:**
 
-| Optimization | Impact | Effort |
-|-------------|--------|--------|
-| Image optimization | High | Low |
-| Code splitting | High | Medium |
-| Minification | High | Low (automatic) |
-| Compression | High | Low |
-| CDN | High | Low-Medium |
-| Caching | High | Medium |
-| Critical CSS | Medium | High |
-| Font optimization | Medium | Low-Medium |
-| Third-party optimization | High | Medium |
+- **Image optimization** — Impact: High. Effort: Low
+- **Code splitting** — Impact: High. Effort: Medium
+- **Minification** — Impact: High. Effort: Low (automatic)
+- **Compression** — Impact: High. Effort: Low
+- **CDN** — Impact: High. Effort: Low-Medium
+- **Caching** — Impact: High. Effort: Medium
+- **Critical CSS** — Impact: Medium. Effort: High
+- **Font optimization** — Impact: Medium. Effort: Low-Medium
+- **Third-party optimization** — Impact: High. Effort: Medium
 
 **Remember:**
 - Every 100ms delay = 1% conversion loss

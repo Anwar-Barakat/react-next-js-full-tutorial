@@ -108,15 +108,13 @@ A comprehensive guide to JavaScript fundamentals, patterns, and best practices.
 
 **Definition:** Data stored directly in memory. When copied, the value itself is copied.
 
-| Type      | Description                          | Example               |
-|-----------|--------------------------------------|-----------------------|
-| String    | Text data                            | "Hello", 'World'      |
-| Number    | Integers and decimals                | 42, 3.14              |
-| Boolean   | True or false values                 | true, false           |
-| Undefined | Variable declared but not assigned   | let x; // undefined   |
-| Null      | Intentional absence of value         | let y = null;         |
-| Symbol    | Unique identifier (ES6+)             | Symbol('id')          |
-| BigInt    | Very large integers (ES11+)          | 123n                  |
+- **String** — Text data (e.g., "Hello", 'World')
+- **Number** — Integers and decimals (e.g., 42, 3.14)
+- **Boolean** — True or false values (e.g., true, false)
+- **Undefined** — Variable declared but not assigned (e.g., let x; // undefined)
+- **Null** — Intentional absence of value (e.g., let y = null;)
+- **Symbol** — Unique identifier, ES6+ (e.g., Symbol('id'))
+- **BigInt** — Very large integers, ES11+ (e.g., 123n)
 
 **Key point:** Primitives are **immutable** (cannot be changed). Operations create new values.
 
@@ -156,21 +154,17 @@ When you change obj2.name:
 
 **Key difference:**
 
-| Aspect       | Primitive                  | Reference                  |
-|--------------|----------------------------|----------------------------|
-| Storage      | Stores the actual value    | Stores memory address      |
-| Copy         | Copies the value           | Copies the reference       |
-| Comparison   | Compares values            | Compares memory addresses  |
-| Mutability   | Immutable                  | Mutable                    |
+- **Storage** — Primitive: Stores the actual value; Reference: Stores memory address
+- **Copy** — Primitive: Copies the value; Reference: Copies the reference
+- **Comparison** — Primitive: Compares values; Reference: Compares memory addresses
+- **Mutability** — Primitive: Immutable; Reference: Mutable
 
 ---
 
 ### undefined vs not defined
 
-| Concept     | Meaning                       | Example                          |
-|-------------|-------------------------------|----------------------------------|
-| undefined   | Variable declared, no value   | let x; console.log(x); // undefined |
-| not defined | Variable not declared at all  | console.log(y); // ReferenceError  |
+- **undefined** — Variable declared, no value (e.g., let x; console.log(x); // undefined)
+- **not defined** — Variable not declared at all (e.g., console.log(y); // ReferenceError)
 
 ---
 
@@ -266,14 +260,12 @@ obj = {};  // ❌ Error - reassigning variable
 
 ### Comparison
 
-| Feature       | var          | let          | const                |
-|---------------|--------------|--------------|----------------------|
-| Scope         | Function     | Block        | Block                |
-| Redeclare     | Yes          | No           | No                   |
-| Reassign      | Yes          | Yes          | No                   |
-| Hoisting      | Yes, = undefined | Yes, not init | Yes, not init       |
-| Temporal Dead Zone | No      | Yes          | Yes                  |
-| Best for      | (Avoid)      | Changing values | Constants, objects |
+- **Scope** — var: Function; let: Block; const: Block
+- **Redeclare** — var: Yes; let: No; const: No
+- **Reassign** — var: Yes; let: Yes; const: No
+- **Hoisting** — var: Yes, = undefined; let: Yes, not init; const: Yes, not init
+- **Temporal Dead Zone** — var: No; let: Yes; const: Yes
+- **Best for** — var: (Avoid); let: Changing values; const: Constants, objects
 
 **Modern best practice:**
 - **Default:** Use `const`
@@ -387,13 +379,11 @@ null === undefined  // false - different types
 
 ### Comparison Table
 
-| Expression           | == Result | === Result | Reason                    |
-|----------------------|-----------|------------|---------------------------|
-| 5 == "5"             | true      | false      | Type coercion vs strict   |
-| 0 == false           | true      | false      | false → 0                 |
-| null == undefined    | true      | false      | Special case vs strict    |
-| [] == false          | true      | false      | [] → "" → 0               |
-| "0" == 0             | true      | false      | "0" → 0                   |
+- **5 == "5"** — == Result: true; === Result: false (type coercion vs strict)
+- **0 == false** — == Result: true; === Result: false (false converts to 0)
+- **null == undefined** — == Result: true; === Result: false (special case vs strict)
+- **[] == false** — == Result: true; === Result: false ([] converts to "" converts to 0)
+- **"0" == 0** — == Result: true; === Result: false ("0" converts to 0)
 
 ---
 
@@ -439,12 +429,10 @@ let user = null;  // Explicitly no user
 
 ### Comparison
 
-| Aspect         | undefined                    | null                       |
-|----------------|------------------------------|----------------------------|
-| Type           | "undefined"                  | "object" (JavaScript quirk)|
-| Meaning        | Unintentional absence        | Intentional absence        |
-| Assignment     | Automatic by JavaScript      | Manual by programmer       |
-| Default value  | Yes (uninitialized vars)     | No (must assign)           |
+- **Type** — undefined: "undefined"; null: "object" (JavaScript quirk)
+- **Meaning** — undefined: Unintentional absence; null: Intentional absence
+- **Assignment** — undefined: Automatic by JavaScript; null: Manual by programmer
+- **Default value** — undefined: Yes (uninitialized vars); null: No (must assign)
 
 **JavaScript quirk:**
 
@@ -557,12 +545,10 @@ sum(1, 2, 3, 4, 5);  // 15
 
 ### Declaration vs Expression Hoisting
 
-| Aspect            | Function Declaration       | Function Expression         |
-|-------------------|----------------------------|-----------------------------|
-| Hoisting          | Fully hoisted              | Variable hoisted, not function |
-| Call before def   | ✅ Yes                     | ❌ No (error)               |
-| Name              | Required                   | Optional                    |
-| Best for          | Top-level functions        | Callbacks, methods          |
+- **Hoisting** — Declaration: Fully hoisted; Expression: Variable hoisted, not function
+- **Call before def** — Declaration: Yes; Expression: No (error)
+- **Name** — Declaration: Required; Expression: Optional
+- **Best for** — Declaration: Top-level functions; Expression: Callbacks, methods
 
 **Function Expression with var:**
 
@@ -767,10 +753,8 @@ console.log(person["first name"]);  // "Anwar"
 
 **JSON (JavaScript Object Notation)** - A text format for storing and transporting data.
 
-| Method              | Purpose                           | Example                        |
-|---------------------|-----------------------------------|--------------------------------|
-| JSON.parse()        | Convert JSON string → JS object   | JSON.parse('{"name":"Anwar"}') |
-| JSON.stringify()    | Convert JS object → JSON string   | JSON.stringify({name:"Anwar"}) |
+- **JSON.parse()** — Convert JSON string to JS object (e.g., JSON.parse('{"name":"Anwar"}'))
+- **JSON.stringify()** — Convert JS object to JSON string (e.g., JSON.stringify({name:"Anwar"}))
 
 **Use cases:**
 - API data transfer
@@ -792,12 +776,10 @@ console.log(obj1.name);  // "Ali" - both changed
 
 **Solutions:**
 
-| Method                          | Type         | Nested Objects |
-|---------------------------------|--------------|----------------|
-| Spread operator `{...obj}`      | Shallow copy | ❌ Shared      |
-| Object.assign({}, obj)          | Shallow copy | ❌ Shared      |
-| JSON.parse(JSON.stringify(obj)) | Deep copy    | ✅ Copied      |
-| structuredClone(obj)            | Deep copy    | ✅ Copied      |
+- **Spread operator `{...obj}`** — Shallow copy, nested objects are shared
+- **Object.assign({}, obj)** — Shallow copy, nested objects are shared
+- **JSON.parse(JSON.stringify(obj))** — Deep copy, nested objects are copied
+- **structuredClone(obj)** — Deep copy, nested objects are copied
 
 ```javascript
 // Shallow copy:
@@ -835,11 +817,9 @@ for (let value of arr) {
 
 **Comparison:**
 
-| Feature    | for...in           | for...of            |
-|------------|--------------------|---------------------|
-| Purpose    | Object keys        | Iterable values     |
-| Works with | Objects            | Arrays, strings, Map, Set |
-| Returns    | Keys/indices       | Values              |
+- **Purpose** — for...in: Object keys; for...of: Iterable values
+- **Works with** — for...in: Objects; for...of: Arrays, strings, Map, Set
+- **Returns** — for...in: Keys/indices; for...of: Values
 
 ---
 
@@ -1137,10 +1117,8 @@ console.log("D");
 
 ### Microtasks vs Macrotasks
 
-| Type        | Priority | Examples                          | When Run            |
-|-------------|----------|-----------------------------------|---------------------|
-| Microtasks  | HIGH     | Promises, async/await, queueMicrotask | After current code, before macrotasks |
-| Macrotasks  | LOW      | setTimeout, setInterval, DOM events | After microtasks    |
+- **Microtasks** — HIGH priority. Examples: Promises, async/await, queueMicrotask. Run after current code, before macrotasks
+- **Macrotasks** — LOW priority. Examples: setTimeout, setInterval, DOM events. Run after microtasks
 
 **Why Promise runs before setTimeout:**
 
@@ -1544,12 +1522,10 @@ btn.addEventListener("click", function() {
 
 **Comparison:**
 
-| Feature          | onclick                | addEventListener           |
-|------------------|------------------------|----------------------------|
-| Multiple handlers| No (overrides)         | Yes (adds)                 |
-| Remove handler   | Set to null            | removeEventListener()      |
-| Event options    | No                     | Yes (capture, once, etc.)  |
-| Best practice    | Avoid                  | Preferred                  |
+- **Multiple handlers** — onclick: No (overrides); addEventListener: Yes (adds)
+- **Remove handler** — onclick: Set to null; addEventListener: removeEventListener()
+- **Event options** — onclick: No; addEventListener: Yes (capture, once, etc.)
+- **Best practice** — onclick: Avoid; addEventListener: Preferred
 
 ---
 
@@ -1619,12 +1595,10 @@ const doubled = numbers.map(n => n * 2);  // [2, 4, 6]
 
 **Comparison:**
 
-| Feature       | forEach()           | map()                |
-|---------------|---------------------|----------------------|
-| Returns       | undefined           | New array            |
-| Purpose       | Side effects        | Transform data       |
-| Chaining      | No                  | Yes                  |
-| Use when      | console.log, update DOM | Create new array |
+- **Returns** — forEach(): undefined; map(): New array
+- **Purpose** — forEach(): Side effects; map(): Transform data
+- **Chaining** — forEach(): No; map(): Yes
+- **Use when** — forEach(): console.log, update DOM; map(): Create new array
 
 ---
 
@@ -1780,12 +1754,10 @@ window.addEventListener("scroll", handleScroll);
 
 ### Debouncing vs Throttling
 
-| Aspect       | Debouncing                    | Throttling                  |
-|--------------|-------------------------------|-----------------------------|
-| When runs    | After user stops              | During action (limited)     |
-| Frequency    | Once (at end)                 | Multiple (spaced out)       |
-| Best for     | Search input, resize          | Scroll, mouse move          |
-| Example      | Wait 500ms after last keypress | Run once every 200ms        |
+- **When runs** — Debouncing: After user stops; Throttling: During action (limited)
+- **Frequency** — Debouncing: Once (at end); Throttling: Multiple (spaced out)
+- **Best for** — Debouncing: Search input, resize; Throttling: Scroll, mouse move
+- **Example** — Debouncing: Wait 500ms after last keypress; Throttling: Run once every 200ms
 
 ---
 
@@ -1866,12 +1838,10 @@ lazyImages.forEach(img => imageObserver.observe(img));
 
 **Comparison:**
 
-| Feature      | localStorage              | sessionStorage            |
-|--------------|---------------------------|---------------------------|
-| Persistence  | Forever (until deleted)   | Tab session only          |
-| Scope        | All tabs/windows          | Single tab/window         |
-| Size limit   | ~5-10MB                   | ~5-10MB                   |
-| Data type    | Strings only              | Strings only              |
+- **Persistence** — localStorage: Forever (until deleted); sessionStorage: Tab session only
+- **Scope** — localStorage: All tabs/windows; sessionStorage: Single tab/window
+- **Size limit** — localStorage: ~5-10MB; sessionStorage: ~5-10MB
+- **Data type** — localStorage: Strings only; sessionStorage: Strings only
 
 **Usage:**
 
@@ -2064,10 +2034,8 @@ const displayName = name ?? "Guest";   // "" (?? only checks null/undefined)
 
 **Comparison:**
 
-| Operator | Provides default for               | Example (x = 0)      |
-|----------|------------------------------------|----------------------|
-| \|\|     | All falsy (0, "", false, null, undefined) | x \|\| 10 → 10 |
-| ??       | Only null/undefined                | x ?? 10 → 0          |
+- **\|\|** — Provides default for all falsy values (0, "", false, null, undefined). Example (x = 0): x \|\| 10 results in 10
+- **??** — Provides default for only null/undefined. Example (x = 0): x ?? 10 results in 0
 
 ---
 
@@ -2216,13 +2184,11 @@ import User, { ROLE_ADMIN } from "./user.js";
 
 ### Comparison
 
-| Feature         | Named Export                | Default Export            |
-|-----------------|-----------------------------|---------------------------|
-| Per module      | Multiple                    | One                       |
-| Import syntax   | { name }                    | name (no braces)          |
-| Import name     | Must match export name      | Can use any name          |
-| Rename          | import { old as new }       | Not needed (any name)     |
-| Best for        | Utilities, constants        | Main class/component      |
+- **Per module** — Named Export: Multiple; Default Export: One
+- **Import syntax** — Named Export: { name }; Default Export: name (no braces)
+- **Import name** — Named Export: Must match export name; Default Export: Can use any name
+- **Rename** — Named Export: import { old as new }; Default Export: Not needed (any name)
+- **Best for** — Named Export: Utilities, constants; Default Export: Main class/component
 
 ---
 
@@ -2287,12 +2253,10 @@ try {
 
 **Comparison:**
 
-| Aspect         | return                    | throw                      |
-|----------------|---------------------------|----------------------------|
-| Purpose        | Normal exit               | Error exit                 |
-| Execution      | Continues normally        | Jumps to catch block       |
-| Best for       | Valid results             | Error conditions           |
-| Catchable      | No                        | Yes (try...catch)          |
+- **Purpose** — return: Normal exit; throw: Error exit
+- **Execution** — return: Continues normally; throw: Jumps to catch block
+- **Best for** — return: Valid results; throw: Error conditions
+- **Catchable** — return: No; throw: Yes (try...catch)
 
 ---
 
@@ -2553,15 +2517,13 @@ Boolean(0)         // false
 
 **Falsy values** - Values that coerce to false in boolean context.
 
-| Value         | Type      | Reason                    |
-|---------------|-----------|---------------------------|
-| false         | Boolean   | Literally false           |
-| 0             | Number    | Zero is falsy             |
-| -0            | Number    | Negative zero is falsy    |
-| ""            | String    | Empty string is falsy     |
-| null          | Null      | Absence of value          |
-| undefined     | Undefined | No value assigned         |
-| NaN           | Number    | Not a Number              |
+- **false** (Boolean) — Literally false
+- **0** (Number) — Zero is falsy
+- **-0** (Number) — Negative zero is falsy
+- **""** (String) — Empty string is falsy
+- **null** (Null) — Absence of value
+- **undefined** (Undefined) — No value assigned
+- **NaN** (Number) — Not a Number
 
 **Truthy values** - Everything else (including "0", "false", [], {}).
 

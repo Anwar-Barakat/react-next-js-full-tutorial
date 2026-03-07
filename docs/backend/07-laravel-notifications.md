@@ -14,6 +14,7 @@ A comprehensive guide to notifications, broadcasting, WebSockets, and real-time 
 8. [What is Laravel Reverb?](#8-what-is-laravel-reverb)
 9. [Setting up Laravel Reverb](#9-setting-up-laravel-reverb)
 10. [Laravel Reverb vs Pusher](#10-laravel-reverb-vs-pusher)
+11. [Dispatch Methods — When to Use Each](#11-dispatch-methods--when-to-use-each)
 
 ---
 
@@ -48,14 +49,12 @@ In short: Laravel notifications let you send messages via email, database, and r
 
 ## 2. What notification channels does Laravel support?
 
-| Channel | Description |
-|---------|-------------|
-| `mail` | Sends an email |
-| `database` | Stores in DB for in-app notifications |
-| `broadcast` | Real-time via WebSockets |
-| `vonage` / `nexmo` | SMS messages |
-| `slack` | Slack messages |
-| Custom | Any custom channel |
+- **`mail`** — Sends an email
+- **`database`** — Stores in DB for in-app notifications
+- **`broadcast`** — Real-time via WebSockets
+- **`vonage` / `nexmo`** — SMS messages
+- **`slack`** — Slack messages
+- **Custom** — Any custom channel
 
 **Example: When a user places an order:**
 - Email → Order confirmation.
@@ -113,11 +112,9 @@ In short: Laravel broadcasting sends real-time events from the server to the fro
 
 **Types of channels:**
 
-| Channel | Who Can Listen | Example Use |
-|---------|---------------|-------------|
-| **Public** | Anyone | Live public notifications |
-| **Private** | Authenticated users only | Private notifications |
-| **Presence** | Authenticated users + shows who is online | Chat rooms |
+- **Public** — Anyone can listen (e.g. live public notifications)
+- **Private** — Authenticated users only (e.g. private notifications)
+- **Presence** — Authenticated users + shows who is online (e.g. chat rooms)
 
 In short: Channels control who can hear real-time events — everyone, logged-in users, or logged-in users with presence info.
 
@@ -290,16 +287,27 @@ user=www-data
 
 ## 10. Laravel Reverb vs Pusher
 
-| Feature | Laravel Reverb | Pusher |
-|---------|---------------|--------|
-| **Cost** | Free (self-hosted) | Paid after free tier |
-| **Hosting** | Your own server | External cloud service |
-| **Setup** | `php artisan install:broadcasting` | API keys + SDK |
-| **Performance** | High (ReactPHP) | Very high (managed) |
-| **Scaling** | Manual (horizontal scaling possible) | Automatic |
-| **Laravel integration** | First-party, native | Official adapter |
-| **Maintenance** | You manage the server | Pusher manages it |
-| **Best for** | Full control, no external dependency | Quick setup, managed service |
+### Laravel Reverb
+
+- **Cost** — Free (self-hosted)
+- **Hosting** — Your own server
+- **Setup** — `php artisan install:broadcasting`
+- **Performance** — High (ReactPHP)
+- **Scaling** — Manual (horizontal scaling possible)
+- **Laravel integration** — First-party, native
+- **Maintenance** — You manage the server
+- **Best for** — Full control, no external dependency
+
+### Pusher
+
+- **Cost** — Paid after free tier
+- **Hosting** — External cloud service
+- **Setup** — API keys + SDK
+- **Performance** — Very high (managed)
+- **Scaling** — Automatic
+- **Laravel integration** — Official adapter
+- **Maintenance** — Pusher manages it
+- **Best for** — Quick setup, managed service
 
 ```php
 // config/broadcasting.php — switching is just a config change
@@ -320,3 +328,67 @@ user=www-data
 ```
 
 In short: Reverb = free, self-hosted, full control. Pusher = managed service, easier to scale but has cost at volume.
+
+---
+
+## 11. Dispatch Methods — When to Use Each
+
+All dispatch methods send a Job for execution. The difference is **when** and **how** it runs.
+
+**`dispatch()`** — The standard way. Job goes to the queue, a worker executes it later. The user does not wait.
+
+```php
+SendEmailJob::dispatch($user);
+SendEmailJob::dispatch($user)->onQueue('emails');
+SendEmailJob::dispatch($user)->delay(now()->addMinutes(5));
+```
+
+Best for: heavy tasks like sending emails, processing images, generating reports.
+
+**`dispatchSync()`** — No queue at all. The job runs immediately inside the current request. The user waits.
+
+```php
+SendEmailJob::dispatchSync($user);
+```
+
+Best for: testing, or when you need the result right away before responding.
+
+**`dispatchAfterResponse()`** — The job runs after Laravel sends the response to the user. No queue worker needed, but the PHP process stays alive until the job finishes.
+
+```php
+SendEmailJob::dispatchAfterResponse($user);
+```
+
+Best for: lightweight tasks that should not delay the response but don't need a full queue setup (logging, analytics, cleanup).
+
+**`dispatchIf()`** — Dispatches to the queue only if a condition is `true`.
+
+```php
+SendEmailJob::dispatchIf($user->is_active, $user);
+
+// Same as:
+if ($user->is_active) {
+    SendEmailJob::dispatch($user);
+}
+```
+
+**`dispatchUnless()`** — The opposite. Dispatches unless the condition is `true`.
+
+```php
+SendEmailJob::dispatchUnless($user->is_banned, $user);
+
+// Same as:
+if (! $user->is_banned) {
+    SendEmailJob::dispatch($user);
+}
+```
+
+**Summary:**
+
+- `dispatch()` — Queue (async, worker handles it)
+- `dispatchSync()` — Immediate (sync, user waits)
+- `dispatchAfterResponse()` — After response is sent (no worker needed)
+- `dispatchIf()` — Queue only if condition is true
+- `dispatchUnless()` — Queue unless condition is true
+
+In short: All do the same thing — run a job. The difference is timing and execution method, which affects performance and user experience.

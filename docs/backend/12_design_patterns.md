@@ -17,9 +17,11 @@ A comprehensive guide to software design patterns and their use in PHP and Larav
 11. [What is the Command Pattern?](#11-what-is-the-command-pattern)
 12. [What is the Dependency Injection Pattern?](#12-what-is-the-dependency-injection-pattern)
 13. [What is the MVC Pattern?](#13-what-is-the-mvc-pattern)
-14. [What is the Decorator Pattern?](#14-what-is-the-decorator-pattern)
-15. [What is the Chain of Responsibility Pattern?](#15-what-is-the-chain-of-responsibility-pattern)
-16. [Design Pattern Categories](#16-design-pattern-categories)
+14. [What is the MVVM Pattern?](#14-what-is-the-mvvm-pattern)
+15. [MVC vs MVP vs MVVM](#15-mvc-vs-mvp-vs-mvvm)
+16. [What is the Decorator Pattern?](#16-what-is-the-decorator-pattern)
+17. [What is the Chain of Responsibility Pattern?](#17-what-is-the-chain-of-responsibility-pattern)
+18. [Design Pattern Categories](#18-design-pattern-categories)
 
 ---
 
@@ -133,12 +135,19 @@ In short: Services hold business logic so controllers stay thin and focused on H
 
 ## 3. Difference between Service and Repository
 
-| | Repository | Service |
-|-|------------|---------|
-| **Purpose** | Database access | Business logic |
-| **Contains** | Queries, CRUD | Rules, workflows, calculations |
-| **Talks to** | Database / Eloquent | Repositories, external APIs |
-| **Example** | `UserRepository::findById()` | `OrderService::placeOrder()` |
+### Repository
+
+- **Purpose** — Database access
+- **Contains** — Queries, CRUD
+- **Talks to** — Database / Eloquent
+- **Example** — `UserRepository::findById()`
+
+### Service
+
+- **Purpose** — Business logic
+- **Contains** — Rules, workflows, calculations
+- **Talks to** — Repositories, external APIs
+- **Example** — `OrderService::placeOrder()`
 
 ```
 Request → Controller → Service → Repository → Database
@@ -552,11 +561,9 @@ class UserController extends Controller {
 
 **Types of Dependency Injection:**
 
-| Type | How |
-|------|-----|
-| **Constructor Injection** | Via `__construct()` (most common) |
-| **Method Injection** | Via method parameters |
-| **Property Injection** | Via public properties (less common) |
+- **Constructor Injection** — Via `__construct()` (most common)
+- **Method Injection** — Via method parameters
+- **Property Injection** — Via public properties (less common)
 
 In short: DI gives a class what it needs from outside — makes code testable, flexible, and decoupled.
 
@@ -566,11 +573,9 @@ In short: DI gives a class what it needs from outside — makes code testable, f
 
 - MVC (Model–View–Controller) separates the app into three layers, each with a clear responsibility.
 
-| Layer | Responsibility | Laravel Example |
-|-------|---------------|-----------------|
-| **Model** | Data & database logic | `User`, `Post` (Eloquent models) |
-| **View** | Display / UI | Blade templates, JSON responses |
-| **Controller** | Handles requests, connects M and V | `UserController` |
+- **Model** — Data & database logic (e.g. `User`, `Post` Eloquent models)
+- **View** — Display / UI (e.g. Blade templates, JSON responses)
+- **Controller** — Handles requests, connects M and V (e.g. `UserController`)
 
 ```
 Browser → Request → Router → Controller → Model → Database
@@ -587,7 +592,182 @@ In short: MVC splits your app into data (Model), display (View), and logic (Cont
 
 ---
 
-## 14. What is the Decorator Pattern?
+## 14. What is the MVVM Pattern?
+
+- MVVM (Model–View–ViewModel) separates the app into three layers — similar to MVC but designed for **reactive UIs**.
+- Very common in **React, Vue.js, Angular**, and mobile apps (Swift, Kotlin).
+
+**The three layers:**
+
+- **Model** — The data and business logic (API calls, database, state).
+- **View** — What the user sees (UI components, HTML, JSX).
+- **ViewModel** — The bridge between Model and View. It holds the UI state and logic. The View **automatically updates** when the ViewModel changes.
+
+```
+User interacts with View
+         ↓
+View calls ViewModel (e.g., button click → handleSubmit)
+         ↓
+ViewModel updates Model (e.g., API call, save data)
+         ↓
+Model returns data to ViewModel
+         ↓
+ViewModel updates its state
+         ↓
+View automatically re-renders (data binding)
+```
+
+**React example (MVVM in practice):**
+
+```tsx
+// MODEL — data and API logic
+async function fetchUsers(): Promise<User[]> {
+    const res = await fetch('/api/users');
+    return res.json();
+}
+
+// VIEWMODEL — holds state and logic (this is your custom hook)
+function useUsers() {
+    const [users, setUsers] = useState<User[]>([]);
+    const [loading, setLoading] = useState(true);
+
+    useEffect(() => {
+        fetchUsers().then((data) => {
+            setUsers(data);
+            setLoading(false);
+        });
+    }, []);
+
+    const deleteUser = (id: number) => {
+        setUsers(users.filter(u => u.id !== id));
+        fetch(`/api/users/${id}`, { method: 'DELETE' });
+    };
+
+    return { users, loading, deleteUser };
+}
+
+// VIEW — only displays data, no logic
+function UserList() {
+    const { users, loading, deleteUser } = useUsers();
+
+    if (loading) return <p>Loading...</p>;
+
+    return (
+        <ul>
+            {users.map(user => (
+                <li key={user.id}>
+                    {user.name}
+                    <button onClick={() => deleteUser(user.id)}>Delete</button>
+                </li>
+            ))}
+        </ul>
+    );
+}
+```
+
+**Vue.js example:**
+
+```vue
+<template>
+  <!-- VIEW — only displays data -->
+  <ul>
+    <li v-for="user in users" :key="user.id">
+      {{ user.name }}
+      <button @click="deleteUser(user.id)">Delete</button>
+    </li>
+  </ul>
+</template>
+
+<script setup>
+// VIEWMODEL — state and logic
+import { ref, onMounted } from 'vue';
+
+const users = ref([]);
+
+onMounted(async () => {
+    const res = await fetch('/api/users');
+    users.value = await res.json();
+});
+
+const deleteUser = (id) => {
+    users.value = users.value.filter(u => u.id !== id);
+    fetch(`/api/users/${id}`, { method: 'DELETE' });
+};
+</script>
+```
+
+**Key idea of MVVM:**
+- The View never talks to the Model directly.
+- The ViewModel handles all the logic and state.
+- The View **automatically reacts** to state changes (data binding).
+- This makes the UI easy to test — you can test the ViewModel without rendering the UI.
+
+**Where MVVM is used:**
+- **React** — Custom hooks are the ViewModel, components are the View.
+- **Vue.js** — `<script setup>` is the ViewModel, `<template>` is the View.
+- **Angular** — Services + component class are the ViewModel, template is the View.
+- **Mobile apps** — SwiftUI (iOS), Jetpack Compose (Android).
+
+> **In short:** MVVM is like MVC but the View automatically updates when data changes. The ViewModel holds all the state and logic, and the View just displays it. This is how React, Vue, and Angular work.
+
+---
+
+## 15. MVC vs MVP vs MVVM
+
+Three popular architecture patterns — each separates concerns differently:
+
+**MVC (Model–View–Controller):**
+- The **Controller** receives user input and updates the Model.
+- The Controller picks which View to show.
+- The View may read directly from the Model.
+- Used in: **Laravel, Django, Ruby on Rails, Spring** (server-side apps).
+
+```
+User → Controller → Model
+              ↓
+            View
+```
+
+**MVP (Model–View–Presenter):**
+- The **Presenter** handles all the logic (like a Controller).
+- The View is "dumb" — it only calls the Presenter and displays what it's told.
+- The Presenter updates the View through an interface.
+- Used in: **Android (older Java apps), some desktop apps**.
+
+```
+User → View → Presenter → Model
+                   ↓
+                 View (updated through interface)
+```
+
+**MVVM (Model–View–ViewModel):**
+- The **ViewModel** holds state and logic.
+- The View is bound to the ViewModel — it **automatically updates** when data changes.
+- No need for the ViewModel to manually update the View.
+- Used in: **React, Vue, Angular, SwiftUI, Jetpack Compose** (frontend/mobile apps).
+
+```
+User → View → ViewModel → Model
+                 ↓
+         View (auto-updates via data binding)
+```
+
+**Key differences:**
+
+- **Who handles user input?** — MVC: Controller. MVP: View calls Presenter. MVVM: View calls ViewModel.
+- **How does View get updated?** — MVC: Controller picks View. MVP: Presenter manually updates View. MVVM: View auto-updates via data binding.
+- **View awareness:** — MVC: View may know about Model. MVP: View only knows Presenter. MVVM: View only knows ViewModel.
+- **Testing:** — MVC: Harder (View depends on Controller). MVP: Easier (Presenter is testable). MVVM: Easiest (ViewModel is fully testable without UI).
+- **Best for:** — MVC: Server-side apps. MVP: Desktop/Android apps. MVVM: Modern frontend & mobile apps.
+
+> **In short:**
+> - **MVC** — Controller controls everything. Best for backend (Laravel, Django).
+> - **MVP** — Presenter handles logic, View is passive. Best for older Android apps.
+> - **MVVM** — ViewModel holds state, View auto-updates. Best for React, Vue, Angular, mobile.
+
+---
+
+## 16. What is the Decorator Pattern?
 
 - The Decorator Pattern adds new behavior to an object **dynamically** without modifying its class.
 - Wraps an existing object and adds extra functionality.
@@ -628,7 +808,7 @@ In short: Decorator Pattern adds behavior to objects by wrapping them — no inh
 
 ---
 
-## 15. What is the Chain of Responsibility Pattern?
+## 17. What is the Chain of Responsibility Pattern?
 
 - The Chain of Responsibility Pattern passes a request through a chain of handlers.
 - Each handler decides to either process the request or pass it to the next handler.
@@ -680,16 +860,14 @@ In short: Chain of Responsibility passes a request through a chain — each hand
 
 ---
 
-## 16. Design Pattern Categories
+## 18. Design Pattern Categories
 
 Design patterns are grouped into four main categories:
 
-| Category | Purpose | Examples |
-|----------|---------|---------|
-| **Creational** | How objects are created | Factory, Singleton, Builder |
-| **Structural** | How objects are composed | Adapter, Decorator, Facade |
-| **Behavioral** | How objects communicate | Observer, Strategy, Command, Chain of Responsibility |
-| **Architectural** | How the whole system is organized | MVC, Repository, Service |
+- **Creational** — How objects are created (Factory, Singleton, Builder)
+- **Structural** — How objects are composed (Adapter, Decorator, Facade)
+- **Behavioral** — How objects communicate (Observer, Strategy, Command, Chain of Responsibility)
+- **Architectural** — How the whole system is organized (MVC, Repository, Service)
 
 **Creational Patterns** — Object creation:
 - **Factory**: Creates objects without specifying the exact class.
@@ -708,7 +886,9 @@ Design patterns are grouped into four main categories:
 - **Chain of Responsibility**: Passes requests through a chain of handlers.
 
 **Architectural Patterns** — System structure:
-- **MVC**: Separates data, UI, and logic.
+- **MVC**: Separates data, UI, and logic (backend — Laravel, Django).
+- **MVVM**: Separates data, UI, and state with auto-updating views (frontend — React, Vue).
+- **MVP**: Separates data, UI, and presenter (mobile — older Android).
 - **Repository**: Separates data access from business logic.
 - **Service**: Separates business logic from controllers.
 

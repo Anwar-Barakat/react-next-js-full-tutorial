@@ -537,16 +537,14 @@ export default function Hero() {
 
 ## 10. shadcn/ui vs Aceternity UI
 
-| Feature | shadcn/ui | Aceternity UI |
-|---------|-----------|---------------|
-| **Purpose** | Functional UI components | Animated/visual showcase components |
-| **Components** | Button, Form, Table, Dialog, Toast | Spotlight, Cards, Stars, Typewriter |
-| **Animation** | Minimal | Heavy (Framer Motion) |
-| **Performance** | Lightweight | Heavier (animations) |
-| **Accessibility** | Excellent (Radix UI) | Basic |
-| **Best for** | Apps, dashboards, forms | Landing pages, portfolios |
-| **Theming** | CSS variables (dark/light) | Tailwind classes |
-| **TypeScript** | First-class | Good |
+- **Purpose** — shadcn/ui: Functional UI components. Aceternity UI: Animated/visual showcase components
+- **Components** — shadcn/ui: Button, Form, Table, Dialog, Toast. Aceternity UI: Spotlight, Cards, Stars, Typewriter
+- **Animation** — shadcn/ui: Minimal. Aceternity UI: Heavy (Framer Motion)
+- **Performance** — shadcn/ui: Lightweight. Aceternity UI: Heavier (animations)
+- **Accessibility** — shadcn/ui: Excellent (Radix UI). Aceternity UI: Basic
+- **Best for** — shadcn/ui: Apps, dashboards, forms. Aceternity UI: Landing pages, portfolios
+- **Theming** — shadcn/ui: CSS variables (dark/light). Aceternity UI: Tailwind classes
+- **TypeScript** — shadcn/ui: First-class. Aceternity UI: Good
 
 In short: Use **shadcn/ui** for app UI (forms, tables, dialogs). Use **Aceternity UI** for marketing/landing pages where visual impact matters.
 

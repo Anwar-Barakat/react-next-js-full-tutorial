@@ -67,17 +67,15 @@ A comprehensive guide to Next.js 16 - The React Framework for Production.
 
 **Advantages:**
 
-| Feature | Benefit |
-|---------|---------|
-| **Server-Side Rendering** | Better SEO and initial load performance |
-| **File-Based Routing** | No need for react-router configuration |
-| **Route Handlers** | Build backend endpoints in same project |
-| **Image Optimization** | Automatic image optimization with next/image |
-| **Code Splitting** | Automatic per-page code splitting |
-| **Built-in CSS/Sass** | Support for CSS Modules and Sass |
-| **Fast Refresh** | Instant feedback during development (10x faster with Turbopack) |
-| **Production Ready** | Optimized builds out of the box (2-5x faster with Turbopack) |
-| **React Compiler** | Automatic memoization without manual optimization |
+- **Server-Side Rendering** — Better SEO and initial load performance
+- **File-Based Routing** — No need for react-router configuration
+- **Route Handlers** — Build backend endpoints in same project
+- **Image Optimization** — Automatic image optimization with next/image
+- **Code Splitting** — Automatic per-page code splitting
+- **Built-in CSS/Sass** — Support for CSS Modules and Sass
+- **Fast Refresh** — Instant feedback during development (10x faster with Turbopack)
+- **Production Ready** — Optimized builds out of the box (2-5x faster with Turbopack)
+- **React Compiler** — Automatic memoization without manual optimization
 
 ---
 
@@ -307,14 +305,12 @@ export default function Dashboard() {
 
 ## 7. Rendering Strategies Comparison
 
-| Feature | SSR | SSG | ISR | CSR |
-|---------|-----|-----|-----|-----|
-| **Speed** | Medium | Fastest | Fast | Slow |
-| **SEO** | ✅ Excellent | ✅ Excellent | ✅ Excellent | ❌ Poor |
-| **Fresh Data** | ✅ Always | ❌ Build time only | ⚡ Periodic | ✅ Always |
-| **Server Cost** | High | Low | Low | Low |
-| **Build Time** | None | Long | Short | Short |
-| **Use Case** | Dynamic content | Static content | Periodic updates | Dashboards |
+- **Speed** — SSR: Medium; SSG: Fastest; ISR: Fast; CSR: Slow
+- **SEO** — SSR: Excellent; SSG: Excellent; ISR: Excellent; CSR: Poor
+- **Fresh Data** — SSR: Always; SSG: Build time only; ISR: Periodic; CSR: Always
+- **Server Cost** — SSR: High; SSG: Low; ISR: Low; CSR: Low
+- **Build Time** — SSR: None; SSG: Long; ISR: Short; CSR: Short
+- **Use Case** — SSR: Dynamic content; SSG: Static content; ISR: Periodic updates; CSR: Dashboards
 
 **When to use each:**
 - **SSR** - User dashboards, personalized pages, real-time data

@@ -21,6 +21,7 @@ A comprehensive guide to routing, requests, and the HTTP lifecycle in Laravel.
 15. [What is implicit vs explicit route model binding?](#15-what-is-implicit-vs-explicit-route-model-binding)
 16. [What is rate limiting in Laravel?](#16-what-is-rate-limiting-in-laravel)
 17. [What is the request lifecycle?](#17-what-is-the-request-lifecycle)
+18. [What is PHP-FPM?](#18-what-is-php-fpm)
 
 ---
 
@@ -242,11 +243,39 @@ Route::middleware(['throttle:60,1'])->group(function () {
 
 ## 17. What is the request lifecycle?
 
-1. **Client → `public/index.php`** — Entry point, loaded first.
-2. **App bootstraps** — Autoload + create app instance.
-3. **HTTP Kernel runs** — Middleware stack starts.
-4. **Global middleware runs** — (TrustProxies, HandleCors, TrimStrings, etc.)
-5. **Route middleware runs** — (Auth, Role, Permissions, etc.) — if all pass, continue.
-6. **Router finds matching route.**
-7. **Controller (or route closure) executes your logic.**
-8. **Response is sent back to client.**
+1. **Web server (Nginx/Apache) receives the request.**
+2. **PHP process starts → `public/index.php` runs** — Entry point, loaded first.
+3. **Composer autoloader loads → `vendor/autoload.php`.**
+4. **Laravel app instance is created from zero** — Autoload + create app instance.
+5. **All service providers register and boot.**
+6. **HTTP Kernel runs** — Middleware stack starts.
+7. **Global middleware runs** — (TrustProxies, HandleCors, TrimStrings, etc.)
+8. **Route middleware runs** — (Auth, Role, Permissions, etc.) — if all pass, continue.
+9. **Router finds matching route.**
+10. **Controller (or route closure) executes your logic.**
+11. **Response is sent back to client.**
+12. **Everything is destroyed** — memory freed, objects gone.
+
+### Does Laravel create a new instance on every request?
+
+**Yes.** PHP uses a **"shared nothing" architecture** — every single HTTP request boots a fresh application instance from scratch, and everything is destroyed after the response is sent.
+
+### How to avoid the boot cost entirely?
+
+- **Laravel Octane** (Swoole/RoadRunner) — Boots the app **once**, keeps it in memory, serves many requests without re-bootstrapping.
+- **Queues** — Offload heavy work — the queue worker boots once and processes many jobs.
+- **PHP-FPM tuning** — Keeps PHP processes warm and ready.
+
+> **Vanilla PHP/Laravel** = fresh boot every request (stateless, safe, simple).
+> **Laravel Octane** = boot once, serve many (faster, but must be careful with shared state).
+
+---
+
+## 18. What is PHP-FPM?
+
+- **PHP-FPM** (FastCGI Process Manager) keeps a pool of PHP workers **ready and waiting** for requests.
+- Without FPM: request → start new PHP process → slow.
+- With FPM: request → hand to an **already running** worker → fast.
+- Nginx/Apache receives the request → passes it to PHP-FPM → worker runs `public/index.php` → response sent → worker **goes back to the pool**.
+
+> PHP-FPM keeps **PHP processes** warm. Octane keeps the **Laravel app** in memory — they're different.

@@ -64,12 +64,10 @@ A comprehensive guide to modern HTML, bundlers, and web security fundamentals.
 
 **Core concepts:**
 
-| Concept | Purpose |
-|---------|---------|
-| **Loaders** | Teach Webpack how to read files (babel-loader, css-loader, file-loader) |
-| **Plugins** | Add extra powers (optimize, clean, generate files) |
-| **Entry** | Starting point of your application |
-| **Output** | Where to put bundled files |
+- **Loaders** — Teach Webpack how to read files (babel-loader, css-loader, file-loader)
+- **Plugins** — Add extra powers (optimize, clean, generate files)
+- **Entry** — Starting point of your application
+- **Output** — Where to put bundled files
 
 **Characteristics:**
 - Strong and powerful
@@ -101,15 +99,13 @@ A comprehensive guide to modern HTML, bundlers, and web security fundamentals.
 
 ## 4. Webpack vs Vite
 
-| Feature | Webpack | Vite |
-|---------|---------|------|
-| **Approach** | "Bundle first, then run" | "Run first, bundle later" |
-| **Dev Server Start** | Slow (bundles everything) | Instant (no bundling) |
-| **HMR Speed** | Slow | Instant |
-| **Configuration** | Complex | Simple/zero config |
-| **Learning Curve** | Steep | Easy |
-| **Production Build** | Excellent | Excellent (uses Rollup) |
-| **Best For** | Complex setups | Modern apps |
+- **Approach** — Webpack: "Bundle first, then run"; Vite: "Run first, bundle later"
+- **Dev Server Start** — Webpack: Slow (bundles everything); Vite: Instant (no bundling)
+- **HMR Speed** — Webpack: Slow; Vite: Instant
+- **Configuration** — Webpack: Complex; Vite: Simple/zero config
+- **Learning Curve** — Webpack: Steep; Vite: Easy
+- **Production Build** — Webpack: Excellent; Vite: Excellent (uses Rollup)
+- **Best For** — Webpack: Complex setups; Vite: Modern apps
 
 **Webpack approach:**
 1. Bundles everything first
@@ -421,16 +417,14 @@ bun run index.ts
 
 ### Comparison
 
-| Feature | npm | yarn | pnpm | bun |
-|---------|-----|------|------|-----|
-| **Install speed** | Slow | Fast | Faster | Fastest |
-| **Disk usage** | High | High | Low | Medium |
-| **Lockfile** | `package-lock.json` | `yarn.lock` | `pnpm-lock.yaml` | `bun.lockb` |
-| **Monorepo support** | Basic (workspaces) | Good | Excellent | Good |
-| **Comes with** | Node.js | Separate install | Separate install | Separate install |
-| **Phantom deps** | Allowed | Allowed | Blocked | Allowed |
-| **Offline mode** | Limited | Yes | Yes | Yes |
-| **Also a runtime** | No | No | No | Yes |
+- **Install speed** — npm: Slow; yarn: Fast; pnpm: Faster; bun: Fastest
+- **Disk usage** — npm: High; yarn: High; pnpm: Low; bun: Medium
+- **Lockfile** — npm: `package-lock.json`; yarn: `yarn.lock`; pnpm: `pnpm-lock.yaml`; bun: `bun.lockb`
+- **Monorepo support** — npm: Basic (workspaces); yarn: Good; pnpm: Excellent; bun: Good
+- **Comes with** — npm: Node.js; yarn: Separate install; pnpm: Separate install; bun: Separate install
+- **Phantom deps** — npm: Allowed; yarn: Allowed; pnpm: Blocked; bun: Allowed
+- **Offline mode** — npm: Limited; yarn: Yes; pnpm: Yes; bun: Yes
+- **Also a runtime** — npm: No; yarn: No; pnpm: No; bun: Yes
 
 ### npm vs npx - Key Difference
 
@@ -872,12 +866,10 @@ Browser reads HTML from top to bottom. When it meets a `<script>` tag, it must d
 
 **Comparison:**
 
-| Feature | Normal | defer | async |
-|---------|--------|-------|-------|
-| **HTML parsing** | Blocks | Continues | Continues |
-| **When executes** | Immediately | After HTML | When ready |
-| **Order guaranteed** | Yes | Yes | No |
-| **Best for** | Inline critical code | Most scripts | Analytics, ads |
+- **HTML parsing** — Normal: Blocks; defer: Continues; async: Continues
+- **When executes** — Normal: Immediately; defer: After HTML; async: When ready
+- **Order guaranteed** — Normal: Yes; defer: Yes; async: No
+- **Best for** — Normal: Inline critical code; defer: Most scripts; async: Analytics, ads
 
 ---
 

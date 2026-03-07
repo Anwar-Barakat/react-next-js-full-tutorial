@@ -174,13 +174,19 @@ class StripePayment extends Payment {
 
 ## 8. Difference between an Abstract Class and an Interface
 
-| Feature | Abstract Class | Interface |
-|---------|---------------|-----------|
-| Methods | Can have implemented methods | Only method signatures (no implementation) |
-| Properties | Can have properties | Cannot have properties |
-| Constructor | Can have a constructor | Cannot have a constructor |
-| Extend/Implement | A class can extend **one** | A class can implement **multiple** |
-| Method visibility | Any visibility | Always `public` |
+**Abstract Class:**
+- **Methods** — Can have implemented methods
+- **Properties** — Can have properties
+- **Constructor** — Can have a constructor
+- **Extend/Implement** — A class can extend **one**
+- **Method visibility** — Any visibility
+
+**Interface:**
+- **Methods** — Only method signatures (no implementation)
+- **Properties** — Cannot have properties
+- **Constructor** — Cannot have a constructor
+- **Extend/Implement** — A class can implement **multiple**
+- **Method visibility** — Always `public`
 
 ```php
 // Abstract class
@@ -207,11 +213,9 @@ class Bird extends Animal implements Flyable {
 
 - Access modifiers control who can access class properties and methods.
 
-| Modifier | Accessible From | Use Case |
-|----------|----------------|----------|
-| `public` | Anywhere | API methods |
-| `private` | Same class only | Internal helper methods |
-| `protected` | Class + child classes | Methods children may use |
+- **`public`** — Accessible from anywhere. Use case: API methods
+- **`private`** — Accessible from same class only. Use case: Internal helper methods
+- **`protected`** — Accessible from class + child classes. Use case: Methods children may use
 
 Default in PHP: `public` (if no modifier is specified).
 
@@ -302,11 +306,15 @@ echo Counter::$count; // 1
 
 ## 14. Difference between self and $this
 
-| | `$this` | `self` |
-|-|---------|--------|
-| Refers to | Current **object instance** | Current **class** |
-| Needs object? | Yes | No |
-| Used for | Non-static members | Static members |
+**`$this`:**
+- **Refers to** — Current **object instance**
+- **Needs object?** — Yes
+- **Used for** — Non-static members
+
+**`self`:**
+- **Refers to** — Current **class**
+- **Needs object?** — No
+- **Used for** — Static members
 
 ```php
 class Example {
@@ -395,12 +403,10 @@ Laravel's Service Container automatically injects dependencies into controllers,
 
 ## 18. Difference between include, require, include_once, and require_once
 
-| Statement | File Missing | Load Multiple Times |
-|-----------|-------------|---------------------|
-| `include` | Warning only, continues | Yes |
-| `require` | Fatal error, stops | Yes |
-| `include_once` | Warning only, continues | No (loads once) |
-| `require_once` | Fatal error, stops | No (loads once) |
+- **`include`** — File missing: Warning only, continues. Load multiple times: Yes
+- **`require`** — File missing: Fatal error, stops. Load multiple times: Yes
+- **`include_once`** — File missing: Warning only, continues. Load multiple times: No (loads once)
+- **`require_once`** — File missing: Fatal error, stops. Load multiple times: No (loads once)
 
 - `require` → Critical files (config, core classes).
 - `include` → Optional files (templates, views).
@@ -466,10 +472,8 @@ $user = new \App\Models\User();
 
 ## 22. Difference between bind() and singleton() in Laravel
 
-| Method | Creates | Use When |
-|--------|---------|----------|
-| `bind()` | New instance every time | API clients, temporary services |
-| `singleton()` | One shared instance | Config, cache, logger |
+- **`bind()`** — Creates new instance every time. Use when: API clients, temporary services
+- **`singleton()`** — Creates one shared instance. Use when: Config, cache, logger
 
 ```php
 // New instance each time

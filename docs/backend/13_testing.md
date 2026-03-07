@@ -69,15 +69,25 @@ In short: Pest is a modern, cleaner wrapper around PHPUnit — same power, bette
 
 ## 3. Difference between PHPUnit and Pest
 
-| Feature | PHPUnit | Pest |
-|---------|---------|------|
-| Syntax | Class + methods | Functions (`it`, `test`) |
-| Assertions | `$this->assert*()` | `expect()->to*()` (fluent) |
-| Readability | Verbose | Clean and readable |
-| Setup/Teardown | `setUp()` / `tearDown()` | `beforeEach()` / `afterEach()` |
-| Grouping | Class per group | `describe()` blocks |
-| Built on | Native | PHPUnit underneath |
-| Laravel support | Native | First-class via `pestphp/pest-plugin-laravel` |
+**PHPUnit:**
+
+- **Syntax** — Class + methods
+- **Assertions** — `$this->assert*()`
+- **Readability** — Verbose
+- **Setup/Teardown** — `setUp()` / `tearDown()`
+- **Grouping** — Class per group
+- **Built on** — Native
+- **Laravel support** — Native
+
+**Pest:**
+
+- **Syntax** — Functions (`it`, `test`)
+- **Assertions** — `expect()->to*()` (fluent)
+- **Readability** — Clean and readable
+- **Setup/Teardown** — `beforeEach()` / `afterEach()`
+- **Grouping** — `describe()` blocks
+- **Built on** — PHPUnit underneath
+- **Laravel support** — First-class via `pestphp/pest-plugin-laravel`
 
 ```php
 // PHPUnit style
@@ -607,7 +617,5 @@ php artisan test --testsuite=Feature
 
 **Test types:**
 
-| Type | Location | Purpose |
-|------|----------|---------|
-| **Unit** | `tests/Unit/` | Test a single class or method in isolation |
-| **Feature** | `tests/Feature/` | Test a full flow (HTTP, DB, auth together) |
+- **Unit** — located in `tests/Unit/`, used to test a single class or method in isolation
+- **Feature** — located in `tests/Feature/`, used to test a full flow (HTTP, DB, auth together)
