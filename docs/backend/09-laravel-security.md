@@ -9,6 +9,11 @@ A comprehensive guide to security, authentication, and authorization in Laravel.
 3. [What is a DDoS attack?](#3-what-is-a-ddos-attack)
 4. [What is CSRF Protection?](#4-what-is-csrf-protection)
 5. [How does Laravel handle CSRF in SPAs?](#5-how-does-laravel-handle-csrf-in-spas)
+   - [5a. Sanctum SPA vs API Token — Stateless vs Stateful](#5a-sanctum-spa-vs-api-token--stateless-vs-stateful)
+   - [5b. How does the browser handle cookies?](#5b-how-does-the-browser-handle-cookies)
+   - [5c. The two cookies Sanctum sets](#5c-the-two-cookies-sanctum-sets)
+   - [5d. Full SPA authentication flow](#5d-full-spa-authentication-flow)
+   - [5e. Where is everything checked — server or browser?](#5e-where-is-everything-checked--server-or-browser)
 6. [What is the @csrf directive?](#6-what-is-the-csrf-directive)
 7. [What are Laravel Policies?](#7-what-are-laravel-policies)
 8. [Difference between Gates and Policies](#8-difference-between-gates-and-policies)
@@ -108,6 +113,52 @@ fetch('/api/data', {
     headers: { 'X-XSRF-TOKEN': token },
 });
 ```
+
+---
+
+## 5a. Sanctum SPA vs API Token — Stateless vs Stateful
+
+Sanctum has two completely different modes. A common mistake is thinking SPA auth is stateless — it is not.
+
+- **Cookie-based (SPA)** — Browser sends session cookie automatically. Not stateless — uses a session. Best for React, Next.js, Inertia on the same domain.
+- **API token (Bearer)** — Send `Authorization: Bearer token` in every request header. Stateless — no session. Best for mobile apps and external APIs.
+
+For SPAs you use **sessions + cookies**, the same concept as MVC. The difference is just how the CSRF token is delivered.
+
+---
+
+## 5b. How does the browser handle cookies?
+
+- You never manually send cookies — the browser does it automatically.
+- Server sets a cookie once → browser stores it → browser sends it on every request to that domain.
+- You write zero code for this.
+
+## 5c. The two cookies Sanctum sets
+
+When you call `/sanctum/csrf-cookie`, the server sets two cookies:
+
+- `laravel_session` — JS cannot read it (HttpOnly). Proves **who you are**. Browser sends it automatically on every request.
+- `XSRF-TOKEN` — JS can read it. Proves the request came **from your site**. JS reads it and puts it in the `X-XSRF-TOKEN` header on POST/PUT/DELETE requests.
+
+## 5d. Full SPA authentication flow
+
+- **Step 1** — SPA calls `GET /sanctum/csrf-cookie` → server sets both cookies in the browser.
+- **Step 2** — SPA calls `POST /login` → browser auto-sends `laravel_session`, JS sends `X-XSRF-TOKEN` header → server creates an authenticated session.
+- **Step 3** — SPA calls any `GET` route → browser auto-sends `laravel_session` → server reads session and knows who you are.
+- **Step 4** — SPA calls any `POST/PUT/DELETE` route → browser sends `laravel_session` + JS sends `X-XSRF-TOKEN` → server checks both → allowed.
+
+```javascript
+// Axios handles CSRF automatically — just set this once
+axios.defaults.withCredentials = true;
+```
+
+## 5e. Where is everything checked — server or browser?
+
+- Everything is checked **on the server**. The browser only stores and sends cookies.
+- Server checks two things on every protected request:
+  - `laravel_session` cookie → is this a valid session? (who are you?)
+  - `X-XSRF-TOKEN` header → did this request come from your frontend?
+- An attacker cannot fake it because the browser blocks JS on `evil.com` from reading cookies set by your domain — so the attacker can never read `XSRF-TOKEN` and cannot set the header correctly → request is rejected with a 419 error.
 
 ---
 
