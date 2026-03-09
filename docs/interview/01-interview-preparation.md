@@ -1,4 +1,4 @@
-# Interview Preparation Guide
+–# Interview Preparation Guide
 
 A comprehensive guide covering personal introduction, project experience, and HR interview questions.
 
@@ -878,95 +878,68 @@ app.listen(3000, () => {
 
 ## 50. Phone and Video Call Etiquette
 
-### Before the call
+**Before the call:**
+- Find quiet place, test equipment, charge device
+- Be ready 5 minutes early
+- Have resume open, prepare water
+- Dress professionally (even for phone calls)
 
-- **Find a quiet place** — no background noise, TV, or people talking.
-- **Test your equipment** — check microphone, camera (for video calls), and internet connection.
-- **Charge your phone/laptop** — don't let your battery die during the call.
-- **Be ready 5 minutes early** — open the link or have your phone ready before the scheduled time.
-- **Have your resume open** — so you can reference your experience quickly.
-- **Prepare a glass of water** — in case your throat gets dry.
-- **Dress appropriately** — even for phone calls, dressing professionally puts you in the right mindset. For video calls, it's essential.
+**During the call:**
+- Answer: "Hello, this is Anwar. Thank you for calling."
+- Speak clearly and slowly, smile (changes your tone)
+- Don't interrupt, take brief notes
+- Use interviewer's name
+- If connection drops: call back immediately
 
-### During the call
+**For video calls:**
+- Look at camera (not screen)
+- Good lighting, clean background
+- Mute when not speaking
+- Close other tabs/notifications
 
-- **Answer professionally** — "Hello, this is Anwar. Thank you for calling."
-- **Speak clearly and slowly** — don't rush. It's okay to pause.
-- **Smile** — even on a phone call, smiling changes your tone of voice.
-- **Don't interrupt** — let the interviewer finish their question before answering.
-- **Take brief notes** — write down key points or questions you want to ask.
-- **Use the interviewer's name** — it shows attentiveness: "That's a great question, Hala."
-- **If the connection drops** — call back immediately or send a quick message: "Apologies, the call dropped. Can I call you back?"
+**After the call:**
+- Send follow-up email within 24 hours
+- Mention something specific from conversation
+- Keep it short (3-4 sentences)
+- Example: "Hi [Name], thank you for your time today. I enjoyed learning about [specific topic]. I'm excited about the opportunity and look forward to next steps. Best regards, Anwar"
 
-### For video calls specifically
-
-- **Look at the camera** — not the screen. This creates eye contact.
-- **Good lighting** — face a window or light source. Don't sit with a bright light behind you.
-- **Clean background** — a tidy, professional background. Use a blur or virtual background if needed.
-- **Mute when not speaking** — if there's any background noise.
-- **Close other tabs and notifications** — focus entirely on the call.
-
-### After the call
-
-- **Send a follow-up email within 24 hours** — thank them for their time.
-- **Mention something specific** from the conversation to show you were engaged.
-- **Keep it short** — 3-4 sentences is enough.
-- **Example follow-up email:**
-  - Subject: Thank you for the interview — Anwar Barakat
-  - "Hi [Name], thank you for taking the time to speak with me today. I enjoyed learning about [something specific they mentioned]. I'm excited about the opportunity and look forward to the next steps. Best regards, Anwar"
-
-*(See also: [04_career_guide.md](./04_career_guide.md) for detailed follow-up email templates and career guidance)*
+*(See also: [04_career_guide.md](./04_career_guide.md) for detailed templates)*
 
 ---
 
 ## 51. Useful Interview Phrases (When You Need a Moment)
 
-### When you don't understand the question
+**When you don't understand:**
+- "Could you please repeat/rephrase the question?"
+- "Just to clarify — are you asking about [your understanding]?"
 
-- "Could you please repeat the question? I want to make sure I understand it correctly."
-- "Could you rephrase that, please? I want to give you the best answer."
-- "Just to clarify — are you asking about [your understanding]? I want to make sure we're on the same page."
-- "That's a great question. Could you give me a bit more context so I can answer it properly?"
+**When you need time to think:**
+- "Great question. Let me think about it for a moment."
+- "Let me organize my thoughts on this."
 
-### When you need time to think
+**When you don't know:**
+- "I haven't worked with that yet, but I'm confident I can learn it quickly."
+- "I don't have direct experience, but I've worked on something similar using [related technology]."
+- "I'm not sure about that detail, but I'd research it and get back to you. I believe in honesty over guessing."
 
-- "That's a great question. Let me think about it for a moment."
-- "Give me a second to organize my thoughts on this."
-- "I want to give you a clear answer, so let me take a moment to think."
+**Redirect to your strengths:**
+- "I haven't used that exact tool, but with [similar tool], I handled it by..."
+- "That's interesting. In my projects, I focused on [your strength], where I..."
 
-### When you don't know the answer
+**When unfamiliar with something:**
+- "Could you tell me how your team uses it? I'd love to understand the context."
+- "I've heard of it but haven't used it in production. I'm happy to learn more."
 
-- "I haven't worked with that specific technology yet, but I'm familiar with the concept and I'm confident I can learn it quickly."
-- "I don't have direct experience with that, but I've worked on something similar using [related technology]."
-- "Honestly, I'm not sure about that specific detail, but I would research it and get back to you. I believe in being honest rather than guessing."
-- "That's something I haven't encountered yet, but I'm always eager to learn new things — especially with AI tools that make learning much faster."
+**Confirm your answer:**
+- "Does that answer your question, or would you like more details?"
 
-### When you want to redirect to your strengths
+**Unexpected technical question:**
+- "Let me share what I know..."
+- "I've worked with something similar in [project]. Here's my approach..."
 
-- "I haven't used that exact tool, but in my experience with [similar tool], I handled it by..."
-- "That's an interesting area. In my projects, I focused more on [your strength], where I..."
-- "While I haven't done exactly that, the underlying concept is similar to what I did in [project name]."
-
-### When the interviewer mentions something you're not familiar with
-
-- "I'm not deeply familiar with that yet, but could you tell me more about how your team uses it? I'd love to understand the context."
-- "I've heard of it but haven't used it in production. I'm happy to learn more about it."
-
-### When you want to confirm your answer
-
-- "Does that answer your question, or would you like me to go deeper into a specific part?"
-- "I hope that gives you a clear picture. Let me know if you'd like more details."
-
-### When you get an unexpected technical question on an HR call
-
-- "That's a great technical question. Let me share what I know..."
-- "I've worked with something similar in [project]. Here's how I approached it..."
-- "I'm not deeply experienced with that specific tool, but the concept is similar to [what you know]. I'm confident I could pick it up quickly."
-
-### General tips
-
-- **Never lie.** If you don't know, say so honestly — interviewers respect honesty over fake confidence.
-- **Always connect back** to what you do know — show you can learn and adapt.
-- **Stay calm.** Taking a moment to think shows confidence, not weakness.
-- **Smile and stay positive.** Your attitude matters as much as your technical skills.
-- **It's okay to ask for clarification.** Good communication starts with understanding the question.
+**Key tips:**
+- Never lie — honesty beats fake confidence
+- Connect to what you know — show adaptability
+- Stay calm — thinking shows confidence
+- Smile and stay positive
+- Ask for clarification when needed

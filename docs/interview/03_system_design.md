@@ -1,6 +1,8 @@
 # System Design & Live Coding Interview Guide
 
-A comprehensive guide covering system design interview questions and live coding preparation for full-stack developers (Laravel + React).
+A comprehensive guide covering system design interview questions and live coding preparation for full-stack developers (**Laravel + Reverb + React / Inertia**).
+
+> **Stack note:** Backend examples use Laravel (PHP) + Reverb (WebSocket). Frontend examples use React + TypeScript. For Inertia.js, data flows via `Inertia::render()` on the backend and `usePage()` / `router.visit()` on the frontend — no separate API needed.
 
 ---
 
@@ -202,71 +204,102 @@ This tests your knowledge of WebSockets, message storage, real-time systems, and
 - Message history should be available on any device
 
 **WebSocket vs Polling:**
-- **Long Polling:** Client sends a request, server holds it open until there is new data, then responds. Simple but wastes server resources holding connections.
-- **Server-Sent Events (SSE):** Server pushes data to client over HTTP. One-way only (server to client), so not ideal for chat.
-- **WebSocket:** Full-duplex, persistent connection between client and server. Best for real-time chat because both sides can send data anytime.
-- **Recommendation:** Use WebSocket for message delivery and typing indicators. Use REST API for fetching message history, user profiles, and other non-real-time data.
+- **Long Polling:** Client holds request open until new data arrives. Simple but wastes server resources.
+- **Server-Sent Events (SSE):** Server pushes data one-way (server → client). Not ideal for chat.
+- **WebSocket:** Full-duplex, persistent connection. Best for real-time chat.
+- **Recommendation:** Use WebSocket for messages and typing. Use REST for message history and profiles.
 
-```typescript
-// WebSocket connection handler (server-side)
-import { WebSocketServer } from "ws";
+**In Your Stack — Laravel + Reverb:**
 
-const wss = new WebSocketServer({ port: 8080 });
+```php
+// 1. Broadcasting Event: app/Events/MessageSent.php
+class MessageSent implements ShouldBroadcast
+{
+    use Dispatchable, InteractsWithSockets;
 
-// Map of userId -> WebSocket connection
-const connections = new Map<string, WebSocket>();
+    public function __construct(public Message $message) {}
 
-wss.on("connection", (ws, req) => {
-  const userId = authenticateUser(req);
-  connections.set(userId, ws);
-
-  // Broadcast online status
-  broadcastStatus(userId, "online");
-
-  ws.on("message", (data) => {
-    const message = JSON.parse(data.toString());
-
-    switch (message.type) {
-      case "chat_message":
-        handleChatMessage(userId, message);
-        break;
-      case "typing":
-        handleTypingIndicator(userId, message);
-        break;
-      case "read_receipt":
-        handleReadReceipt(userId, message);
-        break;
+    public function broadcastOn(): array
+    {
+        return [new PrivateChannel('chat.' . $this->message->chat_id)];
     }
-  });
 
-  ws.on("close", () => {
-    connections.delete(userId);
-    broadcastStatus(userId, "offline");
-  });
+    public function broadcastAs(): string
+    {
+        return 'message.sent';
+    }
+}
+
+// 2. ChatController — send message & broadcast
+class ChatController extends Controller
+{
+    public function store(Request $request, Chat $chat): JsonResponse
+    {
+        $request->validate(['content' => 'required|string|max:1000']);
+
+        $message = $chat->messages()->create([
+            'user_id' => auth()->id(),
+            'content' => $request->content,
+        ]);
+
+        broadcast(new MessageSent($message))->toOthers();
+
+        return response()->json($message, 201);
+    }
+}
+
+// 3. Typing indicator — broadcast without saving
+class TypingController extends Controller
+{
+    public function typing(Request $request, Chat $chat): JsonResponse
+    {
+        broadcast(new UserTyping($chat->id, auth()->id()))->toOthers();
+        return response()->json(['status' => 'ok']);
+    }
+}
+```
+
+```tsx
+// React frontend — Laravel Echo + Reverb
+import Echo from 'laravel-echo';
+import Pusher from 'pusher-js';
+
+// Configure Echo to use Reverb (in bootstrap.js or app.ts)
+window.Pusher = Pusher;
+const echo = new Echo({
+    broadcaster: 'reverb',
+    key: import.meta.env.VITE_REVERB_APP_KEY,
+    wsHost: import.meta.env.VITE_REVERB_HOST,
+    wsPort: import.meta.env.VITE_REVERB_PORT,
+    forceTLS: false,
+    enabledTransports: ['ws', 'wss'],
 });
 
-async function handleChatMessage(senderId: string, message: any) {
-  // 1. Save to database
-  const saved = await db.messages.create({
-    senderId,
-    chatId: message.chatId,
-    content: message.content,
-    createdAt: new Date(),
-    status: "sent",
-  });
+// Listen for messages in a chat component
+function ChatWindow({ chatId }: { chatId: number }) {
+    const [messages, setMessages] = useState<Message[]>([]);
+    const [isTyping, setIsTyping] = useState(false);
 
-  // 2. Deliver to recipient(s) in real time
-  const recipients = await getChatMembers(message.chatId);
-  for (const recipientId of recipients) {
-    if (recipientId === senderId) continue;
-    const recipientWs = connections.get(recipientId);
-    if (recipientWs) {
-      recipientWs.send(JSON.stringify({ type: "new_message", data: saved }));
-    } else {
-      // User is offline — push notification via queue
-      await notificationQueue.publish({ userId: recipientId, message: saved });
-    }
-  }
+    useEffect(() => {
+        const channel = echo.private(`chat.${chatId}`);
+
+        channel
+            .listen('.message.sent', (e: { message: Message }) => {
+                setMessages(prev => [...prev, e.message]);
+            })
+            .listenForWhisper('typing', () => {
+                setIsTyping(true);
+                setTimeout(() => setIsTyping(false), 2000);
+            });
+
+        return () => echo.leave(`chat.${chatId}`);
+    }, [chatId]);
+
+    const sendTyping = () => {
+        echo.private(`chat.${chatId}`).whisper('typing', {});
+    };
+
+    return (/* render messages + typing indicator */);
 }
 ```
 
@@ -420,161 +453,131 @@ This is a very practical question, especially for Laravel + React developers who
 
 **Product Catalog:**
 - Store products in a relational database (PostgreSQL/MySQL)
-- Use Elasticsearch for fast, full-text product search with filters (category, price range, rating)
-- Sync product data to Elasticsearch using events or a change data capture (CDC) pipeline
+- Use Elasticsearch or Laravel Scout for fast full-text search with filters
 - Cache frequently viewed products in Redis
 - Use a CDN to serve product images
 
-```typescript
-// Product API types
-interface Product {
-  id: string;
-  name: string;
-  slug: string;
-  description: string;
-  price: number;
-  compareAtPrice?: number;
-  categoryId: string;
-  images: string[];
-  stock: number;
-  rating: number;
-  reviewCount: number;
-  isActive: boolean;
-  createdAt: Date;
-}
-
-// Search products with Elasticsearch
-async function searchProducts(query: string, filters: ProductFilters) {
-  const results = await elasticsearch.search({
-    index: "products",
-    body: {
-      query: {
-        bool: {
-          must: [
-            { multi_match: { query, fields: ["name^3", "description", "category"] } },
-          ],
-          filter: [
-            ...(filters.categoryId ? [{ term: { categoryId: filters.categoryId } }] : []),
-            ...(filters.minPrice || filters.maxPrice
-              ? [{ range: { price: { gte: filters.minPrice, lte: filters.maxPrice } } }]
-              : []),
-            { term: { isActive: true } },
-          ],
-        },
-      },
-      sort: [{ _score: "desc" }, { rating: "desc" }],
-    },
-  });
-
-  return results.hits.hits.map((hit: any) => hit._source);
-}
-```
-
 **Cart:**
-- For logged-in users: store cart in the database (persists across devices)
-- For guest users: store cart in localStorage or a session cookie
-- Cart should survive page refreshes and browser restarts
-- Use optimistic updates on the frontend (update UI immediately, sync with backend in the background)
-
-```typescript
-// Cart management (React + API)
-interface CartItem {
-  productId: string;
-  quantity: number;
-  price: number;
-  name: string;
-  image: string;
-}
-
-// Add to cart with stock validation
-async function addToCart(productId: string, quantity: number): Promise<CartItem[]> {
-  // 1. Check stock availability
-  const product = await db.products.findById(productId);
-  if (!product || product.stock < quantity) {
-    throw new Error("Product is out of stock");
-  }
-
-  // 2. Add or update cart item
-  const existingItem = await db.cartItems.findOne({
-    where: { cartId: currentCart.id, productId },
-  });
-
-  if (existingItem) {
-    existingItem.quantity += quantity;
-    await existingItem.save();
-  } else {
-    await db.cartItems.create({
-      cartId: currentCart.id,
-      productId,
-      quantity,
-      price: product.price,
-    });
-  }
-
-  // 3. Return updated cart
-  return getCartItems(currentCart.id);
-}
-```
+- For logged-in users: store in database (persists across devices)
+- For guests: store in session or localStorage
+- Use optimistic updates on the frontend
 
 **Checkout Flow:**
-- Step 1: User reviews cart and enters shipping address
-- Step 2: System calculates shipping cost, taxes, and total
-- Step 3: User selects payment method
-- Step 4: System creates a pending order and reserves inventory (decrement stock)
-- Step 5: Payment is processed via a payment gateway (Stripe, PayPal)
-- Step 6: On payment success, order status changes to "confirmed" and a confirmation email is sent
-- Step 7: On payment failure, release the reserved inventory
+1. User reviews cart and enters address
+2. System calculates totals
+3. Creates pending order, reserves inventory
+4. Processes payment via Stripe
+5. Webhook confirms — order status → confirmed
+6. Payment failure → release inventory
 
 **Payment Integration:**
-- Never handle raw credit card data on your server — use Stripe or PayPal SDKs
-- Use Stripe Payment Intents for secure, SCA-compliant payments
-- Store only the payment intent ID and status, never card numbers
-- Use webhooks to receive payment status updates asynchronously (payment succeeded, failed, refunded)
-- Implement idempotency keys to prevent double charges
+- Never handle raw card data — use Stripe SDKs
+- Use Stripe Payment Intents (SCA-compliant)
+- Use webhooks for asynchronous payment status updates
+- Use idempotency keys to prevent double charges
 
-```typescript
-// Stripe payment flow (server-side)
-import Stripe from "stripe";
+**In Your Stack — Laravel + Stripe:**
 
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY!);
+```php
+// CartController.php
+class CartController extends Controller
+{
+    public function add(Request $request): JsonResponse
+    {
+        $request->validate([
+            'product_id' => 'required|exists:products,id',
+            'quantity'   => 'required|integer|min:1',
+        ]);
 
-async function createCheckoutPayment(orderId: string, amount: number) {
-  // 1. Create a payment intent
-  const paymentIntent = await stripe.paymentIntents.create({
-    amount: Math.round(amount * 100), // Stripe uses cents
-    currency: "usd",
-    metadata: { orderId },
-    automatic_payment_methods: { enabled: true },
-  });
+        $product = Product::findOrFail($request->product_id);
+        abort_if($product->stock < $request->quantity, 422, 'Out of stock');
 
-  // 2. Save payment intent to order
-  await db.orders.update(orderId, {
-    stripePaymentIntentId: paymentIntent.id,
-    status: "payment_pending",
-  });
+        $cart = Cart::firstOrCreate(['user_id' => auth()->id()]);
 
-  // 3. Return client secret to frontend
-  return { clientSecret: paymentIntent.client_secret };
+        $cart->items()->updateOrCreate(
+            ['product_id' => $product->id],
+            ['quantity'   => DB::raw('quantity + ' . $request->quantity), 'price' => $product->price]
+        );
+
+        return response()->json($cart->load('items.product'));
+    }
 }
 
-// Stripe webhook handler
-async function handleStripeWebhook(event: Stripe.Event) {
-  switch (event.type) {
-    case "payment_intent.succeeded": {
-      const paymentIntent = event.data.object as Stripe.PaymentIntent;
-      const orderId = paymentIntent.metadata.orderId;
-      await db.orders.update(orderId, { status: "confirmed" });
-      await sendOrderConfirmationEmail(orderId);
-      break;
+// CheckoutController.php — Stripe + atomic inventory
+class CheckoutController extends Controller
+{
+    public function store(CheckoutRequest $request): JsonResponse
+    {
+        $order = DB::transaction(function () {
+            $cart = Cart::with('items.product')
+                        ->where('user_id', auth()->id())
+                        ->firstOrFail();
+
+            // Atomic stock decrement — prevents overselling
+            foreach ($cart->items as $item) {
+                $updated = Product::where('id', $item->product_id)
+                                  ->where('stock', '>=', $item->quantity)
+                                  ->decrement('stock', $item->quantity);
+
+                abort_if($updated === 0, 422, "{$item->product->name} is out of stock");
+            }
+
+            return Order::create([
+                'user_id' => auth()->id(),
+                'total'   => $cart->total,
+                'status'  => 'payment_pending',
+            ]);
+        });
+
+        $intent = \Stripe\PaymentIntent::create([
+            'amount'   => $order->total * 100,
+            'currency' => 'usd',
+            'metadata' => ['order_id' => $order->id],
+        ]);
+
+        $order->update(['stripe_payment_intent_id' => $intent->id]);
+
+        return response()->json(['client_secret' => $intent->client_secret]);
     }
-    case "payment_intent.payment_failed": {
-      const paymentIntent = event.data.object as Stripe.PaymentIntent;
-      const orderId = paymentIntent.metadata.orderId;
-      await db.orders.update(orderId, { status: "payment_failed" });
-      await releaseInventory(orderId);
-      break;
+}
+
+// StripeWebhookController.php
+class StripeWebhookController extends Controller
+{
+    public function handle(Request $request): Response
+    {
+        $event = \Stripe\Webhook::constructEvent(
+            $request->getContent(),
+            $request->header('Stripe-Signature'),
+            config('services.stripe.webhook_secret')
+        );
+
+        match ($event->type) {
+            'payment_intent.succeeded' => $this->handleSuccess($event->data->object),
+            'payment_intent.payment_failed' => $this->handleFailed($event->data->object),
+            default => null,
+        };
+
+        return response('', 200);
     }
-  }
+
+    private function handleSuccess(object $intent): void
+    {
+        $order = Order::where('stripe_payment_intent_id', $intent->id)->firstOrFail();
+        $order->update(['status' => 'confirmed']);
+        $order->user->notify(new OrderConfirmed($order));
+    }
+
+    private function handleFailed(object $intent): void
+    {
+        $order = Order::where('stripe_payment_intent_id', $intent->id)->firstOrFail();
+        $order->update(['status' => 'payment_failed']);
+
+        // Release reserved inventory
+        foreach ($order->items as $item) {
+            Product::where('id', $item->product_id)->increment('stock', $item->quantity);
+        }
+    }
 }
 ```
 
@@ -619,93 +622,92 @@ This tests your understanding of multi-channel delivery, queue-based processing,
 
 **Queue-Based Processing:**
 
-```typescript
-// Notification service architecture
-interface NotificationPayload {
-  userId: string;
-  type: string; // "order_confirmed", "new_message", "security_alert"
-  title: string;
-  body: string;
-  data?: Record<string, any>;
-  channels?: string[]; // Override default channels
-}
+**In Your Stack — Laravel Notifications + Queue + Reverb:**
 
-// 1. Producer: any service can enqueue a notification
-async function sendNotification(payload: NotificationPayload) {
-  // Validate and enqueue
-  await messageQueue.publish("notifications", {
-    ...payload,
-    id: generateUniqueId(),
-    createdAt: new Date(),
-  });
-}
+```php
+// app/Notifications/OrderConfirmed.php
+class OrderConfirmed extends Notification implements ShouldQueue
+{
+    use Queueable;
 
-// 2. Consumer: notification worker processes the queue
-async function processNotification(notification: NotificationPayload) {
-  // Step 1: Get user preferences
-  const preferences = await getUserNotificationPreferences(notification.userId);
+    public function __construct(public Order $order) {}
 
-  // Step 2: Determine which channels to use
-  const channels = notification.channels || getDefaultChannels(notification.type, preferences);
-
-  // Step 3: Dispatch to each channel
-  for (const channel of channels) {
-    if (!preferences.isChannelEnabled(channel)) continue;
-
-    // Check rate limit
-    const rateLimitKey = `notif_rate:${notification.userId}:${channel}`;
-    const count = await redis.incr(rateLimitKey);
-    if (count === 1) await redis.expire(rateLimitKey, 3600); // 1 hour window
-    if (count > getChannelRateLimit(channel)) continue; // Skip if rate limited
-
-    // Enqueue for the specific channel worker
-    await messageQueue.publish(`notifications.${channel}`, {
-      ...notification,
-      channel,
-    });
-  }
-
-  // Step 4: Save to in-app notification history
-  await db.notifications.create({
-    userId: notification.userId,
-    type: notification.type,
-    title: notification.title,
-    body: notification.body,
-    data: notification.data,
-    isRead: false,
-    createdAt: new Date(),
-  });
-}
-
-// 3. Channel-specific workers
-async function sendPushNotification(notification: NotificationPayload) {
-  const devices = await db.deviceTokens.findAll({ userId: notification.userId });
-  for (const device of devices) {
-    try {
-      await fcm.send({
-        token: device.token,
-        notification: { title: notification.title, body: notification.body },
-        data: notification.data,
-      });
-    } catch (error) {
-      if (isInvalidToken(error)) {
-        await db.deviceTokens.delete(device.id); // Clean up stale tokens
-      } else {
-        throw error; // Will be retried by the queue
-      }
+    // Define channels — can be per-user based on preferences
+    public function via(object $notifiable): array
+    {
+        return ['mail', 'database', 'broadcast'];
     }
-  }
+
+    public function toMail(object $notifiable): MailMessage
+    {
+        return (new MailMessage)
+            ->subject('Order Confirmed — #' . $this->order->id)
+            ->line('Your order has been confirmed.')
+            ->action('View Order', url('/orders/' . $this->order->id));
+    }
+
+    // Stored in notifications table (in-app)
+    public function toArray(object $notifiable): array
+    {
+        return [
+            'order_id' => $this->order->id,
+            'status'   => 'confirmed',
+            'message'  => 'Your order has been confirmed.',
+        ];
+    }
+
+    // Broadcast in real time via Reverb
+    public function toBroadcast(object $notifiable): BroadcastMessage
+    {
+        return new BroadcastMessage([
+            'order_id' => $this->order->id,
+            'message'  => 'Order confirmed!',
+        ]);
+    }
 }
 
-async function sendEmailNotification(notification: NotificationPayload) {
-  const user = await db.users.findById(notification.userId);
-  await emailService.send({
-    to: user.email,
-    subject: notification.title,
-    template: getEmailTemplate(notification.type),
-    variables: { name: user.name, ...notification.data },
-  });
+// Send notification (queued automatically via ShouldQueue)
+$user->notify(new OrderConfirmed($order));
+
+// Send to many users
+Notification::send($users, new BulkPromo($promo));
+
+// Mark as read
+$user->unreadNotifications->markAsRead();
+```
+
+```tsx
+// React — listen for real-time notifications via Reverb
+function NotificationBell({ userId }: { userId: number }) {
+    const [notifications, setNotifications] = useState<Notification[]>([]);
+    const [unread, setUnread] = useState(0);
+
+    useEffect(() => {
+        // Laravel auto-creates a private channel per user for notifications
+        const channel = echo.private(`App.Models.User.${userId}`);
+
+        channel.notification((notification: Notification) => {
+            setNotifications(prev => [notification, ...prev]);
+            setUnread(prev => prev + 1);
+        });
+
+        return () => echo.leave(`App.Models.User.${userId}`);
+    }, [userId]);
+
+    return (
+        <button>
+            Bell {unread > 0 && <span>{unread}</span>}
+        </button>
+    );
 }
+```
+
+```php
+// Rate limiting — prevent notification spam
+// In AppServiceProvider.php or a Job middleware
+RateLimiter::for('notifications', function (object $job) {
+    return Limit::perHour(10)->by($job->notifiable->id);
+});
 ```
 
 **User Preferences:**
