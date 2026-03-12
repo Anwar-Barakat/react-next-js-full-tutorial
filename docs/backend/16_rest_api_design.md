@@ -372,7 +372,11 @@ public function index(Request $request)
 
 ### Filtering
 
+- `limit` — How many records to return.
+- `offset` — How many records to skip.
+
 ```
+GET /api/posts?limit=10&offset=0
 GET /api/posts?status=published&author_id=42&created_after=2025-01-01
 ```
 

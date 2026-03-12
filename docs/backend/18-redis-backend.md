@@ -19,14 +19,14 @@
 
 ## 1. What is Redis?
 
-Redis (**Remote Dictionary Server**) is an in-memory data structure store used as a database, cache, message broker, and streaming engine.
+Redis (**Remote Dictionary Server**) is an in-memory key-value store used as a cache, message broker, queue backend, and session store.
 
-- Stores data in **RAM** -- sub-millisecond response times.
-- **Key-value store** with rich data structures (lists, sets, hashes, sorted sets, streams).
-- **Single-threaded** command execution -- no race conditions.
+- Stores data in **RAM** — sub-millisecond response times.
+- Rich data structures: strings, lists, sets, hashes, sorted sets, streams.
+- **Single-threaded** command execution — no race conditions.
 - Optional **persistence** to disk.
 
-**Common use cases:** caching, session storage, job queues, real-time features (leaderboards, rate limiting, pub/sub), full-page caching.
+**Common use cases:** caching, session storage, job queues, rate limiting, pub/sub, leaderboards.
 
 ```bash
 SET greeting "Hello, Redis!"
@@ -52,7 +52,7 @@ $redis->del('greeting');
 
 ### Strings
 
-The most basic type. Holds text, numbers, or serialized data (max 512 MB).
+Holds text, numbers, or serialized data (max 512 MB).
 
 ```php
 $redis->set('user:name', 'Anwar');
@@ -107,7 +107,7 @@ $redis->zIncrBy('leaderboard', 200, 'player_a');
 
 ### Hashes
 
-Field-value pairs under a single key. Like a mini object. More memory-efficient than separate keys.
+Field-value pairs under a single key. More memory-efficient than separate keys.
 
 ```php
 $redis->hMSet('user:1', [
@@ -124,7 +124,7 @@ $redis->hIncrBy('user:1', 'age', 1); // 29
 
 ## 3. Redis as a Cache
 
-**Flow:** Request comes in -> check Redis (**cache hit**) -> if not found (**cache miss**), fetch from DB, store in Redis, return.
+On a cache hit, data is returned from Redis. On a cache miss, data is fetched from the DB, stored in Redis, then returned.
 
 ### TTL (Time to Live)
 
@@ -137,9 +137,9 @@ Cache::put('products:featured', $products, now()->addMinutes(5));
 
 ### Cache Invalidation
 
-- **TTL** -- let cache expire naturally.
-- **Manual** -- delete the key when data changes.
-- **Event-driven** -- use model observers to clear cache on create/update/delete.
+- **TTL** — let cache expire naturally.
+- **Manual** — delete the key when data changes.
+- **Event-driven** — use model observers to clear cache on create/update/delete.
 
 ```php
 public function update(Request $request, Product $product)
@@ -260,7 +260,7 @@ Redis::pipeline(function ($pipe) {
 
 ## 5. Redis for Queues
 
-Redis is the most popular Laravel queue driver -- fast, reliable, supports delays, retries, and priorities.
+Redis is the most popular Laravel queue driver — fast, reliable, supports delays, retries, and priorities.
 
 ### Configuration
 
@@ -299,13 +299,13 @@ php artisan queue:work redis --queue=high,default,low  # priority order
 php artisan queue:work redis --max-jobs=1000 --memory=128
 ```
 
-**How it works internally:** Jobs are pushed onto a Redis **list** (`RPUSH`). Workers pop jobs (`LPOP`/`BLPOP`). Delayed jobs use a **sorted set** with timestamps as scores.
+Jobs are pushed onto a Redis **list** (`RPUSH`). Workers pop jobs (`LPOP`/`BLPOP`). Delayed jobs use a **sorted set** with timestamps as scores.
 
 ---
 
 ## 6. Redis Pub/Sub
 
-Publishers send messages to channels; subscribers listen. Messages are **fire-and-forget** -- lost if no one is listening. Unlike queues, pub/sub **broadcasts** to all subscribers.
+Publishers send messages to channels; subscribers listen. Messages are **fire-and-forget** — lost if no one is listening. Unlike queues, pub/sub **broadcasts** to all subscribers.
 
 **Use cases:** real-time notifications, chat, live dashboards, cache invalidation across servers.
 
@@ -358,36 +358,14 @@ Echo.private(`user.${userId}`)
 
 Redis is faster and more scalable than file/database sessions, especially with multiple servers.
 
-- **Shared across servers** via a single Redis instance.
-- **Automatic expiration** via TTL (no garbage collection needed).
-
 ```env
 SESSION_DRIVER=redis
 SESSION_LIFETIME=120
 ```
 
-**Comparison:**
-
-### File
-
-- **Speed** — Slow
-- **Multi-server** — No
-- **Auto-expiration** — No
-- **Extra infra** — None
-
-### Database
-
-- **Speed** — Medium
-- **Multi-server** — Yes
-- **Auto-expiration** — No
-- **Extra infra** — None
-
-### Redis
-
-- **Speed** — Fast
-- **Multi-server** — Yes
-- **Auto-expiration** — Yes (TTL)
-- **Extra infra** — Redis server
+- **File** — Slow, single-server only, no auto-expiration, no extra infra.
+- **Database** — Medium speed, multi-server, no auto-expiration, no extra infra.
+- **Redis** — Fast, multi-server, automatic TTL expiration, requires Redis server.
 
 Session API stays the same regardless of driver:
 
@@ -402,27 +380,17 @@ session()->forget('cart_id');
 
 ## 8. Redis vs Memcached
 
-### Redis
+**Redis:**
+- Data types: strings, lists, sets, hashes, sorted sets, streams.
+- Persistence: yes (RDB + AOF).
+- Pub/Sub, replication, deep Laravel integration (cache, queues, sessions, broadcasting).
 
-- **Data types** — Strings, lists, sets, hashes, sorted sets, streams
-- **Persistence** — Yes (RDB + AOF)
-- **Pub/Sub** — Yes
-- **Replication** — Yes (master-replica)
-- **Threading** — Single-threaded
-- **Memory overhead** — Higher
-- **Laravel integration** — Deep (cache, queues, sessions, broadcasting)
+**Memcached:**
+- Strings only, no persistence, no pub/sub, no replication.
+- Multithreaded, lower memory overhead for simple string caching.
+- Laravel integration: cache only.
 
-### Memcached
-
-- **Data types** — Strings only
-- **Persistence** — No
-- **Pub/Sub** — No
-- **Replication** — No
-- **Threading** — Multithreaded
-- **Memory overhead** — Lower for simple strings
-- **Laravel integration** — Cache only
-
-**Choose Redis** for most Laravel apps. **Choose Memcached** for simple, high-throughput string caching only.
+Choose Redis for most Laravel apps. Choose Memcached for simple, high-throughput string caching only.
 
 ---
 
@@ -459,7 +427,10 @@ appendonly yes
 appendfsync everysec
 ```
 
-**Data loss summary:** No persistence = all lost | RDB only = since last snapshot | AOF `everysec` = max 1 second | AOF `always` = none.
+- No persistence = all data lost on restart.
+- RDB only = data lost since last snapshot.
+- AOF `everysec` = max 1 second of data lost.
+- AOF `always` = no data loss.
 
 ---
 
@@ -493,9 +464,9 @@ maxmemory-policy allkeys-lru  # evict least recently used (best for caching)
 ### General Tips
 
 - **Use pipelines** for multiple commands to reduce round trips.
-- **Use `SCAN` instead of `KEYS`** -- `KEYS` blocks Redis.
-- **Separate concerns** -- different Redis databases for cache, sessions, queues.
-- **Secure Redis** -- set `requirepass`, bind to `127.0.0.1`, disable dangerous commands.
+- **Use `SCAN` instead of `KEYS`** — `KEYS` blocks Redis.
+- **Separate concerns** — different Redis databases for cache, sessions, queues.
+- **Secure Redis** — set `requirepass`, bind to `127.0.0.1`, disable dangerous commands.
 - **Enable persistent connections** in config: `'persistent' => true`.
 
 ```conf
