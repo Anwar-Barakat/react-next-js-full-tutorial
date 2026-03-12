@@ -1,7 +1,5 @@
 # JavaScript Fundamentals Guide
 
-A comprehensive guide to JavaScript fundamentals, patterns, and best practices.
-
 ## Table of Contents
 
 1. [Compiled vs Interpreted Languages](#1-compiled-vs-interpreted-languages)
@@ -34,71 +32,23 @@ A comprehensive guide to JavaScript fundamentals, patterns, and best practices.
 28. [Scope & Closures](#28-scope--closures)
 29. [Type Coercion](#29-type-coercion)
 30. [Best Practices](#30-best-practices)
-31. [Summary](#31-summary)
 
 ---
 
 ## 1. Compiled vs Interpreted Languages
 
-### Compiled Language
-
-**Definition:** Code is converted into machine code BEFORE running.
-
-**Characteristics:**
-- Uses a compiler (e.g., C, C++, Rust, Go)
-- Code is translated once, then executed directly by CPU
-- Errors found during compilation (before running)
-- Result is a binary executable file
-
-**Benefits:**
-- **Fast performance** - Runs directly on hardware
-- **Early error detection** - Catches bugs before execution
-- **Optimized** - Compiler can optimize code
-
----
-
-### Interpreted Language
-
-**Definition:** Code is read and executed line-by-line WHILE running.
-
-**Characteristics:**
-- Uses an interpreter (e.g., JavaScript, Python, PHP, Ruby)
-- Code is translated to machine instructions on-the-fly
-- Errors show at runtime (while running)
-- No separate compilation step needed
-
-**Benefits:**
-- **Easier to test/debug** - Immediate feedback
-- **Platform independent** - Same code runs anywhere
-- **Flexible** - Dynamic typing, runtime modifications
-
-**Trade-off:** Slower than compiled languages (but modern engines like V8 use JIT compilation to speed up).
+- **Compiled** — code converted to machine code BEFORE running (C, C++, Rust, Go). Fast, errors caught at compile time, produces binary.
+- **Interpreted** — code executed line-by-line at runtime (JavaScript, Python, PHP). Flexible, platform-independent, errors at runtime.
+- Modern JS engines (V8) use JIT compilation to bridge the speed gap.
 
 ---
 
 ## 2. What is JavaScript?
 
-**JavaScript** - A high-level, interpreted programming language for creating interactive and dynamic web content.
+High-level, interpreted, single-threaded, dynamically typed, multi-paradigm language.
 
-**Key Characteristics:**
-- **High-level** - Abstracts away hardware details (memory management, etc.)
-- **Interpreted** - Executed by JavaScript engines (V8, SpiderMonkey)
-- **Single-threaded** - Executes one command at a time on main thread
-- **Dynamic typing** - Variables can hold any type
-- **Multi-paradigm** - Supports object-oriented, functional, and imperative styles
-
-**Where it runs:**
-- **Browser** - Client-side scripting (V8 in Chrome, SpiderMonkey in Firefox)
-- **Server** - Node.js for backend development
-- **Mobile** - React Native, Ionic
-- **Desktop** - Electron apps
-
-**What JavaScript can do:**
-- Manipulate DOM (change HTML/CSS)
-- Handle events (clicks, input, scroll)
-- Make HTTP requests (fetch data from APIs)
-- Store data locally (localStorage, cookies)
-- Perform calculations and logic
+- **Runs in:** Browser (V8, SpiderMonkey), Server (Node.js), Mobile (React Native), Desktop (Electron).
+- **Can do:** DOM manipulation, event handling, HTTP requests, local storage, calculations.
 
 ---
 
@@ -106,7 +56,7 @@ A comprehensive guide to JavaScript fundamentals, patterns, and best practices.
 
 ### Primitive Types
 
-**Definition:** Data stored directly in memory. When copied, the value itself is copied.
+Stored directly in memory. Copied by value. Immutable.
 
 - **String** — Text data (e.g., "Hello", 'World')
 - **Number** — Integers and decimals (e.g., 42, 3.14)
@@ -116,13 +66,11 @@ A comprehensive guide to JavaScript fundamentals, patterns, and best practices.
 - **Symbol** — Unique identifier, ES6+ (e.g., Symbol('id'))
 - **BigInt** — Very large integers, ES11+ (e.g., 123n)
 
-**Key point:** Primitives are **immutable** (cannot be changed). Operations create new values.
-
 ---
 
 ### Reference Types (Objects)
 
-**Definition:** Data stored as a reference (pointer) to memory location. When copied, the reference is copied, not the value.
+Stored as a reference (pointer). Copied by reference. Mutable.
 
 **Types:**
 - Object (key-value pairs)
@@ -132,8 +80,6 @@ A comprehensive guide to JavaScript fundamentals, patterns, and best practices.
 - RegExp (pattern matching)
 - Map/Set (collections)
 
-**How references work:**
-
 ```javascript
 let obj1 = { name: "Anwar" };
 let obj2 = obj1;  // Copy reference, not the object
@@ -142,22 +88,8 @@ obj2.name = "Mohammed";
 console.log(obj1.name);  // "Mohammed" - same object!
 ```
 
-**Explanation:**
-```
-obj1 → points to object in memory { name: "Anwar" }
-obj2 → points to SAME object in memory
-
-When you change obj2.name:
-- You're modifying the object in memory
-- Both obj1 and obj2 see the change (they point to same object)
-```
-
-**Key difference:**
-
-- **Storage** — Primitive: Stores the actual value; Reference: Stores memory address
-- **Copy** — Primitive: Copies the value; Reference: Copies the reference
-- **Comparison** — Primitive: Compares values; Reference: Compares memory addresses
-- **Mutability** — Primitive: Immutable; Reference: Mutable
+- **Primitive** — stores value, copies value, compares value, immutable.
+- **Reference** — stores address, copies reference, compares address, mutable.
 
 ---
 
@@ -170,25 +102,9 @@ When you change obj2.name:
 
 ## 4. Variables (var, let, const)
 
-### Scope Explained
-
-**Scope** - Where a variable lives and where you can use it.
-
-**Analogy:** Think of scope like rooms in a house:
-- Kitchen items: Only accessible inside the kitchen (block scope)
-- House entrance items: Visible from any room (function/global scope)
-
----
-
 ### var - Function Scope
 
-**Characteristics:**
-- **Function-scoped** - Exists only within function
-- **Can be redeclared** - Same name, multiple times
-- **Can be updated** - Value can change
-- **Hoisted and initialized** - Moved to top, set to undefined
-
-**Function scope example:**
+Function-scoped, can be redeclared, hoisted as `undefined`.
 
 ```javascript
 function test() {
@@ -198,7 +114,7 @@ function test() {
 console.log(a);  // ❌ ReferenceError: a is not defined
 ```
 
-**Block scope ignored:**
+**var ignores block scope:**
 
 ```javascript
 function testBlock() {
@@ -209,19 +125,11 @@ function testBlock() {
 }
 ```
 
-**Problem with var:** Ignores block scope, can cause unexpected behavior.
-
 ---
 
 ### let - Block Scope
 
-**Characteristics:**
-- **Block-scoped** - Exists only within { } block
-- **Cannot be redeclared** - Same name once per scope
-- **Can be updated** - Value can change
-- **Hoisted but not initialized** - Temporal dead zone
-
-**Block scope example:**
+Block-scoped, cannot be redeclared, hoisted but not initialized (temporal dead zone).
 
 ```javascript
 function testLet() {
@@ -233,20 +141,11 @@ function testLet() {
 }
 ```
 
-**Use case:** Preferred for variables that will change.
-
 ---
 
 ### const - Block Scope + Immutable Binding
 
-**Characteristics:**
-- **Block-scoped** - Same as let
-- **Cannot be redeclared** - Same name once per scope
-- **Cannot be reassigned** - Binding is constant
-- **Must be initialized** - Cannot declare without value
-- **Hoisted but not initialized** - Temporal dead zone
-
-**Important:** const makes the binding immutable, not the value.
+Same as `let` but cannot be reassigned. Must be initialized. The binding is constant, not the value.
 
 ```javascript
 const obj = { name: "Anwar" };
@@ -254,40 +153,13 @@ obj.name = "Ali";  // ✅ Allowed - modifying property
 obj = {};  // ❌ Error - reassigning variable
 ```
 
-**Use case:** Preferred default choice for variables that won't be reassigned.
-
----
-
-### Comparison
-
-- **Scope** — var: Function; let: Block; const: Block
-- **Redeclare** — var: Yes; let: No; const: No
-- **Reassign** — var: Yes; let: Yes; const: No
-- **Hoisting** — var: Yes, = undefined; let: Yes, not init; const: Yes, not init
-- **Temporal Dead Zone** — var: No; let: Yes; const: Yes
-- **Best for** — var: (Avoid); let: Changing values; const: Constants, objects
-
-**Modern best practice:**
-- **Default:** Use `const`
-- **If reassignment needed:** Use `let`
-- **Never:** Use `var` (legacy code only)
+**Best practice:** Default to `const`. Use `let` when reassignment is needed. Never use `var`.
 
 ---
 
 ## 5. Hoisting
 
-**Hoisting** - JavaScript's behavior of moving declarations to the top of their scope during compilation.
-
-**What gets hoisted:**
-- Variable declarations (var, let, const)
-- Function declarations
-
-**What doesn't get hoisted:**
-- Variable initializations
-- Function expressions
-- Arrow functions
-
----
+JavaScript moves declarations to the top of their scope during compilation. Initializations stay in place.
 
 ### var Hoisting
 
@@ -339,9 +211,7 @@ var sayBye = function() {
 };
 ```
 
-**Explanation:**
-- **Function declaration:** Entire function hoisted (can call before definition)
-- **Function expression:** Only variable hoisted (as undefined), not the function
+Function declarations are fully hoisted. Function expressions are not.
 
 ---
 
@@ -349,7 +219,7 @@ var sayBye = function() {
 
 ### == (Loose Equality)
 
-**Definition:** Compares values after type coercion (converts types to match).
+Compares values after type coercion.
 
 ```javascript
 5 == "5"       // true - string "5" converted to number 5
@@ -358,13 +228,11 @@ null == undefined  // true - special case
 "" == 0        // true - empty string converted to 0
 ```
 
-**Problem:** Unpredictable behavior due to type coercion.
-
 ---
 
 ### === (Strict Equality)
 
-**Definition:** Compares both value AND type without coercion.
+Compares both value AND type without coercion.
 
 ```javascript
 5 === "5"      // false - different types
@@ -445,17 +313,6 @@ typeof null       // "object" - historical bug in JavaScript
 
 ## 8. Functions
 
-**Function** - A reusable block of code that performs a specific task.
-
-**Key features:**
-- Accept parameters (inputs)
-- Return values (outputs)
-- Can be assigned to variables
-- Can be passed as arguments
-- Can be returned from other functions
-
----
-
 ### Function Declaration
 
 ```javascript
@@ -466,10 +323,7 @@ function greet(name) {
 greet("Anwar");  // "Hello, Anwar!"
 ```
 
-**Characteristics:**
-- Hoisted (can call before definition)
-- Has a name
-- Uses `function` keyword
+Hoisted — can call before definition.
 
 ---
 
@@ -483,10 +337,7 @@ const greet = function(name) {
 greet("Anwar");  // "Hello, Anwar!"
 ```
 
-**Characteristics:**
-- NOT hoisted (must define before calling)
-- Assigned to a variable
-- Can be anonymous
+NOT hoisted — must define before calling.
 
 ---
 
@@ -501,11 +352,7 @@ const greet = (name) => {
 const greet = name => `Hello, ${name}!`;
 ```
 
-**Characteristics:**
-- Shorter syntax
-- No `this` binding (inherits from parent scope)
-- Cannot be used as constructors
-- No `arguments` object
+Shorter syntax, no `this` binding (inherits from parent), no `arguments` object.
 
 ---
 
@@ -520,8 +367,6 @@ greet();         // "Hello, Guest!"
 greet("Anwar");  // "Hello, Anwar!"
 ```
 
-**Use case:** Provide fallback values when arguments not provided or undefined.
-
 ---
 
 ### Rest Parameters
@@ -535,9 +380,7 @@ sum(1, 2, 3);     // 6
 sum(1, 2, 3, 4, 5);  // 15
 ```
 
-**Definition:** Collects multiple arguments into an array.
-
-**Syntax:** `...paramName` (must be last parameter)
+Collects multiple arguments into an array. Must be last parameter.
 
 ---
 
@@ -577,7 +420,7 @@ const f = function() {
 
 ### Callback Functions
 
-**Definition:** A function passed as an argument to another function, to be called later.
+A function passed as an argument to another function, called later.
 
 ```javascript
 function processData(data, callback) {
@@ -590,16 +433,11 @@ processData(5, function(result) {
 });
 ```
 
-**Common uses:**
-- Event handlers
-- Array methods (map, filter, forEach)
-- Asynchronous operations
-
 ---
 
 ### Closures
 
-**Definition:** A function that remembers variables from its outer scope, even after the outer function has returned.
+A function that remembers variables from its outer scope, even after the outer function has returned.
 
 ```javascript
 function createCounter() {
@@ -617,22 +455,13 @@ console.log(counter());  // 2
 console.log(counter());  // 3
 ```
 
-**How it works:**
-- Inner function has access to outer function's variables
-- Variables are "remembered" even after outer function finishes
-- Creates private data (encapsulation)
-
-**Use cases:**
-- Data privacy (private variables)
-- Factory functions
-- Event handlers that need to remember state
-- Memoization
+**Use cases:** data privacy, factory functions, event handlers, memoization.
 
 ---
 
 ### Higher-Order Functions
 
-**Definition:** A function that takes another function as an argument OR returns a function.
+Takes a function as argument OR returns a function.
 
 ```javascript
 // Takes function as argument:
@@ -661,7 +490,7 @@ console.log(double(5));  // 10
 
 ### Pure Functions
 
-**Definition:** A function that always returns the same output for the same input and has no side effects.
+Same input = same output, no side effects. Predictable, testable, cacheable.
 
 ```javascript
 // Pure function:
@@ -677,22 +506,11 @@ function addToTotal(n) {
 }
 ```
 
-**Characteristics:**
-- No side effects (doesn't modify external state)
-- Deterministic (same input = same output)
-- No API calls, no console.log, no DOM manipulation
-
-**Benefits:**
-- Predictable
-- Easy to test
-- Can be cached (memoization)
-- Can be run in parallel
-
 ---
 
 ### Function Composition
 
-**Definition:** Combining multiple functions to create a new function. Output of one becomes input of another.
+Output of one function becomes input of another.
 
 ```javascript
 const add = x => x + 1;
@@ -707,13 +525,9 @@ const addThenMultiply = compose(multiply, add);
 console.log(addThenMultiply(5));  // 12
 ```
 
-**Use case:** Building complex operations from simple, reusable functions.
-
 ---
 
 ## 11. Objects
-
-**Object** - A collection of key-value pairs.
 
 ```javascript
 const user = {
@@ -727,14 +541,12 @@ const user = {
 
 ### Accessing Properties
 
-**Dot notation:** Use when property name is a simple word.
-
 ```javascript
 console.log(user.name);  // "Anwar"
 user.age = 31;
 ```
 
-**Bracket notation:** Use when property name is dynamic or contains spaces/special characters.
+**Bracket notation** (dynamic keys, special characters):
 
 ```javascript
 const key = "name";
@@ -751,21 +563,14 @@ console.log(person["first name"]);  // "Anwar"
 
 ### JSON
 
-**JSON (JavaScript Object Notation)** - A text format for storing and transporting data.
+Text format for data transfer. Used in APIs, localStorage, config files.
 
-- **JSON.parse()** — Convert JSON string to JS object (e.g., JSON.parse('{"name":"Anwar"}'))
-- **JSON.stringify()** — Convert JS object to JSON string (e.g., JSON.stringify({name:"Anwar"}))
-
-**Use cases:**
-- API data transfer
-- localStorage (stores only strings)
-- Configuration files
+- `JSON.parse('{"name":"Anwar"}')` — string → object.
+- `JSON.stringify({name:"Anwar"})` — object → string.
 
 ---
 
 ### Object Copying
-
-**Problem:** Direct assignment copies reference, not the object.
 
 ```javascript
 const obj1 = { name: "Anwar" };
@@ -995,62 +800,19 @@ console.log("C");
 // Output: A, C, B
 ```
 
-**Why asynchronous?**
-- JavaScript is single-threaded (one task at a time)
-- Async operations (network requests, file I/O) take time
-- Don't want to block the entire application while waiting
+JavaScript is single-threaded but uses the event loop + Web APIs (setTimeout, fetch) to handle async operations without blocking.
 
 ---
 
-### Single-Threaded Explained
-
-**JavaScript is single-threaded** - Can execute only one command at a time on main thread.
-
-**Analogy:** One-lane road. Cars must go one at a time.
-
-**But JavaScript can handle multiple async operations!** How?
-- Browser/Node.js provides Web APIs (setTimeout, fetch, file I/O)
-- These run OUTSIDE the main JavaScript thread
-- When complete, they queue callbacks to run on main thread
-
-**Important:**
-- Promises & async/await do NOT add extra threads
-- They allow JavaScript to do other work while waiting
-- Use event loop to manage async operations
-
----
-
-### PHP vs JavaScript Concurrency
-
-**PHP:**
-- Each request = one process/thread on server
-- Blocking by default (waits for database, file I/O)
-- Can handle multiple requests by spawning more processes
-
-**Enhancement options:**
-- **Queues** - Background jobs (Laravel Queue)
-- **Laravel Octane** - Keep app in memory, reuse workers
-
-**JavaScript (Node.js):**
-- One process handles many requests (event loop)
-- Non-blocking by default (async operations)
-- More efficient for I/O-heavy operations
+**PHP vs JS:** PHP spawns a process per request (blocking). Node.js handles many requests in one process (non-blocking event loop).
 
 ---
 
 ## 15. Event Loop & Task Queues
 
-### Event Loop
-
-**Event Loop** - The system that manages async operations in JavaScript.
-
-**Purpose:** Allows single-threaded JavaScript to handle async operations without blocking.
-
----
-
 ### Three Main Parts
 
-**1. Call Stack** - Where synchronous code runs (LIFO - Last In First Out).
+**1. Call Stack** — where synchronous code runs (LIFO).
 
 ```javascript
 function third() { console.log("3"); }
@@ -1064,21 +826,15 @@ first();
 // first()
 ```
 
-**2. Web APIs** - Browser/Node.js handles async operations:
-- setTimeout / setInterval
-- fetch / XMLHttpRequest
-- DOM events
-- File I/O (Node.js)
+**2. Web APIs** — browser handles async ops (setTimeout, fetch, DOM events).
 
-**3. Queues** - Where completed async tasks wait:
-- **Microtask Queue** - Promises, async/await (HIGH priority)
-- **Macrotask Queue** - setTimeout, setInterval, DOM events (LOW priority)
+**3. Queues:**
+- **Microtask Queue** — Promises, async/await (HIGH priority).
+- **Macrotask Queue** — setTimeout, setInterval, DOM events (LOW priority).
 
 ---
 
 ### How Event Loop Works
-
-**Flow:**
 
 ```
 1. Run synchronous code (call stack)
@@ -1120,15 +876,7 @@ console.log("D");
 - **Microtasks** — HIGH priority. Examples: Promises, async/await, queueMicrotask. Run after current code, before macrotasks
 - **Macrotasks** — LOW priority. Examples: setTimeout, setInterval, DOM events. Run after microtasks
 
-**Why Promise runs before setTimeout:**
-
-```
-1. JavaScript finishes synchronous code
-2. Executes ALL microtasks (Promise callbacks)
-3. Microtask queue empty → Move to macrotasks
-4. Execute ONE macrotask (setTimeout)
-5. Check microtasks again → Repeat
-```
+Microtasks always drain before the next macrotask runs.
 
 ---
 
@@ -1136,14 +884,7 @@ console.log("D");
 
 ### Promises
 
-**Promise** - An object representing the eventual completion or failure of an async operation.
-
-**Three states:**
-- **Pending** - Initial state, not completed yet
-- **Fulfilled** - Operation completed successfully
-- **Rejected** - Operation failed
-
-**Creating a Promise:**
+Three states: **pending**, **fulfilled**, **rejected**.
 
 ```javascript
 const promise = new Promise((resolve, reject) => {
@@ -1155,8 +896,6 @@ const promise = new Promise((resolve, reject) => {
   }
 });
 ```
-
-**Using a Promise:**
 
 ```javascript
 promise
@@ -1184,13 +923,11 @@ fetch("/api/user")
   .catch(error => console.error(error));
 ```
 
-**Best practice:** Return promises from .then() to chain properly.
-
 ---
 
 ### Promise Methods
 
-**Promise.all()** - Wait for all promises to resolve.
+**Promise.all()** — wait for all, fail if any fails.
 
 ```javascript
 const p1 = fetch("/api/users");
@@ -1205,7 +942,7 @@ Promise.all([p1, p2])
   });
 ```
 
-**Promise.race()** - Resolves when first promise settles.
+**Promise.race()** — first to settle wins.
 
 ```javascript
 Promise.race([
@@ -1216,7 +953,7 @@ Promise.race([
   .catch(error => console.log("Error or timeout:", error));
 ```
 
-**Promise.allSettled()** - Wait for all, get results even if some fail.
+**Promise.allSettled()** — wait for all, get results even if some fail.
 
 ```javascript
 Promise.allSettled([p1, p2])
@@ -1231,7 +968,7 @@ Promise.allSettled([p1, p2])
   });
 ```
 
-**Promise.any()** - Resolves when first promise fulfills.
+**Promise.any()** — first to fulfill wins.
 
 ```javascript
 Promise.any([p1, p2, p3])
@@ -1243,18 +980,7 @@ Promise.any([p1, p2, p3])
 
 ### Async/Await
 
-**async/await** - Syntactic sugar for working with Promises (cleaner syntax).
-
-**async function:**
-- Always returns a Promise
-- Allows use of await inside
-
-**await:**
-- Pauses execution until Promise resolves
-- Only works inside async functions
-- Returns the resolved value
-
-**Example:**
+Syntactic sugar for Promises. `async` returns a Promise, `await` pauses until it resolves.
 
 ```javascript
 // Promise version:
@@ -1281,18 +1007,12 @@ async function getData() {
 }
 ```
 
-**Benefits:**
-- Easier to read (looks synchronous)
-- Better error handling (try/catch)
-- Simpler debugging
 
 ---
 
 ## 17. DOM Manipulation
 
-**DOM (Document Object Model)** - A programming interface for HTML documents.
-
-**Representation:** Tree of objects representing page structure.
+Tree of objects representing the HTML document.
 
 ```
 document
@@ -1390,11 +1110,7 @@ parent.removeChild(child);  // Legacy
 
 ## 18. Prototypal Inheritance
 
-**Prototype** - Every JavaScript object has a hidden link to another object called its prototype.
-
-**Purpose:** Share properties and methods across objects (inheritance).
-
----
+Every object has a hidden link to a prototype. Properties/methods are shared through the prototype chain.
 
 ### How It Works
 
@@ -1492,7 +1208,7 @@ dog → Dog.prototype → Animal.prototype → Object.prototype → null
 
 ### onclick vs addEventListener
 
-**onclick** - Property that holds a single event handler.
+**onclick** — single handler (overrides previous):
 
 ```javascript
 const btn = document.getElementById("btn");
@@ -1506,7 +1222,7 @@ btn.onclick = function() {
 };
 ```
 
-**addEventListener** - Method that can attach multiple handlers.
+**addEventListener** — multiple handlers (preferred):
 
 ```javascript
 btn.addEventListener("click", function() {
@@ -1520,18 +1236,9 @@ btn.addEventListener("click", function() {
 // Both handlers run
 ```
 
-**Comparison:**
-
-- **Multiple handlers** — onclick: No (overrides); addEventListener: Yes (adds)
-- **Remove handler** — onclick: Set to null; addEventListener: removeEventListener()
-- **Event options** — onclick: No; addEventListener: Yes (capture, once, etc.)
-- **Best practice** — onclick: Avoid; addEventListener: Preferred
-
 ---
 
 ### Event Bubbling & Capturing
-
-**Event Flow:**
 
 ```
 1. Capturing phase: Event travels DOWN from window to target
@@ -1687,9 +1394,7 @@ const min = numbers.reduce((min, n) => n < min ? n : min);
 
 ### Debouncing
 
-**Definition:** Wait until user stops doing something, THEN run the function.
-
-**Use case:** Search input - don't search on every keystroke, wait until user stops typing.
+Wait until user stops, then run. Best for: search input.
 
 ```javascript
 function debounce(func, delay) {
@@ -1712,18 +1417,11 @@ const handleSearch = debounce((event) => {
 searchInput.addEventListener("input", handleSearch);
 ```
 
-**How it works:**
-- User types → Start timer (500ms)
-- User types again → Cancel previous timer, start new one
-- User stops typing → Timer completes, function runs
-
 ---
 
 ### Throttling
 
-**Definition:** Limit function execution to once per time interval.
-
-**Use case:** Scroll event - run function maximum once every 200ms during scroll.
+Limit execution to once per time interval. Best for: scroll, resize.
 
 ```javascript
 function throttle(func, delay) {
@@ -1745,27 +1443,11 @@ const handleScroll = throttle(() => {
 window.addEventListener("scroll", handleScroll);
 ```
 
-**How it works:**
-- First call → Execute immediately
-- Subsequent calls within 200ms → Ignored
-- After 200ms → Next call executes
-
----
-
-### Debouncing vs Throttling
-
-- **When runs** — Debouncing: After user stops; Throttling: During action (limited)
-- **Frequency** — Debouncing: Once (at end); Throttling: Multiple (spaced out)
-- **Best for** — Debouncing: Search input, resize; Throttling: Scroll, mouse move
-- **Example** — Debouncing: Wait 500ms after last keypress; Throttling: Run once every 200ms
-
 ---
 
 ### Memoization
 
-**Definition:** Caching function results to avoid redundant calculations.
-
-**Use case:** Expensive calculations with same inputs.
+Cache function results to avoid redundant calculations.
 
 ```javascript
 function memoize(fn) {
@@ -1796,14 +1478,7 @@ console.log(memoized(5));  // 25 (from cache, no calculation)
 
 ### Lazy Loading
 
-**Definition:** Deferring loading of resources until they're needed.
-
-**Use cases:**
-- Images (load when scrolled into view)
-- JavaScript bundles (code splitting)
-- Components (load on route navigation)
-
-**Image lazy loading:**
+Defer loading resources until needed (images, JS bundles, components).
 
 ```html
 <img src="placeholder.jpg" data-src="actual-image.jpg" class="lazy">
@@ -1830,20 +1505,9 @@ lazyImages.forEach(img => imageObserver.observe(img));
 
 ## 22. Browser Storage
 
-### localStorage vs sessionStorage
-
-**localStorage** - Stores data persistently (no expiration).
-
-**sessionStorage** - Stores data for session duration (cleared when tab closes).
-
-**Comparison:**
-
-- **Persistence** — localStorage: Forever (until deleted); sessionStorage: Tab session only
-- **Scope** — localStorage: All tabs/windows; sessionStorage: Single tab/window
-- **Size limit** — localStorage: ~5-10MB; sessionStorage: ~5-10MB
-- **Data type** — localStorage: Strings only; sessionStorage: Strings only
-
-**Usage:**
+- **localStorage** — persists forever, shared across tabs.
+- **sessionStorage** — cleared when tab closes, single tab only.
+- Both store strings only, ~5-10MB limit.
 
 ```javascript
 // Set:
@@ -1867,15 +1531,12 @@ localStorage.setItem("user", JSON.stringify(user));
 const user = JSON.parse(localStorage.getItem("user"));
 ```
 
-**Important:** Both store key-value pairs as strings. Objects must be converted to JSON.
 
 ---
 
 ## 23. HTTP Requests
 
 ### XMLHttpRequest (Legacy)
-
-**XMLHttpRequest (XHR)** - Original JavaScript object for async HTTP requests.
 
 ```javascript
 const xhr = new XMLHttpRequest();
@@ -1888,13 +1549,9 @@ xhr.onload = function() {
 xhr.send();
 ```
 
-**Problem:** Callback-based, verbose syntax.
-
 ---
 
 ### Fetch API (Modern)
-
-**Fetch API** - Modern way to make HTTP requests, returns Promises.
 
 ```javascript
 // GET request:
@@ -1941,20 +1598,9 @@ async function getUsers() {
 
 ---
 
-### AJAX Explained
+### AJAX
 
-**AJAX (Asynchronous JavaScript And XML)** - Technique for asynchronous requests without page reload.
-
-**Components:**
-- **A** - Asynchronous (don't block page)
-- **J** - JavaScript (the language)
-- **A** - And
-- **X** - XML (original data format)
-
-**Modern reality:**
-- XML rarely used today
-- JSON is the standard (smaller, faster, easier)
-- "AJAX" now means any async HTTP request
+Async HTTP requests without page reload. Originally XML, now JSON is standard.
 
 ---
 
@@ -1962,7 +1608,7 @@ async function getUsers() {
 
 ### Template Literals
 
-**Template literals** - String literals using backticks (`), support multi-line and embedded expressions.
+Backtick strings with interpolation and multi-line support.
 
 ```javascript
 // Variable interpolation:
@@ -1989,7 +1635,7 @@ const message = `Result: ${calculateTotal()}`;
 
 ### Optional Chaining (?.)
 
-**Optional chaining** - Safely access nested properties without errors.
+Safely access nested properties — returns `undefined` instead of throwing.
 
 ```javascript
 const user = {
@@ -2017,7 +1663,7 @@ const first = users?.[0];  // undefined if users is null/undefined
 
 ### Nullish Coalescing (??)
 
-**Nullish coalescing** - Provides default only for null/undefined (not for 0, "", false).
+Default only for `null`/`undefined` (not `0`, `""`, `false`).
 
 ```javascript
 // Problem with OR (||):
@@ -2116,19 +1762,7 @@ element.textContent = userInput;  // Treated as text, not HTML
 
 ## 26. Modules
 
-**Modules** - Split code into separate files, each with its own scope.
-
-**Benefits:**
-- Organize code
-- Avoid global scope pollution
-- Reusability
-- Dependency management
-
----
-
 ### Named Exports
-
-**Definition:** Export multiple items from a module.
 
 ```javascript
 // math.js
@@ -2157,8 +1791,6 @@ console.log(sum(5, 3));  // 8
 
 ### Default Exports
 
-**Definition:** Export one main item from a module.
-
 ```javascript
 // user.js
 export default class User {
@@ -2182,21 +1814,11 @@ import User, { ROLE_ADMIN } from "./user.js";
 
 ---
 
-### Comparison
-
-- **Per module** — Named Export: Multiple; Default Export: One
-- **Import syntax** — Named Export: { name }; Default Export: name (no braces)
-- **Import name** — Named Export: Must match export name; Default Export: Can use any name
-- **Rename** — Named Export: import { old as new }; Default Export: Not needed (any name)
-- **Best for** — Named Export: Utilities, constants; Default Export: Main class/component
-
----
-
 ## 27. Error Handling
 
 ### try...catch...finally
 
-**try...catch** - Handles errors without stopping code execution.
+Handle errors without stopping execution.
 
 ```javascript
 try {
@@ -2212,16 +1834,11 @@ try {
 }
 ```
 
-**How it works:**
-1. try block executes
-2. If error occurs → jump to catch block
-3. finally block always executes (even if error or return)
-
 ---
 
 ### throw vs return
 
-**return** - Exits function and returns a value (normal flow).
+**return** — normal exit:
 
 ```javascript
 function divide(a, b) {
@@ -2234,7 +1851,7 @@ function divide(a, b) {
 const result = divide(10, 0);  // null
 ```
 
-**throw** - Stops execution and raises an error (exceptional flow).
+**throw** — raises an error, jumps to catch:
 
 ```javascript
 function divide(a, b) {
@@ -2250,13 +1867,6 @@ try {
   console.error(error.message);  // "Division by zero"
 }
 ```
-
-**Comparison:**
-
-- **Purpose** — return: Normal exit; throw: Error exit
-- **Execution** — return: Continues normally; throw: Jumps to catch block
-- **Best for** — return: Valid results; throw: Error conditions
-- **Catchable** — return: No; throw: Yes (try...catch)
 
 ---
 
@@ -2483,10 +2093,6 @@ if ("hello") { }  // true (truthy)
 if (0) { }        // false (falsy)
 ```
 
-**Analogy:**
-- **Implicit:** Friend yawns → You understand they're tired (unspoken)
-- **Explicit:** Friend says "I am tired" (spoken)
-
 ---
 
 ### Explicit Coercion
@@ -2611,61 +2217,4 @@ Number.isNaN("hello") // false (doesn't convert)
 
 ---
 
-## 31. Summary
-
-### Core Concepts
-
-**Language Basics:**
-- **JavaScript** - High-level, interpreted, single-threaded, dynamic typing
-- **Primitives** - Stored by value (String, Number, Boolean, null, undefined, Symbol, BigInt)
-- **References** - Stored by reference (Object, Array, Function)
-- **Variables** - const (default), let (reassignable), avoid var
-
-**Functions:**
-- **Types** - Declaration (hoisted), expression (not hoisted), arrow (no this binding)
-- **Advanced** - Callbacks, closures, higher-order, pure, composition
-- **Closures** - Functions remember outer variables (data privacy)
-
-**Async Programming:**
-- **Single-threaded** - One command at a time on main thread
-- **Event loop** - Manages async operations (call stack + Web APIs + queues)
-- **Promises** - Represent eventual completion/failure of async operation
-- **Async/await** - Syntactic sugar for promises (cleaner code)
-- **Microtasks** - Run before macrotasks (Promises > setTimeout)
-
-**DOM & Events:**
-- **DOM** - Tree representation of HTML document
-- **Manipulation** - Create, read, update, delete elements
-- **Events** - addEventListener (multiple handlers), onclick (single handler)
-- **Event flow** - Capturing → target → bubbling
-
-**Objects & Arrays:**
-- **Objects** - Key-value pairs, dot/bracket notation
-- **Arrays** - Ordered collections, many methods (map, filter, reduce)
-- **Spread** - Split into individual elements (copy, merge)
-- **Destructuring** - Extract values into variables
-
-**Modern JavaScript:**
-- **ES6+** - Template literals, arrow functions, destructuring, spread/rest
-- **Modules** - Named exports (multiple), default export (one)
-- **Optional chaining** - Safe property access (?.)
-- **Nullish coalescing** - Default for null/undefined (??)
-
-**Performance:**
-- **Debouncing** - Wait until user stops (search input)
-- **Throttling** - Limit frequency (scroll events)
-- **Memoization** - Cache expensive calculations
-- **Lazy loading** - Load resources when needed
-
-**Security:**
-- **XSS** - Sanitize input, escape HTML, use textContent
-- **CSRF** - Use tokens, SameSite cookies, verify origin
-
-**Best Practices:**
-- Use const/let, avoid var
-- Use === not ==
-- Handle errors with try/catch
-- Validate & sanitize input
-- Keep functions small and focused
-- Use meaningful names
 - Organize code with modules
