@@ -10,13 +10,12 @@
 4. [What is OAuth 2.0?](#4-what-is-oauth-20)
 5. [OAuth 2.0 Grant Types](#5-oauth-20-grant-types)
 6. [OAuth 2.0 Flow Step by Step](#6-oauth-20-flow-step-by-step)
-7. [OpenID Connect (OIDC)](#7-openid-connect-oidc)
-8. [JWT vs Session-Based Authentication](#8-jwt-vs-session-based-authentication)
-9. [Refresh Token Rotation](#9-refresh-token-rotation)
-10. [Token Storage Strategies](#10-token-storage-strategies)
-11. [Laravel Sanctum vs Laravel Passport](#11-laravel-sanctum-vs-laravel-passport)
-12. [Social Login (Laravel Socialite)](#12-social-login-laravel-socialite)
-13. [Security Best Practices](#13-security-best-practices)
+7. [JWT vs Session-Based Authentication](#7-jwt-vs-session-based-authentication)
+8. [Refresh Token Rotation](#8-refresh-token-rotation)
+9. [Token Storage Strategies](#9-token-storage-strategies)
+10. [Laravel Sanctum vs Laravel Passport](#10-laravel-sanctum-vs-laravel-passport)
+11. [Social Login (Laravel Socialite)](#11-social-login-laravel-socialite)
+12. [Security Best Practices](#12-security-best-practices)
 
 ---
 
@@ -231,37 +230,8 @@ Laravel Socialite handles all of steps 2–8 automatically — see [Section 12](
 
 ---
 
-## 7. OpenID Connect (OIDC)
 
-OAuth 2.0 handles **authorization** ("what can this app access?"). OIDC adds **authentication** ("who is this user?") by introducing an **ID Token** — a JWT issued alongside the access token containing identity claims.
-
-```json
-{
-  "iss": "https://accounts.google.com",
-  "sub": "1102547832",
-  "aud": "your-client-id",
-  "exp": 1616239022,
-  "name": "John Doe",
-  "email": "john@gmail.com",
-  "email_verified": true
-}
-```
-
-Triggered by including `openid` in the scope. Verify `iss`, `aud`, and `nonce` claims.
-
-```php
-$params = ['scope' => 'openid email profile', 'nonce' => $nonce, ...];
-
-$decoded = JWT::decode($tokens['id_token'], new Key($googlePublicKey, 'RS256'));
-
-if ($decoded->nonce !== session('oauth_nonce')) {
-    abort(403, 'Invalid nonce');
-}
-```
-
----
-
-## 8. JWT vs Session-Based Authentication
+## 7. JWT vs Session-Based Authentication
 
 **Sessions:**
 - Server stores session data (DB/Redis). Client gets an opaque session ID in a cookie.
@@ -285,7 +255,7 @@ return response()->json(['token' => $token]);
 
 ---
 
-## 9. Refresh Token Rotation
+## 8. Refresh Token Rotation
 
 Every time a refresh token is used, it is **invalidated** and a new one is issued. If a stolen token is reused, the server detects it and revokes the entire token family.
 
@@ -376,11 +346,23 @@ class RefreshTokenService
 
 ---
 
-## 10. Token Storage Strategies
+## 9. Token Storage Strategies
 
 ### httpOnly Cookies (recommended for web apps)
 
 JavaScript **cannot** read httpOnly cookies — immune to XSS. Vulnerable to CSRF — mitigate with `SameSite=Strict`.
+
+```javascript
+// ❌ JavaScript CANNOT do this if cookie is httpOnly
+document.cookie // → won't show the token
+
+// ✅ Browser sends it automatically with every request
+// but JS has zero access to it
+```
+
+**Threat protection:**
+- **XSS** — hacker injects JavaScript into your site to steal cookies. `httpOnly` hides the cookie from JS entirely.
+- **CSRF** — another site tricks the browser into sending your cookie. `SameSite=Strict` blocks the cookie from being sent on cross-site requests.
 
 ```php
 return response()->json(['message' => 'Logged in'])
@@ -422,7 +404,7 @@ Same as localStorage but cleared when the tab closes. Still vulnerable to XSS.
 
 ---
 
-## 11. Laravel Sanctum vs Laravel Passport
+## 10. Laravel Sanctum vs Laravel Passport
 
 ### Sanctum
 
@@ -492,7 +474,7 @@ Route::middleware('client:read-orders')->get('/api/orders', fn() => Order::all()
 
 ---
 
-## 12. Social Login (Laravel Socialite)
+## 11. Social Login (Laravel Socialite)
 
 Handles the entire OAuth flow for Google, GitHub, Facebook, Twitter, LinkedIn, and more.
 
@@ -712,7 +694,7 @@ if (!$email) {
 
 ---
 
-## 13. Security Best Practices
+## 12. Security Best Practices
 
 **Token expiry:**
 - Access tokens: 15 min–1 hour. Refresh tokens: 7–30 days. Never issue non-expiring tokens.
