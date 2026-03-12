@@ -233,15 +233,76 @@ Laravel Socialite handles all of steps 2–8 automatically — see [Section 12](
 
 ## 7. JWT vs Session-Based Authentication
 
-**Sessions:**
-- Server stores session data (DB/Redis). Client gets an opaque session ID in a cookie.
-- Easy to revoke. CSRF protection required. Hard to scale horizontally without shared storage.
-- Best for: server-rendered web apps (Blade, Livewire, Inertia).
+```
+// Stateful (session)
+Server stores: { sessionId: "abc" → userId: 1 }  ← server remembers you
 
-**JWT:**
-- Stateless — no server storage. Any server can verify the token from the signature alone.
-- Hard to revoke before expiry (needs a blacklist). Payload is readable. Larger than session cookie.
+// Stateless (JWT)
+Server stores: NOTHING ← all info is inside the token itself
+Token contains: { userId: 1, role: "admin", exp: ... }
+```
+
+---
+
+### Cookie — Just a Storage Place
+
+Cookie is NOT authentication. It is just where the browser stores things.
+
+```
+Set-Cookie: anything=value
+```
+
+- Cookie = the storage pocket in the browser.
+- Can hold a session ID, a JWT, or anything else.
+- `httpOnly` — JS cannot read it. `SameSite=Strict` — other sites cannot use it.
+
+---
+
+### Session — Server Remembers You (Stateful)
+
+```
+1. You login
+2. Server creates: { sessionId: "abc123" → userId: 1 }  ← stored on server
+3. Server sends sessionId to browser (stored in cookie)
+4. Next request → browser sends sessionId
+5. Server looks it up in memory/DB → finds you
+
+Browser              Server
+sessionId: abc123 →  [ abc123 → userId:1, name:"Anwar" ]
+                              ↑ server must remember this
+```
+
+- Easy to revoke (delete the session).
+- Hard to scale horizontally — all servers need access to the same session store.
+- Best for: server-rendered apps (Blade, Livewire, Inertia).
+
+---
+
+### Token (JWT) — Server Forgets You (Stateless)
+
+```
+1. You login
+2. Server creates token with your info INSIDE it
+3. Token: { userId:1, name:"Anwar", role:"admin" }
+4. Server sends token to browser (cookie or localStorage)
+5. Next request → browser sends token
+6. Server just READS the token — no lookup needed
+
+Browser                        Server
+token: {userId:1,role:admin} →  just verify signature ✅
+                                no database lookup needed
+```
+
+- Any server can verify the token without shared storage — scales easily.
+- Hard to revoke before expiry (needs a Redis blacklist).
 - Best for: REST APIs, mobile apps, SPAs, microservices.
+
+---
+
+**Summary:**
+- **Cookie** — storage place in browser. Holds a session ID or JWT. Not auth itself.
+- **Session** — stateful. Server stores who is logged in. Easy to revoke, hard to scale.
+- **Token (JWT)** — stateless. Server stores nothing. Scales easily, harder to revoke.
 
 ```php
 // Session-based
@@ -350,14 +411,23 @@ class RefreshTokenService
 
 ### httpOnly Cookies (recommended for web apps)
 
-JavaScript **cannot** read httpOnly cookies — immune to XSS. Vulnerable to CSRF — mitigate with `SameSite=Strict`.
+```
+1. User logs in
+   → Server creates JWT token
+   → Server sends it as httpOnly cookie
+
+2. Browser stores it automatically
+   → Browser can't read it (httpOnly)
+   → JS can't read it (httpOnly)
+
+3. Every next request
+   → Browser auto-sends the cookie
+   → Server validates the token
+```
 
 ```javascript
 // ❌ JavaScript CANNOT do this if cookie is httpOnly
 document.cookie // → won't show the token
-
-// ✅ Browser sends it automatically with every request
-// but JS has zero access to it
 ```
 
 **Threat protection:**
