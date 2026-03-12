@@ -202,35 +202,6 @@ $response = Http::asForm()->post('https://your-app.com/oauth/token', [
 $accessToken = $response->json('access_token');
 ```
 
-### Authorization Code + PKCE (SPAs / mobile apps)
-
-For public clients that can't store a client secret. Client generates a `code_verifier`, hashes it into a `code_challenge`, and proves ownership on token exchange.
-
-```php
-$codeVerifier  = bin2hex(random_bytes(32));
-$codeChallenge = rtrim(strtr(base64_encode(hash('sha256', $codeVerifier, true)), '+/', '-_'), '=');
-
-// Authorization request
-$authUrl = 'https://auth-server.com/authorize?' . http_build_query([
-    'response_type'         => 'code',
-    'client_id'             => 'your-client-id',
-    'redirect_uri'          => 'https://your-app.com/callback',
-    'scope'                 => 'openid profile email',
-    'code_challenge'        => $codeChallenge,
-    'code_challenge_method' => 'S256',
-    'state'                 => bin2hex(random_bytes(16)),
-]);
-
-// Token exchange
-$response = Http::asForm()->post('https://auth-server.com/token', [
-    'grant_type'    => 'authorization_code',
-    'code'          => $authorizationCode,
-    'redirect_uri'  => 'https://your-app.com/callback',
-    'client_id'     => 'your-client-id',
-    'code_verifier' => $codeVerifier,
-]);
-```
-
 ### Password Grant (deprecated)
 
 Client sends user credentials directly. Avoid — defeats the purpose of OAuth. Being removed in OAuth 2.1.
@@ -256,57 +227,7 @@ Token returned in URL fragment. Never use — replaced by PKCE.
 8. Server finds/creates user, logs them in
 ```
 
-**Laravel implementation:**
-```php
-Route::get('/auth/google', [OAuthController::class, 'redirect']);
-Route::get('/auth/google/callback', [OAuthController::class, 'callback']);
-
-class OAuthController extends Controller
-{
-    public function redirect()
-    {
-        $state = bin2hex(random_bytes(16));
-        session(['oauth_state' => $state]);
-
-        return redirect('https://accounts.google.com/o/oauth2/auth?' . http_build_query([
-            'response_type' => 'code',
-            'client_id'     => config('services.google.client_id'),
-            'redirect_uri'  => config('services.google.redirect'),
-            'scope'         => 'openid email profile',
-            'state'         => $state,
-            'access_type'   => 'offline',
-            'prompt'        => 'consent',
-        ]));
-    }
-
-    public function callback(Request $request)
-    {
-        if ($request->state !== session('oauth_state')) {
-            abort(403, 'Invalid state parameter');
-        }
-
-        $tokens = Http::asForm()->post('https://oauth2.googleapis.com/token', [
-            'grant_type'    => 'authorization_code',
-            'code'          => $request->code,
-            'client_id'     => config('services.google.client_id'),
-            'client_secret' => config('services.google.client_secret'),
-            'redirect_uri'  => config('services.google.redirect'),
-        ])->json();
-
-        $googleUser = Http::withToken($tokens['access_token'])
-            ->get('https://www.googleapis.com/oauth2/v3/userinfo')
-            ->json();
-
-        $user = User::updateOrCreate(
-            ['email' => $googleUser['email']],
-            ['name' => $googleUser['name'], 'google_id' => $googleUser['sub'], 'avatar' => $googleUser['picture'] ?? null]
-        );
-
-        Auth::login($user);
-        return redirect('/dashboard');
-    }
-}
-```
+Laravel Socialite handles all of steps 2–8 automatically — see [Section 12](#12-social-login-laravel-socialite).
 
 ---
 
@@ -573,11 +494,14 @@ Route::middleware('client:read-orders')->get('/api/orders', fn() => Order::all()
 
 ## 12. Social Login (Laravel Socialite)
 
-Handles the entire OAuth flow for Google, GitHub, Facebook, and more.
+Handles the entire OAuth flow for Google, GitHub, Facebook, Twitter, LinkedIn, and more.
 
 ```bash
 composer require laravel/socialite
 ```
+
+**Built-in providers:** `google`, `github`, `facebook`, `twitter`, `linkedin`, `bitbucket`, `gitlab`, `slack`.
+Additional providers (community): [socialiteproviders.com](https://socialiteproviders.com) — Apple, Microsoft, TikTok, Discord, etc.
 
 **config/services.php:**
 ```php
@@ -590,6 +514,11 @@ composer require laravel/socialite
     'client_id'     => env('GITHUB_CLIENT_ID'),
     'client_secret' => env('GITHUB_CLIENT_SECRET'),
     'redirect'      => env('GITHUB_REDIRECT_URI'),
+],
+'facebook' => [
+    'client_id'     => env('FACEBOOK_CLIENT_ID'),
+    'client_secret' => env('FACEBOOK_CLIENT_SECRET'),
+    'redirect'      => env('FACEBOOK_REDIRECT_URI'),
 ],
 ```
 
@@ -607,13 +536,16 @@ Schema::create('social_accounts', function (Blueprint $table) {
 });
 ```
 
-**Controller:**
+**Routes:**
 ```php
 Route::get('/auth/{provider}', [SocialAuthController::class, 'redirect'])
     ->whereIn('provider', ['google', 'github', 'facebook']);
 Route::get('/auth/{provider}/callback', [SocialAuthController::class, 'callback'])
     ->whereIn('provider', ['google', 'github', 'facebook']);
+```
 
+**Controller:**
+```php
 class SocialAuthController extends Controller
 {
     public function redirect(string $provider)
@@ -661,21 +593,121 @@ class SocialAuthController extends Controller
 }
 ```
 
-**Socialite user object:** `getId()`, `getName()`, `getEmail()`, `getAvatar()`, `->token`, `->refreshToken`.
+**Socialite user object methods:**
 
-**Stateless (for SPAs/APIs):**
+- `getId()` — provider's unique user ID.
+- `getName()` — full name.
+- `getEmail()` — email address.
+- `getAvatar()` — avatar URL.
+- `getNickname()` — username (GitHub, Twitter).
+- `->token` — access token.
+- `->refreshToken` — refresh token (if granted).
+- `->expiresIn` — token expiry in seconds.
+- `->user` — raw provider response array.
+
+**Stateless (for SPAs / APIs — no session required):**
 ```php
-$socialUser = Socialite::driver($provider)->stateless()->user();
-$token = $user->createToken('social-login')->plainTextToken;
-return redirect(config('app.frontend_url') . '/auth/callback?token=' . $token);
+public function redirect(string $provider)
+{
+    return Socialite::driver($provider)->stateless()->redirect();
+}
+
+public function callback(string $provider)
+{
+    $socialUser = Socialite::driver($provider)->stateless()->user();
+
+    // find or create user, then issue a Sanctum token
+    $token = $user->createToken('social-login')->plainTextToken;
+
+    return redirect(config('app.frontend_url') . '/auth/callback?token=' . $token);
+}
 ```
 
-**Extra scopes:**
+**Requesting extra scopes:**
 ```php
+// Google — request offline access to get a refresh token
 return Socialite::driver('google')
-    ->scopes(['read-contacts'])
+    ->scopes(['openid', 'profile', 'email', 'https://www.googleapis.com/auth/calendar'])
     ->with(['access_type' => 'offline', 'prompt' => 'consent'])
     ->redirect();
+
+// GitHub — request read:org scope
+return Socialite::driver('github')
+    ->scopes(['read:org'])
+    ->redirect();
+```
+
+**Forcing re-consent (always show provider login screen):**
+```php
+return Socialite::driver('google')
+    ->with(['prompt' => 'select_account'])
+    ->redirect();
+```
+
+**Linking a social account to an existing logged-in user:**
+```php
+public function link(string $provider)
+{
+    return Socialite::driver($provider)->redirect();
+}
+
+public function linkCallback(string $provider)
+{
+    $socialUser = Socialite::driver($provider)->user();
+
+    SocialAccount::updateOrCreate(
+        ['provider' => $provider, 'provider_id' => $socialUser->getId()],
+        [
+            'user_id'                => Auth::id(),
+            'provider_token'         => $socialUser->token,
+            'provider_refresh_token' => $socialUser->refreshToken,
+        ]
+    );
+
+    return redirect('/settings')->with('success', ucfirst($provider) . ' account linked.');
+}
+```
+
+**Unlinking a social account:**
+```php
+public function unlink(string $provider)
+{
+    Auth::user()->socialAccounts()->where('provider', $provider)->delete();
+    return redirect('/settings')->with('success', ucfirst($provider) . ' account unlinked.');
+}
+```
+
+**Refreshing a provider access token:**
+```php
+$socialAccount = Auth::user()->socialAccounts()->where('provider', 'google')->first();
+
+$newToken = Socialite::driver('google')->refreshToken($socialAccount->provider_refresh_token);
+
+$socialAccount->update([
+    'provider_token'         => $newToken->token,
+    'provider_refresh_token' => $newToken->refreshToken ?? $socialAccount->provider_refresh_token,
+]);
+```
+
+**Handling missing email (e.g. GitHub private email):**
+```php
+$socialUser = Socialite::driver('github')->user();
+
+$email = $socialUser->getEmail();
+
+if (!$email) {
+    // Fetch emails from GitHub API using the access token
+    $emails = Http::withToken($socialUser->token)
+        ->get('https://api.github.com/user/emails')
+        ->json();
+
+    $primary = collect($emails)->firstWhere('primary', true);
+    $email = $primary['email'] ?? null;
+}
+
+if (!$email) {
+    return redirect('/login')->with('error', 'Could not retrieve email from GitHub.');
+}
 ```
 
 ---
