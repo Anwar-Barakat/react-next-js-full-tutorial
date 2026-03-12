@@ -1,38 +1,33 @@
 # Architecture Patterns Guide
 
-A comprehensive guide to architecture patterns every Laravel backend developer should know.
+Architecture patterns every Laravel backend developer should know.
 
 ## Table of Contents
 
-1. [What is Event-Driven Architecture?](#1-what-is-event-driven-architecture)
-2. [How Laravel implements Event-Driven Architecture](#2-how-laravel-implements-event-driven-architecture)
-3. [Events and Listeners in Laravel](#3-events-and-listeners-in-laravel)
-4. [Asynchronous Event Handling with Queues](#4-asynchronous-event-handling-with-queues)
-5. [When to use Event-Driven Architecture](#5-when-to-use-event-driven-architecture)
-6. [What is a Modular Monolith?](#6-what-is-a-modular-monolith)
-7. [Modular Monolith vs Microservices vs Standard Monolith](#7-modular-monolith-vs-microservices-vs-standard-monolith)
+1. [Event-Driven Architecture](#1-event-driven-architecture)
+2. [Laravel Event System](#2-laravel-event-system)
+3. [Events and Listeners](#3-events-and-listeners)
+4. [Async Event Handling with Queues](#4-async-event-handling-with-queues)
+5. [When to Use EDA](#5-when-to-use-eda)
+6. [Modular Monolith](#6-modular-monolith)
+7. [Modular vs Microservices vs Standard Monolith](#7-modular-vs-microservices-vs-standard-monolith)
 8. [Module Structure in Laravel](#8-module-structure-in-laravel)
 9. [Module Communication](#9-module-communication)
-10. [When to use Modular Monolith](#10-when-to-use-modular-monolith)
-11. [What is a Distributed Monolith?](#11-what-is-a-distributed-monolith)
+10. [When to Use Modular Monolith](#10-when-to-use-modular-monolith)
+11. [Distributed Monolith (Anti-Pattern)](#11-distributed-monolith-anti-pattern)
 12. [Repository Pattern](#12-repository-pattern)
 13. [Service Layer Pattern](#13-service-layer-pattern)
 14. [Action Pattern](#14-action-pattern)
 15. [DTO (Data Transfer Object)](#15-dto-data-transfer-object)
-16. [CQRS (Command Query Responsibility Segregation)](#16-cqrs-command-query-responsibility-segregation)
-17. [Clean Architecture Overview](#17-clean-architecture-overview)
+16. [CQRS](#16-cqrs)
+17. [Clean Architecture](#17-clean-architecture)
 18. [Dependency Injection in Laravel](#18-dependency-injection-in-laravel)
 
 ---
 
-## 1. What is Event-Driven Architecture?
+## 1. Event-Driven Architecture
 
-- Event-Driven Architecture (EDA) is a design pattern where components communicate by **producing and consuming events**.
-- An **event** is something that happened in the system: `UserRegistered`, `OrderPlaced`, `PaymentFailed`.
-- The producer (emitter) does not know who listens — it just fires the event.
-- Multiple **listeners** can react to the same event independently.
-
-**Key benefit:** Loose coupling — the class that fires the event does not care what happens next.
+Components communicate by **producing and consuming events**. The producer fires an event and does not know who handles it.
 
 ```
 User registers
@@ -46,40 +41,32 @@ UserRegistered event fired
 └──────────────────────────────┘
 ```
 
-Without EDA:
+**Without EDA — tightly coupled controller:**
 ```php
-// Controller doing too many things ❌
 public function register(Request $request) {
     $user = User::create($request->all());
-    Mail::to($user)->send(new WelcomeMail());     // tightly coupled
-    Profile::create(['user_id' => $user->id]);    // tightly coupled
-    Notification::send($admin, new NewUser());    // tightly coupled
+    Mail::to($user)->send(new WelcomeMail());
+    Profile::create(['user_id' => $user->id]);
+    Notification::send($admin, new NewUser());
 }
 ```
 
-With EDA:
+**With EDA — decoupled:**
 ```php
-// Controller only fires an event ✅
 public function register(Request $request) {
     $user = User::create($request->all());
-    event(new UserRegistered($user));  // all side effects handled elsewhere
+    event(new UserRegistered($user));  // side effects handled elsewhere
 }
 ```
-
-In short: EDA decouples side effects from the main action — each listener handles one responsibility independently.
 
 ---
 
-## 2. How Laravel implements Event-Driven Architecture
+## 2. Laravel Event System
 
-Laravel has a first-class event system:
-
-- **Event** — A plain PHP class that represents something that happened
-- **Listener** — A class that handles an event when it fires
-- **Observer** — Automatically fires events based on Eloquent model lifecycle
-- **Queue** — Runs listeners asynchronously in the background
-
-**Create an event and listener:**
+- **Event** — plain PHP class representing something that happened.
+- **Listener** — handles an event when it fires.
+- **Observer** — fires events on Eloquent model lifecycle automatically.
+- **Queue** — runs listeners asynchronously in the background.
 
 ```bash
 php artisan make:event UserRegistered
@@ -87,14 +74,8 @@ php artisan make:listener SendWelcomeEmail --event=UserRegistered
 php artisan make:listener CreateUserProfile --event=UserRegistered
 ```
 
-**Register them** in `EventServiceProvider` (Laravel 10) or `AppServiceProvider` (Laravel 11+):
-
+**Register in `AppServiceProvider` (Laravel 11+):**
 ```php
-// Laravel 11+ — AppServiceProvider
-use App\Events\UserRegistered;
-use App\Listeners\SendWelcomeEmail;
-use App\Listeners\CreateUserProfile;
-
 public function boot(): void
 {
     Event::listen(UserRegistered::class, SendWelcomeEmail::class);
@@ -104,25 +85,19 @@ public function boot(): void
 
 ---
 
-## 3. Events and Listeners in Laravel
+## 3. Events and Listeners
 
 **Event class:**
-
 ```php
-// app/Events/UserRegistered.php
 class UserRegistered
 {
-    public function __construct(
-        public readonly User $user
-    ) {}
+    public function __construct(public readonly User $user) {}
 }
 ```
 
-**Listener class:**
-
+**Listener classes:**
 ```php
-// app/Listeners/SendWelcomeEmail.php
-class SendWelcomeEmail implements ShouldQueue  // run async via queue
+class SendWelcomeEmail implements ShouldQueue
 {
     public function handle(UserRegistered $event): void
     {
@@ -130,7 +105,6 @@ class SendWelcomeEmail implements ShouldQueue  // run async via queue
     }
 }
 
-// app/Listeners/CreateUserProfile.php
 class CreateUserProfile
 {
     public function handle(UserRegistered $event): void
@@ -141,17 +115,13 @@ class CreateUserProfile
 ```
 
 **Fire the event:**
-
 ```php
-// In controller, service, or job
 event(new UserRegistered($user));
-
-// Or using the Event facade
+// or
 Event::dispatch(new UserRegistered($user));
 ```
 
-**Model Observers** — automatically fire events on Eloquent lifecycle:
-
+**Model Observer — auto-fires on Eloquent lifecycle:**
 ```php
 php artisan make:observer UserObserver --model=User
 
@@ -174,24 +144,22 @@ User::observe(UserObserver::class);
 
 ---
 
-## 4. Asynchronous Event Handling with Queues
+## 4. Async Event Handling with Queues
 
-- Listeners that implement `ShouldQueue` run in the background via the queue system.
-- The main request completes immediately — the listener runs later.
+Listeners implementing `ShouldQueue` run in the background — the main request completes immediately.
 
 ```php
 class SendWelcomeEmail implements ShouldQueue
 {
-    public string $queue = 'emails';   // target queue
-    public int    $tries = 3;          // retry 3 times on failure
-    public int    $timeout = 30;       // timeout in seconds
+    public string $queue = 'emails';
+    public int    $tries = 3;
+    public int    $timeout = 30;
 
     public function handle(UserRegistered $event): void
     {
         Mail::to($event->user->email)->send(new WelcomeMail($event->user));
     }
 
-    // What to do if all retries fail
     public function failed(UserRegistered $event, \Throwable $exception): void
     {
         Log::error("Failed to send welcome email to {$event->user->email}");
@@ -199,179 +167,107 @@ class SendWelcomeEmail implements ShouldQueue
 }
 ```
 
-**Processing the queue:**
-
 ```bash
 php artisan queue:work
 php artisan queue:work --queue=emails
 ```
 
-In short: Async listeners keep your HTTP responses fast — heavy work happens in the background.
-
 ---
 
-## 5. When to use Event-Driven Architecture
+## 5. When to Use EDA
 
-**Use EDA when:**
-- Multiple things should happen after a single action (order placed → email + stock update + analytics).
-- Side effects should not block the main request.
-- You want to add new behavior without touching existing code (Open/Closed Principle).
-- You need audit logs, notifications, or webhooks triggered by business events.
+**Use when:**
+- Multiple things happen after a single action (order placed → email + stock + analytics).
+- Side effects must not block the HTTP response.
+- You want to add behavior without touching existing code (Open/Closed Principle).
 
-**Avoid EDA when:**
-- The flow is simple with only one side effect — just call it directly.
+**Avoid when:**
+- Only one simple side effect — just call it directly.
 - You need strict ordering or transactions across listeners.
-- Debugging complexity outweighs the decoupling benefit.
-
-- **User registers → send welcome email** — ✅ EDA — async listener
-- **Order placed → 5 different side effects** — ✅ EDA — multiple listeners
-- **Update user name → just save to DB** — ❌ Direct call — EDA is overkill
-- **Payment failed → retry + alert + log** — ✅ EDA — async, separate concerns
 
 ---
 
-## 6. What is a Modular Monolith?
+## 6. Modular Monolith
 
-- A **Modular Monolith** is a single deployable application (monolith) that is internally organized into **isolated modules**.
-- Each module owns its own models, controllers, services, routes, and migrations.
-- Modules communicate through well-defined interfaces — not direct class calls across module boundaries.
-
-**The problem it solves:**
-- Standard monolith: all code in one flat structure → becomes a "big ball of mud" as it grows.
-- Microservices: separate deployable services → complex networking, DevOps overhead, distributed system challenges.
-- Modular Monolith: structure of microservices, simplicity of a monolith.
+A single deployable app internally organized into **isolated modules**. Each module owns its models, controllers, services, routes, and migrations. Modules communicate through well-defined interfaces — not direct class calls.
 
 ```
-Standard Monolith           Modular Monolith               Microservices
-─────────────────          ──────────────────────          ──────────────────
-app/                       modules/                         users-service/
-  Models/                    Users/                         orders-service/
-  Controllers/                 Models/                      payments-service/
-  Services/                    Controllers/                 inventory-service/
-  (everything mixed)           Services/
-                               Routes/
-                             Orders/
-                             Payments/
-                             (clean boundaries)
+Standard Monolith        Modular Monolith               Microservices
+─────────────────        ──────────────────────          ──────────────────
+app/                     modules/                         users-service/
+  Models/                  Users/                         orders-service/
+  Controllers/               Models/                      payments-service/
+  Services/                  Controllers/
+  (everything mixed)         Services/
+                             Routes/
+                           Orders/
+                           Payments/
+                           (clean boundaries)
 ```
-
-In short: Modular Monolith gives you clean module boundaries without the complexity of microservices.
 
 ---
 
-## 7. Modular Monolith vs Microservices vs Standard Monolith
+## 7. Modular vs Microservices vs Standard Monolith
 
 **Standard Monolith:**
-- **Deployment** — Single app
-- **Code structure** — Flat, mixed
-- **Boundaries** — Weak / none
-- **Communication** — Direct calls
-- **Database** — Shared
-- **Scalability** — Scale whole app
-- **Complexity** — Low
-- **Team size** — Solo / small
-- **Migration path** — Hard to split
+- Flat, mixed structure. Weak/no boundaries. Simple. Good for solo/small teams.
+- Hard to split later.
 
 **Modular Monolith:**
-- **Deployment** — Single app
-- **Code structure** — Organized modules
-- **Boundaries** — Strong (enforced)
-- **Communication** — Events / interfaces
-- **Database** — Can be shared or per-module
-- **Scalability** — Scale whole app
-- **Complexity** — Medium
-- **Team size** — Small to medium
-- **Migration path** — Easy to extract modules
+- Organized modules. Strong enforced boundaries. Events/interfaces for communication.
+- Can be shared or per-module DB. Easy to extract modules later.
 
 **Microservices:**
-- **Deployment** — Multiple services
-- **Code structure** — Separate codebases
-- **Boundaries** — Hard (network)
-- **Communication** — HTTP / gRPC / MQ
-- **Database** — Separate per service
-- **Scalability** — Scale independently
-- **Complexity** — High
-- **Team size** — Large / multiple teams
-- **Migration path** — Already split
+- Separate codebases and deployments. Hard network boundaries. Separate DB per service.
+- Independent scaling. High complexity. Large teams.
 
-**Modular Monolith is the best of both worlds** — clean architecture without distributed system complexity.
+Modular Monolith = structure of microservices, simplicity of a monolith.
 
 ---
 
 ## 8. Module Structure in Laravel
 
-A typical module structure in Laravel:
-
 ```
 app/
 └── Modules/
     ├── User/
-    │   ├── Controllers/
-    │   │   └── UserController.php
-    │   ├── Models/
-    │   │   └── User.php
-    │   ├── Services/
-    │   │   └── UserService.php
-    │   ├── Repositories/
-    │   │   └── UserRepository.php
-    │   ├── Events/
-    │   │   └── UserRegistered.php
-    │   ├── Listeners/
-    │   │   └── SendWelcomeEmail.php
-    │   ├── Requests/
-    │   │   └── StoreUserRequest.php
-    │   ├── Resources/
-    │   │   └── UserResource.php
+    │   ├── Controllers/UserController.php
+    │   ├── Models/User.php
+    │   ├── Services/UserService.php
+    │   ├── Repositories/UserRepository.php
+    │   ├── Events/UserRegistered.php
+    │   ├── Listeners/SendWelcomeEmail.php
+    │   ├── Requests/StoreUserRequest.php
+    │   ├── Resources/UserResource.php
     │   ├── routes.php
     │   └── UserServiceProvider.php
-    │
     ├── Order/
-    │   ├── Controllers/
-    │   ├── Models/
-    │   ├── Services/
-    │   ├── Events/
     │   └── OrderServiceProvider.php
-    │
     └── Payment/
-        ├── Controllers/
-        ├── Services/
-        │   ├── StripeService.php
-        │   └── MamoPayService.php
-        ├── Events/
-        │   └── PaymentProcessed.php
+        ├── Services/StripeService.php
+        ├── Events/PaymentProcessed.php
         └── PaymentServiceProvider.php
 ```
 
 **Module Service Provider:**
-
 ```php
-// app/Modules/User/UserServiceProvider.php
 class UserServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->bind(
-            UserRepositoryInterface::class,
-            UserRepository::class
-        );
+        $this->app->bind(UserRepositoryInterface::class, UserRepository::class);
     }
 
     public function boot(): void
     {
-        // Load module routes
         $this->loadRoutesFrom(__DIR__ . '/routes.php');
-
-        // Load module migrations
         $this->loadMigrationsFrom(__DIR__ . '/../../database/migrations/user');
-
-        // Register event listeners for this module
         Event::listen(UserRegistered::class, SendWelcomeEmail::class);
     }
 }
 ```
 
-**Register module providers in `config/app.php`:**
-
+**Register in `config/app.php`:**
 ```php
 'providers' => [
     App\Modules\User\UserServiceProvider::class,
@@ -384,45 +280,40 @@ class UserServiceProvider extends ServiceProvider
 
 ## 9. Module Communication
 
-**Rule:** Modules must NOT directly import classes from other modules.
+**Rule:** Modules must NOT import classes directly from other modules.
 
 **Wrong:**
 ```php
-// ❌ Order module directly imports User model from User module
+// Order module directly imports User model ❌
 use App\Modules\User\Models\User;
 
 class OrderService {
     public function getOrdersByUser(int $userId): Collection {
-        $user = User::findOrFail($userId);  // tight coupling ❌
+        $user = User::findOrFail($userId);
         return $user->orders;
     }
 }
 ```
 
-**Correct — communicate through events:**
-
+**Correct — via events:**
 ```php
-// ✅ Order module fires an event — User module listens
-// In Order module
 class OrderService {
     public function placeOrder(int $userId, array $items): Order {
-        $order = Order::create(['user_id' => $userId, ...]);
-        event(new OrderPlaced($order));  // fire event ✅
+        $order = Order::create(['user_id' => $userId]);
+        event(new OrderPlaced($order));
         return $order;
     }
 }
 
-// In User module — listens to the event
+// User module listens
 class UpdateUserOrderCount {
     public function handle(OrderPlaced $event): void {
-        User::where('id', $event->order->user_id)
-            ->increment('orders_count');
+        User::where('id', $event->order->user_id)->increment('orders_count');
     }
 }
 ```
 
-**Correct — communicate through interfaces (contracts):**
-
+**Correct — via interfaces (contracts):**
 ```php
 // Shared contract in app/Contracts/
 interface UserServiceInterface {
@@ -441,7 +332,7 @@ class OrderService {
     public function __construct(private UserServiceInterface $users) {}
 
     public function getOrdersForUser(int $userId): Collection {
-        $user = $this->users->findById($userId);  // uses interface ✅
+        $user = $this->users->findById($userId);
         return Order::where('user_id', $userId)->get();
     }
 }
@@ -449,150 +340,69 @@ class OrderService {
 
 ---
 
-## 10. When to use Modular Monolith
+## 10. When to Use Modular Monolith
 
-**Use Modular Monolith when:**
-- Your app is growing and becoming hard to navigate.
-- You work in a team and need clear ownership of business domains.
-- You want to prepare for potential future extraction into microservices.
-- You need clean architecture without the DevOps overhead of microservices.
+**Use when:**
+- App is growing and becoming hard to navigate.
+- Teams need clear domain ownership.
+- You want to prepare for future microservice extraction.
+- You need clean architecture without DevOps overhead.
 
-**Avoid Modular Monolith when:**
-- The app is small and simple — it adds unnecessary structure.
-- Different parts of the system need to scale independently right now.
-- Teams are large enough and ready for true microservices.
-
-**Migration path:**
+**Avoid when:**
+- App is small and simple — unnecessary structure.
+- Parts need to scale independently right now.
+- Teams are ready for true microservices.
 
 ```
 Simple Monolith → Modular Monolith → (optional) Microservices
-
-1. Start as a simple Laravel app
-2. As domains emerge (User, Order, Payment), organize into modules
-3. If a module needs to scale separately or be owned by a different team → extract to a microservice
 ```
-
-In short: Modular Monolith is the right architecture for most growing Laravel apps — clean boundaries, simple deployment, easy to evolve.
 
 ---
 
-## 11. What is a Distributed Monolith?
+## 11. Distributed Monolith (Anti-Pattern)
 
-- A **distributed monolith** is the **worst of both worlds** — you have multiple services like microservices, but they are all tightly connected and can't work without each other.
-- It looks like microservices on the surface, but behaves like a monolith — you can't deploy, test, or change one service without breaking the others.
-- It's considered an **anti-pattern** — something you accidentally create when trying to build microservices the wrong way.
+Multiple services that are tightly coupled and can't work independently — the worst of both worlds. Looks like microservices, behaves like a monolith.
 
-> **Analogy:** Imagine you split a pizza into 8 slices, but all the slices are still stuck together with melted cheese. You call them "separate slices" but you can't actually pick one up without pulling all the others with it. That's a distributed monolith.
+**How it happens:**
 
-**How it happens (common mistakes):**
+- **Shared database** — all services write to the same DB; schema changes break all.
+- **Direct synchronous calls** — if one service is down, the chain fails.
+- **Shared libraries** — updating requires redeploying all services.
+- **Coordinated deploys** — can't deploy one service without others.
 
-- **Shared database** — All services read and write to the same database. If you change a table, all services break.
+**Fixes:**
 
+**1. Each service gets its own database:**
 ```
-Service A ──┐
-Service B ──┼──→ Same Database  ← If schema changes, ALL services break
-Service C ──┘
-```
-
-- **Direct service-to-service calls** — Service A calls Service B, which calls Service C. If C is down, everything fails.
-
-```
-User → Service A → Service B → Service C → Service D
-              (if C is down, A and B also fail)
+Before: Service A, B, C → Shared DB
+After:  Service A → DB A | Service B → DB B | Service C → DB C
 ```
 
-- **Shared code libraries** — All services depend on a common library. Updating the library means redeploying all services.
-
-- **Synchronized deployments** — You must deploy Service A, B, and C together because they depend on each other's latest version.
-
-**Signs you have a distributed monolith:**
-
-- You can't deploy one service without deploying others.
-- When one service goes down, other services also fail.
-- All services share the same database.
-- Changing a data model in one service requires changes in multiple services.
-- You need to coordinate releases across teams.
-- A simple feature requires changes in 3+ services.
-
-**Distributed Monolith vs Real Microservices:**
-
-- **Database** — Distributed monolith: shared database. Microservices: each service has its own database.
-- **Deployment** — Distributed monolith: must deploy together. Microservices: deploy independently.
-- **Failure** — Distributed monolith: one service down = all down. Microservices: one service down = others still work.
-- **Communication** — Distributed monolith: direct calls (synchronous). Microservices: message queues (asynchronous).
-- **Code sharing** — Distributed monolith: shared libraries everywhere. Microservices: each service owns its code.
-- **Team ownership** — Distributed monolith: everyone touches everything. Microservices: each team owns their service.
-
-**How to fix a distributed monolith:**
-
-**Fix 1: Give each service its own database.**
-
-```
-Before (distributed monolith):
-Service A ──┐
-Service B ──┼──→ Shared DB
-Service C ──┘
-
-After (real microservices):
-Service A ──→ DB A
-Service B ──→ DB B
-Service C ──→ DB C
-```
-
-**Fix 2: Use message queues instead of direct calls.**
-
+**2. Use message queues instead of direct HTTP calls:**
 ```php
-// Bad: Service A directly calls Service B (if B is down, A fails)
+// Bad — if Service B is down, A fails
 $response = Http::post('http://service-b/api/process', $data);
 
-// Good: Service A sends a message, Service B processes it when ready
-// Service A
+// Good — message waits if B is down
 Queue::push(new ProcessOrderEvent($orderData));
-
-// Service B listens and processes independently
-// If B is down, the message waits in the queue
 ```
 
-**Fix 3: Design services around business domains, not technical layers.**
-
+**3. Split by business domain, not technical layer:**
 ```
-Bad (technical split):
-├── Auth Service       ← every service needs auth
-├── Database Service   ← shared by everyone
-├── Notification Service ← called by everyone
-└── API Gateway
-
-Good (domain split):
-├── Order Service      ← owns orders DB, handles order logic + notifications
-├── Payment Service    ← owns payments DB, handles payment logic
-├── User Service       ← owns users DB, handles auth + profiles
-└── Product Service    ← owns products DB, handles catalog
+Bad:  Auth Service, Database Service, Notification Service
+Good: Order Service (owns orders), Payment Service (owns payments), User Service (owns users)
 ```
 
-**Fix 4: Or just go back to a modular monolith.**
-
-- If your services are tightly coupled anyway, a modular monolith might be the better choice.
-- It gives you clean boundaries without the networking and deployment complexity.
-
-```
-Distributed Monolith (bad) → Option 1: Fix into real microservices
-                            → Option 2: Merge back into modular monolith (simpler)
-```
-
-> **In short:** A distributed monolith is when you split your app into multiple services but they can't work independently — you get the complexity of microservices with none of the benefits. Fix it by giving each service its own database, using message queues instead of direct calls, and splitting by business domain. Or simplify by going back to a modular monolith.
+**4. Or go back to a modular monolith** — if services are tightly coupled anyway, a modular monolith gives clean boundaries without the networking complexity.
 
 ---
 
 ## 12. Repository Pattern
 
-- The Repository Pattern **abstracts data access** behind an interface.
-- Your controllers and services never call Eloquent directly — they depend on a repository interface.
-- This makes it easy to **swap implementations** (e.g., Eloquent to API, cache layer, or test doubles).
+Abstracts data access behind an interface. Controllers and services never call Eloquent directly.
 
-**Step 1 — Define the interface (contract):**
-
+**Step 1 — Interface:**
 ```php
-// app/Repositories/UserRepositoryInterface.php
 interface UserRepositoryInterface
 {
     public function findById(int $id): ?User;
@@ -604,10 +414,8 @@ interface UserRepositoryInterface
 }
 ```
 
-**Step 2 — Implement it with Eloquent:**
-
+**Step 2 — Eloquent implementation:**
 ```php
-// app/Repositories/EloquentUserRepository.php
 class EloquentUserRepository implements UserRepositoryInterface
 {
     public function __construct(private User $model) {}
@@ -644,24 +452,18 @@ class EloquentUserRepository implements UserRepositoryInterface
 }
 ```
 
-**Step 3 — Bind in a service provider:**
-
+**Step 3 — Bind in service provider:**
 ```php
-// app/Providers/RepositoryServiceProvider.php
 class RepositoryServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        $this->app->bind(
-            UserRepositoryInterface::class,
-            EloquentUserRepository::class
-        );
+        $this->app->bind(UserRepositoryInterface::class, EloquentUserRepository::class);
     }
 }
 ```
 
-**Step 4 — Use in controller or service:**
-
+**Step 4 — Use in controller:**
 ```php
 class UserController extends Controller
 {
@@ -669,8 +471,7 @@ class UserController extends Controller
 
     public function show(int $id): JsonResponse
     {
-        $user = $this->users->findById($id);
-        return response()->json($user);
+        return response()->json($this->users->findById($id));
     }
 
     public function index(): JsonResponse
@@ -680,28 +481,17 @@ class UserController extends Controller
 }
 ```
 
-**When to use vs when it's overkill:**
-
-- **Large app with complex queries** — Use it — keeps controllers clean
-- **Multiple data sources (DB + API + cache)** — Use it — swap implementations easily
-- **Need to unit test without DB** — Use it — mock the interface
-- **Small CRUD app with 5 models** — Skip it — Eloquent directly is fine
-- **Prototype / MVP** — Skip it — adds unnecessary abstraction
-
-In short: Repository Pattern is valuable in medium-to-large apps where you want testability and data access abstraction. For small apps, using Eloquent directly in services is perfectly fine.
+**Use when:** large app with complex queries, multiple data sources, or need to unit test without a database.
+**Skip when:** small CRUD app — Eloquent directly in services is fine.
 
 ---
 
 ## 13. Service Layer Pattern
 
-- The Service Layer **extracts business logic** out of controllers into dedicated service classes.
-- Controllers should only handle HTTP concerns (request validation, response formatting).
-- Services handle the **"what to do"** — business rules, orchestration, calculations.
+Extracts business logic out of controllers into dedicated service classes. Controllers handle HTTP only; services handle business rules.
 
 **Fat controller (bad):**
-
 ```php
-// Controller does too much
 class OrderController extends Controller
 {
     public function store(StoreOrderRequest $request): JsonResponse
@@ -714,13 +504,7 @@ class OrderController extends Controller
         }
 
         $discount = $total > 100 ? $total * 0.1 : 0;
-        $finalTotal = $total - $discount;
-
-        $order = Order::create([
-            'user_id' => auth()->id(),
-            'total' => $finalTotal,
-            'discount' => $discount,
-        ]);
+        $order = Order::create(['user_id' => auth()->id(), 'total' => $total - $discount]);
 
         foreach ($cart->items as $item) {
             $order->items()->create([...]);
@@ -729,16 +513,13 @@ class OrderController extends Controller
 
         $cart->items()->delete();
         Mail::to(auth()->user())->send(new OrderConfirmation($order));
-
         return response()->json($order, 201);
     }
 }
 ```
 
 **Thin controller + service (good):**
-
 ```php
-// app/Services/OrderService.php
 class OrderService
 {
     public function __construct(
@@ -758,11 +539,7 @@ class OrderService
         $discount = $this->discountService->calculate($total);
 
         $order = DB::transaction(function () use ($userId, $cart, $total, $discount) {
-            $order = Order::create([
-                'user_id' => $userId,
-                'total' => $total - $discount,
-                'discount' => $discount,
-            ]);
+            $order = Order::create(['user_id' => $userId, 'total' => $total - $discount, 'discount' => $discount]);
 
             foreach ($cart->items as $item) {
                 $order->items()->create([...]);
@@ -777,10 +554,7 @@ class OrderService
         return $order;
     }
 }
-```
 
-```php
-// Controller is now thin
 class OrderController extends Controller
 {
     public function __construct(private OrderService $orderService) {}
@@ -793,44 +567,13 @@ class OrderController extends Controller
 }
 ```
 
-**Fat vs Thin controller comparison:**
-
-**Fat Controller:**
-- **Testability** — Hard — must test through HTTP
-- **Reusability** — None — logic locked in controller
-- **Readability** — Long methods, hard to follow
-- **Maintenance** — Changes risk breaking HTTP layer
-- **SRP** — Violates SRP
-
-**Thin Controller + Service:**
-- **Testability** — Easy — unit test the service directly
-- **Reusability** — High — call service from anywhere
-- **Readability** — Clear separation of concerns
-- **Maintenance** — Business logic isolated from HTTP
-- **SRP** — Each class has one responsibility
-
-In short: Move business logic into service classes. Controllers handle HTTP in, services handle logic, events handle side effects.
-
 ---
 
 ## 14. Action Pattern
 
-- An Action is a **single-responsibility class** that does exactly one thing.
-- Popular in the Laravel community (promoted by Freek Van der Berghe / Spatie).
-- Uses the `__invoke()` magic method — callable like a function.
-- More granular than services: one action = one operation.
-
-**When to use Actions vs Services:**
-
-- **Single operation (create user, send invoice)** — Action: Best fit, Service: Overkill
-- **Group of related operations** — Action: Too many classes, Service: Best fit
-- **Reusable from controllers, jobs, commands** — Action: Best fit, Service: Also good
-- **Complex orchestration of multiple steps** — Action: Combine actions, Service: Best fit
-
-**Example Action:**
+A **single-responsibility class** that does exactly one thing via `__invoke()`. More granular than services — one action = one operation.
 
 ```php
-// app/Actions/CreateUserAction.php
 class CreateUserAction
 {
     public function __invoke(array $data): User
@@ -842,14 +585,12 @@ class CreateUserAction
         ]);
 
         event(new UserRegistered($user));
-
         return $user;
     }
 }
 ```
 
-**Using in a controller:**
-
+**In a controller:**
 ```php
 class RegisterController extends Controller
 {
@@ -863,8 +604,7 @@ class RegisterController extends Controller
 }
 ```
 
-**Using the same action in an Artisan command:**
-
+**Same action reused in an Artisan command:**
 ```php
 class CreateUserCommand extends Command
 {
@@ -884,8 +624,7 @@ class CreateUserCommand extends Command
 }
 ```
 
-**Actions calling other actions (composition):**
-
+**Composing actions:**
 ```php
 class PlaceOrderAction
 {
@@ -901,10 +640,7 @@ class PlaceOrderAction
         $discount = ($this->applyDiscount)($total);
 
         $order = DB::transaction(function () use ($user, $cart, $total, $discount) {
-            $order = Order::create([
-                'user_id' => $user->id,
-                'total' => $total - $discount,
-            ]);
+            $order = Order::create(['user_id' => $user->id, 'total' => $total - $discount]);
             ($this->decrementStock)($cart);
             return $order;
         });
@@ -915,35 +651,30 @@ class PlaceOrderAction
 }
 ```
 
-In short: Actions are great for single, reusable operations. Use them when a full service class feels like overkill, or when you want to compose small operations together.
+**Actions vs Services:**
+- Single operation → Action.
+- Group of related operations → Service.
+- Complex orchestration → Service (or compose actions).
 
 ---
 
 ## 15. DTO (Data Transfer Object)
 
-- A DTO is a **simple object that carries data** between layers (request -> service, service -> response).
-- Replaces associative arrays — gives you **type safety, autocompletion, and validation at the type level**.
-- In modern PHP (8.1+), use `readonly` classes for immutable DTOs.
+Typed, immutable objects that carry data between layers. Replaces unstructured arrays with IDE autocomplete and compile-time safety.
 
-**The problem with arrays:**
-
+**Problem with arrays:**
 ```php
-// Using arrays — no type safety, easy to make typos
-$data = $request->validated(); // returns ['naem' => '...'] — typo not caught!
+$data = $request->validated(); // ['naem' => '...'] — typo not caught
 $this->userService->create($data);
 
-// Inside the service — what keys are available? No IDE help.
 public function create(array $data): User
 {
-    $data['name'];  // does this key exist? Who knows.
-    $data['email']; // typo won't be caught until runtime.
+    $data['name'];  // does this key exist? No IDE help.
 }
 ```
 
-**DTO solves this:**
-
+**DTO solution:**
 ```php
-// app/DTOs/CreateUserDTO.php
 readonly class CreateUserDTO
 {
     public function __construct(
@@ -953,7 +684,6 @@ readonly class CreateUserDTO
         public ?string $phone = null,
     ) {}
 
-    // Factory method from request
     public static function fromRequest(StoreUserRequest $request): self
     {
         return new self(
@@ -964,7 +694,6 @@ readonly class CreateUserDTO
         );
     }
 
-    // Factory method from array
     public static function fromArray(array $data): self
     {
         return new self(
@@ -977,86 +706,42 @@ readonly class CreateUserDTO
 }
 ```
 
-**Using the DTO:**
-
+**Usage:**
 ```php
 // Controller
-class UserController extends Controller
+public function store(StoreUserRequest $request): JsonResponse
 {
-    public function __construct(private UserService $userService) {}
-
-    public function store(StoreUserRequest $request): JsonResponse
-    {
-        $dto = CreateUserDTO::fromRequest($request);
-        $user = $this->userService->create($dto);
-        return response()->json(new UserResource($user), 201);
-    }
+    $dto = CreateUserDTO::fromRequest($request);
+    $user = $this->userService->create($dto);
+    return response()->json(new UserResource($user), 201);
 }
 
-// Service — clear contract, type-safe
-class UserService
+// Service — clear, typed contract
+public function create(CreateUserDTO $dto): User
 {
-    public function create(CreateUserDTO $dto): User
-    {
-        return User::create([
-            'name' => $dto->name,       // IDE autocomplete works
-            'email' => $dto->email,     // type-checked at compile time
-            'password' => Hash::make($dto->password),
-            'phone' => $dto->phone,
-        ]);
-    }
+    return User::create([
+        'name' => $dto->name,      // IDE autocomplete works
+        'email' => $dto->email,
+        'password' => Hash::make($dto->password),
+        'phone' => $dto->phone,
+    ]);
 }
 ```
 
-**DTO vs Array comparison:**
-
-**Array:**
-- **Type safety** — None
-- **IDE support** — No autocomplete
-- **Validation** — Runtime only
-- **Documentation** — Must read code/comments
-- **Immutability** — Mutable by default
-- **Boilerplate** — Less code
-
-**DTO:**
-- **Type safety** — Full — PHP enforces types
-- **IDE support** — Full autocomplete + refactoring
-- **Validation** — Compile-time + runtime
-- **Documentation** — Self-documenting via properties
-- **Immutability** — `readonly` enforces immutability
-- **Boilerplate** — Slightly more code
-
-**When to use DTOs:**
-- Passing data between layers (request -> service -> repository).
-- When methods accept more than 3 related parameters.
-- When multiple callers pass data to the same service method.
-
-**When arrays are fine:**
-- Simple CRUD with 1-2 fields.
-- Internal helper methods that won't be reused.
-
-In short: DTOs replace unstructured arrays with typed, immutable objects. They make your code self-documenting and catch bugs at compile time instead of runtime.
+**Use when:** passing data between layers, methods accept 3+ related params, multiple callers pass data to the same service.
+**Skip when:** simple CRUD with 1-2 fields or internal one-off helpers.
 
 ---
 
-## 16. CQRS (Command Query Responsibility Segregation)
+## 16. CQRS
 
-- CQRS **separates read operations (queries) from write operations (commands)** into different models or paths.
-- **Command** = changes state (create, update, delete). Returns nothing or an ID.
-- **Query** = reads state (list, show, search). Returns data. Never changes state.
-- In traditional CRUD, the same model handles both reads and writes. CQRS splits them.
+**Command Query Responsibility Segregation** — separates read operations (queries) from write operations (commands).
 
-**Why split reads and writes?**
-- Reads and writes often have very different performance needs.
-- Read models can be optimized (denormalized, cached, indexed differently).
-- Write models can focus on business rules and validation.
-- You can scale reads and writes independently.
+- **Command** — changes state. Returns nothing or an ID.
+- **Query** — reads state. Returns data. Never changes state.
 
-**Simple Laravel implementation:**
-
+**Command:**
 ```php
-// Command — handles a write operation
-// app/Commands/CreateOrderCommand.php
 readonly class CreateOrderCommand
 {
     public function __construct(
@@ -1066,8 +751,6 @@ readonly class CreateOrderCommand
     ) {}
 }
 
-// Command Handler
-// app/Commands/Handlers/CreateOrderHandler.php
 class CreateOrderHandler
 {
     public function handle(CreateOrderCommand $command): int
@@ -1081,8 +764,7 @@ class CreateOrderHandler
 
             foreach ($command->items as $item) {
                 $order->items()->create($item);
-                Product::where('id', $item['product_id'])
-                    ->decrement('stock', $item['quantity']);
+                Product::where('id', $item['product_id'])->decrement('stock', $item['quantity']);
             }
 
             event(new OrderPlaced($order));
@@ -1092,9 +774,8 @@ class CreateOrderHandler
 }
 ```
 
+**Query:**
 ```php
-// Query — handles a read operation
-// app/Queries/GetOrdersForUserQuery.php
 readonly class GetOrdersForUserQuery
 {
     public function __construct(
@@ -1104,8 +785,6 @@ readonly class GetOrdersForUserQuery
     ) {}
 }
 
-// Query Handler — optimized for reads
-// app/Queries/Handlers/GetOrdersForUserHandler.php
 class GetOrdersForUserHandler
 {
     public function handle(GetOrdersForUserQuery $query): LengthAwarePaginator
@@ -1113,16 +792,15 @@ class GetOrdersForUserHandler
         return Order::query()
             ->where('user_id', $query->userId)
             ->when($query->status, fn ($q, $status) => $q->where('status', $status))
-            ->with(['items.product:id,name,price'])  // optimized eager loading
-            ->select(['id', 'total', 'status', 'created_at'])  // only needed columns
+            ->with(['items.product:id,name,price'])
+            ->select(['id', 'total', 'status', 'created_at'])
             ->latest()
             ->paginate($query->perPage);
     }
 }
 ```
 
-**Using in a controller:**
-
+**Controller:**
 ```php
 class OrderController extends Controller
 {
@@ -1131,127 +809,93 @@ class OrderController extends Controller
         private GetOrdersForUserHandler $getOrdersHandler,
     ) {}
 
-    // Write — uses command
     public function store(StoreOrderRequest $request): JsonResponse
     {
-        $orderId = $this->createOrderHandler->handle(
-            new CreateOrderCommand(
-                userId: auth()->id(),
-                items: $request->validated('items'),
-                shippingAddress: $request->validated('shipping_address'),
-            )
-        );
+        $orderId = $this->createOrderHandler->handle(new CreateOrderCommand(
+            userId: auth()->id(),
+            items: $request->validated('items'),
+            shippingAddress: $request->validated('shipping_address'),
+        ));
 
         return response()->json(['order_id' => $orderId], 201);
     }
 
-    // Read — uses query
     public function index(Request $request): JsonResponse
     {
-        $orders = $this->getOrdersHandler->handle(
-            new GetOrdersForUserQuery(
-                userId: auth()->id(),
-                status: $request->query('status'),
-            )
-        );
+        $orders = $this->getOrdersHandler->handle(new GetOrdersForUserQuery(
+            userId: auth()->id(),
+            status: $request->query('status'),
+        ));
 
         return OrderResource::collection($orders)->response();
     }
 }
 ```
 
-**When to use CQRS:**
-
-- **Read-heavy app (dashboard, reporting)** — Use it — optimize reads separately
-- **Complex write logic with simple reads** — Use it — keep write path clean
-- **Different read/write scaling needs** — Use it — scale independently
-- **Simple CRUD app** — Skip it — standard MVC is fine
-- **Small team, tight deadline** — Skip it — adds structural overhead
-
-In short: CQRS separates the "ask" from the "do." Start with simple separation in your code structure; you don't need separate databases or event sourcing to benefit from the pattern.
+**Use when:** read-heavy app, complex write logic, different read/write scaling needs.
+**Skip when:** simple CRUD, small team, tight deadline.
 
 ---
 
-## 17. Clean Architecture Overview
+## 17. Clean Architecture
 
-- Clean Architecture (by Robert C. Martin) organizes code into **concentric layers** where dependencies point inward.
-- Inner layers know nothing about outer layers. Outer layers depend on inner layers.
-- The goal: **business logic is independent of frameworks, databases, and UI**.
-
-**The layers (inside out):**
+Organizes code into concentric layers where dependencies only point **inward**. Business logic is independent of frameworks and databases.
 
 ```
-┌─────────────────────────────────────────────────┐
-│                  Frameworks & Drivers            │
-│        (Laravel, Eloquent, HTTP, Queue)          │
-│  ┌─────────────────────────────────────────────┐ │
-│  │           Interface Adapters                │ │
-│  │     (Controllers, Repositories, Presenters) │ │
-│  │  ┌───────────────────────────────────────┐  │ │
-│  │  │          Use Cases (Application)      │  │ │
-│  │  │     (Services, Actions, Commands)     │  │ │
-│  │  │  ┌─────────────────────────────────┐  │  │ │
-│  │  │  │        Entities (Domain)        │  │  │ │
-│  │  │  │   (Models, Value Objects,       │  │  │ │
-│  │  │  │    Business Rules)              │  │  │ │
-│  │  │  └─────────────────────────────────┘  │  │ │
-│  │  └───────────────────────────────────────┘  │ │
-│  └─────────────────────────────────────────────┘ │
-└─────────────────────────────────────────────────┘
-
-Dependency Rule: arrows point INWARD only
+┌────────────────────────────────────────┐
+│        Frameworks & Drivers            │
+│   (Laravel, Eloquent, HTTP, Queue)     │
+│  ┌─────────────────────────────────┐   │
+│  │      Interface Adapters         │   │
+│  │  (Controllers, Repositories)    │   │
+│  │  ┌───────────────────────────┐  │   │
+│  │  │  Use Cases (Application)  │  │   │
+│  │  │  (Services, Actions)      │  │   │
+│  │  │  ┌─────────────────────┐  │  │   │
+│  │  │  │  Entities (Domain)  │  │  │   │
+│  │  │  │  (Models, Rules)    │  │  │   │
+│  │  │  └─────────────────────┘  │  │   │
+│  │  └───────────────────────────┘  │   │
+│  └─────────────────────────────────┘   │
+└────────────────────────────────────────┘
+Dependencies point INWARD only
 ```
 
-**How it maps to Laravel:**
+**Laravel mapping:**
+- **Entities** — domain models, value objects (plain PHP, no Eloquent).
+- **Use Cases** — services, actions, command/query handlers.
+- **Interface Adapters** — controllers, form requests, API resources, repository implementations.
+- **Frameworks & Drivers** — Eloquent, queue, mail, HTTP kernel.
 
-- **Entities** — Domain models, value objects, business rules (plain PHP classes, not Eloquent)
-- **Use Cases** — Service classes, Actions, Command/Query handlers
-- **Interface Adapters** — Controllers, Form Requests, API Resources, Repository implementations
-- **Frameworks & Drivers** — Eloquent, Blade, Queue, Mail, HTTP kernel, config
-
-**Example structure:**
-
+**Structure:**
 ```
 app/
-├── Domain/                          # Entities layer — no Laravel dependencies
+├── Domain/                      # No Laravel dependencies
 │   ├── User/
-│   │   ├── User.php                 # Plain PHP class (not Eloquent model)
-│   │   ├── UserEmail.php            # Value object
-│   │   └── UserRepositoryInterface.php  # Contract (port)
+│   │   ├── User.php             # Plain PHP class
+│   │   ├── UserEmail.php        # Value object
+│   │   └── UserRepositoryInterface.php
 │   └── Order/
 │       ├── Order.php
-│       ├── OrderStatus.php          # Enum
+│       ├── OrderStatus.php      # Enum
 │       └── OrderRepositoryInterface.php
-│
-├── Application/                     # Use Cases layer
-│   ├── User/
-│   │   ├── CreateUserUseCase.php
-│   │   └── GetUserUseCase.php
-│   └── Order/
-│       ├── PlaceOrderUseCase.php
-│       └── CancelOrderUseCase.php
-│
-├── Infrastructure/                  # Frameworks & adapters
+├── Application/                 # Use Cases
+│   ├── User/CreateUserUseCase.php
+│   └── Order/PlaceOrderUseCase.php
+├── Infrastructure/              # Laravel-specific
 │   ├── Persistence/
-│   │   ├── EloquentUserRepository.php    # Implements UserRepositoryInterface
-│   │   ├── EloquentOrderRepository.php
-│   │   └── Models/                       # Eloquent models live here
-│   │       ├── UserModel.php
-│   │       └── OrderModel.php
-│   └── Mail/
-│       └── LaravelMailService.php
-│
-└── Http/                            # Interface Adapters (HTTP)
+│   │   ├── EloquentUserRepository.php
+│   │   └── Models/UserModel.php
+│   └── Mail/LaravelMailService.php
+└── Http/
     ├── Controllers/
     ├── Requests/
     └── Resources/
 ```
 
-**Practical use case example:**
-
+**Example:**
 ```php
-// Domain layer — pure PHP, no framework
-// app/Domain/User/UserEmail.php
+// Domain — pure PHP, no framework
 readonly class UserEmail
 {
     public function __construct(public string $value)
@@ -1262,17 +906,14 @@ readonly class UserEmail
     }
 }
 
-// Application layer — orchestrates business logic
-// app/Application/User/CreateUserUseCase.php
+// Application — orchestrates business logic
 class CreateUserUseCase
 {
-    public function __construct(
-        private UserRepositoryInterface $userRepo,
-    ) {}
+    public function __construct(private UserRepositoryInterface $userRepo) {}
 
     public function execute(string $name, string $email, string $password): int
     {
-        $emailVO = new UserEmail($email);  // validates at domain level
+        $emailVO = new UserEmail($email);
 
         if ($this->userRepo->existsByEmail($emailVO)) {
             throw new UserAlreadyExistsException($email);
@@ -1282,8 +923,7 @@ class CreateUserUseCase
     }
 }
 
-// Infrastructure layer — Laravel-specific implementation
-// app/Infrastructure/Persistence/EloquentUserRepository.php
+// Infrastructure — Laravel implementation
 class EloquentUserRepository implements UserRepositoryInterface
 {
     public function existsByEmail(UserEmail $email): bool
@@ -1293,136 +933,85 @@ class EloquentUserRepository implements UserRepositoryInterface
 
     public function create(string $name, UserEmail $email, string $password): int
     {
-        $model = UserModel::create([
+        return UserModel::create([
             'name' => $name,
             'email' => $email->value,
             'password' => Hash::make($password),
-        ]);
-        return $model->id;
+        ])->id;
     }
 }
 ```
 
-**When to use Clean Architecture:**
-
-- **Long-lived enterprise app (5+ years)** — Use it — investment pays off
-- **Complex domain logic (finance, healthcare)** — Use it — domain layer stays pure
-- **Potential framework migration** — Use it — business logic is framework-free
-- **Small-to-medium CRUD app** — Skip it — too much indirection
-- **Short-lived project / prototype** — Skip it — standard Laravel is faster
-
-In short: Clean Architecture protects your business logic from framework changes. It's worth the investment for complex, long-lived applications. For typical Laravel CRUD apps, standard MVC with services is sufficient.
+**Use when:** long-lived enterprise app, complex domain (finance, healthcare), potential framework migration.
+**Skip when:** small-to-medium CRUD, prototype — standard Laravel MVC with services is sufficient.
 
 ---
 
 ## 18. Dependency Injection in Laravel
 
-- **Dependency Injection (DI)** means a class receives its dependencies from the outside instead of creating them itself.
-- Laravel's **Service Container** (IoC container) automatically resolves and injects dependencies.
-- DI makes code testable, flexible, and follows the Dependency Inversion Principle.
+A class receives its dependencies from outside instead of creating them itself. Laravel's Service Container resolves and injects dependencies automatically.
 
-**Without DI (bad):**
-
+**Without DI:**
 ```php
 class OrderService
 {
     public function getShippingCost(Order $order): float
     {
-        $calculator = new ShippingCalculator();  // hard-coded dependency
+        $calculator = new ShippingCalculator();  // hard-coded, can't swap in tests
         return $calculator->calculate($order);
     }
 }
-// Cannot swap ShippingCalculator in tests or for different providers.
 ```
 
-**With DI (good):**
-
+**With DI:**
 ```php
 class OrderService
 {
-    public function __construct(
-        private ShippingCalculatorInterface $calculator  // injected
-    ) {}
+    public function __construct(private ShippingCalculatorInterface $calculator) {}
 
     public function getShippingCost(Order $order): float
     {
         return $this->calculator->calculate($order);
     }
 }
-// Easy to swap: test double, different provider, etc.
 ```
 
-### Auto-Resolution
-
-Laravel's container automatically resolves classes that have no interface bindings:
-
+**Auto-resolution — no binding needed for concrete classes:**
 ```php
-// No binding needed — Laravel auto-resolves concrete classes
 class UserController extends Controller
 {
-    // Laravel creates UserService automatically (and its dependencies, recursively)
     public function __construct(private UserService $userService) {}
-}
-
-class UserService
-{
-    // Laravel creates UserRepository automatically
-    public function __construct(private UserRepository $userRepo) {}
+    // Laravel creates UserService (and its dependencies) automatically
 }
 ```
 
-### Binding Interfaces to Implementations
-
-When you type-hint an interface, you must tell Laravel which implementation to use:
-
+**Binding interfaces to implementations:**
 ```php
-// app/Providers/AppServiceProvider.php
 public function register(): void
 {
-    // Basic binding — new instance each time
-    $this->app->bind(
-        PaymentGatewayInterface::class,
-        StripePaymentGateway::class
-    );
+    // New instance each time
+    $this->app->bind(PaymentGatewayInterface::class, StripePaymentGateway::class);
 
-    // Singleton — same instance throughout the request
-    $this->app->singleton(
-        CartServiceInterface::class,
-        CartService::class
-    );
+    // Same instance for entire app lifecycle
+    $this->app->singleton(CartServiceInterface::class, CartService::class);
 
-    // Scoped — same instance within a request, new instance for each request
-    $this->app->scoped(
-        RequestLoggerInterface::class,
-        RequestLogger::class
-    );
+    // Same instance per request, new per each request
+    $this->app->scoped(RequestLoggerInterface::class, RequestLogger::class);
 }
 ```
 
-### Contextual Binding
-
-Different classes can receive different implementations of the same interface:
-
+**Contextual binding — different implementations for different classes:**
 ```php
-// app/Providers/AppServiceProvider.php
-public function register(): void
-{
-    // When OrderService needs a payment gateway, give it Stripe
-    $this->app->when(OrderService::class)
-        ->needs(PaymentGatewayInterface::class)
-        ->give(StripePaymentGateway::class);
+$this->app->when(OrderService::class)
+    ->needs(PaymentGatewayInterface::class)
+    ->give(StripePaymentGateway::class);
 
-    // When SubscriptionService needs a payment gateway, give it Paddle
-    $this->app->when(SubscriptionService::class)
-        ->needs(PaymentGatewayInterface::class)
-        ->give(PaddlePaymentGateway::class);
-}
+$this->app->when(SubscriptionService::class)
+    ->needs(PaymentGatewayInterface::class)
+    ->give(PaddlePaymentGateway::class);
 ```
 
-### Binding with Closures
-
-For complex setup or conditional logic:
-
+**Binding with closure — for conditional/complex setup:**
 ```php
 $this->app->singleton(PaymentGatewayInterface::class, function ($app) {
     return match(config('payment.default')) {
@@ -1433,30 +1022,12 @@ $this->app->singleton(PaymentGatewayInterface::class, function ($app) {
 });
 ```
 
-### Practical Examples
-
-**Resolving from the container manually (rarely needed):**
-
-```php
-// Using the app() helper
-$service = app(UserService::class);
-
-// Using the make method
-$service = app()->make(UserService::class);
-
-// With parameters
-$service = app()->makeWith(ReportGenerator::class, ['month' => 'January']);
-```
-
-**Method injection in controllers:**
-
+**Method injection:**
 ```php
 class ReportController extends Controller
 {
-    // Constructor injection — available in all methods
     public function __construct(private ReportService $reportService) {}
 
-    // Method injection — resolved per-method
     public function export(Request $request, PdfExporter $exporter): Response
     {
         $report = $this->reportService->generate($request->query('month'));
@@ -1465,18 +1036,13 @@ class ReportController extends Controller
 }
 ```
 
-**Testing with DI — swap implementations easily:**
-
+**Swapping in tests:**
 ```php
 class OrderServiceTest extends TestCase
 {
     public function test_order_uses_correct_shipping_cost(): void
     {
-        // Replace the real implementation with a fake
-        $this->app->bind(
-            ShippingCalculatorInterface::class,
-            FakeShippingCalculator::class
-        );
+        $this->app->bind(ShippingCalculatorInterface::class, FakeShippingCalculator::class);
 
         $service = app(OrderService::class);
         $cost = $service->getShippingCost($order);
@@ -1486,12 +1052,9 @@ class OrderServiceTest extends TestCase
 }
 ```
 
-**DI binding types summary:**
-
-- **`bind()`** — New instance every time. Use when: stateful services, unique per usage
-- **`singleton()`** — One instance for app lifecycle. Use when: expensive setup, shared state (config, cache)
-- **`scoped()`** — One instance per request. Use when: request-specific state (current user context)
-- **`instance()`** — Bind an existing object. Use when: you already have the object (testing)
-- **`when()->needs()->give()`** — Context-specific binding. Use when: different classes need different implementations
-
-In short: Laravel's service container handles dependency injection automatically for concrete classes. Use explicit bindings when you need interface-to-implementation mapping, singletons, or contextual resolution. DI is the foundation that makes all other architecture patterns (Repository, Service, Action) work cleanly.
+**Binding types:**
+- `bind()` — new instance every time.
+- `singleton()` — one instance for the app lifecycle.
+- `scoped()` — one instance per request.
+- `instance()` — bind an existing object (useful in tests).
+- `when()->needs()->give()` — context-specific binding.
