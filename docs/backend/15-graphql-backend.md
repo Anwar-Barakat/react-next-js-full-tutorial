@@ -44,15 +44,23 @@ A **query language for APIs** (Facebook, 2015). The client decides exactly what 
 
 ## 2. GraphQL vs REST
 
-| Aspect | REST | GraphQL |
-|--------|------|---------|
-| Endpoints | Many (`/users`, `/posts`) | One (`/graphql`) |
-| Data control | Server decides | Client decides |
-| Over-fetching | Common | Never |
-| Under-fetching | Multiple requests needed | One request |
-| Versioning | `/v1/`, `/v2/` | Not needed |
-| Caching | Easy (HTTP/URL) | Harder (needs tools) |
-| File uploads | Straightforward | Needs extra setup |
+**REST:**
+- Many endpoints (`/users`, `/posts`, `/comments`).
+- Server decides the response shape.
+- Over-fetching is common (returns all fields).
+- Under-fetching requires multiple requests.
+- Versioning via `/v1/`, `/v2/`.
+- Easy HTTP/URL-based caching.
+- Straightforward file uploads.
+
+**GraphQL:**
+- One endpoint (`/graphql`).
+- Client decides the response shape.
+- Never over-fetches.
+- One request gets all related data.
+- No versioning needed (add fields, deprecate old ones).
+- Harder caching (needs tools like Apollo).
+- File uploads need extra setup.
 
 ---
 
@@ -401,17 +409,15 @@ input UpdateUserInput {
 
 **Key Lighthouse directives:**
 
-| Directive | Purpose |
-|-----------|---------|
-| `@all` | Fetch all records |
-| `@find` | Find single record |
-| `@create` / `@update` / `@delete` | CRUD operations |
-| `@hasMany` / `@belongsTo` | Eloquent relationships |
-| `@paginate` | Add pagination |
-| `@auth` | Require authentication |
-| `@can` | Check Laravel policy |
-| `@hash` | Hash field (passwords) |
-| `@spread` | Spread input into args |
+- `@all` — Fetch all records.
+- `@find` — Find a single record.
+- `@create` / `@update` / `@delete` — CRUD operations.
+- `@hasMany` / `@belongsTo` — Eloquent relationships.
+- `@paginate` — Add pagination.
+- `@auth` — Require authentication.
+- `@can` — Check Laravel policy.
+- `@hash` — Hash a field (e.g., passwords).
+- `@spread` — Spread input into resolver args.
 
 **Authentication:**
 

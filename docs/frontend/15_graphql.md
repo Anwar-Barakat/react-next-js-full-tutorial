@@ -188,13 +188,11 @@ Apollo automatically caches query results using a **normalized cache** (keyed by
 
 **Fetch policies:**
 
-| Policy | Behavior |
-|--------|----------|
-| `cache-first` (default) | Cache first, network if missing |
-| `network-only` | Always network, skip cache reads |
-| `cache-and-network` | Cache immediately, then update from network |
-| `no-cache` | Never read/write cache |
-| `cache-only` | Only cache, never network |
+- `cache-first` (default) — Cache first, network if missing.
+- `network-only` — Always network, skip cache reads.
+- `cache-and-network` — Cache immediately, then update from network.
+- `no-cache` — Never read/write cache.
+- `cache-only` — Only cache, never network.
 
 ```tsx
 const { data } = useQuery(GET_USERS, { fetchPolicy: 'cache-and-network' });
@@ -378,13 +376,19 @@ Use for **chat, notifications, live dashboards** — not regular data fetching.
 
 ## 12. GraphQL vs REST
 
-| Aspect | REST | GraphQL |
-|--------|------|---------|
-| Requests per page | Multiple endpoints | One request |
-| Data shape | Server decides | Client decides |
-| Over-fetching | Common | Never |
-| Adding fields | Backend change needed | Frontend can request if in schema |
-| Caching | Easy (URL-based) | Needs client library |
+**REST:**
+- Multiple endpoints per page.
+- Server decides the data shape.
+- Over-fetching is common.
+- Adding fields requires a backend change.
+- Easy URL-based caching.
+
+**GraphQL:**
+- One request per page.
+- Client decides the data shape.
+- Never over-fetches.
+- Frontend requests new fields freely (if in schema).
+- Caching needs a client library.
 
 **Use GraphQL** for complex views, mobile apps, deep relationships, strong typing. **Use REST** for simple apps, existing APIs, straightforward data needs.
 
