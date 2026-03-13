@@ -1,15 +1,15 @@
 # TanStack Query (React Query) Guide
 
-A comprehensive guide to TanStack Query (formerly React Query), the powerful data-fetching and server state management library for React.
+A guide to TanStack Query (formerly React Query), a data-fetching and server state management library for React.
 
 ---
 
 ## Table of Contents
 
-1. [What is TanStack Query (React Query)?](#1-what-is-tanstack-query-react-query)
+1. [TanStack Query Overview](#1-tanstack-query-overview)
 2. [Setup and Configuration](#2-setup-and-configuration)
 3. [Fetching Data with useQuery](#3-fetching-data-with-usequery)
-4. [What is Stale-While-Revalidate?](#4-what-is-stale-while-revalidate)
+4. [Stale-While-Revalidate](#4-stale-while-revalidate)
 5. [Mutations with useMutation](#5-mutations-with-usemutation)
 6. [Query Invalidation](#6-query-invalidation)
 7. [Optimistic Updates](#7-optimistic-updates)
@@ -23,17 +23,11 @@ A comprehensive guide to TanStack Query (formerly React Query), the powerful dat
 
 ---
 
-## 1. What is TanStack Query (React Query)?
+## 1. TanStack Query Overview
 
-**TanStack Query** is a data-fetching and server state management library for React (and other frameworks). It was originally called **React Query** and was renamed to TanStack Query in v4 to support multiple frameworks.
+**TanStack Query** (renamed from React Query in v4) eliminates the boilerplate of manual `useEffect`/`useState` data fetching by providing built-in caching, deduplication, automatic refetching, and server-state synchronization.
 
-**The problem it solves:**
-- Fetching data in React is tedious — you need `useEffect`, `useState` for loading/error/data, cleanup logic, and caching by hand.
-- Every component that fetches data ends up with the same boilerplate pattern.
-- There is no built-in way to cache, deduplicate, or automatically refetch stale data.
-- Keeping server data in sync with the UI is error-prone and complex.
-
-**Without React Query (the painful way):**
+**Without React Query:**
 
 ```tsx
 import { useState, useEffect } from "react";
@@ -85,7 +79,7 @@ function Users() {
 }
 ```
 
-**With React Query (the clean way):**
+**With React Query:**
 
 ```tsx
 import { useQuery } from "@tanstack/react-query";
@@ -116,20 +110,9 @@ function Users() {
 ```
 
 **Server state vs client state:**
-- **Server state** is data that lives on the server and is fetched asynchronously — users, posts, products, orders. It can become stale, can be modified by other users, and needs synchronization.
-- **Client state** is data that lives entirely in the browser — UI toggles, form inputs, selected tabs, theme preference. It is synchronous and fully controlled by the user.
-- React Query manages **server state**. Libraries like Zustand, Redux, or Context API manage **client state**.
-- Mixing server state into Redux or Context is a common mistake — it leads to stale data, manual refetching logic, and unnecessary complexity.
-
-**What React Query gives you out of the box:**
-- Automatic caching and cache invalidation
-- Background refetching when data becomes stale
-- Request deduplication (multiple components using the same query make only one request)
-- Automatic retries on failure
-- Window focus refetching (data refreshes when the user returns to the tab)
-- Pagination and infinite scroll support
-- Optimistic updates
-- DevTools for debugging
+- **Server state** — async data from the server (users, posts, products). Can become stale, modified by others, needs sync. Managed by React Query.
+- **Client state** — synchronous browser-only data (UI toggles, form inputs, theme). Managed by Zustand, Redux, or Context API.
+- Mixing server state into Redux or Context leads to stale data and unnecessary complexity.
 
 ---
 
@@ -161,10 +144,8 @@ function App() {
 export default App;
 ```
 
-**Key points about setup:**
-- `QueryClient` holds the cache and manages all queries and mutations.
-- `QueryClientProvider` makes the client available to all child components via React context.
-- You should create the `QueryClient` **outside** the component (or use `useState` / `useRef`) to avoid re-creating it on every render.
+- `QueryClient` holds the cache. `QueryClientProvider` makes it available via context.
+- Create `QueryClient` **outside** the component (or use `useState`/`useRef`) to avoid re-creating it on every render.
 
 **Configuring default options:**
 
@@ -232,10 +213,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 }
 ```
 
-**Why `useState` for QueryClient in Next.js:**
-- In the App Router, components can render on the server.
-- Creating the client at module level would share the cache across all users/requests on the server.
-- Using `useState` ensures each client-side render gets its own isolated client.
+In the App Router, `useState` ensures each server request gets its own isolated `QueryClient` instead of sharing cache across users.
 
 ---
 
@@ -293,11 +271,7 @@ function Posts() {
 }
 ```
 
-**Understanding queryKey:**
-- The `queryKey` is an array that uniquely identifies the query in the cache.
-- React Query uses this key for caching, refetching, and deduplication.
-- Keys are serialized deterministically, so `["posts", { page: 1 }]` and `["posts", { page: 1 }]` are the same.
-- When the key changes, React Query fetches new data automatically.
+**queryKey** uniquely identifies the query for caching, refetching, and deduplication. Keys are serialized deterministically. When the key changes, new data is fetched automatically.
 
 ```tsx
 // Simple key
@@ -319,10 +293,7 @@ useQuery({
 });
 ```
 
-**Understanding queryFn:**
-- The `queryFn` is the function that actually fetches the data.
-- It must return a promise that resolves with the data or throws an error.
-- React Query does **not** treat 4xx/5xx responses as errors by default when using `fetch` — you must throw manually.
+**queryFn** must return a promise that resolves with data or throws an error. `fetch` does **not** throw on 4xx/5xx -- you must check `response.ok` manually.
 
 ```tsx
 // WRONG — fetch does not throw on HTTP errors
@@ -341,18 +312,16 @@ queryFn: async () => {
 queryFn: () => axios.get<Post[]>("/api/posts").then((res) => res.data)
 ```
 
-**Key options explained:**
+**Key options:**
 
-- **`staleTime`** — How long data is considered fresh (default: `0`). While fresh, React Query serves from cache and does **not** refetch.
-- **`gcTime`** (formerly `cacheTime` in v4) — How long unused/inactive cache data is kept in memory before being garbage collected (default: 5 minutes).
-- **`enabled`** — Whether the query should run automatically. Set to `false` to disable automatic fetching — useful for dependent queries or manual triggers.
-- **`refetchOnWindowFocus`** — Refetch when the browser tab regains focus (default: `true`).
-- **`refetchOnMount`** — Refetch when the component mounts (default: `true`).
-- **`refetchOnReconnect`** — Refetch when the network reconnects (default: `true`).
-- **`refetchInterval`** — Automatically refetch at a specified interval in milliseconds. Useful for polling.
-- **`retry`** — Number of times to retry a failed query (default: `3`).
-- **`select`** — Transform or select a subset of the data returned by `queryFn`.
-- **`placeholderData`** — Data to show while the real data is loading (not stored in cache).
+- **`staleTime`** — How long data is fresh (default: `0`). No refetch while fresh.
+- **`gcTime`** (formerly `cacheTime`) — How long unused cache is kept (default: 5 min).
+- **`enabled`** — Set `false` to disable auto-fetching.
+- **`refetchOnWindowFocus`** / **`refetchOnMount`** / **`refetchOnReconnect`** — Auto-refetch triggers (default: `true`).
+- **`refetchInterval`** — Poll at a given interval (ms).
+- **`retry`** — Retry count on failure (default: `3`).
+- **`select`** — Transform the data returned by `queryFn`.
+- **`placeholderData`** — Temporary data while loading (not cached).
 
 ```tsx
 // Example with multiple options
@@ -368,10 +337,8 @@ const { data: user } = useQuery<User>({
 });
 ```
 
-**Difference between isLoading and isFetching:**
-- `isLoading` is `true` only on the **first** load (when there is no cached data yet).
-- `isFetching` is `true` whenever a request is in flight, including background refetches.
-- Use `isLoading` for initial loading spinners. Use `isFetching` for subtle "updating" indicators.
+- `isLoading` -- `true` only on the **first** load (no cached data). Use for initial spinners.
+- `isFetching` -- `true` whenever a request is in flight, including background refetches. Use for "updating" indicators.
 
 **Creating a reusable query hook (recommended pattern):**
 
@@ -418,22 +385,20 @@ export function useUser(userId: number) {
 
 ---
 
-## 4. What is Stale-While-Revalidate?
+## 4. Stale-While-Revalidate
 
-**Stale-While-Revalidate (SWR)** is a caching strategy that React Query uses as its core mechanism.
+React Query's core caching strategy: serve cached (possibly stale) data immediately, then refetch in the background.
 
-**How it works:**
-- When you fetch data, it is stored in the cache and marked as **fresh**.
-- After the `staleTime` expires, the data is marked as **stale**.
-- When stale data is requested (e.g., the component remounts or the window regains focus), React Query **immediately returns the stale data** from the cache and **simultaneously refetches** fresh data in the background.
-- Once the fresh data arrives, the UI updates seamlessly.
+- Data is fetched and cached as **fresh**. After `staleTime` expires, it becomes **stale**.
+- When stale data is requested, React Query returns it from cache instantly and refetches in the background.
+- Once fresh data arrives, the UI updates seamlessly.
 
-**The lifecycle of a query:**
+**Query lifecycle:**
 
-- **Fresh** — Data is within `staleTime`. Served from cache, no refetch happens.
-- **Stale** — Data is past `staleTime`. Served from cache immediately, but a background refetch is triggered.
-- **Fetching** — A network request is in progress (either initial or background refetch).
-- **Inactive** — No component is using this query. Cache is kept for `gcTime`, then garbage collected.
+- **Fresh** — Within `staleTime`. Served from cache, no refetch.
+- **Stale** — Past `staleTime`. Served from cache, background refetch triggered.
+- **Fetching** — Network request in progress.
+- **Inactive** — No component subscribed. Cache kept for `gcTime`, then garbage collected.
 
 **Visual timeline example:**
 
@@ -447,11 +412,7 @@ User navigates away and comes back -> Show stale data instantly -> Refetch in ba
                                                                                       staleTime resets
 ```
 
-**Why it matters for UX:**
-- The user **never sees a loading spinner** for data they have already seen — they see the cached version immediately.
-- The data is still updated behind the scenes, so they always end up with fresh data.
-- This creates a **fast, responsive feel** even when the network is slow.
-- It eliminates the jarring flash of loading states when navigating between pages.
+Users never see a loading spinner for previously fetched data -- they see cached data instantly while fresh data loads behind the scenes.
 
 **Controlling staleness:**
 
@@ -478,20 +439,13 @@ useQuery({
 });
 ```
 
-**Common mistake:**
-- Setting `staleTime: 0` (the default) means every mount triggers a refetch. This is correct for rapidly changing data but wasteful for mostly-static data.
-- For data that changes rarely (user profile, settings, categories), set a longer `staleTime`.
+**Tip:** `staleTime: 0` (default) refetches on every mount -- fine for rapidly changing data, but set a longer `staleTime` for mostly-static data (profiles, settings, categories).
 
 ---
 
 ## 5. Mutations with useMutation
 
-`useMutation` is used for creating, updating, and deleting data on the server.
-
-**Key differences from useQuery:**
-- Mutations are **not automatic** — they do not run on mount. You call them manually.
-- Mutations are **not cached** — they represent side effects, not read operations.
-- Mutations provide callbacks like `onSuccess`, `onError`, and `onSettled` for handling outcomes.
+`useMutation` handles create, update, and delete operations. Unlike `useQuery`, mutations are triggered manually, are not cached, and provide `onSuccess`/`onError`/`onSettled` callbacks.
 
 **Basic mutation:**
 
@@ -657,12 +611,7 @@ try {
 
 ## 6. Query Invalidation
 
-**Query invalidation** tells React Query that certain cached data is no longer valid and should be refetched.
-
-**Why invalidation matters:**
-- After a mutation (create, update, delete), the cached data is outdated.
-- Invalidation triggers a background refetch so the UI shows the latest data.
-- Without invalidation, users would see stale data until they manually refresh.
+Invalidation marks cached data as stale and triggers a background refetch, typically after a mutation so the UI reflects the latest server state.
 
 **Basic invalidation:**
 
@@ -685,12 +634,9 @@ queryClient.invalidateQueries({ queryKey: ["posts"] });
 queryClient.invalidateQueries();
 ```
 
-**How invalidation works internally:**
-- The query is marked as **stale** immediately.
-- If a component is currently using that query, it triggers a background **refetch** right away.
-- If no component is using the query, it will refetch the next time a component subscribes to it.
+Internally, the query is marked stale immediately. Active queries refetch right away; inactive ones refetch when next subscribed.
 
-**Invalidation after mutations (the standard pattern):**
+**Invalidation after mutations:**
 
 ```tsx
 const queryClient = useQueryClient();
@@ -715,7 +661,7 @@ const createPost = useMutation({
 
 **Direct cache updates with setQueryData:**
 
-Sometimes you already have the new data (from the mutation response) and can update the cache directly without refetching:
+Update the cache directly when you already have the data from the mutation response:
 
 ```tsx
 const updatePost = useMutation({
@@ -740,21 +686,15 @@ const updatePost = useMutation({
 });
 ```
 
-**Invalidation vs setQueryData:**
-- Use `invalidateQueries` when you want the server to be the source of truth — simpler and safer.
-- Use `setQueryData` when you already have the exact data and want to avoid an extra network request.
-- You can combine both — update the cache immediately with `setQueryData` and then `invalidateQueries` as a safety net.
+- `invalidateQueries` -- server is source of truth, simpler and safer.
+- `setQueryData` -- update cache directly when you already have the data, avoids extra request.
+- Combine both for immediate cache update with server sync as a safety net.
 
 ---
 
 ## 7. Optimistic Updates
 
-**Optimistic updates** update the UI immediately before the server responds, assuming the mutation will succeed. If it fails, the changes are rolled back.
-
-**Why use optimistic updates:**
-- The UI feels **instant** — no waiting for the server.
-- Common for actions like liking a post, toggling a favorite, or updating a todo.
-- Creates a more responsive user experience.
+Optimistic updates apply changes to the UI immediately before the server responds, rolling back on failure. Ideal for simple, predictable mutations like toggling a favorite or updating a todo.
 
 **Full optimistic update pattern:**
 
@@ -888,17 +828,17 @@ function useAddTodo() {
 }
 ```
 
-**Important notes on optimistic updates:**
-- Always cancel outgoing queries first (`cancelQueries`) to prevent race conditions.
-- Always save the previous state for rollback.
-- Always invalidate in `onSettled` to sync with the server regardless of success or failure.
-- Use optimistic updates only for simple, predictable mutations. For complex operations (e.g., creating a resource that generates related data on the server), prefer waiting for the server response.
+**Key rules:**
+- Cancel outgoing queries first (`cancelQueries`) to prevent race conditions.
+- Save previous state for rollback.
+- Invalidate in `onSettled` to sync with the server regardless of outcome.
+- For complex operations that generate server-side data, prefer waiting for the response instead.
 
 ---
 
 ## 8. Infinite Queries with useInfiniteQuery
 
-`useInfiniteQuery` is designed for infinite scroll and "load more" patterns where data is fetched in pages.
+`useInfiniteQuery` handles infinite scroll and "load more" patterns.
 
 **Basic infinite query:**
 
@@ -968,13 +908,13 @@ function InfinitePostList() {
 }
 ```
 
-**Key options for useInfiniteQuery:**
-- **`initialPageParam`** — The parameter for the first page (required in v5).
-- **`getNextPageParam`** — A function that receives the last page and returns the parameter for the next page. Return `undefined` to signal there are no more pages.
-- **`getPreviousPageParam`** — Same as above, but for fetching previous pages (bidirectional infinite scroll).
-- **`maxPages`** — Limit the number of pages stored in cache (useful for memory management).
+**Key options:**
+- **`initialPageParam`** — First page parameter (required in v5).
+- **`getNextPageParam`** — Returns next page param, or `undefined` when done.
+- **`getPreviousPageParam`** — For bidirectional scroll.
+- **`maxPages`** — Limit pages in cache for memory management.
 
-**Understanding the data structure:**
+**Data structure:**
 
 ```tsx
 // data.pages is an array of all fetched pages
@@ -1072,7 +1012,7 @@ const { data, fetchNextPage, fetchPreviousPage, hasPreviousPage } =
 
 ## 9. Pagination with React Query
 
-For traditional page-based navigation (page 1, 2, 3...), use `useQuery` with the page number in the query key.
+Use `useQuery` with the page number in the query key for traditional page-based navigation.
 
 **Basic pagination:**
 
@@ -1144,10 +1084,7 @@ function PaginatedPosts() {
 }
 ```
 
-**Why `keepPreviousData` matters:**
-- Without it, when the page changes, the old data disappears and a loading spinner shows until the new page loads.
-- With `keepPreviousData`, the old page remains visible (with reduced opacity or a loading indicator) while the new page fetches in the background.
-- This makes pagination feel smooth and prevents layout shifts.
+`keepPreviousData` keeps the old page visible while the new page fetches in the background, preventing layout shifts and loading flashes.
 
 **Prefetching the next page for instant navigation:**
 
@@ -1183,7 +1120,7 @@ function PaginatedPostsWithPrefetch() {
 
 ## 10. Dependent Queries
 
-**Dependent queries** are queries that depend on the result of another query. They use the `enabled` option to wait until the required data is available.
+Queries that wait for another query's result using the `enabled` option.
 
 **Basic dependent query:**
 
@@ -1300,7 +1237,7 @@ function SearchResults({ query }: { query: string }) {
 
 ## 11. Query Prefetching
 
-**Prefetching** loads data into the cache before it is needed, making navigation feel instant.
+Load data into the cache before it is needed for instant navigation.
 
 **Prefetch on hover:**
 
@@ -1384,9 +1321,8 @@ export const postLoader = async ({ params }: { params: { postId: string } }) => 
 };
 ```
 
-**Prefetch vs ensureQueryData:**
-- `prefetchQuery` — Fetches in the background. Does not throw errors. Does not block rendering. Good for "nice to have" prefetching.
-- `ensureQueryData` — Returns the data (from cache or fetch). Can be awaited. Good for loaders where you need data before rendering.
+- `prefetchQuery` -- background fetch, non-blocking, does not throw.
+- `ensureQueryData` -- returns data (from cache or fetch), can be awaited. Use in loaders.
 
 **Prefetch for infinite queries:**
 
@@ -1402,7 +1338,7 @@ queryClient.prefetchInfiniteQuery({
 
 ## 12. React Query DevTools
 
-The DevTools provide a visual interface for inspecting all queries and mutations — their status, cache state, and timing.
+Visual interface for inspecting query/mutation status, cache state, and timing.
 
 **Installation:**
 
@@ -1429,31 +1365,16 @@ function App() {
 }
 ```
 
-**Key DevTools options:**
-- `initialIsOpen` — Whether the DevTools panel starts open or closed (default: `false`).
-- `buttonPosition` — Position of the toggle button: `"bottom-left"`, `"bottom-right"`, `"top-left"`, `"top-right"`.
-- `position` — Position of the panel: `"bottom"`, `"top"`, `"left"`, `"right"`.
+**Options:** `initialIsOpen` (default `false`), `buttonPosition`, `position`.
 
-**What you can see in DevTools:**
-- All active queries and their current status (fresh, stale, fetching, inactive).
-- The cached data for each query.
-- The query key for each query.
-- How many observers (components) are subscribed to each query.
-- When the data was last fetched.
-- Error details for failed queries.
-- Manual controls to refetch, invalidate, or remove queries.
+**Debugging tips:**
+- Queries stuck **stale** when expected **fresh** -- check `staleTime`.
+- **0 observers** -- inactive, will be garbage collected after `gcTime`.
+- **Stuck fetching** -- `queryFn` may not be resolving/rejecting.
+- Use the **Data Explorer** to inspect cached data shape.
+- Use **Actions** to manually invalidate or refetch queries.
 
-**How to use DevTools for debugging:**
-- Look for queries in the **stale** state when you expect them to be **fresh** — your `staleTime` might be too short.
-- Check if a query has **0 observers** — it is inactive and will be garbage collected after `gcTime`.
-- Look for queries that are **stuck in fetching** — your `queryFn` might not be resolving or rejecting.
-- Use the **Data Explorer** to inspect the exact shape of cached data.
-- Use the **Actions** panel to manually invalidate or refetch a query during development.
-
-**Production builds:**
-- By default, React Query DevTools are tree-shaken out of production builds.
-- They are only included when `process.env.NODE_ENV === "development"`.
-- You do not need to wrap them in a conditional — the library handles this automatically.
+DevTools are automatically tree-shaken from production builds.
 
 **Lazy loading DevTools (for large apps):**
 
@@ -1482,52 +1403,30 @@ function App() {
 
 ## 13. React Query vs SWR vs Redux
 
-**React Query (TanStack Query):**
-- Purpose-built for **server state** management (fetching, caching, synchronization).
-- Rich feature set: mutations, infinite queries, query invalidation, optimistic updates, prefetching.
-- Automatic background refetching, retry logic, and deduplication out of the box.
-- DevTools included for debugging.
-- Larger API surface — more to learn, but more control.
-- Framework-agnostic (supports React, Vue, Solid, Svelte, Angular).
-- Active community and maintained by Tanner Linsley.
-- Bundle size: ~13KB gzipped.
+**React Query (TanStack Query):** ~13KB gzipped
+- Full server state management: mutations, infinite queries, invalidation, optimistic updates, prefetching.
+- Automatic background refetching, retries, deduplication, DevTools.
+- Framework-agnostic (React, Vue, Solid, Svelte, Angular).
 
-**SWR (by Vercel):**
-- Also built for **server state**, created by the Next.js team.
-- Simpler API — fewer features but easier to pick up.
-- Uses the same stale-while-revalidate strategy.
-- Good for simple data fetching needs.
-- Mutations are more manual — no built-in `useMutation`, you handle POST/PUT/DELETE yourself and call `mutate()` to revalidate.
-- No built-in DevTools.
-- Focused primarily on React.
-- Lighter weight — ~4KB gzipped.
-- Best for: simpler apps, teams already using Next.js, projects where you do not need complex mutation handling.
+**SWR (by Vercel):** ~4KB gzipped
+- Simpler API, same stale-while-revalidate strategy.
+- No built-in `useMutation` or DevTools -- mutations are manual.
+- React-focused. Best for simpler data fetching needs.
 
-**Redux (with RTK Query):**
-- Originally designed for **client state** — UI state, app state, complex state machines.
-- **RTK Query** (part of Redux Toolkit) adds server state management that competes with React Query.
-- Steeper learning curve — actions, reducers, slices, middleware, selectors.
-- Best when you have complex client state logic (multi-step forms, undo/redo, deeply nested state).
-- Redux DevTools are mature and powerful.
-- Large ecosystem and community.
-- Bundle size: ~11KB gzipped (Redux Toolkit).
-- Best for: large apps with complex client state, teams already using Redux.
+**Redux (with RTK Query):** ~11KB gzipped
+- Designed for **client state** (UI state, complex state machines). RTK Query adds server state support.
+- Steeper learning curve. Best for apps with complex client state logic.
 
-**When to use each:**
-- Use **React Query** when your app is primarily about fetching and displaying server data, and you need robust mutation handling, caching, and synchronization.
-- Use **SWR** when you want a lightweight solution for simple data fetching without complex mutations.
-- Use **Redux** when you have complex client-side state logic. Pair it with React Query for server state if needed.
-- You can combine **React Query + Zustand** (or Jotai) for a lightweight stack: React Query for server state, Zustand for client state.
+You can combine **React Query + Zustand/Jotai** for a lightweight stack: React Query for server state, Zustand for client state.
 
 ---
 
 ## 14. Best Practices
 
 **Query key conventions:**
-- Use an array format with a hierarchical structure: `["entity", id, "sub-entity"]`.
-- Put the broadest identifier first: `["users", userId, "posts"]` not `["posts", "by-user", userId]`.
-- Include all variables that affect the result: `["posts", { status, page, sort }]`.
-- Create query key factories for consistency across the codebase.
+- Hierarchical arrays: `["entity", id, "sub-entity"]`, broadest first.
+- Include all variables that affect the result.
+- Use query key factories for consistency.
 
 ```tsx
 // query-keys.ts — centralized query key factory
@@ -1553,10 +1452,9 @@ queryClient.invalidateQueries({ queryKey: userKeys.lists() });
 ```
 
 **Error handling:**
-- Always check `response.ok` when using `fetch` — React Query does not auto-throw on HTTP errors.
-- Use error boundaries for unexpected errors and inline error UI for expected ones.
-- Provide user-friendly error messages, not raw server errors.
-- Consider using an `onError` global callback on the `QueryClient` for logging or toast notifications.
+- Always check `response.ok` with `fetch`.
+- Use error boundaries for unexpected errors, inline UI for expected ones.
+- Use global `QueryClient` error callbacks for logging/toasts.
 
 ```tsx
 // Global error handler
@@ -1609,10 +1507,7 @@ useQuery({
 });
 ```
 
-**Retry logic:**
-- Default is 3 retries with exponential backoff.
-- Disable retries for mutations that should not be repeated (e.g., payment processing).
-- Customize retry based on error type — do not retry 401/403/404 errors.
+**Retry logic:** Default 3 retries with exponential backoff. Disable for non-idempotent mutations. Skip retries on 401/403/404.
 
 ```tsx
 useQuery({
@@ -1629,10 +1524,7 @@ useMutation({
 });
 ```
 
-**Garbage collection:**
-- `gcTime` (default: 5 minutes) controls how long inactive cache data is kept.
-- Set a longer `gcTime` for data the user might revisit (e.g., product details, user profiles).
-- Set a shorter `gcTime` for data that is rarely revisited or is large in memory.
+**Garbage collection:** `gcTime` (default: 5 min) controls how long inactive cache is kept. Longer for frequently revisited data, shorter for large/rare data.
 
 ```tsx
 // Keep product data in cache for 30 minutes even when unused
@@ -1644,10 +1536,7 @@ useQuery({
 });
 ```
 
-**Organize queries into custom hooks:**
-- Extract every `useQuery` and `useMutation` into a dedicated hook.
-- Colocate the query key, query function, and type definitions in the same file.
-- This makes queries reusable, testable, and easy to find.
+**Organize queries into custom hooks** -- extract each `useQuery`/`useMutation` into a dedicated hook with colocated key, function, and types.
 
 ```tsx
 // hooks/usePosts.ts
@@ -1686,10 +1575,7 @@ export function useDeletePost() {
 }
 ```
 
-**Separate API layer from React Query hooks:**
-- Keep your `fetch`/`axios` calls in a separate API module.
-- Your hooks import these functions and pass them as `queryFn` / `mutationFn`.
-- This makes API calls testable independently of React Query.
+**Separate API layer** -- keep `fetch`/`axios` calls in a standalone module; hooks import and pass them as `queryFn`/`mutationFn`.
 
 ```tsx
 // api/posts.ts — pure API functions, no React Query
@@ -1711,12 +1597,12 @@ export async function createPost(data: CreatePostInput): Promise<Post> {
 }
 ```
 
-**Additional best practices:**
-- Set sensible `staleTime` defaults globally rather than on every query — `0` is too aggressive for most apps.
-- Use `select` to transform data close to where it is consumed, keeping `queryFn` responses generic.
-- Do not store server data in React state (`useState`) — let React Query be the single source of truth.
-- Use `queryClient.getQueryData()` sparingly — prefer passing data via props or using the same `useQuery` hook (it deduplicates requests automatically).
-- Test your hooks with `@testing-library/react` and a custom `QueryClientProvider` wrapper with `retry: false` and `gcTime: Infinity`.
+**Additional tips:**
+- Set `staleTime` globally -- `0` (default) is too aggressive for most apps.
+- Use `select` to transform data near consumption; keep `queryFn` responses generic.
+- Do not duplicate server data in `useState` -- React Query is the source of truth.
+- Prefer `useQuery` over `getQueryData()` for automatic deduplication.
+- Test hooks with `retry: false` and `gcTime: Infinity`.
 
 ```tsx
 // test-utils.tsx — testing wrapper

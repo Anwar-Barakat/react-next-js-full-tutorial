@@ -38,34 +38,45 @@ A comprehensive guide covering personal introduction, project experience, and HR
 23. [What are your strengths?](#23-what-are-your-strengths)
 24. [What is your weakness?](#24-what-is-your-weakness)
 25. [Why are you leaving your current job?](#25-why-are-you-leaving-your-current-job)
-26. [Why should we hire you?](#26-why-should-we-hire-you)
-27. [Where do you see yourself in 5 years?](#27-where-do-you-see-yourself-in-5-years)
-28. [How do you handle pressure or deadlines?](#28-how-do-you-handle-pressure-or-deadlines)
-29. [Are you comfortable working in a team or remotely?](#29-are-you-comfortable-working-in-a-team-or-remotely)
-30. [When can you start?](#30-when-can-you-start)
-31. [Are you open to relocation or on-site work?](#31-are-you-open-to-relocation-or-on-site-work)
-32. [What are your salary expectations?](#32-what-are-your-salary-expectations)
-33. [How do you keep your skills up to date?](#33-how-do-you-keep-your-skills-up-to-date)
-34. [What technologies are you currently learning or interested in?](#34-what-technologies-are-you-currently-learning-or-interested-in)
-35. [Tell me about a mistake you made](#35-tell-me-about-a-mistake-you-made)
-36. [How do you handle feedback or criticism?](#36-how-do-you-handle-feedback-or-criticism)
-37. [Why do you want to work with our company?](#37-why-do-you-want-to-work-with-our-company)
-38. [Do you have any questions for us?](#38-do-you-have-any-questions-for-us)
-39. [What do you think about using AI in writing code?](#39-what-do-you-think-about-using-ai-in-writing-code) *(see also: [02_ai_interview.md](./02_ai_interview.md) for full AI questions)*
-40. [Do you know Node.js or Express?](#40-do-you-know-nodejs-or-express)
-41. [Tell me about a time you disagreed with a teammate](#41-tell-me-about-a-time-you-disagreed-with-a-teammate)
-42. [What motivates you?](#42-what-motivates-you)
-43. [What is your biggest professional achievement?](#43-what-is-your-biggest-professional-achievement)
-44. [Are you interviewing with other companies?](#44-are-you-interviewing-with-other-companies)
-45. [How do you handle ambiguity or unclear requirements?](#45-how-do-you-handle-ambiguity-or-unclear-requirements)
-46. [How do you prioritize when you have multiple tasks?](#46-how-do-you-prioritize-when-you-have-multiple-tasks)
-47. [What is your experience with Agile/Scrum?](#47-what-is-your-experience-with-agile-scrum)
-48. [How do you approach debugging a production issue?](#48-how-do-you-approach-debugging-a-production-issue)
-49. [What makes you different from other candidates?](#49-what-makes-you-different-from-other-candidates)
+26. [How did you find out about this position?](#26-how-did-you-find-out-about-this-position)
+27. [Why should we hire you?](#27-why-should-we-hire-you)
+28. [Where do you see yourself in 5 years?](#28-where-do-you-see-yourself-in-5-years)
+29. [How do you handle pressure or deadlines?](#29-how-do-you-handle-pressure-or-deadlines)
+30. [Are you comfortable working in a team or remotely?](#30-are-you-comfortable-working-in-a-team-or-remotely)
+31. [When can you start?](#31-when-can-you-start)
+32. [What is your preferred interview time or day?](#32-what-is-your-preferred-interview-time-or-day)
+33. [Are you open to relocation or on-site work?](#33-are-you-open-to-relocation-or-on-site-work)
+34. [What is your marital status?](#34-what-is-your-marital-status)
+35. [What are your salary expectations?](#35-what-are-your-salary-expectations)
+36. [How do you keep your skills up to date?](#36-how-do-you-keep-your-skills-up-to-date)
+37. [What technologies are you currently learning or interested in?](#37-what-technologies-are-you-currently-learning-or-interested-in)
+38. [Tell me about a mistake you made](#38-tell-me-about-a-mistake-you-made)
+39. [How do you handle feedback or criticism?](#39-how-do-you-handle-feedback-or-criticism)
+40. [Why do you want to work with our company?](#40-why-do-you-want-to-work-with-our-company)
+41. [Do you have any questions for us?](#41-do-you-have-any-questions-for-us)
+42. [What do you think about using AI in writing code?](#42-what-do-you-think-about-using-ai-in-writing-code) *(see also: [02_ai_interview.md](./02_ai_interview.md) for full AI questions)*
+43. [Do you know Node.js or Express?](#43-do-you-know-nodejs-or-express)
+44. [Tell me about a time you disagreed with a teammate](#44-tell-me-about-a-time-you-disagreed-with-a-teammate)
+45. [What motivates you?](#45-what-motivates-you)
+46. [What is your biggest professional achievement?](#46-what-is-your-biggest-professional-achievement)
+47. [Are you interviewing with other companies?](#47-are-you-interviewing-with-other-companies)
+48. [How do you handle ambiguity or unclear requirements?](#48-how-do-you-handle-ambiguity-or-unclear-requirements)
+49. [How do you prioritize when you have multiple tasks?](#49-how-do-you-prioritize-when-you-have-multiple-tasks)
+50. [What is your experience with Agile/Scrum?](#50-what-is-your-experience-with-agile-scrum)
+51. [How do you approach debugging a production issue?](#51-how-do-you-approach-debugging-a-production-issue)
+52. [What makes you different from other candidates?](#52-what-makes-you-different-from-other-candidates)
+53. [What is your notice period?](#53-what-is-your-notice-period)
+54. [What is your visa status / Do you need sponsorship?](#54-what-is-your-visa-status--do-you-need-sponsorship)
+55. [What is your current or last salary?](#55-what-is-your-current-or-last-salary)
+56. [Are you available for overtime or weekend work?](#56-are-you-available-for-overtime-or-weekend-work)
+57. [Can you provide references?](#57-can-you-provide-references)
+58. [How would your colleagues or manager describe you?](#58-how-would-your-colleagues-or-manager-describe-you)
+59. [What do you do outside of work?](#59-what-do-you-do-outside-of-work)
+60. [Do you have experience mentoring junior developers?](#60-do-you-have-experience-mentoring-junior-developers)
 
 ### Interview Etiquette & Practical Tips
-50. [Phone and Video Call Etiquette](#50-phone-and-video-call-etiquette)
-51. [Useful Interview Phrases (When You Need a Moment)](#51-useful-interview-phrases-when-you-need-a-moment)
+61. [Phone and Video Call Etiquette](#61-phone-and-video-call-etiquette)
+62. [Useful Interview Phrases (When You Need a Moment)](#62-useful-interview-phrases-when-you-need-a-moment)
 
 ---
 
@@ -526,7 +537,20 @@ You learn by building real features, not just reading theory.
 
 ---
 
-## 26. Why should we hire you?
+## 26. How did you find out about this position?
+
+- I found the position on LinkedIn while actively searching for full-stack developer roles.
+- I regularly browse job platforms like LinkedIn, Indeed, and Bayt to stay updated on opportunities.
+- If referred: "A colleague/friend recommended your company and shared the opening with me."
+- If through the company website: "I've been following your company for a while and saw the opening on your careers page."
+
+**Tips:**
+- Be honest about how you found the role.
+- If you researched the company before applying, mention it — it shows genuine interest.
+
+---
+
+## 27. Why should we hire you?
 
 - I have real experience building live platforms used by users.
 - I understand payments, real-time systems, and role-based access.
@@ -535,7 +559,7 @@ You learn by building real features, not just reading theory.
 
 ---
 
-## 27. Where do you see yourself in 5 years?
+## 28. Where do you see yourself in 5 years?
 
 - I see myself as a senior developer leading projects.
 - I want to build large-scale systems with real impact.
@@ -543,7 +567,7 @@ You learn by building real features, not just reading theory.
 
 ---
 
-## 28. How do you handle pressure or deadlines?
+## 29. How do you handle pressure or deadlines?
 
 - I break tasks into smaller steps.
 - I focus on priorities first.
@@ -552,20 +576,29 @@ You learn by building real features, not just reading theory.
 
 ---
 
-## 29. Are you comfortable working in a team or remotely?
+## 30. Are you comfortable working in a team or remotely?
 
 - Yes, I am comfortable with both.
 - I have worked with remote teams and I communicate clearly and deliver tasks on time.
 
 ---
 
-## 30. When can you start?
+## 31. When can you start?
 
 - I'm flexible with my start date and can begin immediately, at a time that best fits your team's needs.
 
 ---
 
-## 31. Are you open to relocation or on-site work?
+## 32. What is your preferred interview time or day?
+
+- I'm flexible and available any day of the week.
+- I can adjust my schedule to fit what works best for your team.
+- If you have a preferred time, I'm happy to work around it.
+- Morning or afternoon — both work for me.
+
+---
+
+## 33. Are you open to relocation or on-site work?
 
 - I'm currently based in the UAE, specifically in Dubai (Al Nahda).
 - I'm open to on-site or hybrid work depending on the role.
@@ -573,14 +606,14 @@ You learn by building real features, not just reading theory.
 
 ---
 
-## 31.1. What is your marital status?
+## 34. What is your marital status?
 
 - I'm single.
 - I have no family commitments, which means I'm flexible with working hours, travel, and relocation if needed.
 
 ---
 
-## 32. What are your salary expectations?
+## 35. What are your salary expectations?
 
 - I'm open to discussion based on the role and responsibilities.
 - I'm looking for a fair offer that matches my experience and skills.
@@ -589,7 +622,7 @@ You learn by building real features, not just reading theory.
 
 ---
 
-## 33. How do you keep your skills up to date?
+## 36. How do you keep your skills up to date?
 
 - I regularly follow official documentation and best practices.
 - I learn from tutorials and trusted educators on YouTube, such as Povilas, who focus on deep dives into specific topics.
@@ -598,7 +631,7 @@ You learn by building real features, not just reading theory.
 
 ---
 
-## 34. What technologies are you currently learning or interested in?
+## 37. What technologies are you currently learning or interested in?
 
 - I'm interested in system design, performance optimization, and AI integration.
 - I enjoy improving real-time systems and scalable architectures.
@@ -607,7 +640,7 @@ You learn by building real features, not just reading theory.
 
 ---
 
-## 35. Tell me about a mistake you made
+## 38. Tell me about a mistake you made
 
 - I once underestimated task complexity.
 - I learned to break tasks down and communicate early.
@@ -618,7 +651,7 @@ You learn by building real features, not just reading theory.
 
 ---
 
-## 36. How do you handle feedback or criticism?
+## 39. How do you handle feedback or criticism?
 
 - I'm open to feedback because it's essential for improving the product or platform.
 - I listen carefully to others' opinions and learn from them.
@@ -626,7 +659,7 @@ You learn by building real features, not just reading theory.
 
 ---
 
-## 37. Why do you want to work with our company?
+## 40. Why do you want to work with our company?
 
 - I see this as a great opportunity to learn and grow together with the team.
 - I like the company's product and overall direction.
@@ -635,7 +668,7 @@ You learn by building real features, not just reading theory.
 
 ---
 
-## 38. Do you have any questions for us?
+## 41. Do you have any questions for us?
 
 - What does success look like in the first 6 months?
 - How is the development team structured?
@@ -643,7 +676,7 @@ You learn by building real features, not just reading theory.
 
 ---
 
-## 39. What do you think about using AI in writing code?
+## 42. What do you think about using AI in writing code?
 
 AI is no longer optional in software development — it is becoming a core part of how modern companies build products.
 
@@ -677,7 +710,7 @@ AI is no longer optional in software development — it is becoming a core part 
 
 ---
 
-## 40. Do you know Node.js or Express?
+## 43. Do you know Node.js or Express?
 
 Yes, I have knowledge of Node.js and Express.
 
@@ -749,7 +782,7 @@ app.listen(3000, () => {
 
 ---
 
-## 41. Tell me about a time you disagreed with a teammate
+## 44. Tell me about a time you disagreed with a teammate
 
 - In Tripz, during the planning phase, there was a discussion about which frontend framework to use.
 - A senior team member preferred Vue because it integrates well with Laravel.
@@ -766,7 +799,7 @@ app.listen(3000, () => {
 
 ---
 
-## 42. What motivates you?
+## 45. What motivates you?
 
 - Building real products that people actually use — seeing my code in production is the best feeling.
 - Solving complex problems — I enjoy breaking down complicated features into clear, working solutions.
@@ -776,7 +809,7 @@ app.listen(3000, () => {
 
 ---
 
-## 43. What is your biggest professional achievement?
+## 46. What is your biggest professional achievement?
 
 - My biggest achievement was leading the Vue-to-React migration in Tripz.
 - The entire frontend had to be rewritten while keeping the system stable and all features working.
@@ -786,7 +819,7 @@ app.listen(3000, () => {
 
 ---
 
-## 44. Are you interviewing with other companies?
+## 47. Are you interviewing with other companies?
 
 - Yes, I am exploring opportunities with a few companies.
 - However, I am genuinely interested in this role because [mention something specific about the company — product, team, tech stack].
@@ -801,7 +834,7 @@ app.listen(3000, () => {
 
 ---
 
-## 45. How do you handle ambiguity or unclear requirements?
+## 48. How do you handle ambiguity or unclear requirements?
 
 - First, I ask clarifying questions — I never assume what the client or product owner means.
 - I break the task into smaller parts and confirm each part with the team.
@@ -815,7 +848,7 @@ app.listen(3000, () => {
 
 ---
 
-## 46. How do you prioritize when you have multiple tasks?
+## 49. How do you prioritize when you have multiple tasks?
 
 - I start by identifying what is urgent vs. what is important — not everything urgent is important.
 - I focus on tasks that block other people first — if my work is needed for someone else to continue, I do it first.
@@ -829,7 +862,7 @@ app.listen(3000, () => {
 
 ---
 
-## 47. What is your experience with Agile/Scrum?
+## 50. What is your experience with Agile/Scrum?
 
 - I am familiar with Agile methodology and have worked in Agile environments.
 - In my projects, we used sprints (usually 1-2 weeks) to plan and deliver features.
@@ -846,7 +879,7 @@ app.listen(3000, () => {
 
 ---
 
-## 48. How do you approach debugging a production issue?
+## 51. How do you approach debugging a production issue?
 
 - **Step 1: Stay calm** — panicking doesn't help. I focus on understanding the issue first.
 - **Step 2: Reproduce the issue** — I try to replicate the bug locally or understand the exact steps that cause it.
@@ -863,7 +896,7 @@ app.listen(3000, () => {
 
 ---
 
-## 49. What makes you different from other candidates?
+## 52. What makes you different from other candidates?
 
 - I have hands-on experience building real, production-level platforms — not just tutorials or small projects.
 - I work across the full stack — from database design and API development to frontend interfaces and deployment.
@@ -874,9 +907,96 @@ app.listen(3000, () => {
 
 ---
 
+## 53. What is your notice period?
+
+- I can start immediately — I have no notice period.
+- If currently employed: "My notice period is [X weeks/months], but I'm happy to discuss how to make the transition smooth."
+
+**Tips:**
+- Be honest about your availability.
+- If you have a long notice period, show willingness to negotiate with your current employer.
+
+---
+
+## 54. What is your visa status / Do you need sponsorship?
+
+- I currently hold a valid UAE residence visa.
+- If visa needs transfer: "My visa would need to be transferred to your company, which is a standard process."
+- If on visit visa: "I'm currently on a visit visa and would need sponsorship. I'm ready to start the process immediately."
+
+**Tips:**
+- Be upfront — companies need to know this early for planning.
+- Know the process so you can answer follow-up questions confidently.
+
+---
+
+## 55. What is your current or last salary?
+
+- I prefer to focus on the value I bring and the market rate for this role rather than my previous salary.
+- If pressed: "My last salary was in the range of [X], but I'm looking for a package that reflects my current skills and the responsibilities of this role."
+
+**Tips:**
+- You don't have to share the exact number — it's okay to give a range.
+- Research market rates for your role in the UAE before the interview.
+- Don't undersell yourself based on a previous lower salary.
+
+---
+
+## 56. Are you available for overtime or weekend work?
+
+- Yes, I'm flexible when the project or deadline requires it.
+- I understand that sometimes urgent tasks come up, and I'm willing to put in extra hours when needed.
+- At the same time, I focus on working efficiently during regular hours to minimize the need for overtime.
+
+---
+
+## 57. Can you provide references?
+
+- Yes, I can provide references from previous colleagues and project leads.
+- I'd be happy to share their contact details once we move forward in the process.
+
+**Tips:**
+- Prepare 2-3 references in advance (name, role, company, contact).
+- Always ask your references for permission before sharing their details.
+- Choose people who can speak to your technical skills and work ethic.
+
+---
+
+## 58. How would your colleagues or manager describe you?
+
+- They would say I'm reliable, detail-oriented, and easy to work with.
+- I communicate clearly, meet deadlines, and always try to help the team.
+- In Tripz, my project lead trusted me to handle complex features independently, like the Vue-to-React migration.
+- My colleagues appreciate that I share knowledge and explain technical decisions clearly.
+
+---
+
+## 59. What do you do outside of work?
+
+- I enjoy learning new technologies and building side projects — it's both a hobby and a way to stay sharp.
+- I follow tech communities on LinkedIn and YouTube to keep up with industry trends.
+- I also enjoy reading about system design and software architecture.
+- Outside of tech, I like staying active and spending time with family and friends.
+
+**Tips:**
+- Keep it genuine and positive.
+- Mentioning learning shows passion for your field.
+- It's okay to mention non-tech hobbies — it shows you're well-rounded.
+
+---
+
+## 60. Do you have experience mentoring junior developers?
+
+- Yes, I've helped junior developers on my team understand code structure, best practices, and debugging techniques.
+- In Tripz, I guided team members through React concepts during the migration from Vue.
+- I believe in explaining the "why" behind decisions, not just the "how" — it helps juniors grow faster.
+- I also contributed to knowledge sharing by creating documentation and tutorial projects like my Laravel API and React/Next.js tutorials.
+
+---
+
 ## Interview Etiquette & Practical Tips
 
-## 50. Phone and Video Call Etiquette
+## 61. Phone and Video Call Etiquette
 
 **Before the call:**
 - Find quiet place, test equipment, charge device
@@ -907,7 +1027,7 @@ app.listen(3000, () => {
 
 ---
 
-## 51. Useful Interview Phrases (When You Need a Moment)
+## 62. Useful Interview Phrases (When You Need a Moment)
 
 **When you don't understand:**
 - "Could you please repeat/rephrase the question?"

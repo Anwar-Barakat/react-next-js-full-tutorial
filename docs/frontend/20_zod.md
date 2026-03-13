@@ -25,16 +25,10 @@ A comprehensive guide to Zod, the TypeScript-first schema validation library for
 
 ## 1. What is Zod?
 
-- Zod is a **TypeScript-first** schema validation library.
-- It validates data at **runtime** — TypeScript only checks types at compile time, not at runtime.
-- Zero dependencies with a small bundle size.
-- Works in Node.js, browsers, and edge runtimes.
-
-**Why use Zod?**
-
-- TypeScript types disappear at runtime — Zod validates data at runtime when it actually matters.
-- API responses, form data, and environment variables can be anything — Zod ensures they match your expected shape.
-- Automatically generates TypeScript types from schemas with `z.infer`, giving you a single source of truth.
+- **TypeScript-first** schema validation library for **runtime** data validation (TypeScript only checks at compile time).
+- Zero dependencies, small bundle, works in Node.js, browsers, and edge runtimes.
+- Validates API responses, form data, env variables — ensures they match your expected shape.
+- Generates TypeScript types from schemas with `z.infer` — single source of truth.
 
 **Installation:**
 

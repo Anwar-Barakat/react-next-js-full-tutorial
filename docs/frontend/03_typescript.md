@@ -37,21 +37,12 @@ A comprehensive guide to TypeScript concepts, types, and best practices for Reac
 31. [Function Overloads](#31-function-overloads)
 32. [Template Literal Types](#32-template-literal-types)
 33. [Best Practices](#33-best-practices)
-34. [Summary](#34-summary)
 
 ---
 
 ## 1. What is TypeScript
 
-**TypeScript** is a superset of JavaScript that adds static typing, developed and maintained by Microsoft.
-
-**Key Features:**
-
-- **Static Typing**: Catch errors during development (compile-time)
-- **Type Inference**: Automatic type detection
-- **Better IDE Support**: Autocomplete, refactoring, intellisense
-- **Self-Documenting**: Types serve as inline documentation
-- **Gradual Adoption**: Can be added incrementally to existing projects
+Superset of JavaScript that adds static typing (Microsoft). Catches errors at compile-time, better IDE support, type inference, gradual adoption.
 
 ```typescript
 // JavaScript - Runtime error
@@ -71,14 +62,7 @@ greet(null); // ✅ Compile error: Argument of type 'null' is not assignable to 
 
 ## 2. Why Use TypeScript
 
-- **Type Safety** — Catch errors at compile time; Impact: Fewer runtime bugs
-- **Better Tooling** — Autocomplete, intellisense, refactoring; Impact: Faster development
-- **Self-Documentation** — Types explain code intent; Impact: Easier maintenance
-- **Easier Refactoring** — Confident code changes; Impact: Reduced fear of breaking changes
-- **Better for Large Teams** — Shared type contracts; Impact: Improved collaboration
-- **Optional** — Gradually adoptable; Impact: No big rewrite needed
-
-**Comparison:**
+Type safety, better tooling (autocomplete, refactoring), self-documenting code, easier refactoring, shared type contracts for teams, gradual adoption.
 
 ```typescript
 // JavaScript - No type safety
@@ -100,24 +84,8 @@ calculateTotal('10', '5'); // ✅ Compile error: Type 'string' is not assignable
 
 ## 3. Basic Types
 
-**Primitive Types:**
-
-- **`string`** — Text values; Example: `'hello'`, `"world"`, `` `template` ``
-- **`number`** — Integers and floats; Example: `42`, `3.14`, `NaN`, `Infinity`
-- **`boolean`** — True/false values; Example: `true`, `false`
-- **`null`** — Intentional absence; Example: `null`
-- **`undefined`** — Not yet assigned; Example: `undefined`
-- **`symbol`** — Unique identifiers; Example: `Symbol('id')`
-- **`bigint`** — Large integers; Example: `100n`, `BigInt(100)`
-
-**Special Types:**
-
-- **`any`** — Disables type checking; Use Case: Avoid if possible
-- **`unknown`** — Type-safe version of any; Use Case: Prefer over `any`
-- **`void`** — No return value; Use Case: Functions that don't return
-- **`never`** — Never returns; Use Case: Infinite loops, throw errors
-
-**Examples:**
+**Primitives:** `string`, `number`, `boolean`, `null`, `undefined`, `symbol`, `bigint`
+**Special:** `any` (avoid), `unknown` (prefer over any), `void` (no return), `never` (never returns)
 
 ```typescript
 // Primitive types
@@ -155,7 +123,7 @@ function throwError(msg: string): never {
 
 ## 4. Type Inference
 
-**Type inference** means TypeScript automatically detects types without explicit annotations.
+TypeScript automatically detects types without explicit annotations.
 
 ```typescript
 // Type inference - TypeScript infers types
@@ -213,7 +181,7 @@ function getUser(): User | null {
 
 ## 5. Arrays and Tuples
 
-**Arrays** are collections of same-type elements. **Tuples** are fixed-length arrays with specific types at each position.
+Arrays: same-type collections. Tuples: fixed-length with specific types at each position.
 
 ```typescript
 // Array syntax 1 (preferred)
@@ -254,25 +222,11 @@ type StringNumberBooleans = [string, number, ...boolean[]];
 let example: StringNumberBooleans = ['hello', 42, true, false, true];
 ```
 
-**Array vs Tuple:**
-
-- **Length** — Array: Variable; Tuple: Fixed
-- **Types** — Array: Homogeneous (same type); Tuple: Heterogeneous (mixed types)
-- **Order** — Array: Not enforced; Tuple: Strictly enforced
-- **Use Case** — Array: Lists of similar items; Tuple: Fixed structure data
-
 ---
 
 ## 6. Any vs Unknown
 
-Both `any` and `unknown` can hold any value, but `unknown` is type-safe.
-
-**Comparison:**
-
-- **Type Safety** — any: None; unknown: Type-safe
-- **Type Checking** — any: Disabled; unknown: Required before use
-- **Operations** — any: All allowed; unknown: Must narrow type first
-- **Recommendation** — any: Avoid; unknown: Prefer over `any`
+Both hold any value. `any` disables type checking (avoid). `unknown` requires type narrowing before use (prefer).
 
 ```typescript
 // any - No safety (dangerous)
@@ -337,7 +291,7 @@ try {
 
 ## 7. Type Aliases
 
-**Type aliases** create custom type names for reusability and readability.
+Custom type names for reusability.
 
 ```typescript
 // Basic type alias
@@ -394,7 +348,7 @@ type UserResponse = ApiResponse<User>;
 
 ## 8. Interfaces
 
-**Interfaces** define the structure of objects, similar to type aliases but with key differences.
+Define object structure. Support extending, declaration merging, and class implementation.
 
 ```typescript
 // Basic interface
@@ -480,19 +434,7 @@ const dict: StringDictionary = {
 
 ## 9. Type vs Interface
 
-Both can describe object shapes, but have key differences.
-
-**Comparison:**
-
-- **Primitives** — Type: Can define; Interface: Cannot
-- **Union Types** — Type: Supported; Interface: Not supported
-- **Intersection** — Type: `&` operator; Interface: `extends` keyword
-- **Declaration Merging** — Type: Not supported; Interface: Supported
-- **Computed Properties** — Type: Supported; Interface: Limited
-- **Performance** — Type: Slightly slower; Interface: Slightly faster
-- **Use Case** — Type: Unions, primitives, complex types; Interface: Object shapes, classes
-
-**Examples:**
+**Interface:** object shapes, classes, declaration merging, `extends`. **Type:** unions, primitives, mapped/conditional types, `&` intersection.
 
 ```typescript
 // 1. Declaration Merging (Interface only)
@@ -543,33 +485,6 @@ interface IPoint {
   1: number;
   length: 2;
 } // ❌ Awkward
-```
-
-**When to Use:**
-
-```typescript
-// Use Interface for:
-// - Object shapes
-// - Classes
-// - Public APIs (libraries)
-// - When declaration merging is needed
-
-interface User {
-  id: number;
-  name: string;
-}
-
-// Use Type for:
-// - Union types
-// - Intersection types
-// - Primitives
-// - Mapped types
-// - Conditional types
-// - Tuples
-
-type Status = 'active' | 'inactive' | 'pending';
-type ID = string | number;
-type Point = [number, number];
 ```
 
 ---
@@ -672,7 +587,7 @@ type UserWithTimestamps = WithTimestamps<User>;
 
 ## 11. Literal Types
 
-**Literal types** are exact values, not just general types. More specific than primitive types.
+Exact values as types (more specific than primitives).
 
 ```typescript
 // String literals
@@ -783,18 +698,11 @@ function getArea(shape: Shape): number {
 }
 ```
 
-**Void vs Never:**
-
-- **Returns** — void: Nothing (undefined); never: Never returns
-- **Completes** — void: Function completes; never: Function never completes
-- **Use Case** — void: Functions with side effects; never: Errors, infinite loops
-- **Can assign** — void: `undefined`; never: Nothing can be assigned
-
 ---
 
 ## 13. Generics
 
-**Generics** allow you to write reusable code that works with multiple types while maintaining type safety.
+Reusable code that works with multiple types while keeping type safety.
 
 ```typescript
 // Basic generic function
@@ -882,7 +790,7 @@ const numberContainer: Container<number> = { value: 42 };
 
 ## 14. Generic Constraints
 
-**Constraints** limit what types can be used with generics using the `extends` keyword.
+Limit what types can be used with generics using `extends`.
 
 ```typescript
 // Constraint: T must have 'length' property
@@ -944,7 +852,7 @@ const person = create(Person, 'Anwar'); // Person instance
 
 ## 15. Utility Types
 
-TypeScript provides built-in utility types for common type transformations.
+Built-in types for common transformations.
 
 ```typescript
 interface User {
@@ -1032,7 +940,7 @@ type UnwrappedUser = Awaited<AsyncUser>; // User
 
 ## 16. Mapped Types
 
-**Mapped types** transform properties of existing types to create new types.
+Transform properties of existing types.
 
 ```typescript
 // Basic mapped type
@@ -1101,7 +1009,7 @@ type FlexibleUser = NullableOptional<User>;
 
 ## 17. Conditional Types
 
-**Conditional types** select types based on conditions using ternary syntax: `T extends U ? X : Y`
+Select types based on conditions: `T extends U ? X : Y`
 
 ```typescript
 // Basic conditional type
@@ -1156,7 +1064,7 @@ type ValueType = Unwrap<number>; // number
 
 ## 18. Type Assertion (Type Casting)
 
-**Type assertion** tells TypeScript "trust me, I know the type better than you."
+Tell TypeScript you know the type better: `value as Type`.
 
 ```typescript
 // Syntax 1: 'as' (recommended)
@@ -1319,7 +1227,7 @@ function processValue(value: string | null) {
 
 ## 20. Index Signatures
 
-**Index signatures** define types for dynamic property names when you don't know them in advance.
+Define types for dynamic property names.
 
 ```typescript
 // Basic index signature
@@ -1477,16 +1385,7 @@ function isValidStatus(value: string): value is Status {
 
 ## 22. Enum vs Union Types
 
-Both represent a set of possible values, but work differently.
-
-**Comparison:**
-
-- **Runtime Presence** — Enum: Exists as object; Union Type: Compile-time only
-- **Reverse Mapping** — Enum: Numeric enums only; Union Type: No
-- **Bundle Size** — Enum: Larger (runtime code); Union Type: Smaller (no runtime)
-- **Iteration** — Enum: Can iterate; Union Type: Cannot iterate
-- **Flexibility** — Enum: Less flexible; Union Type: More flexible
-- **TypeScript Feature** — Enum: Specific to TS; Union Type: JavaScript compatible
+Enums exist at runtime (larger bundle, iterable, reverse mapping). Unions are compile-time only (smaller, more flexible).
 
 ```typescript
 // Enum - creates runtime object
@@ -1520,39 +1419,11 @@ type Status = typeof StatusValues[keyof typeof StatusValues];
 // Status = 'active' | 'inactive'
 ```
 
-**When to Use:**
-
-```typescript
-// Use Enum when:
-// - Need runtime values
-// - Need reverse mapping
-// - Working with numeric constants
-enum HttpStatus {
-  OK = 200,
-  NotFound = 404
-}
-
-// Use Union when:
-// - Prefer smaller bundles
-// - Want compile-time only
-// - More flexibility
-type Theme = 'light' | 'dark' | 'auto';
-
-// Best of both: Const object + union
-const THEME = {
-  Light: 'light',
-  Dark: 'dark',
-  Auto: 'auto'
-} as const;
-
-type Theme = typeof THEME[keyof typeof THEME];
-```
-
 ---
 
 ## 23. TypeScript with React
 
-TypeScript provides type safety for React components, props, state, events, and hooks.
+Type safety for components, props, state, events, and hooks.
 
 ```typescript
 import { FC, useState, ChangeEvent, FormEvent } from 'react';
@@ -1636,8 +1507,6 @@ function Button({ label, variant = 'primary' }: ButtonProps) {
 ---
 
 ## 24. React TypeScript Types
-
-Common React TypeScript types for components and elements.
 
 ```typescript
 import { ReactNode, ReactElement, FC, PropsWithChildren, JSX } from 'react';
@@ -1730,8 +1599,6 @@ const Input = ({ label, ...props }: InputProps) => (
 
 ## 25. React Event Types
 
-React events have specific TypeScript types imported from React.
-
 ```typescript
 import {
   ChangeEvent,
@@ -1823,8 +1690,6 @@ interface ButtonProps {
 ---
 
 ## 26. Typing React Hooks
-
-React hooks support generics for type safety.
 
 ```typescript
 import { useState, useEffect, useRef, useReducer, useContext, useMemo, useCallback } from 'react';
@@ -1924,8 +1789,6 @@ function calculateExpensiveValue(n: number): number {
 
 ## 27. tsconfig.json Configuration
 
-The `tsconfig.json` file configures TypeScript compiler options.
-
 ```json
 {
   "compilerOptions": {
@@ -2016,7 +1879,7 @@ The `tsconfig.json` file configures TypeScript compiler options.
 
 ## 28. Declaration Files (.d.ts)
 
-**Declaration files** contain only type information (no implementation) for JavaScript libraries.
+Type-only files (no implementation) for JS libraries.
 
 ```typescript
 // types.d.ts
@@ -2106,7 +1969,7 @@ export {};
 
 ## 29. Type Guards
 
-**Type guards** narrow types within conditional blocks.
+Narrow types within conditional blocks (`typeof`, `instanceof`, `in`, custom `is` predicates).
 
 ```typescript
 // typeof type guard
@@ -2207,7 +2070,7 @@ function processValue2(value: string | null) {
 
 ## 30. Discriminated Unions
 
-**Discriminated unions** (tagged unions) use a common property to narrow types.
+Use a common property (discriminant) to narrow union types.
 
 ```typescript
 // API Response discriminated union
@@ -2302,7 +2165,7 @@ function reducer(state: State, action: Action): State {
 
 ## 31. Function Overloads
 
-**Function overloads** provide multiple type signatures for a single function.
+Multiple type signatures for a single function.
 
 ```typescript
 // Basic overload
@@ -2351,7 +2214,7 @@ function map<T, U>(arr: T[], fn: (item: T) => U | boolean): (U | T)[] {
 
 ## 32. Template Literal Types
 
-**Template literal types** build types from string literals.
+Build types from string literals.
 
 ```typescript
 // Basic template literal type
@@ -2399,8 +2262,6 @@ sendEmail('anwar@example.com'); // ✅
 ---
 
 ## 33. Best Practices
-
-**TypeScript Best Practices for React Development:**
 
 ```typescript
 // 1. Enable strict mode
@@ -2515,49 +2376,3 @@ const config = {
 // config.port is 3000 (not number)
 ```
 
----
-
-## 34. Summary
-
-**TypeScript Core Concepts:**
-
-- **Static Typing**: Catch errors at compile time
-- **Type Inference**: Automatic type detection
-- **Type Safety**: Prevent runtime type errors
-- **Better Tooling**: Enhanced IDE support and autocomplete
-- **Self-Documenting**: Types serve as inline documentation
-
-**Essential Type Features:**
-
-- **Basic Types**: string, number, boolean, any, unknown, void, never
-- **Complex Types**: Union (|), Intersection (&), Literal types
-- **Type Aliases & Interfaces**: Define custom types
-- **Generics**: Write reusable, type-safe code
-- **Utility Types**: Partial, Pick, Omit, Record, etc.
-- **Type Guards**: Narrow types safely
-
-**React with TypeScript:**
-
-- Type props, state, events, and hooks
-- Use proper event types (MouseEvent, ChangeEvent, etc.)
-- Leverage React TypeScript types (ReactNode, FC, etc.)
-- Type custom hooks for reusability
-
-**Best Practices:**
-
-- Enable strict mode in tsconfig.json
-- Prefer unknown over any
-- Use type inference when possible
-- Write custom type guards
-- Leverage utility types
-- Keep types simple and readable
-- Use discriminated unions for complex states
-- Properly type React components and hooks
-
-**Next Steps:**
-
-- Master advanced TypeScript patterns
-- Practice with real-world projects
-- Learn TypeScript with state management (Redux, Zustand)
-- Explore TypeScript with Next.js
-- Build type-safe APIs with TypeScript

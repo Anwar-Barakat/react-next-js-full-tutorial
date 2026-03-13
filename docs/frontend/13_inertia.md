@@ -33,8 +33,6 @@ A comprehensive guide to building modern full-stack apps with Inertia.js, Larave
 - JSON API responses → Direct props to React components.
 - Axios API calls → Inertia's built-in navigation.
 
-In short: Inertia bridges Laravel and React so they work as one app — no API layer needed.
-
 ---
 
 ## 2. How does Inertia work?
@@ -58,8 +56,6 @@ Next navigation:
 <Link href="/profile"> → Inertia XHR → Laravel → JSON (component + props) → React swaps component
 ```
 
-In short: Inertia acts as the bridge — full HTML on first load, JSON on navigation — feels like an SPA without a separate API.
-
 ---
 
 ## 3. Inertia vs Traditional API (SPA approach)
@@ -72,8 +68,6 @@ In short: Inertia acts as the bridge — full HTML on first load, JSON on naviga
 - **SEO** — Inertia.js: Needs SSR for SEO. API + React: Next.js has built-in SSR
 - **Complexity** — Inertia.js: Low, one codebase. API + React: Higher, two separate systems
 - **Best for** — Inertia.js: Internal tools, admin panels, CRUD apps. API + React: Public sites needing SEO, complex frontends
-
-In short: Inertia is simpler and faster to build — great when you don't need SSR or a public API.
 
 ---
 
@@ -649,13 +643,4 @@ export default function FlashMessage() {
 - **Best for** — Inertia.js: Admin panels, CRUD, internal tools. Next.js: Public sites, SEO, complex frontends
 - **Real-time** — Inertia.js: Laravel Reverb + Echo. Next.js: Pusher / custom
 
-**When to use Inertia:**
-- You want to keep Laravel as your full framework (routing, auth, middleware).
-- Building admin panels, dashboards, or internal tools.
-- You don't need SEO or SSR.
-- You want to avoid maintaining a separate API.
-
-**When to use Next.js:**
-- You need SSR for SEO (public-facing site).
-- You need a standalone frontend that may connect to multiple backends.
-- You need edge functions, image optimization, or static site generation.
+Use **Inertia** for Laravel-centric apps (admin panels, CRUD, internal tools) where you don't need SSR/SEO. Use **Next.js** for public-facing sites needing SSR, edge functions, or multi-backend frontends.

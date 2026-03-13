@@ -1,6 +1,6 @@
 # HTML & Web Security Guide
 
-A comprehensive guide to modern HTML, bundlers, and web security fundamentals.
+Modern HTML, bundlers, and web security fundamentals.
 
 ---
 
@@ -29,7 +29,6 @@ A comprehensive guide to modern HTML, bundlers, and web security fundamentals.
 16. [Content Security Policy (CSP)](#16-content-security-policy-csp)
 17. [Secure Cookies](#17-secure-cookies)
 18. [Input Validation and Sanitization](#18-input-validation-and-sanitization)
-19. [Summary](#19-summary)
 
 ---
 
@@ -37,30 +36,18 @@ A comprehensive guide to modern HTML, bundlers, and web security fundamentals.
 
 ## 1. What is a Bundler?
 
-**A bundler** is a tool in web development that combines multiple files into optimized bundles for browsers.
+A tool that combines multiple files (JS, CSS, images) into optimized bundles for browsers.
 
-**What it does:**
-- Takes lots of separate files (JavaScript, CSS, images, etc.)
-- Looks at all the imports and dependencies between them
-- Combines them into one or a few optimized files (bundles)
-- Organizes many small files into one for faster page loads
-
-**Why bundlers are needed:**
-- Browsers don't understand modern module syntax (import/export)
-- Too many HTTP requests slow down page load
-- Code needs optimization and minification
-- Assets need processing (SASS → CSS, TypeScript → JavaScript)
+- Resolves imports and dependencies between files
+- Combines them into fewer optimized files for faster page loads
+- Handles asset processing (SASS → CSS, TypeScript → JavaScript)
+- Minifies and optimizes code
 
 ---
 
 ## 2. What is Webpack?
 
-**Webpack** is a powerful, configurable bundler - the industry standard for years.
-
-**Key characteristics:**
-- You write many files → Webpack packs them together
-- Browser gets fewer files, so it loads faster
-- Handles: JavaScript, CSS, Images, Fonts
+**Webpack** is a powerful, configurable bundler - the industry standard for years. Complex configuration but excellent production optimization.
 
 **Core concepts:**
 
@@ -69,31 +56,16 @@ A comprehensive guide to modern HTML, bundlers, and web security fundamentals.
 - **Entry** — Starting point of your application
 - **Output** — Where to put bundled files
 
-**Characteristics:**
-- Strong and powerful
-- Complex configuration
-- Harder to learn
-- Slow development builds
-- Great for production optimization
-
 ---
 
 ## 3. What is Vite?
 
-**Vite** is a modern, fast build tool designed to fix Webpack's slowness.
+**Vite** is a modern, fast build tool designed to fix Webpack's slowness. Zero configuration for most projects.
 
-**Key features:**
-- App starts almost instantly
-- Updates show immediately when you save files
-- Zero configuration for most projects
-- Uses native ES modules in development
-- Lightning-fast Hot Module Replacement (HMR)
-
-**What makes Vite fast:**
-- No bundling in development
-- Uses esbuild (written in Go, very fast)
+- Uses native ES modules in development (no bundling)
+- Lightning-fast HMR via esbuild (written in Go)
 - Only transforms files the browser requests
-- Incremental updates
+- Instant app startup
 
 ---
 
@@ -107,34 +79,11 @@ A comprehensive guide to modern HTML, bundlers, and web security fundamentals.
 - **Production Build** — Webpack: Excellent; Vite: Excellent (uses Rollup)
 - **Best For** — Webpack: Complex setups; Vite: Modern apps
 
-**Webpack approach:**
-1. Bundles everything first
-2. App starts slow
-3. Very powerful
-4. Harder to learn
-
-**Vite approach:**
-1. Does not bundle in development
-2. App starts instantly
-3. Very fast
-4. Easy to use
-5. Browser loads files directly
-6. No waiting for a big bundle
-7. Only updates the file you changed
-8. Vite only does full bundling when you run production build
-
 ---
 
 ## 5. Code Splitting
 
-**What it is:**
-Breaking code into smaller chunks that can be loaded on demand.
-
-**Benefits:**
-- Improves initial load time
-- Only load necessary code for each page
-- Better caching
-- Automatic and manual splitting available
+Breaking code into smaller chunks loaded on demand, improving initial load time and caching.
 
 **Manual code splitting:**
 
@@ -238,9 +187,6 @@ export default defineConfig({
 
 ## 7. Package Managers: npm vs npx vs yarn vs pnpm vs bun
 
-**What is a package manager?**
-A tool that automates installing, updating, and managing third-party libraries (packages) your project depends on.
-
 ### npm (Node Package Manager)
 
 **The default** package manager that comes with Node.js.
@@ -265,7 +211,6 @@ npm run dev
 npm uninstall axios
 ```
 
-**Key characteristics:**
 - Comes pre-installed with Node.js
 - Uses `package-lock.json` for deterministic installs
 - Largest registry of open-source packages
@@ -296,12 +241,6 @@ npx prisma init
 npx shadcn-ui@latest add button
 ```
 
-**When to use npx:**
-- One-time commands (scaffolding tools like `create-next-app`)
-- Running locally installed CLI tools
-- Testing different versions of a package
-- Avoiding global installs that pollute your system
-
 ### yarn
 
 **Created by Facebook** as a faster, more reliable alternative to npm.
@@ -326,7 +265,6 @@ yarn dev
 yarn remove axios
 ```
 
-**Key characteristics:**
 - Uses `yarn.lock` for deterministic installs
 - Parallel installation (faster than npm)
 - Workspaces support for monorepos
@@ -357,13 +295,10 @@ pnpm dev
 pnpm remove axios
 ```
 
-**Key characteristics:**
 - Uses a global content-addressable store (packages stored once on disk)
 - Symlinks packages instead of copying them
-- Saves significant disk space across projects
 - Strict dependency resolution (prevents phantom dependencies)
 - Built-in monorepo support with workspaces
-- Fastest install times for repeated installs
 
 **How pnpm saves disk space:**
 
@@ -407,13 +342,11 @@ bun remove axios
 bun run index.ts
 ```
 
-**Key characteristics:**
 - Written in Zig (extremely fast)
 - Runtime + package manager + bundler + test runner in one tool
 - Native TypeScript and JSX support (no transpiler needed)
 - Compatible with npm packages and `node_modules`
 - Uses `bun.lockb` (binary lockfile for speed)
-- Drop-in replacement for Node.js in many cases
 
 ### Comparison
 
@@ -441,28 +374,16 @@ npx prettier --write .        # Runs once, no install needed
 - **npm** = "I want this package in my project" (install)
 - **npx** = "I want to run this command once" (execute)
 
-### Which One Should You Use?
-
-- **npm** - Default choice, works everywhere, largest community
-- **yarn** - If you need PnP mode or prefer its CLI
-- **pnpm** - If you care about disk space or work with monorepos
-- **bun** - If you want maximum speed and are okay with a newer ecosystem
-- **npx** - For running one-off commands regardless of your package manager
-
 ---
 
 ## 8. Linters and Formatters: ESLint, Prettier, and Biome
 
-### What is the difference between a Linter and a Formatter?
-
-- **Linter** — Finds **bugs and bad patterns** in your code (unused variables, missing imports, wrong logic).
-- **Formatter** — Fixes **code style** automatically (indentation, quotes, semicolons, line length).
+- **Linter** — Finds bugs and bad patterns (unused variables, missing imports, wrong logic)
+- **Formatter** — Fixes code style automatically (indentation, quotes, semicolons, line length)
 
 ### ESLint (Linter)
 
-- The most popular JavaScript/TypeScript **linter**.
-- Finds bugs, enforces coding rules, and catches potential errors.
-- Highly configurable with plugins (React, TypeScript, Next.js, etc.).
+The most popular JS/TS linter. Highly configurable with plugins (React, TypeScript, Next.js, etc.).
 
 ```bash
 npm install -D eslint
@@ -482,18 +403,9 @@ export default [
 ];
 ```
 
-**What ESLint catches:**
-- Unused variables and imports.
-- Missing dependencies in React hooks.
-- Unreachable code.
-- Incorrect use of `==` instead of `===`.
-- React-specific issues (missing keys, invalid JSX).
-
 ### Prettier (Formatter)
 
-- The most popular **code formatter**.
-- Formats your code automatically — no arguments about style.
-- Supports JavaScript, TypeScript, CSS, HTML, JSON, Markdown, and more.
+The most popular code formatter. Supports JS, TS, CSS, HTML, JSON, Markdown, and more.
 
 ```bash
 npm install -D prettier
@@ -511,18 +423,9 @@ npx prettier --write .
 }
 ```
 
-**What Prettier does:**
-- Fixes indentation and spacing.
-- Adds or removes semicolons.
-- Converts quotes (single/double).
-- Wraps long lines.
-- Formats consistently across the entire project.
-
 ### Biome (Linter + Formatter in One)
 
-- A **modern, fast** tool that replaces both ESLint and Prettier.
-- Written in **Rust** — extremely fast (10-100x faster than ESLint + Prettier).
-- One tool instead of two — simpler configuration and fewer dependencies.
+Replaces both ESLint and Prettier. Written in Rust (10-100x faster). One tool, simpler configuration.
 
 ```bash
 npm install -D --save-exact @biomejs/biome
@@ -568,27 +471,13 @@ npx @biomejs/biome check --write .
 - No conflicts — formatting and linting are unified.
 - Growing rapidly in adoption.
 
-### Which one should you use?
-
-- **ESLint + Prettier** — If you need specific plugins (React, Next.js, Tailwind), or your team already uses them.
-- **Biome** — If you want speed, simplicity, and a modern tool. Great for new projects.
-- Both are valid choices — the important thing is to **use a linter and formatter** in every project.
-
 ---
 
 ## HTML Fundamentals
 
 ## 9. Semantic HTML
 
-**What it is:**
-Using HTML tags that describe content purpose, not just appearance.
-
-**Benefits:**
-- Better accessibility
-- Improved SEO
-- More readable code
-- Screen reader friendly
-- Self-documenting
+Using HTML tags that describe content purpose, not just appearance. Improves accessibility, SEO, and code readability.
 
 **Non-semantic vs Semantic:**
 
@@ -642,10 +531,7 @@ Using HTML tags that describe content purpose, not just appearance.
 
 ## 10. HTML5 APIs
 
-**What they are:**
-Browser features you can use with JavaScript to build advanced web applications.
-
-**Common HTML5 APIs:**
+Browser APIs accessible via JavaScript for building advanced web applications.
 
 ### Geolocation API
 Get the user's location.
@@ -737,13 +623,7 @@ async function getData() {
 
 ## 11. Data Attributes
 
-**What they are:**
-Custom attributes to store extra information on HTML elements.
-
-**Features:**
-- Start with `data-` prefix
-- Accessible via `dataset` property
-- Don't affect styling or behavior unless scripted
+Custom attributes (prefixed with `data-`) to store extra information on HTML elements. Accessible via the `dataset` property.
 
 **Usage:**
 
@@ -815,8 +695,7 @@ function UserCard({ user }) {
 
 ## 12. Script Loading Strategies
 
-**The problem:**
-Browser reads HTML from top to bottom. When it meets a `<script>` tag, it must decide whether to stop and run JavaScript now or continue reading HTML.
+Controls how the browser handles `<script>` tags relative to HTML parsing.
 
 ### Regular `<script>` - STOP and wait
 
@@ -877,14 +756,7 @@ Browser reads HTML from top to bottom. When it meets a `<script>` tag, it must d
 
 ## 13. XSS (Cross-Site Scripting)
 
-**What it is:**
-XSS injects malicious scripts into web pages that run in victim's browser.
-
-**What attackers can do:**
-- Steal cookies and sessions
-- Steal personal data
-- Redirect users
-- Deface websites
+Injects malicious scripts into web pages that run in victim's browser. Can steal cookies/sessions, personal data, redirect users, or deface websites.
 
 **Three types:**
 
@@ -965,11 +837,7 @@ function SafeHtml({ html }) {
 
 ## 14. CSRF (Cross-Site Request Forgery)
 
-**What it is:**
-CSRF tricks users into performing unwanted actions while authenticated.
-
-**How it works:**
-Exploits user's authenticated session - attacker cannot see response, only trigger action.
+Tricks users into performing unwanted actions while authenticated. Exploits the user's session -- the attacker cannot see the response, only trigger the action.
 
 **Attack scenario:**
 
@@ -1046,13 +914,7 @@ app.post('/transfer', (req, res) => {
 
 ## 15. CORS (Cross-Origin Resource Sharing)
 
-**What it is:**
-CORS controls which domains can access your API - a browser security feature.
-
-**Same-origin policy:**
-Browser blocks requests between different origins by default.
-
-**What's blocked:**
+A browser security feature controlling which domains can access your API. Browsers block cross-origin requests by default (same-origin policy).
 
 ```javascript
 // Page at https://example.com
@@ -1140,17 +1002,7 @@ Access-Control-Allow-Origin: https://specific-domain.com
 
 ## 16. Content Security Policy (CSP)
 
-**What it is:**
-CSP is a security rule that tells the browser what content is allowed to load.
-
-**Purpose:**
-- Prevents XSS attacks
-- Blocks inline scripts by default
-- Adds extra layer of protection
-
-**Where CSP lives:**
-- In HTTP headers (best)
-- Or in a meta tag in HTML
+A security header that tells the browser what content sources are allowed to load, preventing XSS attacks. Can be set via HTTP header (preferred) or meta tag.
 
 **CSP header:**
 
@@ -1227,10 +1079,7 @@ Browser sends violations to `/csp-report` for monitoring.
 
 ## 17. Secure Cookies
 
-**What they are:**
-Cookies store small data (login, session) - secure cookies protect this data.
-
-**Important cookie settings:**
+Cookie attributes that protect stored session/login data.
 
 ### HttpOnly
 JavaScript cannot read the cookie - protects against XSS.
@@ -1278,36 +1127,6 @@ res.cookie('session', token, {
 });
 ```
 
-**Cookie attributes:**
-
-```javascript
-// httpOnly: Prevents JavaScript access
-// ✅ Protects against XSS
-httpOnly: true
-
-// secure: Only sent over HTTPS
-// ✅ Protects against man-in-the-middle
-secure: true
-
-// sameSite: Controls cross-site sending
-// ✅ Protects against CSRF
-sameSite: 'strict'  // Never sent cross-site
-sameSite: 'lax'     // Sent with top-level navigation
-sameSite: 'none'    // Always sent (requires secure: true)
-
-// maxAge: Expiration time in milliseconds
-maxAge: 3600000  // 1 hour
-
-// expires: Expiration date
-expires: new Date(Date.now() + 3600000)
-
-// domain: Which domain can access
-domain: '.example.com'  // *.example.com can access
-
-// path: Which paths can access
-path: '/admin'  // Only /admin/* can access
-```
-
 **Example: Auth token**
 
 ```javascript
@@ -1326,14 +1145,10 @@ res.clearCookie('session');
 
 ## 18. Input Validation and Sanitization
 
-**What they are:**
-- **Validation** - Check if input meets requirements
-- **Sanitization** - Clean/remove dangerous content
+- **Validation** -- Check if input meets requirements
+- **Sanitization** -- Clean/remove dangerous content
 
-**Why both are needed:**
-- Client-side for UX
-- Server-side for security
-- Never trust user input
+Both are needed: client-side for UX, server-side for security. Never trust user input.
 
 **Client-side validation (UX):**
 
@@ -1438,42 +1253,3 @@ execFile('ping', [userInput], (error, stdout) => {
 - ✅ Whitelist allowed inputs when possible
 - ✅ Escape output based on context (HTML, SQL, shell)
 
----
-
-## 19. Summary
-
-**Key takeaways:**
-
-### Bundlers & Package Managers
-1. **Webpack** - Powerful, configurable, slower builds
-2. **Vite** - Fast, modern, instant dev server
-3. **Code splitting** - Load code on demand for better performance
-4. **Build optimization** - Minification, tree shaking, compression
-5. **Package managers** - npm (default), yarn (parallel), pnpm (disk-efficient), bun (fastest)
-6. **npx** - Package runner, not a manager - runs commands without global installs
-
-### HTML
-1. **Semantic HTML** - Use meaningful tags for better accessibility and SEO
-2. **HTML5 APIs** - Geolocation, localStorage, Canvas, Fetch for rich web apps
-3. **Data attributes** - Store custom data on elements
-4. **Script strategies** - Normal vs defer vs async for optimal loading
-
-### Web Security
-1. **XSS** - Escape user input, use DOMPurify, set CSP
-2. **CSRF** - Use tokens, SameSite cookies, check Origin
-3. **CORS** - Control cross-origin access with headers
-4. **CSP** - Define allowed content sources
-5. **Secure cookies** - HttpOnly, Secure, SameSite flags
-6. **Input validation** - Validate client-side for UX, server-side for security
-7. **SQL injection** - Use parameterized queries
-8. **Never trust user input** - Always validate and sanitize
-
-**Security principles:**
-- Defense in depth - multiple layers of security
-- Principle of least privilege - minimum necessary permissions
-- Fail securely - errors should not expose sensitive info
-- Don't rely on client-side validation alone
-- Keep dependencies updated
-- Regular security audits
-
-Modern web development requires understanding both performance (bundlers, optimization) and security (XSS, CSRF, input validation) to build fast, secure applications.

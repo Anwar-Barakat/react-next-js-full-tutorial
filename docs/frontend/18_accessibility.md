@@ -1,7 +1,5 @@
 # Web Accessibility (a11y) - Complete Guide
 
-A comprehensive guide to web accessibility for frontend developers using React, TypeScript, and modern HTML.
-
 ## Table of Contents
 
 1. [What is Web Accessibility (a11y)?](#1-what-is-web-accessibility-a11y)
@@ -25,12 +23,8 @@ A comprehensive guide to web accessibility for frontend developers using React, 
 - Disabilities include visual, auditory, motor, cognitive, speech, and neurological impairments.
 - Accessibility also benefits users with temporary impairments (broken arm), situational limitations (bright sunlight), and aging populations.
 
-**Why Accessibility Matters:**
-
-- Roughly **15-20% of the world's population** lives with some form of disability.
-- An inaccessible site excludes a significant portion of potential users and customers.
-- Accessible websites have better SEO, improved usability for all users, and cleaner code.
-- It is the ethical and inclusive approach to building software.
+- ~15-20% of the world's population has some form of disability.
+- Accessible websites have better SEO, improved usability, and cleaner code.
 
 **Legal Requirements:**
 
@@ -41,17 +35,12 @@ A comprehensive guide to web accessibility for frontend developers using React, 
 - **EN 301 549** -- European standard for accessibility requirements for ICT products and services.
 - Lawsuits for inaccessible websites have increased significantly. In 2023, over 4,600 web accessibility lawsuits were filed in the US alone.
 
-**Key Takeaway:**
-
-- Accessibility is not optional. It is a legal requirement in many jurisdictions and a moral responsibility for all developers.
-
 ---
 
 ## 2. WCAG Guidelines
 
-- **WCAG (Web Content Accessibility Guidelines)** is an international standard published by the W3C (World Wide Web Consortium).
-- WCAG provides a shared set of guidelines for making web content accessible.
-- The current widely adopted version is **WCAG 2.1**, with **WCAG 2.2** published in October 2023.
+- **WCAG (Web Content Accessibility Guidelines)** -- W3C international standard for web content accessibility.
+- Current widely adopted version: **WCAG 2.1**; **WCAG 2.2** published October 2023.
 
 **WCAG Conformance Levels:**
 
@@ -63,8 +52,6 @@ A comprehensive guide to web accessibility for frontend developers using React, 
   - Example: Text has a contrast ratio of at least 7:1. Sign language interpretation for audio content.
 
 **The Four Principles (POUR):**
-
-- Every WCAG guideline falls under one of four principles:
 
 - **1. Perceivable** -- Information and UI must be presentable in ways users can perceive.
   - Provide text alternatives for non-text content (images, video, audio).
@@ -92,15 +79,12 @@ A comprehensive guide to web accessibility for frontend developers using React, 
 
 ## 3. Semantic HTML for Accessibility
 
-- **Semantic HTML** means using the correct HTML element for the correct purpose.
-- Screen readers and assistive technologies rely on semantic structure to understand and navigate content.
-- Using a `<div>` or `<span>` for everything destroys meaning and breaks accessibility.
+Use the correct HTML element for its intended purpose. Screen readers rely on semantic structure to navigate content.
 
 **Correct Heading Hierarchy:**
 
-- Headings (`<h1>` through `<h6>`) create a document outline that screen reader users navigate by.
-- Always start with `<h1>` and do not skip levels.
-- There should be only one `<h1>` per page.
+- Headings (`<h1>` through `<h6>`) create a document outline for screen reader navigation.
+- Always start with `<h1>`, do not skip levels, and use only one `<h1>` per page.
 
 ```html
 <!-- Bad: Skipped heading levels, used for styling -->
@@ -118,8 +102,6 @@ A comprehensive guide to web accessibility for frontend developers using React, 
 ```
 
 **Landmark Elements:**
-
-- Landmarks allow screen reader users to jump directly to major sections of a page.
 
 - **`<header>`** -- Introductory content, typically containing the site logo and navigation.
 - **`<nav>`** -- A section containing navigation links.
@@ -232,9 +214,7 @@ const Page: React.FC = () => {
 
 ## 4. ARIA Roles and Attributes
 
-- **ARIA (Accessible Rich Internet Applications)** is a set of attributes that supplement HTML to communicate meaning and behavior to assistive technologies.
-- **First rule of ARIA**: Do not use ARIA if a native HTML element already provides the semantics you need.
-- ARIA does not change behavior or appearance. It only changes how assistive technologies interpret an element.
+**ARIA** supplements HTML to communicate meaning to assistive technologies. It does not change behavior or appearance. **First rule of ARIA**: do not use ARIA if a native HTML element already provides the semantics you need.
 
 **Common ARIA Attributes:**
 
@@ -369,9 +349,7 @@ const Dialog: React.FC<{ title: string; children: React.ReactNode }> = ({
 
 ## 5. Keyboard Navigation
 
-- All interactive elements must be operable with a keyboard alone.
-- Many users cannot use a mouse due to motor disabilities, visual impairments, or personal preference.
-- Standard keyboard interactions: **Tab** (move forward), **Shift+Tab** (move backward), **Enter/Space** (activate), **Escape** (close/cancel), **Arrow keys** (navigate within components).
+All interactive elements must be operable with a keyboard alone. Standard keys: **Tab** (forward), **Shift+Tab** (backward), **Enter/Space** (activate), **Escape** (close/cancel), **Arrow keys** (within components).
 
 **Focus Management:**
 
@@ -515,9 +493,7 @@ const Modal: React.FC<ModalProps> = ({ isOpen, onClose, children, title }) => {
 
 **Skip Links:**
 
-- A skip link allows keyboard users to skip repetitive navigation and jump directly to the main content.
-- It should be the very first focusable element on the page.
-- It is visually hidden until focused.
+- First focusable element on the page; lets keyboard users skip navigation. Visually hidden until focused.
 
 ```html
 <!-- Skip link as the first element in <body> -->
@@ -581,9 +557,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
 
 ## 6. Color and Contrast
 
-- **Color contrast** is the difference in brightness between foreground text and its background.
-- Low contrast text is difficult or impossible to read for users with low vision, color blindness, or anyone in a bright or dim environment.
-- **Never rely on color alone** to convey information. Always supplement color with text, icons, or patterns.
+Sufficient contrast between foreground text and background is essential for readability. **Never rely on color alone** to convey information -- always supplement with text, icons, or patterns.
 
 **WCAG Contrast Ratios:**
 
@@ -596,7 +570,7 @@ const Layout: React.FC<{ children: React.ReactNode }> = ({ children }) => {
   - Normal text: contrast ratio of at least **7:1**
   - Large text: contrast ratio of at least **4.5:1**
 
-**Do Not Rely on Color Alone:**
+**Examples -- Do Not Rely on Color Alone:**
 
 ```html
 <!-- Bad: Color is the only indicator of an error -->
@@ -650,29 +624,24 @@ const StatusBadge: React.FC<{ status: "success" | "error" }> = ({ status }) => {
 - **Stark** -- Figma and browser plugin for designers and developers.
 - **Color Oracle** -- Desktop application that simulates color blindness.
 
-**Accessible Color Palette Tips:**
+**Color Palette Tips:**
 
-- Test your color combinations with a contrast checker before using them.
-- Avoid pure gray text on white backgrounds (e.g., `#999` on `#fff` is only 2.85:1 -- fails AA).
-- Use underlines or other visual indicators for links, not just color differences.
-- Provide a high-contrast mode or dark mode option when possible.
-- Test with color blindness simulators (protanopia, deuteranopia, tritanopia).
+- Test color combinations with a contrast checker before using them.
+- Avoid pure gray text on white (e.g., `#999` on `#fff` is only 2.85:1 -- fails AA).
+- Use underlines or other indicators for links, not just color differences.
+- Provide high-contrast or dark mode when possible.
+- Test with color blindness simulators.
 
 ---
 
 ## 7. Images and Alt Text
 
-- The `alt` attribute provides a text alternative for images, read aloud by screen readers.
-- Every `<img>` element must have an `alt` attribute. The content of that attribute depends on the image's purpose.
+Every `<img>` must have an `alt` attribute. Its content depends on the image's purpose:
 
-**When and How to Use Alt Text:**
-
-- **Informative images** -- Describe the content and function of the image concisely.
-- **Decorative images** -- Use an empty `alt=""` so screen readers skip them entirely.
-- **Functional images** (logos, icons that are links) -- Describe the action or destination, not the image appearance.
-- **Complex images** (charts, graphs, diagrams) -- Provide a brief alt text and a longer description nearby or via `aria-describedby`.
-
-**Informative vs. Decorative Images:**
+- **Informative** -- Describe the content concisely.
+- **Decorative** -- Use `alt=""` so screen readers skip them.
+- **Functional** (logos, icon links) -- Describe the action/destination, not appearance.
+- **Complex** (charts, diagrams) -- Brief alt text plus a longer description nearby or via `aria-describedby`.
 
 ```html
 <!-- Informative: Describes what the image shows -->
@@ -734,13 +703,12 @@ const AccessibleImage: React.FC<ImageProps> = ({
 <AccessibleImage src="/wave-pattern.svg" alt="" isDecorative />
 ```
 
-**Alt Text Best Practices:**
+**Alt Text Tips:**
 
-- Keep alt text concise -- typically under 125 characters.
-- Do not start with "Image of..." or "Picture of..." -- screen readers already announce it as an image.
-- Describe the content and purpose, not the visual appearance (unless appearance is relevant).
-- If the image contains text, include that text in the alt attribute.
-- For icon fonts or SVG icons, use `aria-label` on the parent element or `aria-hidden="true"` if decorative.
+- Keep under 125 characters. Do not start with "Image of..." (screen readers already announce it as an image).
+- Describe content and purpose, not visual appearance.
+- If the image contains text, include that text in `alt`.
+- For SVG icons, use `aria-label` on the parent or `aria-hidden="true"` if decorative.
 
 ```tsx
 // SVG icon with accessible label
@@ -764,14 +732,12 @@ const DecorativeIcon: React.FC = () => (
 
 ## 8. Forms and Accessibility
 
-- Forms are one of the most critical areas for accessibility.
-- Every form input must have a programmatically associated label.
-- Error messages must be clearly communicated to all users, including screen reader users.
+Every input must have a programmatically associated label, and errors must be communicated to screen reader users.
 
 **Labels:**
 
-- Every input needs a `<label>` element with a `for` attribute matching the input's `id`.
-- Placeholder text is **not** a substitute for a label. Placeholders disappear on input and have poor contrast.
+- Use a `<label>` with `for` matching the input's `id`.
+- Placeholder text is **not** a label substitute -- it disappears on input and has poor contrast.
 
 ```html
 <!-- Bad: No label, only placeholder -->
@@ -794,10 +760,8 @@ const DecorativeIcon: React.FC = () => (
 
 **Error Messages:**
 
-- Error messages must be associated with their input using `aria-describedby`.
-- Use `aria-invalid="true"` to indicate the field has an error.
-- Move focus to the first field with an error after form submission.
-- Announce errors to screen readers using `role="alert"` or `aria-live`.
+- Associate errors with inputs via `aria-describedby`. Mark invalid fields with `aria-invalid="true"`.
+- Move focus to the first error after submission. Announce errors with `role="alert"` or `aria-live`.
 
 ```tsx
 interface FormFieldProps {
@@ -849,10 +813,7 @@ const FormField: React.FC<FormFieldProps> = ({
 
 **Required Fields:**
 
-- Use the `required` attribute on inputs.
-- Use `aria-required="true"` for screen readers.
-- Visually indicate required fields with an asterisk (*) and explain the convention.
-- Do not rely on color alone to indicate required fields.
+- Use `required` and `aria-required="true"`. Indicate visually with an asterisk (*) and explain the convention.
 
 ```html
 <p>Fields marked with <span aria-hidden="true">*</span> are required.</p>
@@ -865,8 +826,7 @@ const FormField: React.FC<FormFieldProps> = ({
 
 **Fieldset and Legend:**
 
-- Use `<fieldset>` and `<legend>` to group related inputs (e.g., radio buttons, checkboxes, address fields).
-- The `<legend>` acts as a label for the entire group.
+- Group related inputs (radios, checkboxes) with `<fieldset>` and `<legend>`.
 
 ```html
 <fieldset>
@@ -965,8 +925,7 @@ const ContactForm: React.FC = () => {
 
 **Accessible Button:**
 
-- Use the native `<button>` element whenever possible.
-- If you must use a different element, add `role="button"`, `tabIndex={0}`, and keyboard event handlers.
+- Prefer native `<button>`. If unavoidable, add `role="button"`, `tabIndex={0}`, and keyboard handlers.
 
 ```tsx
 // Good: Native button
@@ -1375,9 +1334,7 @@ const Tooltip: React.FC<TooltipProps> = ({ text, children }) => {
 
 ## 10. Screen Readers
 
-- A **screen reader** is assistive technology that reads the content of a screen aloud or outputs it to a braille display.
-- Screen readers rely on semantic HTML, ARIA attributes, and the accessibility tree to interpret the page.
-- The **accessibility tree** is a simplified version of the DOM that contains only the information relevant to assistive technologies.
+Screen readers read content aloud (or to braille) using the **accessibility tree** -- a simplified DOM containing only information relevant to assistive technologies.
 
 **Popular Screen Readers:**
 
@@ -1416,24 +1373,13 @@ const Tooltip: React.FC<TooltipProps> = ({ text, children }) => {
 
 **Common Screen Reader Issues:**
 
-- **Missing alt text on images** -- Screen reader reads the filename instead, which is meaningless.
-- **Missing form labels** -- Screen reader announces "edit text" with no context.
-- **Non-semantic HTML** -- `<div>` and `<span>` elements are ignored; content structure is lost.
-- **Incorrect heading hierarchy** -- Users cannot navigate by headings effectively.
-- **Dynamic content not announced** -- Content added via JavaScript is not announced without `aria-live`.
-- **Focus not managed** -- After opening a modal, focus stays behind the overlay.
-- **Inaccessible custom components** -- Dropdowns, date pickers, and tabs built without ARIA or keyboard support.
-
-**Testing Checklist for Screen Readers:**
-
-- Can you navigate the page using only headings?
-- Are all images described (or properly marked as decorative)?
-- Are all form fields labeled correctly?
-- Are error messages announced when they appear?
-- Can you navigate and operate the page with Tab and arrow keys?
-- Are modals and popups properly announced?
-- Does focus move logically through the page?
-- Is dynamic content (loading states, notifications) announced?
+- Missing alt text -- reader announces meaningless filenames.
+- Missing form labels -- reader says "edit text" with no context.
+- Non-semantic HTML -- `<div>`/`<span>` structure is invisible.
+- Incorrect heading hierarchy -- heading navigation fails.
+- Dynamic content not announced without `aria-live`.
+- Focus not managed after modal open.
+- Custom components without ARIA or keyboard support.
 
 ---
 
@@ -1441,10 +1387,8 @@ const Tooltip: React.FC<TooltipProps> = ({ text, children }) => {
 
 **Lighthouse Audit:**
 
-- Built into Chrome DevTools (Audits tab / Lighthouse tab).
-- Provides an accessibility score from 0 to 100.
-- Identifies specific issues with links to WCAG guidelines.
-- Run in Incognito mode for more accurate results (extensions can interfere).
+- Built into Chrome DevTools. Scores 0-100 and identifies issues with WCAG links.
+- Run in Incognito mode for accuracy.
 
 ```bash
 # Run Lighthouse from the command line
@@ -1457,10 +1401,7 @@ lhci autorun --collect.url=https://example.com
 
 **axe DevTools:**
 
-- Browser extension by Deque Systems (available for Chrome, Firefox, Edge).
-- Identifies accessibility violations, incomplete checks, and best practices.
-- Provides detailed descriptions and fix suggestions.
-- Can be integrated into automated tests.
+- Browser extension by Deque Systems. Identifies violations and provides fix suggestions. Integrates into automated tests.
 
 ```bash
 # Install axe-core for automated testing
@@ -1509,9 +1450,7 @@ test("form page should have no critical violations", async ({ page }) => {
 
 **eslint-plugin-jsx-a11y:**
 
-- ESLint plugin that catches accessibility issues in JSX at compile time.
-- Catches missing alt text, missing labels, invalid ARIA attributes, and more.
-- Integrates directly into your IDE for real-time feedback.
+- ESLint plugin that catches a11y issues in JSX at compile time (missing alt, labels, invalid ARIA, etc.).
 
 ```bash
 # Install
@@ -1534,14 +1473,6 @@ npm install --save-dev eslint-plugin-jsx-a11y
   }
 }
 ```
-
-- Common issues caught by eslint-plugin-jsx-a11y:
-  - `<img>` without `alt` attribute.
-  - `<a>` without `href` or with `href="#"`.
-  - Click handlers on non-interactive elements without keyboard handlers.
-  - `<input>` without associated `<label>`.
-  - Invalid ARIA roles or attributes.
-  - `autoFocus` attribute (can disorient screen reader users).
 
 **Manual Testing Checklist:**
 
@@ -1577,53 +1508,20 @@ npm install --save-dev eslint-plugin-jsx-a11y
 
 **Common Issues and Fixes:**
 
-- **Issue: Missing page language**
-  - Fix: Add `lang` attribute to the `<html>` element.
-  - `<html lang="en">` tells screen readers which language to use for pronunciation.
-
-- **Issue: Missing or non-descriptive page titles**
-  - Fix: Every page should have a unique, descriptive `<title>`.
-  - Bad: `<title>Page</title>`
-  - Good: `<title>Contact Us - Acme Corp</title>`
-
-- **Issue: Vague link text**
-  - Fix: Write descriptive link text that makes sense out of context.
-  - Bad: `<a href="/report">Click here</a>`
-  - Good: `<a href="/report">Download the 2024 annual report</a>`
-
-- **Issue: Missing form labels**
-  - Fix: Every input must have an associated `<label>` with a matching `for`/`id`.
-  - Use `aria-label` only when a visible label is not possible.
-
-- **Issue: Images without alt text**
-  - Fix: Add descriptive `alt` text to informative images and `alt=""` to decorative images.
-
-- **Issue: No visible focus indicator**
-  - Fix: Never remove `:focus` styles. Use `:focus-visible` for a keyboard-only focus ring.
-
-- **Issue: Inaccessible custom controls**
-  - Fix: Use native HTML elements (`<button>`, `<select>`, `<input>`) whenever possible. Add ARIA roles and keyboard handlers when custom components are necessary.
-
-- **Issue: Auto-playing media**
-  - Fix: Never auto-play audio or video. If auto-play is necessary, provide controls to pause and mute.
-
-- **Issue: Content only visible on hover**
-  - Fix: Ensure hover content is also accessible on focus and via keyboard. Use `:focus-within` in CSS.
-
-- **Issue: Missing skip navigation link**
-  - Fix: Add a "Skip to main content" link as the first focusable element.
-
-- **Issue: Time-limited content**
-  - Fix: Allow users to extend or disable time limits. Provide at least 20 seconds to respond before timeout.
-
-- **Issue: Dynamic content not announced**
-  - Fix: Use `aria-live="polite"` for non-urgent updates and `aria-live="assertive"` for urgent alerts.
-
-- **Issue: Missing error summary on form submission**
-  - Fix: Display an error summary at the top of the form with links to each errored field. Set focus to the summary or first error field.
-
-- **Issue: Non-responsive design**
-  - Fix: Ensure content is usable at 320px width (mobile) and up to 400% zoom without horizontal scrolling (WCAG 2.1 Reflow criterion).
+- **Missing page language** -- Add `<html lang="en">` for correct screen reader pronunciation.
+- **Non-descriptive page titles** -- Use unique, descriptive `<title>` (e.g., `Contact Us - Acme Corp`).
+- **Vague link text** -- Write text that makes sense out of context (not "click here").
+- **Missing form labels** -- Associate `<label>` with `for`/`id`; use `aria-label` only when no visible label is possible.
+- **Images without alt text** -- Descriptive `alt` for informative images, `alt=""` for decorative.
+- **No visible focus indicator** -- Never remove `:focus` styles; use `:focus-visible`.
+- **Inaccessible custom controls** -- Prefer native elements; add ARIA and keyboard handlers when custom.
+- **Auto-playing media** -- Never auto-play; provide pause/mute controls.
+- **Content only visible on hover** -- Make it accessible on focus too; use `:focus-within`.
+- **Missing skip navigation** -- Add "Skip to main content" as the first focusable element.
+- **Time-limited content** -- Allow extending/disabling time limits (at least 20 seconds).
+- **Dynamic content not announced** -- Use `aria-live="polite"` or `"assertive"`.
+- **Missing error summary** -- Show error summary at top of form with links to each error field.
+- **Non-responsive design** -- Support 320px width and 400% zoom without horizontal scroll (WCAG Reflow).
 
 **Quick Reference Checklist:**
 

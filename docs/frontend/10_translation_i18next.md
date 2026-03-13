@@ -1,6 +1,6 @@
 # React-i18next Translations Implementation Guide
 
-Complete guide to implementing internationalization (i18n) in React applications using react-i18next.
+Implementing i18n in React with react-i18next.
 
 **Last Updated**: 2026-02-12
 
@@ -18,7 +18,7 @@ Complete guide to implementing internationalization (i18n) in React applications
    - [Recommended Structure](#recommended-structure)
    - [File Purposes](#file-purposes)
 5. [Namespaces](#namespaces)
-   - [Understanding Namespaces](#understanding-namespaces)
+   - [Common Namespaces](#common-namespaces)
    - [Using Namespaces](#using-namespaces)
    - [Multiple Namespaces](#multiple-namespaces)
    - [Fallback Order](#fallback-order)
@@ -59,31 +59,16 @@ Complete guide to implementing internationalization (i18n) in React applications
 
 ## Overview
 
-### What is react-i18next?
-
-**react-i18next** is a powerful internationalization framework for React applications built on top of i18next. It provides:
-
-- **Translation Management**: Organize translations by namespaces and languages
-- **Dynamic Language Switching**: Change languages without page reload
-- **RTL Support**: Built-in support for right-to-left languages
-- **Interpolation**: Insert dynamic values into translations
-- **Pluralization**: Handle singular/plural forms automatically
-- **TypeScript Support**: Full type safety for translation keys
-
-### Key Features
+**react-i18next** is an internationalization framework for React built on i18next.
 
 - **Namespaces** — Organize translations by feature or module
 - **Interpolation** — Dynamic values: `{{variable}}`
 - **Pluralization** — Automatic singular/plural handling
 - **RTL Support** — Automatic direction switching for RTL languages
-- **LocalStorage** — Persist user language preference
+- **LocalStorage** — Persist user language preference (default key: `'app-language'`)
 - **Fallback** — Fallback to default language if key missing
 - **Lazy Loading** — Load translations on demand
 - **TypeScript** — Full type support
-
-### Storage
-
-User language preference is stored in **localStorage** under a configurable key (default: `'app-language'`).
 
 ---
 
@@ -103,7 +88,7 @@ pnpm add react-i18next i18next
 
 ### Basic Setup
 
-Configuration is typically placed in `resources/js/locales/locales.ts` (or your project's locale config path).
+Place in `resources/js/locales/locales.ts`:
 
 ```javascript
 import i18n from 'i18next';
@@ -154,8 +139,6 @@ export default i18n;
 
 ### Importing i18n
 
-Import the configured i18n instance in your application:
-
 ```javascript
 import i18n from '@/locales';
 ```
@@ -200,11 +183,7 @@ resources/js/locales/
 
 ## Namespaces
 
-### Understanding Namespaces
-
-**Namespaces** organize translations into logical groups by feature or module, preventing key collisions and improving maintainability.
-
-**Common Namespaces**:
+### Common Namespaces
 
 - **`common`** — Purpose: Shared across all modules; Example Keys: `save`, `cancel`, `loading`
 - **`auth`** — Purpose: Authentication; Example Keys: `login`, `register`, `forgotPassword`
@@ -295,8 +274,6 @@ const MyComponent = () => {
 
 ### Interpolation
 
-Insert dynamic values into translations using double curly braces.
-
 **Translation File**:
 
 ```json
@@ -325,14 +302,9 @@ const { t } = useTranslation('dashboard');
 // Output: "Last login: 2026-02-12 at 14:30"
 ```
 
-**Comparison**:
-
-- **Correct** — Translation: `"hello": "Hello {{name}}"`; Usage: `t('hello', { name: 'John' })`; Output: "Hello John"
-- **Wrong** — Translation: `"hello": "Hello {name}"`; Usage: `t('hello', { name: 'John' })`; Output: "Hello {name}"
+> Use double curly braces `{{variable}}`, not single `{variable}`.
 
 ### Pluralization
-
-Handle singular and plural forms automatically.
 
 **Method 1: i18next Plural Suffixes**
 
@@ -366,15 +338,9 @@ const { t } = useTranslation();
 {t(count === 1 ? 'item' : 'items')}
 ```
 
-**Plural Forms Comparison**:
-
-- **English** — Plural Forms: 2 (one, other); Example: 1 item, 2 items
-- **Arabic** — Plural Forms: 6 (zero, one, two, few, many, other); Example: Complex plural rules
-- **Chinese** — Plural Forms: 1 (other); Example: No pluralization
+> Languages have different plural rules: English has 2 forms (one, other), Arabic has 6 (zero, one, two, few, many, other), Chinese has 1 (other).
 
 ### Page Titles
-
-Use translations in page metadata:
 
 ```javascript
 import { Head } from '@inertiajs/react';
@@ -406,8 +372,6 @@ const MyPage = () => {
 ```
 
 ### Toast Notifications
-
-Translate notification messages:
 
 ```javascript
 import { toast } from 'sonner';
@@ -442,8 +406,6 @@ const MyComponent = () => {
 
 ### Form Validation
 
-Translate validation error messages:
-
 ```javascript
 import { useTranslation } from 'react-i18next';
 import { z } from 'zod';
@@ -477,8 +439,6 @@ const MyForm = () => {
 ## Adding New Translations
 
 ### Adding Translation Keys
-
-Follow these steps to add a new translation key:
 
 **Step 1: Add to Primary Language** (e.g., `en/[namespace].json`)
 
@@ -515,11 +475,7 @@ const { t } = useTranslation('[namespace]');
 
 ### Adding Namespaces
 
-Create a new namespace for a feature:
-
-**Step 1: Create JSON Files**
-
-Create translation files for each language:
+**Step 1: Create JSON Files** for each language:
 - `resources/js/locales/en/newnamespace.json`
 - `resources/js/locales/ar/newnamespace.json`
 
@@ -572,16 +528,7 @@ i18n.use(initReactI18next).init({
 
 ### Naming Conventions
 
-**Use camelCase with dot notation:**
-
-- **Correct** — `dashboard.pageTitle`: camelCase + dot notation
-- **Correct** — `profile.form.firstName`: Nested structure
-- **Correct** — `messages.saveSuccess`: Clear and descriptive
-- **Wrong** — `Dashboard.PageTitle`: PascalCase (inconsistent)
-- **Wrong** — `profile-form-name`: kebab-case (harder to read)
-- **Wrong** — `profile_form_name`: snake_case (inconsistent)
-
-**Key Naming Best Practices**:
+Use camelCase with dot notation: `dashboard.pageTitle`, `profile.form.firstName`, `messages.saveSuccess`. Avoid PascalCase, kebab-case, or snake_case.
 
 ```json
 {
@@ -612,9 +559,7 @@ i18n.use(initReactI18next).init({
 
 ### Handling RTL Languages
 
-RTL (Right-to-Left) languages require special handling for text direction and layout.
-
-**Document Direction Setup**:
+Set document direction based on the active language:
 
 ```javascript
 const setDocumentDirection = (lang: string) => {
@@ -633,15 +578,6 @@ i18n.on('languageChanged', (lng) => {
     setDocumentDirection(lng);
 });
 ```
-
-**RTL Languages**:
-
-- **Arabic** — Code: `ar`; Direction: RTL; Script: Arabic
-- **Hebrew** — Code: `he`; Direction: RTL; Script: Hebrew
-- **Persian/Farsi** — Code: `fa`; Direction: RTL; Script: Persian
-- **Urdu** — Code: `ur`; Direction: RTL; Script: Arabic
-- **English** — Code: `en`; Direction: LTR; Script: Latin
-- **Spanish** — Code: `es`; Direction: LTR; Script: Latin
 
 ### Checking RTL Status
 
@@ -663,8 +599,6 @@ const MyComponent = () => {
 ### RTL-Aware Styles
 
 **Method 1: Logical CSS Properties (Recommended)**
-
-Use logical properties that automatically adapt to text direction:
 
 ```css
 /* ✅ Logical properties (automatic RTL support) */
@@ -705,15 +639,7 @@ const isRTL = i18n.dir() === 'rtl';
 <div className="flex flex-row rtl:flex-row-reverse">
 ```
 
-**Comparison**:
-
-- **Logical Properties** — Pros: Automatic, clean, standard; Cons: Limited browser support (modern browsers only)
-- **Tailwind** — Pros: Easy, automatic; Cons: Requires Tailwind CSS
-- **Conditional Classes** — Pros: Works everywhere; Cons: Verbose, manual
-
 ### RTL Icons
-
-Flip directional icons for RTL languages:
 
 ```javascript
 import { ArrowRight, ArrowLeft } from 'lucide-react';
@@ -732,13 +658,7 @@ const NavigationButton = () => {
 };
 ```
 
-**Icons That Should Flip**:
-
-- **Arrows** — Should Flip: Yes; Example: `→` becomes `←`
-- **Chevrons** — Should Flip: Yes; Example: `›` becomes `‹`
-- **Navigation** — Should Flip: Yes; Example: Back/Forward buttons
-- **Symbols** — Should Flip: No; Example: check, X, warning
-- **Media Controls** — Should Flip: No; Example: Play, Pause
+**Flip**: Arrows, Chevrons, Navigation (Back/Forward). **Don't flip**: Symbols (check, X, warning), Media Controls (Play, Pause).
 
 ---
 
@@ -835,8 +755,6 @@ const currentLanguageName = languages[i18n.language];
 
 ### Date Formatting
 
-Format dates according to the current language:
-
 **Using Day.js**:
 
 ```javascript
@@ -875,12 +793,6 @@ const DateDisplay = ({ date }) => {
     return <p>{formatted}</p>;
 };
 ```
-
-**Date Format Comparison**:
-
-- **English (`en`)** — Format: Month DD, YYYY; Example: February 12, 2026
-- **Arabic (`ar`)** — Format: DD Month YYYY; Example: ١٢ فبراير ٢٠٢٦
-- **Spanish (`es`)** — Format: DD de Month de YYYY; Example: 12 de febrero de 2026
 
 ---
 
@@ -968,7 +880,7 @@ const DateDisplay = ({ date }) => {
 
 ### Key Structure Guidelines
 
-**Hierarchical Structure by Feature**:
+Organize keys hierarchically by feature:
 
 ```json
 {
@@ -1023,17 +935,7 @@ const DateDisplay = ({ date }) => {
 
 ### Common vs Specific Namespace
 
-- **Button labels** — Namespace: `common`; Example: Save, Cancel, Submit, Delete
-- **Loading states** — Namespace: `common`; Example: Loading..., Please wait...
-- **Generic errors** — Namespace: `common`; Example: An error occurred, Try again
-- **Shared UI elements** — Namespace: `common`; Example: Close, Open, Expand, Collapse
-- **Form actions** — Namespace: `common`; Example: Add, Edit, Remove, Clear
-- **Page titles** — Namespace: Specific; Example: User Management, Dashboard
-- **Feature content** — Namespace: Specific; Example: User profile form labels
-- **Form labels (module)** — Namespace: Specific; Example: Product name, Category
-- **Module messages** — Namespace: Specific; Example: Invoice created, Order shipped
-
-**Example Structure**:
+Use `common` for shared UI (buttons, loading states, generic errors, form actions). Use feature-specific namespaces for page titles, feature content, module-specific form labels, and module messages.
 
 ```json
 // common.json - Shared across ALL modules
@@ -1065,8 +967,6 @@ const DateDisplay = ({ date }) => {
 
 ### Long Text Handling
 
-For paragraphs or long text:
-
 ```json
 {
     "aboutUs": {
@@ -1077,11 +977,7 @@ For paragraphs or long text:
 }
 ```
 
-**Best Practices**:
-- Break into smaller keys if parts are reusable
-- Use interpolation for dynamic parts
-- Keep formatting simple (avoid HTML in translations)
-- Consider using Markdown for rich text
+Break long text into smaller keys. Use interpolation for dynamic parts. Avoid HTML in translations.
 
 ```javascript
 // ✅ Good - Separated for reusability
@@ -1102,7 +998,7 @@ For paragraphs or long text:
 
 ### API Responses
 
-**Keep translations client-side only.**
+Keep translations client-side. Have the backend return message keys, not translated text.
 
 ```javascript
 // ❌ Wrong - Backend returns translated text
@@ -1124,17 +1020,7 @@ toast.success(t('messages.createSuccess'));
 
 #### Issue 1: Translation Key Shows Instead of Text
 
-**Symptoms**: `"users.title"` displays instead of translated text.
-
-**Possible Causes**:
-
-- **Key doesn't exist in JSON file** — Solution: Add the key to translation file
-- **Wrong namespace in `useTranslation()`** — Solution: Use correct namespace: `useTranslation('users')`
-- **JSON syntax error** — Solution: Validate JSON (missing comma, quote, etc.)
-- **Typo in key path** — Solution: Check spelling: `users.title` vs `user.title`
-- **File not imported in config** — Solution: Import file in `locales.ts`
-
-**Debug Steps**:
+Check: key exists in JSON, correct namespace in `useTranslation()`, valid JSON syntax, no typos in key path, file imported in `locales.ts`.
 
 ```javascript
 // 1. Check if key exists
@@ -1175,9 +1061,7 @@ t('hello', { name: 'John' })
 
 #### Issue 3: Language Not Persisting After Refresh
 
-**Cause**: localStorage not being set or read properly.
-
-**Solution**: Ensure localStorage operations are correct.
+Ensure localStorage is set on change and read on init:
 
 ```javascript
 // Set on language change
@@ -1197,14 +1081,7 @@ i18n.init({
 
 #### Issue 4: RTL Text Not Displaying Correctly
 
-**Possible Causes**:
-
-- **Font doesn't support language** — Solution: Use web-safe or Google Fonts with language support
-- **`dir` attribute not set** — Solution: Set `document.documentElement.dir = 'rtl'`
-- **Text encoding issues** — Solution: Ensure UTF-8 encoding
-- **CSS overriding direction** — Solution: Check for `direction: ltr` in CSS
-
-**Solution**:
+Check: font supports the language, `dir` attribute is set, UTF-8 encoding, no CSS overriding direction.
 
 ```javascript
 // Ensure dir attribute is set
@@ -1220,8 +1097,6 @@ i18n.on('languageChanged', setDocumentDirection);
 ```
 
 ### Debugging Techniques
-
-**Console Debugging**:
 
 ```javascript
 const { t, i18n } = useTranslation();
@@ -1255,8 +1130,6 @@ i18n.init({
 ```
 
 ### Validation
-
-**Validate JSON Syntax**:
 
 ```javascript
 // In browser console
@@ -1374,8 +1247,6 @@ const exists = i18n.exists('namespace:key');
 
 ## Translation Checklist
 
-Use this checklist when adding or modifying translations:
-
 - [ ] Key added to primary language JSON file (e.g., `en/[namespace].json`)
 - [ ] Key added to **all** other language JSON files (e.g., `ar/[namespace].json`)
 - [ ] Keys match **exactly** in all language files (same path)
@@ -1400,8 +1271,6 @@ Use this checklist when adding or modifying translations:
 ## Advanced Topics
 
 ### Type Safety with TypeScript
-
-Create typed translation hooks:
 
 ```typescript
 // types/i18n.d.ts
@@ -1431,8 +1300,6 @@ t('form.invalid'); // ❌ TypeScript error - key doesn't exist
 
 ### Lazy Loading Namespaces
 
-Load translation namespaces on demand:
-
 ```javascript
 // Load namespace dynamically
 const loadNamespace = async (namespace) => {
@@ -1450,8 +1317,6 @@ useEffect(() => {
 
 ### Context-Specific Translations
 
-Use context for gender or formality:
-
 ```json
 {
     "friend_male": "He is my friend",
@@ -1464,8 +1329,6 @@ t('friend', { context: user.gender }) // 'male' or 'female'
 ```
 
 ### Nested Translations
-
-Reference other translation keys:
 
 ```json
 {

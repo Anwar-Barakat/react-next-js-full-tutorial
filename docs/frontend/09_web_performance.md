@@ -29,30 +29,17 @@ A comprehensive guide to web performance optimization and Core Web Vitals.
 23. [Third-party Script Optimization](#23-third-party-script-optimization)
 24. [Font Optimization](#24-font-optimization)
 25. [Web Performance Best Practices](#25-web-performance-best-practices)
-26. [Summary](#26-summary)
 
 ---
 
 ## 1. What is Web Performance?
 
-**Web performance** is how fast a website loads and responds to user interactions.
+How fast a website loads and responds to user interactions, measured across loading, interactivity, and visual stability.
 
-**Why it Matters:**
-- **User Experience** - Slow sites frustrate users
 - **SEO** - Google ranks faster sites higher
 - **Conversions** - Every 100ms delay can decrease conversions by 1%
 - **Bounce Rate** - 53% of mobile users leave if page takes > 3 seconds
-
-**Key Measurement Areas:**
-- **Loading** - How quickly content appears
-- **Interactivity** - How soon users can interact
-- **Visual Stability** - How much content shifts during load
-
-**Performance Impact:**
-
-- **100ms delay** — 1% decrease in conversions
 - **1 second delay** — 11% fewer page views
-- **3 seconds delay** — 53% of mobile users bounce
 - **5 seconds delay** — 90% of users abandon
 
 ---
@@ -73,12 +60,6 @@ A comprehensive guide to web performance optimization and Core Web Vitals.
 - **FID** — Good: < 100ms. Needs Improvement: 100ms - 300ms. Poor: > 300ms
 - **INP** — Good: < 200ms. Needs Improvement: 200ms - 500ms. Poor: > 500ms
 - **CLS** — Good: < 0.1. Needs Improvement: 0.1 - 0.25. Poor: > 0.25
-
-**Why Core Web Vitals Matter:**
-- Used for Google SEO ranking
-- Measure real user experience
-- Focus on user-centric metrics
-- Industry standard for performance
 
 ---
 
@@ -340,31 +321,6 @@ Request → TTFB → FCP → LCP → TTI
 - **TBT** — Measures main thread blocking. Good: < 200ms. Importance: Responsiveness
 - **Speed Index** — Measures visual progress. Good: < 3.4s. Importance: User experience
 
-### TTFB (Time to First Byte)
-- Measures server response time
-- Affected by server performance, network latency
-- Good: < 600ms
-
-### FCP (First Contentful Paint)
-- First text/image appears
-- Indicates page has started loading
-- Good: < 1.8s
-
-### TTI (Time to Interactive)
-- Page is fully interactive
-- All event handlers registered
-- Good: < 3.8s
-
-### TBT (Total Blocking Time)
-- Sum of long tasks blocking main thread
-- Tasks > 50ms count as blocking
-- Good: < 200ms
-
-### Speed Index
-- How quickly content becomes visually complete
-- Lower is better
-- Good: < 3.4s
-
 ---
 
 ## 7. Measuring Web Performance
@@ -505,12 +461,7 @@ import Image from 'next/image';
 
 ## 9. Lazy Loading
 
-**Lazy loading** defers loading of non-critical resources until they're needed.
-
-**Benefits:**
-- Reduces initial page load time
-- Saves bandwidth
-- Improves performance metrics
+**Lazy loading** defers loading of non-critical resources until they're needed, reducing initial load time and saving bandwidth.
 
 ### Native Lazy Loading
 
@@ -584,12 +535,7 @@ function App() {
 
 ## 10. Code Splitting
 
-**Code splitting** breaks JavaScript into smaller chunks, loading only necessary code for each page.
-
-**Benefits:**
-- Reduces initial bundle size
-- Improves load time
-- Better FID/INP scores
+**Code splitting** breaks JavaScript into smaller chunks, loading only necessary code for each page to reduce bundle size and improve FID/INP.
 
 ### Route-based Code Splitting
 
@@ -980,12 +926,7 @@ Resource hints to optimize loading.
 
 ## 17. Critical CSS
 
-**Critical CSS** is the minimum CSS needed for above-the-fold content.
-
-**Benefits:**
-- Improves FCP and LCP
-- Reduces render-blocking
-- Better perceived performance
+**Critical CSS** is the minimum CSS needed for above-the-fold content. Inlining it improves FCP and LCP by eliminating render-blocking.
 
 ### Implementation
 
@@ -1603,70 +1544,3 @@ export default function Layout({ children }) {
 </html>
 ```
 
----
-
-## 26. Summary
-
-**Key Takeaways:**
-
-### Core Web Vitals
-1. **LCP** - Largest content visible < 2.5s (optimize images, reduce server time)
-2. **FID/INP** - Interactivity < 100ms/200ms (code split, optimize JS)
-3. **CLS** - Visual stability < 0.1 (set dimensions, reserve space)
-
-### Loading Optimization
-1. **Images** - Use modern formats, lazy load, set dimensions
-2. **Code Splitting** - Load only what's needed per route
-3. **Lazy Loading** - Defer non-critical resources
-4. **Tree Shaking** - Remove unused code
-
-### Network Optimization
-1. **Minification** - Remove unnecessary characters
-2. **Compression** - gzip/Brotli for text files
-3. **Caching** - Store resources to avoid re-downloading
-4. **CDN** - Serve from closest server to user
-
-### Resource Optimization
-1. **Preload** - Critical resources (fonts, hero images)
-2. **Prefetch** - Likely next page resources
-3. **Critical CSS** - Inline above-fold styles
-4. **Render-blocking** - Defer non-critical resources
-
-### JavaScript Optimization
-1. **Code Splitting** - Route and component-based
-2. **Bundle Analysis** - Identify large dependencies
-3. **Debouncing/Throttling** - Reduce function calls
-4. **Web Workers** - Offload heavy computation
-
-### Advanced Optimization
-1. **HTTP/2/3** - Multiplexing, better performance
-2. **Third-party Scripts** - Load async, delay when possible
-3. **Fonts** - Use `font-display: swap`, preload, subset
-4. **Resource Prioritization** - Use `fetchpriority`
-
-### Measurement Tools
-- **Lighthouse** - Lab testing
-- **Web Vitals Library** - Production monitoring
-- **Chrome DevTools** - Performance profiling
-- **PageSpeed Insights** - Google's official tool
-
-**Performance Impact Summary:**
-
-- **Image optimization** — Impact: High. Effort: Low
-- **Code splitting** — Impact: High. Effort: Medium
-- **Minification** — Impact: High. Effort: Low (automatic)
-- **Compression** — Impact: High. Effort: Low
-- **CDN** — Impact: High. Effort: Low-Medium
-- **Caching** — Impact: High. Effort: Medium
-- **Critical CSS** — Impact: Medium. Effort: High
-- **Font optimization** — Impact: Medium. Effort: Low-Medium
-- **Third-party optimization** — Impact: High. Effort: Medium
-
-**Remember:**
-- Every 100ms delay = 1% conversion loss
-- 53% of mobile users bounce if page takes > 3s
-- Performance is a feature, not a luxury
-- Monitor continuously, optimize iteratively
-- Set and enforce performance budgets
-
-The best performance optimization is the one you measure and maintain.

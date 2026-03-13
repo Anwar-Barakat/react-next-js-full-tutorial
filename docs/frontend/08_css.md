@@ -34,7 +34,6 @@ A comprehensive guide to CSS styling, layouts, and modern CSS techniques.
 28. [CSS Performance Optimizations](#28-css-performance-optimizations)
 29. [Reset vs Normalize CSS](#29-reset-vs-normalize-css)
 30. [CSS Best Practices](#30-css-best-practices)
-31. [Summary](#31-summary)
 
 ---
 
@@ -186,12 +185,7 @@ p { color: blue !important; }  /* Overrides everything, hard to maintain */
 .text-primary { color: blue; }
 ```
 
-**Specificity Calculation:**
-
-- **`p`** — Inline: 0, IDs: 0, Classes/Attributes/Pseudo-classes: 0, Elements: 1, Total: 0,0,0,1
-- **`.text`** — Inline: 0, IDs: 0, Classes/Attributes/Pseudo-classes: 1, Elements: 0, Total: 0,0,1,0
-- **`#main`** — Inline: 0, IDs: 1, Classes/Attributes/Pseudo-classes: 0, Elements: 0, Total: 0,1,0,0
-- **`#main .text p`** — Inline: 0, IDs: 1, Classes/Attributes/Pseudo-classes: 1, Elements: 1, Total: 0,1,1,1
+**Examples:** `p` = 0,0,0,1 | `.text` = 0,0,1,0 | `#main` = 0,1,0,0 | `#main .text p` = 0,1,1,1
 
 ---
 
@@ -454,10 +448,7 @@ html { font-size: 16px; }
 
 ## 9. Flexbox vs Grid
 
-**Flexbox**: One-dimensional (row OR column).
-**Grid**: Two-dimensional (row AND column).
-
-Use Flexbox for simple layouts, Grid for complex layouts.
+Flexbox is one-dimensional (row OR column). Grid is two-dimensional (rows AND columns).
 
 ```css
 /* ❌ Flexbox for complex 2D layout (harder to maintain) */
@@ -473,10 +464,6 @@ Use Flexbox for simple layouts, Grid for complex layouts.
   grid-template-rows: 60px 1fr 40px; /* Header + Content + Footer */
 }
 ```
-
-**When to use what:**
-- **Flexbox**: Navigation bars, button groups, centering items, card content
-- **Grid**: Page layouts, complex card layouts, dashboards, photo galleries
 
 **Comparison:**
 
@@ -571,11 +558,7 @@ The **position** property controls how elements are positioned.
 }
 ```
 
-**Key Concepts:**
-- `z-index` only works on positioned elements (`relative`, `absolute`, `fixed`, `sticky`)
-- Creates a stacking context
-- Children can't escape parent's stacking context
-- Higher values appear on top
+Children cannot escape their parent's stacking context.
 
 ---
 
@@ -621,13 +604,7 @@ h1, h2, h3 { color: navy; }
 div.container { } /* div with class container */
 ```
 
-**Selector Specificity:**
-
-- **`*`** — Type: Universal; Specificity: 0; Example: `* { margin: 0; }`
-- **`element`** — Type: Type; Specificity: 1; Example: `p { }`
-- **`.class`** — Type: Class; Specificity: 10; Example: `.text { }`
-- **`#id`** — Type: ID; Specificity: 100; Example: `#main { }`
-- **`[attribute]`** — Type: Attribute; Specificity: 10; Example: `[type="text"]`
+**Specificity:** `*` (0) < `element` (1) < `.class` / `[attr]` (10) < `#id` (100)
 
 ---
 
@@ -705,22 +682,13 @@ p.text { color: red; }    /* Specificity: 11 - wins over .text */
 .text { color: red; }  /* ✅ This wins (comes last) */
 ```
 
-**Cascade Order:**
-
-1. User agent (browser) styles
-2. User styles
-3. Author styles (your CSS)
-4. Author `!important`
-5. User `!important`
-6. User agent `!important`
+Full cascade order: user agent styles < user styles < author styles, with `!important` reversing the priority.
 
 ---
 
 ## 15. CSS Variables (Custom Properties)
 
-**CSS variables** store reusable values. Defined with `--` prefix, accessed with `var()` function.
-
-Can be scoped and inherited.
+**CSS variables** store reusable values. Defined with `--` prefix, accessed with `var()`.
 
 ```css
 /* Define variables */
@@ -760,20 +728,15 @@ Can be scoped and inherited.
 document.documentElement.style.setProperty('--primary-color', 'red');
 ```
 
-**Benefits of CSS Variables:**
-- Dynamic (can change with JavaScript)
-- Inherit down the DOM tree
-- Can be scoped to specific elements
-- Great for theming
-- Better than Sass variables for runtime changes
+- Dynamic (changeable via JavaScript)
+- Inherit down the DOM tree, can be scoped
+- Great for theming; better than Sass variables for runtime changes
 
 ---
 
 ## 16. Responsive Design
 
-**Responsive design** adapts layout to different screen sizes using media queries, flexible layouts, and images.
-
-**Mobile-first approach** is recommended.
+Adapt layout to different screen sizes using media queries and flexible units. Mobile-first is recommended.
 
 ```css
 /* Media queries */
@@ -992,9 +955,7 @@ Better performance than animating position/size.
 
 ## 19. CSS Modules
 
-**CSS Modules** scope styles locally to components, preventing naming conflicts. Class names are automatically unique.
-
-Common in React projects.
+**CSS Modules** scope styles locally to components with automatically unique class names. Common in React.
 
 ```css
 /* Button.module.css */
@@ -1044,19 +1005,13 @@ import clsx from 'clsx';
 /* .Button_primary__1Hj9s { ... } */
 ```
 
-**Benefits:**
-- No naming conflicts
-- Component-scoped styles
-- Dead code elimination
-- Explicit dependencies
+No naming conflicts, component-scoped, supports dead code elimination.
 
 ---
 
 ## 20. Tailwind CSS
 
-**Tailwind** is a utility-first CSS framework that provides pre-built utility classes. Build designs without writing custom CSS.
-
-Highly customizable and responsive.
+**Tailwind** is a utility-first CSS framework. Build designs with pre-built utility classes instead of custom CSS.
 
 ```css
 /* ❌ Traditional CSS */
@@ -1107,24 +1062,15 @@ Highly customizable and responsive.
 <div class="bg-white dark:bg-gray-800">
 ```
 
-**Pros:**
-- Fast development
-- No naming conflicts
-- Consistent design system
-- Small production bundle (with purge)
+**Pros:** Fast development, no naming conflicts, consistent design system, small production bundle (with purge).
 
-**Cons:**
-- HTML can get verbose
-- Learning curve for class names
-- Less semantic HTML
+**Cons:** Verbose HTML, learning curve for class names, less semantic.
 
 ---
 
 ## 21. CSS-in-JS
 
-**CSS-in-JS** writes CSS directly in JavaScript. Styles are scoped to components and can use JavaScript logic.
-
-**Popular libraries**: styled-components, Emotion.
+**CSS-in-JS** writes CSS directly in JavaScript, scoped to components. Popular libraries: styled-components, Emotion.
 
 ```javascript
 // ✅ styled-components
@@ -1168,28 +1114,15 @@ const PrimaryButton = styled(Button)`
 `;
 ```
 
-**Benefits:**
-- Component-scoped styles
-- Dynamic styling with props
-- No class name conflicts
-- Dead code elimination
-- Full power of JavaScript
+**Pros:** Component-scoped, dynamic styling with props, no class name conflicts, dead code elimination.
 
-**Drawbacks:**
-- Runtime overhead
-- Larger bundle size
-- Learning curve
-- Requires JavaScript to render styles
+**Cons:** Runtime overhead, larger bundle size, requires JavaScript to render styles.
 
 ---
 
 ## 22. BEM Methodology
 
-**BEM** stands for Block Element Modifier - a naming convention for CSS classes.
-
-Makes code more maintainable and understandable.
-
-**Structure**: `block__element--modifier`
+**BEM** (Block Element Modifier) is a CSS naming convention: `block__element--modifier`.
 
 ```css
 /* Block - standalone component */
@@ -1225,12 +1158,7 @@ Makes code more maintainable and understandable.
 </div>
 ```
 
-**Benefits:**
-- Clear structure
-- Avoids naming conflicts
-- Self-documenting
-- Easy to understand relationships
-- Low specificity
+Clear structure, self-documenting, low specificity, avoids naming conflicts.
 
 ---
 
@@ -1333,11 +1261,7 @@ span, a, strong, em {
 
 ## 25. CSS Preprocessors
 
-**Preprocessors** extend CSS with features like variables, nesting, and mixins. Compile to regular CSS.
-
-**Popular**: Sass, Less, Stylus.
-
-**Note**: Modern CSS has many built-in features (variables, calc, etc.).
+**Preprocessors** (Sass, Less, Stylus) extend CSS with variables, nesting, and mixins, compiling to regular CSS. Modern CSS now covers many of these features natively.
 
 ```scss
 /* Sass/SCSS features */
@@ -1411,9 +1335,7 @@ $font-size: 16px;
 
 ## 26. Mobile-first Design
 
-**Mobile-first design**: Design for mobile devices first, then enhance for larger screens.
-
-Uses `min-width` media queries. Better performance on mobile and forces focus on essential content.
+Design for mobile first, then enhance for larger screens using `min-width` media queries.
 
 ```css
 /* ✅ Mobile-first approach (recommended) */
@@ -1472,20 +1394,11 @@ Uses `min-width` media queries. Better performance on mobile and forces focus on
 }
 ```
 
-**Why Mobile-first:**
-- Majority of users on mobile
-- Forces focus on essential content
-- Progressive enhancement
-- Better performance (mobile loads less CSS)
-
 ---
 
 ## 27. Grid vs Flexbox for Layouts
 
-**Use Grid for**: Page layouts, complex 2D layouts.
-**Use Flexbox for**: Components, 1D layouts (nav, cards).
-
-They can work together.
+Grid for 2D page layouts, Flexbox for 1D components -- they work well together.
 
 ```css
 /* ✅ Grid - Page layout (2D) */
@@ -1536,21 +1449,13 @@ They can work together.
 }
 ```
 
-**Decision Matrix:**
-
-- **Navigation bar** — Use Flexbox
-- **Page layout** — Use Grid
-- **Card list** — Use Grid (container) + Flexbox (cards)
-- **Button group** — Use Flexbox
-- **Dashboard** — Use Grid
-- **Centering content** — Use Flexbox
-- **Photo gallery** — Use Grid
+**Quick guide:** Flexbox for nav bars, button groups, centering. Grid for page layouts, dashboards, galleries. Combine both for card lists.
 
 ---
 
 ## 28. CSS Performance Optimizations
 
-Optimize CSS for better performance and faster page loads.
+Key techniques for faster rendering and smaller CSS payloads.
 
 ```css
 /* ❌ Expensive selectors (avoid) */
@@ -1589,23 +1494,12 @@ div div div p { }        /* Deeply nested */
 }
 ```
 
-**Performance Best Practices:**
+- Inline critical CSS in `<head>`, load rest async
+- Minify, enable gzip/brotli, remove unused CSS (PurgeCSS)
+- Avoid expensive properties (`box-shadow`, filters) on large elements
+- Use `contain` to isolate components; animate with `transform`/`opacity` (GPU-accelerated)
 
-1. **Critical CSS**: Inline critical CSS in `<head>`, load rest asynchronously
-2. **Minify and compress**: Use build tools to minify, enable gzip/brotli
-3. **Remove unused CSS**: Use PurgeCSS or similar tools
-4. **Avoid expensive properties**: `box-shadow`, `border-radius`, filters on large elements
-5. **Use CSS containment**: Isolate components with `contain` property
-6. **Optimize animations**: Use `transform` and `opacity` (GPU-accelerated)
-
-**Properties Performance:**
-
-- **`transform`** — Performance: Fast; Why: GPU-accelerated
-- **`opacity`** — Performance: Fast; Why: GPU-accelerated
-- **`width/height`** — Performance: Slow; Why: Triggers layout
-- **`top/left`** — Performance: Slow; Why: Triggers layout
-- **`box-shadow`** — Performance: Medium; Why: Painting overhead
-- **`color`** — Performance: Fast; Why: Paint only
+**Fast** (GPU): `transform`, `opacity` | **Slow** (layout): `width/height`, `top/left` | **Medium** (paint): `box-shadow`
 
 ---
 
@@ -1673,7 +1567,7 @@ input, button, textarea, select {
 
 ## 30. CSS Best Practices
 
-Follow these best practices for maintainable, performant CSS.
+Guidelines for maintainable, performant CSS.
 
 ```css
 /* ✅ Good practices */
@@ -1741,100 +1635,5 @@ div#main .container .box .text { }  /* Too specific */
 4. Components
 5. Utilities
 
-**Best Practices Checklist:**
-
-- Use semantic and meaningful class names
-- Follow a methodology (BEM, OOCSS, SMACSS)
-- Avoid `!important` unless absolutely necessary
-- Use CSS variables for theming
-- Mobile-first responsive design
-- Keep specificity low
-- Organize and structure CSS files
-- Use modern layout methods (Flexbox, Grid)
-- Optimize for performance
-- Write accessible CSS
-- Comment complex code
-- Use consistent naming conventions
-- Validate CSS
-- Test across browsers
-
 ---
 
-## 31. Summary
-
-**Key takeaways:**
-
-### Core Concepts
-1. **Box Model** - Content, padding, border, margin; use `box-sizing: border-box`
-2. **Specificity** - Inline (1000) > IDs (100) > Classes (10) > Elements (1); avoid `!important`
-3. **Cascade** - Order matters; last rule wins if equal specificity
-4. **Units** - Use `rem` for fonts, `px` for borders, `%` or viewport units for layouts
-
-### Layout Systems
-1. **Flexbox** - One-dimensional layout (rows or columns); great for components
-2. **Grid** - Two-dimensional layout (rows and columns); perfect for page layouts
-3. **Positioning** - `static`, `relative`, `absolute`, `fixed`, `sticky`; use `z-index` for stacking
-4. **Responsive Design** - Mobile-first with `min-width` media queries
-
-### Styling Techniques
-1. **Selectors** - Element, class, ID, attribute, pseudo-class (`:hover`), pseudo-element (`::before`)
-2. **Variables** - CSS Custom Properties (`--color`) for dynamic, themeable styles
-3. **Transitions** - Smooth property changes on state change
-4. **Animations** - Complex keyframe-based animations with full control
-5. **Transforms** - Modify position, rotation, scale; GPU-accelerated
-
-### Modern CSS Approaches
-1. **CSS Modules** - Scoped styles, unique class names, no conflicts
-2. **Tailwind CSS** - Utility-first framework, rapid development
-3. **CSS-in-JS** - Styles in JavaScript, component-scoped, dynamic
-4. **BEM** - Block Element Modifier naming convention for clarity
-
-### Performance & Best Practices
-1. **Performance** - Use `transform`/`opacity` for animations, avoid expensive selectors, minify CSS
-2. **Reset/Normalize** - Use modern reset for consistent cross-browser baseline
-3. **Mobile-first** - Design for mobile, enhance for desktop
-4. **Organization** - Follow methodology (BEM), use semantic names, keep specificity low
-5. **Accessibility** - Focus states, skip links, screen reader support
-
-### Comparison Tables Summary
-
-**Box Model:**
-- `content-box`: Width = content only
-- `border-box`: Width = content + padding + border ✅
-
-**Units:**
-- `px`: Absolute, fixed
-- `em`: Relative to parent (compounds)
-- `rem`: Relative to root (consistent) ✅
-- `%`: Relative to parent
-- `vw/vh`: Relative to viewport
-
-**Flexbox vs Grid:**
-- Flexbox: 1D (row or column) - components, navigation
-- Grid: 2D (rows and columns) - page layouts, complex grids
-
-**Position:**
-- `static`: Default, normal flow
-- `relative`: Relative to normal position
-- `absolute`: Relative to positioned ancestor
-- `fixed`: Relative to viewport (stays on scroll)
-- `sticky`: Relative + fixed (sticks on scroll)
-
-**Display:**
-- `block`: Full width, stacks vertically
-- `inline`: Content width, flows with text
-- `inline-block`: Inline flow, can set dimensions
-
-**Hiding Elements:**
-- `display: none`: Removed from layout, no space
-- `visibility: hidden`: Hidden, space remains
-- `opacity: 0`: Invisible, interactive, space remains
-
-**Modern CSS in 2024+:**
-- Use CSS Grid and Flexbox for layouts
-- CSS Variables for theming
-- Mobile-first responsive design
-- CSS Modules or utility frameworks (Tailwind)
-- Performance-first: `transform`, `opacity`, containment
-- Semantic class names (BEM or similar)
-- Avoid `!important` and high specificity

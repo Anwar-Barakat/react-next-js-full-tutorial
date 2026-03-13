@@ -25,17 +25,7 @@ A comprehensive guide to shadcn/ui and Aceternity UI for building modern React i
 - This means you own the code and can customize every part of every component.
 - Built on top of Radix UI (accessible, unstyled primitives) + Tailwind CSS (utility styling).
 
-**Key philosophy:**
-> "This is not a component library. It's a collection of re-usable components that you can copy and paste into your apps."
-
-**Why developers love shadcn/ui:**
-- You own the code — no version lock-in.
-- Fully customizable — change styles, behavior, and markup freely.
-- Accessible by default (Radix UI handles ARIA, keyboard nav, focus management).
-- Works perfectly with TypeScript.
-- Integrates directly with React Hook Form and Zod.
-
-In short: shadcn/ui gives you beautiful, accessible components that live in your codebase — not inside a `node_modules` black box.
+You own the code (no version lock-in), fully customizable, accessible by default (Radix UI), TypeScript-first, integrates with React Hook Form + Zod.
 
 ---
 
@@ -364,11 +354,7 @@ export default function UserForm() {
 - Components are also copy-paste style — you copy the source into your project.
 - Best used for landing pages, hero sections, portfolios, and marketing sites.
 
-**What makes Aceternity different from shadcn/ui:**
-- shadcn/ui → utility components (forms, tables, modals) — functional and clean.
-- Aceternity UI → showcase components (animated cards, glowing effects, 3D) — visually impressive.
-
-In short: Aceternity UI is for making your UI look visually stunning with animations and effects.
+shadcn/ui = functional components (forms, tables, modals). Aceternity UI = showcase components (animated cards, glowing effects, 3D).
 
 ---
 
@@ -545,8 +531,6 @@ export default function Hero() {
 - **Best for** — shadcn/ui: Apps, dashboards, forms. Aceternity UI: Landing pages, portfolios
 - **Theming** — shadcn/ui: CSS variables (dark/light). Aceternity UI: Tailwind classes
 - **TypeScript** — shadcn/ui: First-class. Aceternity UI: Good
-
-In short: Use **shadcn/ui** for app UI (forms, tables, dialogs). Use **Aceternity UI** for marketing/landing pages where visual impact matters.
 
 ---
 

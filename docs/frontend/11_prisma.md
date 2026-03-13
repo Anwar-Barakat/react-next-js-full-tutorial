@@ -55,11 +55,7 @@ Comprehensive guide to using Prisma ORM with TypeScript for database management 
 
 ## Overview
 
-### What is Prisma?
-
-**Prisma** is a next-generation ORM (Object-Relational Mapping) that simplifies database workflows in TypeScript and Node.js applications.
-
-**Key Features**:
+**Prisma** is a next-generation ORM (Object-Relational Mapping) for TypeScript and Node.js.
 
 - **Type Safety** — Auto-generated TypeScript types from your schema
 - **Intuitive API** — Clean, readable database queries
@@ -67,7 +63,6 @@ Comprehensive guide to using Prisma ORM with TypeScript for database management 
 - **Prisma Studio** — Visual database browser and editor
 - **Multiple Databases** — PostgreSQL, MySQL, SQLite, SQL Server, MongoDB, CockroachDB
 - **Auto-completion** — Full IntelliSense support
-- **Validation** — Runtime and compile-time validation
 
 ### Prisma Components
 
@@ -162,11 +157,9 @@ model User {
 }
 ```
 
-**Components**:
-
-- **`generator`** — Purpose: Specifies what to generate; Example: Prisma Client
-- **`datasource`** — Purpose: Database connection; Example: PostgreSQL, MySQL
-- **`model`** — Purpose: Database table definition; Example: User, Post, Comment
+- **`generator`** — Specifies what to generate (e.g., Prisma Client)
+- **`datasource`** — Database connection (e.g., PostgreSQL, MySQL)
+- **`model`** — Database table definition (e.g., User, Post, Comment)
 
 ### Data Models
 
@@ -233,12 +226,12 @@ enum Status {
 
 **Field Attributes**:
 
-- **`@id`** — Purpose: Primary key; Example: `id Int @id`
-- **`@default()`** — Purpose: Default value; Example: `@default(now())`
-- **`@unique`** — Purpose: Unique constraint; Example: `email String @unique`
-- **`@updatedAt`** — Purpose: Auto-update timestamp; Example: `updatedAt DateTime @updatedAt`
-- **`@map()`** — Purpose: Custom column name; Example: `@map("user_email")`
-- **`@db.*`** — Purpose: Database-specific type; Example: `@db.VarChar(255)`
+- **`@id`** — Primary key: `id Int @id`
+- **`@default()`** — Default value: `@default(now())`
+- **`@unique`** — Unique constraint: `email String @unique`
+- **`@updatedAt`** — Auto-update timestamp: `updatedAt DateTime @updatedAt`
+- **`@map()`** — Custom column name: `@map("user_email")`
+- **`@db.*`** — Database-specific type: `@db.VarChar(255)`
 
 **Block Attributes**:
 
@@ -431,12 +424,6 @@ await prisma.user.update({
 });
 ```
 
-**Relationship Comparison**:
-
-- **One-to-One** — Relation Field: Optional (`?`); Foreign Key: `@unique` on FK; Example: User ↔ Profile
-- **One-to-Many** — Relation Field: Array (`[]`); Foreign Key: Regular FK; Example: User → Posts
-- **Many-to-Many** — Relation Field: Array on both; Foreign Key: Join table; Example: Posts ↔ Categories
-
 ---
 
 ## Prisma Client
@@ -483,9 +470,9 @@ export async function getUsers() {
 
 **Configuration Options**:
 
-- **`log`** — Purpose: Logging level; Example: `['query', 'error']`
-- **`errorFormat`** — Purpose: Error formatting; Example: `'pretty'`, `'minimal'`
-- **`datasources`** — Purpose: Override connection; Example: `{ db: { url: newUrl } }`
+- **`log`** — Logging level: `['query', 'error']`
+- **`errorFormat`** — Error formatting: `'pretty'`, `'minimal'`
+- **`datasources`** — Override connection: `{ db: { url: newUrl } }`
 
 ---
 
@@ -602,11 +589,7 @@ const users = await prisma.user.findMany({
 });
 ```
 
-**Include vs Select Comparison**:
-
-- **include** — Purpose: Add related data; Returns: All fields + relations
-- **select** — Purpose: Pick specific fields; Returns: Only selected fields
-- **Both** — Cannot use together; Returns: Error
+`include` adds related data to all fields; `select` picks specific fields. They cannot be used together.
 
 ```typescript
 // ✅ Correct - Use include
@@ -740,13 +723,6 @@ model Post {
   author   User @relation(fields: [authorId], references: [id], onDelete: Cascade)
 }
 ```
-
-**CRUD Operation Summary**:
-
-- **Create** — Single: `create()`; Multiple: `createMany()`; Returns Count: Yes (Many)
-- **Read** — Single: `findUnique()`, `findFirst()`; Multiple: `findMany()`; Returns Count: No
-- **Update** — Single: `update()`, `upsert()`; Multiple: `updateMany()`; Returns Count: Yes (Many)
-- **Delete** — Single: `delete()`; Multiple: `deleteMany()`; Returns Count: Yes (Many)
 
 ---
 
@@ -944,17 +920,6 @@ const users = await prisma.user.findMany({
 });
 ```
 
-**Filter Comparison**:
-
-- **`equals`** — Operator: `=`; Example: `{ role: 'ADMIN' }`; Use Case: Exact match
-- **`not`** — Operator: `!=`; Example: `{ not: 'ADMIN' }`; Use Case: Not equal
-- **`in`** — Operator: `IN`; Example: `{ in: ['ADMIN', 'USER'] }`; Use Case: Match any value
-- **`gt`, `gte`** — Operator: `>`, `>=`; Example: `{ gte: 18 }`; Use Case: Numeric comparison
-- **`lt`, `lte`** — Operator: `<`, `<=`; Example: `{ lte: 65 }`; Use Case: Numeric comparison
-- **`contains`** — Operator: `LIKE`; Example: `{ contains: 'example' }`; Use Case: Substring search
-- **`startsWith`** — Operator: `LIKE`; Example: `{ startsWith: 'John' }`; Use Case: Prefix search
-- **`endsWith`** — Operator: `LIKE`; Example: `{ endsWith: 'Doe' }`; Use Case: Suffix search
-
 ### Sorting
 
 **Single Field**:
@@ -1039,11 +1004,6 @@ const users = await prisma.user.findMany({
   orderBy: { id: 'asc' },
 });
 ```
-
-**Pagination Pattern Comparison**:
-
-- **Offset** — Pros: Simple, jump to any page; Cons: Slow on large datasets; Best For: Small datasets, page numbers
-- **Cursor** — Pros: Fast, consistent; Cons: Can't jump to arbitrary page; Best For: Large datasets, infinite scroll
 
 ### Relations
 
@@ -1173,14 +1133,6 @@ const result = await prisma.user.groupBy({
 // ]
 ```
 
-**Aggregation Functions**:
-
-- **`_count`** — Purpose: Count records; Example: `_count: { id: true }`
-- **`_avg`** — Purpose: Average value; Example: `_avg: { age: true }`
-- **`_sum`** — Purpose: Sum values; Example: `_sum: { price: true }`
-- **`_min`** — Purpose: Minimum value; Example: `_min: { age: true }`
-- **`_max`** — Purpose: Maximum value; Example: `_max: { age: true }`
-
 ---
 
 ## Transactions
@@ -1288,11 +1240,6 @@ await prisma.$transaction(
 );
 ```
 
-**Transaction Comparison**:
-
-- **Sequential** — Use Case: Simple operations; Pros: Easy, automatic; Cons: Limited control
-- **Interactive** — Use Case: Complex logic, conditionals; Pros: Full control, rollback; Cons: More complex
-
 ---
 
 ## Migrations
@@ -1360,8 +1307,6 @@ npx prisma migrate reset
 
 ### Migration Best Practices
 
-**Best Practices**:
-
 - **Version Control** — Commit migration files to Git
 - **Descriptive Names** — Use clear migration names: `add_user_email_index`
 - **Review SQL** — Always review generated SQL before applying
@@ -1369,14 +1314,6 @@ npx prisma migrate reset
 - **Test Migrations** — Test on staging before production
 - **Manual Edits** — Don't manually edit applied migrations
 - **Delete Migrations** — Don't delete migration files after applying
-
-**Migration Commands Summary**:
-
-- **`migrate dev`** — Environment: Development; Purpose: Create and apply migration
-- **`migrate deploy`** — Environment: Production; Purpose: Apply pending migrations
-- **`migrate reset`** — Environment: Development; Purpose: Reset DB and replay migrations
-- **`migrate status`** — Environment: Any; Purpose: Check migration status
-- **`migrate resolve`** — Environment: Any; Purpose: Mark migration as applied/rolled back
 
 ---
 
@@ -1498,7 +1435,7 @@ await prisma.user.createMany({
 
 ### UUID vs CUID
 
-**UUID (Universally Unique Identifier)**:
+**UUID (Universally Unique Identifier)** -- 128-bit, industry standard, native PostgreSQL support, not sortable. Example: `550e8400-e29b-41d4-a716-446655440000`. Best for distributed systems.
 
 ```prisma
 model User {
@@ -1507,67 +1444,12 @@ model User {
 }
 ```
 
-**Characteristics**:
-
-- **Format** — Standard 128-bit identifier
-- **Example** — `550e8400-e29b-41d4-a716-446655440000`
-- **Database Type** — Native type in PostgreSQL (`uuid`)
-- **Generation** — Uses `gen_random_uuid()`
-- **Sortable** — No (unless using UUIDv7)
-- **Use Case** — Distributed systems, global uniqueness
-
-**CUID (Collision-resistant Unique ID)**:
+**CUID (Collision-resistant Unique ID)** -- 25 chars, timestamp-based, sortable, URL-friendly. Example: `clh3qo9w80000356m2r4g7b9e`. Generated by Prisma Client. Best for APIs and URLs.
 
 ```prisma
 model User {
   id    String @id @default(cuid())
   email String @unique
-}
-```
-
-**Characteristics**:
-
-- **Format** — Custom format, starts with timestamp
-- **Example** — `clh3qo9w80000356m2r4g7b9e`
-- **Database Type** — Stored as `text` or `varchar`
-- **Generation** — Generated by Prisma Client
-- **Sortable** — Yes (sortable by creation time)
-- **Use Case** — APIs, URLs, human-readable IDs
-
-**Comparison**:
-
-- **Standard** — UUID: Industry standard; CUID: Custom format
-- **Database Support** — UUID: Native type; CUID: Stored as text
-- **Sortable** — UUID: Random; CUID: Timestamp-based
-- **URL-friendly** — UUID: Contains hyphens; CUID: More readable
-- **Performance** — UUID: Slightly faster; CUID: Good
-- **Size** — UUID: 36 characters (with hyphens); CUID: 25 characters
-
-**When to use**:
-
-```typescript
-// ✅ Use UUID when:
-// - Need industry standard
-// - Working with distributed systems
-// - Database has native UUID support
-model User {
-  id String @id @default(uuid())
-}
-
-// ✅ Use CUID when:
-// - Want sortable IDs
-// - Need URL-friendly IDs
-// - Want more human-readable format
-model Post {
-  id String @id @default(cuid())
-}
-
-// ✅ Use Auto-increment when:
-// - Small application
-// - Single database server
-// - Need sequential IDs
-model Product {
-  id Int @id @default(autoincrement())
 }
 ```
 
@@ -1588,13 +1470,6 @@ model User {
   id BigInt @id @default(autoincrement())
 }
 ```
-
-**ID Type Comparison**:
-
-- **`Int`** — Size: 4 bytes; Example: `1`, `2`, `3`; Pros: Simple, fast; Cons: Max ~2 billion
-- **`BigInt`** — Size: 8 bytes; Example: `1n`, `2n`; Pros: Larger range; Cons: Slightly slower
-- **`String (UUID)`** — Size: 36 chars; Example: `550e8400-...`; Pros: Globally unique; Cons: Larger storage
-- **`String (CUID)`** — Size: 25 chars; Example: `clh3qo9w8...`; Pros: Sortable, unique; Cons: Not standard
 
 ---
 
@@ -1691,8 +1566,6 @@ async function createUser(email: string, name: string) {
 ## Best Practices
 
 ### Schema Design
-
-**Best Practices**:
 
 - **Use meaningful names** — `User`, `Post`, `Comment` (not `tbl_usr`)
 - **Consistent naming** — PascalCase for models, camelCase for fields
@@ -1871,12 +1744,11 @@ const prisma = new PrismaClient({
 
 ### Query Optimization Tips
 
-- **Select specific fields** — Don't fetch unnecessary data; Example: `select: { id: true, name: true }`
-- **Use indexes** — Speed up WHERE clauses; Example: `@@index([email])`
-- **Batch operations** — Use `createMany`, `updateMany`; Example: `createMany({ data: [...] })`
-- **Cursor pagination** — Faster than offset for large datasets; Example: `cursor: { id: lastId }`
-- **Avoid deep nesting** — Limit relation depth; Example: Max 3-4 levels
-- **Use raw queries** — For complex queries; Example: `prisma.$queryRaw`
+- **Select specific fields** — `select: { id: true, name: true }`
+- **Batch operations** — Use `createMany`, `updateMany`
+- **Cursor pagination** — Faster than offset for large datasets
+- **Avoid deep nesting** — Limit relation depth to 3-4 levels
+- **Use raw queries** — `prisma.$queryRaw` for complex queries
 
 ---
 
