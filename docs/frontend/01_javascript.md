@@ -975,59 +975,6 @@ fetch("/api/user")
 
 ---
 
-### Promise Methods
-
-**Promise.all()** — wait for all, fail if any fails.
-
-```javascript
-const p1 = fetch("/api/users");
-const p2 = fetch("/api/posts");
-
-Promise.all([p1, p2])
-  .then(([users, posts]) => {
-    console.log("Both loaded!");
-  })
-  .catch(error => {
-    console.log("At least one failed");
-  });
-```
-
-**Promise.race()** — first to settle wins.
-
-```javascript
-Promise.race([
-  fetch("/api/data"),
-  new Promise((_, reject) => setTimeout(() => reject("Timeout"), 5000))
-])
-  .then(data => console.log("Got data:", data))
-  .catch(error => console.log("Error or timeout:", error));
-```
-
-**Promise.allSettled()** — wait for all, get results even if some fail.
-
-```javascript
-Promise.allSettled([p1, p2])
-  .then(results => {
-    results.forEach(result => {
-      if (result.status === "fulfilled") {
-        console.log("Success:", result.value);
-      } else {
-        console.log("Failed:", result.reason);
-      }
-    });
-  });
-```
-
-**Promise.any()** — first to fulfill wins.
-
-```javascript
-Promise.any([p1, p2, p3])
-  .then(result => console.log("First success:", result))
-  .catch(error => console.log("All failed"));
-```
-
----
-
 ### Async/Await
 
 Syntactic sugar for Promises. `async` returns a Promise, `await` pauses until it resolves.
