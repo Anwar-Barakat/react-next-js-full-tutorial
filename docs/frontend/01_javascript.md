@@ -16,7 +16,7 @@
 12. [Arrays & Iteration](#12-arrays--iteration)
 13. [Spread Operator & Destructuring](#13-spread-operator--destructuring)
 14. [Asynchronous JavaScript](#14-asynchronous-javascript)
-15. [Event Loop & Task Queues](#15-event-loop--task-queues)
+15. [The 3 Parts of JavaScript's Concurrency Model](#15-the-3-parts-of-javascripts-concurrency-model)
 16. [Promises & Async/Await](#16-promises--asyncawait)
 17. [DOM Manipulation](#17-dom-manipulation)
 18. [Prototypal Inheritance](#18-prototypal-inheritance)
@@ -808,11 +808,11 @@ JavaScript is single-threaded but uses the event loop + Web APIs (setTimeout, fe
 
 ---
 
-## 15. Event Loop & Task Queues
+## 15. The 3 Parts of JavaScript's Concurrency Model
 
-### Three Main Parts
+### 1. Call Stack — Synchronous Code (LIFO)
 
-**1. Call Stack** — where synchronous code runs (LIFO).
+The only place where code actually executes.
 
 ```javascript
 function third() { console.log("3"); }
@@ -826,11 +826,39 @@ first();
 // first()
 ```
 
-**2. Web APIs** — browser handles async ops (setTimeout, fetch, DOM events).
+### 2. Web APIs — Browser Handles Async
 
-**3. Queues:**
-- **Microtask Queue** — Promises, async/await (HIGH priority).
-- **Macrotask Queue** — setTimeout, setInterval, DOM events (LOW priority).
+The browser takes over slow tasks so the stack doesn't freeze.
+
+### 3. Two Queues — The Waiting Room
+
+When the browser finishes an async task, the callback goes into a queue and waits for the stack to be empty. There are TWO queues with different priorities:
+
+**Microtask Queue — HIGH Priority**
+- Handles: Promises, async/await
+
+```javascript
+Promise.resolve().then(() => console.log("Microtask"));
+```
+
+**Macrotask Queue — LOW Priority**
+- Handles: setTimeout, setInterval, DOM events
+
+```javascript
+setTimeout(() => console.log("Macrotask"), 0);
+```
+
+Microtasks always drain before the next macrotask runs.
+
+---
+
+### One Line Per Part
+
+- **Call Stack** — Executes code, one at a time, LIFO
+- **Web APIs** — Browser holds async tasks so JS doesn't block
+- **Microtask Queue** — Promises wait here — runs before everything
+- **Macrotask Queue** — Timers/events wait here — runs after microtasks
+- **Event Loop** — The manager — moves tasks to stack when it's free
 
 ---
 
@@ -868,15 +896,6 @@ console.log("D");
 6. Run Promise callback → Output: C
 7. Check macrotask queue → Run setTimeout → Output: B
 ```
-
----
-
-### Microtasks vs Macrotasks
-
-- **Microtasks** — HIGH priority. Examples: Promises, async/await, queueMicrotask. Run after current code, before macrotasks
-- **Macrotasks** — LOW priority. Examples: setTimeout, setInterval, DOM events. Run after microtasks
-
-Microtasks always drain before the next macrotask runs.
 
 ---
 
