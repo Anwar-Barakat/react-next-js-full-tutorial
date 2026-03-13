@@ -901,9 +901,40 @@ console.log("D");
 
 ## 16. Promises & Async/Await
 
-### Promises
+### What is a Promise?
+
+A Promise is not only for APIs — it's a way to handle **any async operation** that takes time and may succeed or fail.
 
 Three states: **pending**, **fulfilled**, **rejected**.
+
+`async/await` doesn't make the promise resolve — the promise resolves on its own. `async/await` is just a cleaner way to wait for it.
+
+**Old way — `.then()` / `.catch()`:**
+
+```javascript
+fetch('/api/users')
+    .then(response => response.json())   // fulfilled
+    .then(data => console.log(data))
+    .catch(error => console.log(error))  // rejected
+```
+
+**Modern way — `async/await`:**
+
+```javascript
+async function getUsers() {
+    try {
+        const response = await fetch('/api/users')  // wait here
+        const data = await response.json()          // wait here
+        console.log(data)
+    } catch (error) {
+        console.log(error)  // rejected
+    }
+}
+```
+
+---
+
+### Promises
 
 ```javascript
 const promise = new Promise((resolve, reject) => {
