@@ -1,86 +1,36 @@
 # Inertia.js Guide
 
-A comprehensive guide to building modern full-stack apps with Inertia.js, Laravel, and React.
-
-## Table of Contents
-
-1. [What is Inertia.js?](#1-what-is-inertiajs)
-2. [How does Inertia work?](#2-how-does-inertia-work)
-3. [Inertia vs Traditional API (SPA approach)](#3-inertia-vs-traditional-api-spa-approach)
-4. [Setting up Inertia with Laravel and React](#4-setting-up-inertia-with-laravel-and-react)
-5. [Pages and Routing](#5-pages-and-routing)
-6. [Passing Props from Laravel to React](#6-passing-props-from-laravel-to-react)
-7. [Shared Data](#7-shared-data)
-8. [Client-Side Navigation with Link](#8-client-side-navigation-with-link)
-9. [Forms with Inertia](#9-forms-with-inertia)
-10. [File Uploads with Inertia](#10-file-uploads-with-inertia)
-11. [Authentication with Inertia](#11-authentication-with-inertia)
-12. [Layouts in Inertia](#12-layouts-in-inertia)
-13. [useForm Hook](#13-useform-hook)
-14. [Flash Messages](#14-flash-messages)
-15. [Inertia vs Next.js](#15-inertia-vs-nextjs)
+Build SPAs with Laravel + React without a separate API. Laravel handles routing and controllers; Inertia replaces Blade views with React components and manages all XHR communication.
 
 ---
 
 ## 1. What is Inertia.js?
 
-- Inertia.js is a library that lets you build **single-page applications (SPAs)** using Laravel on the backend and React (or Vue) on the frontend — **without building a separate API**.
-- There is no REST API between Laravel and React — Inertia handles the communication automatically.
-- You keep Laravel routing, controllers, and middleware, but return React components instead of Blade views.
+- No REST API — controllers return React components directly via `Inertia::render()`.
+- First load returns full HTML; subsequent navigations send XHR returning only JSON (component + props), swapping the component without a page reload.
 
-**What Inertia replaces:**
-- Blade templates → React pages.
-- JSON API responses → Direct props to React components.
-- Axios API calls → Inertia's built-in navigation.
+**Inertia vs API + React:**
 
----
-
-## 2. How does Inertia work?
-
-**First page load:**
-1. Browser requests `/dashboard`.
-2. Laravel controller renders a full HTML page with the React app embedded.
-3. The initial page props are passed as JSON inside the HTML.
-
-**Subsequent navigation:**
-1. User clicks a link (via Inertia's `<Link>`).
-2. Inertia sends an XHR request with a special header `X-Inertia: true`.
-3. Laravel detects it as an Inertia request → returns only JSON (component name + props).
-4. Inertia swaps the React component on the client — **no full page reload**.
-
-```
-First load:
-Browser → GET /dashboard → Laravel → Full HTML + initial props → React mounts
-
-Next navigation:
-<Link href="/profile"> → Inertia XHR → Laravel → JSON (component + props) → React swaps component
-```
+| | Inertia.js | API + React |
+|---|---|---|
+| Routing | Laravel routes | React Router / Next.js |
+| Data fetching | Controller props | `fetch`/`axios` |
+| Auth | Laravel session (cookies) | JWT / Sanctum tokens |
+| SSR/SEO | Optional plugin | Next.js built-in |
+| Best for | Admin panels, CRUD, internal tools | Public SEO-heavy sites |
 
 ---
 
-## 3. Inertia vs Traditional API (SPA approach)
+## 2. Setup
 
-- **Backend** — Inertia.js: Laravel (routes + controllers). API + React: Laravel (API only)
-- **Frontend** — Inertia.js: React pages (no router needed). API + React: React + React Router / Next.js
-- **Data fetching** — Inertia.js: Props from controller. API + React: `fetch` / `axios` API calls
-- **Auth** — Inertia.js: Laravel session (cookies). API + React: JWT / Sanctum tokens
-- **SSR** — Inertia.js: Optional (Inertia SSR). API + React: Built-in (Next.js)
-- **SEO** — Inertia.js: Needs SSR for SEO. API + React: Next.js has built-in SSR
-- **Complexity** — Inertia.js: Low, one codebase. API + React: Higher, two separate systems
-- **Best for** — Inertia.js: Internal tools, admin panels, CRUD apps. API + React: Public sites needing SEO, complex frontends
-
----
-
-## 4. Setting up Inertia with Laravel and React
-
-**Backend (Laravel):**
+**Backend:**
 
 ```bash
 composer require inertiajs/inertia-laravel
 php artisan inertia:middleware
 ```
 
-Add `HandleInertiaRequests` middleware in `bootstrap/app.php` (Laravel 11+):
+Register `HandleInertiaRequests` in `bootstrap/app.php`:
 
 ```php
 ->withMiddleware(function (Middleware $middleware) {
@@ -90,7 +40,7 @@ Add `HandleInertiaRequests` middleware in `bootstrap/app.php` (Laravel 11+):
 })
 ```
 
-Update `resources/views/app.blade.php` (root template):
+`resources/views/app.blade.php`:
 
 ```blade
 <!DOCTYPE html>
@@ -103,13 +53,11 @@ Update `resources/views/app.blade.php` (root template):
     @vite(['resources/js/app.jsx', "resources/js/pages/{$page['component']}.jsx"])
     @inertiaHead
 </head>
-<body>
-    @inertia
-</body>
+<body>@inertia</body>
 </html>
 ```
 
-**Frontend (React):**
+**Frontend:**
 
 ```bash
 npm install @inertiajs/react
@@ -134,39 +82,22 @@ createInertiaApp({
 
 ---
 
-## 5. Pages and Routing
+## 3. Pages, Routing, and Props
 
-- In Inertia, routing lives entirely on the **Laravel side**.
-- React components are called **Pages** — stored in `resources/js/pages/`.
-- A controller returns an Inertia response instead of a Blade view.
+Routing lives entirely on the Laravel side. React components (pages) live in `resources/js/pages/`.
 
-**Laravel route:**
-
-```php
-// routes/web.php
-Route::get('/dashboard', [DashboardController::class, 'index']);
-Route::get('/users', [UserController::class, 'index']);
-Route::get('/users/{user}', [UserController::class, 'show']);
-```
-
-**Laravel controller:**
+**Controller:**
 
 ```php
 use Inertia\Inertia;
 
 class UserController extends Controller
 {
-    public function index(): \Inertia\Response
+    public function index()
     {
         return Inertia::render('Users/Index', [
-            'users' => User::paginate(10),
-        ]);
-    }
-
-    public function show(User $user): \Inertia\Response
-    {
-        return Inertia::render('Users/Show', [
-            'user' => $user,
+            'users'   => User::paginate(10),
+            'canEdit' => auth()->user()->can('update', $post),
         ]);
     }
 }
@@ -175,100 +106,52 @@ class UserController extends Controller
 **React page** (`resources/js/pages/Users/Index.jsx`):
 
 ```jsx
-export default function UsersIndex({ users }) {
+export default function UsersIndex({ users, canEdit }) {
     return (
         <div>
             <h1>Users</h1>
-            {users.data.map(user => (
-                <div key={user.id}>{user.name}</div>
-            ))}
+            {users.data.map(user => <div key={user.id}>{user.name}</div>)}
         </div>
     );
 }
 ```
 
----
+Props arrive as regular React props — no `useEffect` or `fetch` needed.
 
-## 6. Passing Props from Laravel to React
-
-- Props are passed as the second argument to `Inertia::render()`.
-- They arrive as regular React props — no need for `useEffect` or `fetch`.
-
-```php
-// Controller
-return Inertia::render('Posts/Show', [
-    'post'     => PostResource::make($post),
-    'comments' => CommentResource::collection($post->comments),
-    'canEdit'  => auth()->user()->can('update', $post),
-]);
-```
-
-```jsx
-// React page
-export default function PostShow({ post, comments, canEdit }) {
-    return (
-        <article>
-            <h1>{post.title}</h1>
-            <p>{post.content}</p>
-
-            {canEdit && <a href={`/posts/${post.id}/edit`}>Edit</a>}
-
-            <section>
-                {comments.map(comment => (
-                    <p key={comment.id}>{comment.body}</p>
-                ))}
-            </section>
-        </article>
-    );
-}
-```
-
-**Lazy props** — only evaluated when requested (good for heavy data):
+**Lazy props** (evaluated only when explicitly requested):
 
 ```php
 return Inertia::render('Dashboard', [
-    'stats'   => Inertia::lazy(fn () => $this->getStats()),
-    'reports' => Inertia::lazy(fn () => $this->getReports()),
+    'stats' => Inertia::lazy(fn () => $this->getStats()),
 ]);
 ```
 
 ---
 
-## 7. Shared Data
+## 4. Shared Data
 
-- Shared data is sent with **every** Inertia response — useful for auth user, flash messages, permissions.
-- Defined in `app/Http/Middleware/HandleInertiaRequests.php`.
+Defined in `HandleInertiaRequests::share()` — sent with every response.
 
 ```php
-class HandleInertiaRequests extends Middleware
+public function share(Request $request): array
 {
-    public function share(Request $request): array
-    {
-        return array_merge(parent::share($request), [
-            'auth' => [
-                'user' => $request->user() ? [
-                    'id'   => $request->user()->id,
-                    'name' => $request->user()->name,
-                    'role' => $request->user()->role,
-                ] : null,
-            ],
-            'flash' => [
-                'success' => $request->session()->get('success'),
-                'error'   => $request->session()->get('error'),
-            ],
-        ]);
-    }
+    return array_merge(parent::share($request), [
+        'auth'  => ['user' => $request->user()?->only('id', 'name', 'role')],
+        'flash' => [
+            'success' => $request->session()->get('success'),
+            'error'   => $request->session()->get('error'),
+        ],
+    ]);
 }
 ```
 
-**Accessing shared data in React:**
+Access in any component via `usePage()`:
 
 ```jsx
 import { usePage } from '@inertiajs/react';
 
 export default function Navbar() {
     const { auth, flash } = usePage().props;
-
     return (
         <nav>
             {auth.user ? <span>Hello, {auth.user.name}</span> : <a href="/login">Login</a>}
@@ -280,100 +163,68 @@ export default function Navbar() {
 
 ---
 
-## 8. Client-Side Navigation with Link
+## 5. Navigation
 
-- Use Inertia's `<Link>` instead of `<a>` for client-side navigation (no full page reload).
-
-```jsx
-import { Link } from '@inertiajs/react';
-
-export default function Nav() {
-    return (
-        <nav>
-            {/* Client-side navigation */}
-            <Link href="/dashboard">Dashboard</Link>
-            <Link href="/users">Users</Link>
-
-            {/* With method */}
-            <Link href="/logout" method="post" as="button">Logout</Link>
-
-            {/* Replace history entry instead of pushing */}
-            <Link href="/search" replace>Search</Link>
-        </nav>
-    );
-}
-```
-
-**Programmatic navigation:**
+Use `<Link>` instead of `<a>` for client-side navigation:
 
 ```jsx
-import { router } from '@inertiajs/react';
+import { Link, router } from '@inertiajs/react';
 
-function handleDelete(id) {
-    router.delete(`/posts/${id}`, {
-        onSuccess: () => console.log('Deleted!'),
-        onError:   (errors) => console.log(errors),
-    });
-}
+// Declarative
+<Link href="/dashboard">Dashboard</Link>
+<Link href="/logout" method="post" as="button">Logout</Link>
 
-// Redirect
+// Programmatic
 router.visit('/dashboard');
-router.visit('/profile', { method: 'get' });
+router.delete(`/posts/${id}`, { onSuccess: () => console.log('Deleted!') });
 ```
 
 ---
 
-## 9. Forms with Inertia
+## 6. Forms and File Uploads
 
-**Using `useForm` hook (recommended):**
+`useForm` manages form state, submission, validation errors, and loading state:
 
 ```jsx
 import { useForm } from '@inertiajs/react';
 
 export default function CreatePost() {
     const { data, setData, post, processing, errors, reset } = useForm({
-        title:   '',
-        content: '',
+        title: '', content: '',
     });
 
-    function handleSubmit(e) {
-        e.preventDefault();
-        post('/posts', {
-            onSuccess: () => reset(),
-        });
-    }
-
     return (
-        <form onSubmit={handleSubmit}>
-            <div>
-                <input
-                    value={data.title}
-                    onChange={e => setData('title', e.target.value)}
-                    placeholder="Title"
-                />
-                {errors.title && <p className="error">{errors.title}</p>}
-            </div>
+        <form onSubmit={e => { e.preventDefault(); post('/posts', { onSuccess: () => reset() }); }}>
+            <input value={data.title} onChange={e => setData('title', e.target.value)} />
+            {errors.title && <p className="error">{errors.title}</p>}
 
-            <div>
-                <textarea
-                    value={data.content}
-                    onChange={e => setData('content', e.target.value)}
-                />
-                {errors.content && <p className="error">{errors.content}</p>}
-            </div>
+            <textarea value={data.content} onChange={e => setData('content', e.target.value)} />
+            {errors.content && <p className="error">{errors.content}</p>}
 
-            <button type="submit" disabled={processing}>
-                {processing ? 'Saving...' : 'Save Post'}
-            </button>
+            <button disabled={processing}>{processing ? 'Saving...' : 'Save'}</button>
         </form>
     );
 }
 ```
 
+**File uploads:**
+
+```jsx
+const { data, setData, post, progress } = useForm({ avatar: null });
+
+<form onSubmit={e => { e.preventDefault(); post('/profile/avatar'); }} encType="multipart/form-data">
+    <input type="file" onChange={e => setData('avatar', e.target.files[0])} />
+    {progress && <progress value={progress.percentage} max="100" />}
+    <button>Upload</button>
+</form>
+```
+
+**`useForm` properties:** `data`/`setData`, `errors`, `post`/`put`/`patch`/`delete`, `processing`, `progress`, `reset`/`clearErrors`.
+
 **Laravel controller (store):**
 
 ```php
-public function store(Request $request): \Illuminate\Http\RedirectResponse
+public function store(Request $request)
 {
     $validated = $request->validate([
         'title'   => ['required', 'string', 'max:255'],
@@ -388,50 +239,9 @@ public function store(Request $request): \Illuminate\Http\RedirectResponse
 
 ---
 
-## 10. File Uploads with Inertia
+## 7. Authentication
 
-```jsx
-import { useForm } from '@inertiajs/react';
-
-export default function AvatarUpload() {
-    const { data, setData, post, progress, errors } = useForm({
-        avatar: null,
-    });
-
-    function handleSubmit(e) {
-        e.preventDefault();
-        post('/profile/avatar');
-    }
-
-    return (
-        <form onSubmit={handleSubmit} encType="multipart/form-data">
-            <input
-                type="file"
-                onChange={e => setData('avatar', e.target.files[0])}
-            />
-
-            {/* Upload progress bar */}
-            {progress && (
-                <progress value={progress.percentage} max="100">
-                    {progress.percentage}%
-                </progress>
-            )}
-
-            {errors.avatar && <p>{errors.avatar}</p>}
-            <button type="submit">Upload</button>
-        </form>
-    );
-}
-```
-
----
-
-## 11. Authentication with Inertia
-
-- Inertia uses **Laravel session-based authentication** (cookies) — no tokens needed.
-- Protected routes use standard Laravel middleware.
-
-**Routes:**
+Inertia uses Laravel session-based auth — no tokens needed.
 
 ```php
 Route::middleware('guest')->group(function () {
@@ -447,7 +257,7 @@ Route::middleware('auth')->group(function () {
 **Login controller:**
 
 ```php
-public function login(Request $request): \Illuminate\Http\RedirectResponse
+public function login(Request $request)
 {
     $credentials = $request->validate([
         'email'    => ['required', 'email'],
@@ -463,44 +273,11 @@ public function login(Request $request): \Illuminate\Http\RedirectResponse
 }
 ```
 
-**Login page (React):**
-
-```jsx
-import { useForm } from '@inertiajs/react';
-
-export default function Login() {
-    const { data, setData, post, processing, errors } = useForm({
-        email:    '',
-        password: '',
-        remember: false,
-    });
-
-    return (
-        <form onSubmit={e => { e.preventDefault(); post('/login'); }}>
-            <input
-                type="email"
-                value={data.email}
-                onChange={e => setData('email', e.target.value)}
-            />
-            {errors.email && <p>{errors.email}</p>}
-
-            <input
-                type="password"
-                value={data.password}
-                onChange={e => setData('password', e.target.value)}
-            />
-
-            <button disabled={processing}>Login</button>
-        </form>
-    );
-}
-```
-
 ---
 
-## 12. Layouts in Inertia
+## 8. Layouts
 
-**Persistent layout** — keeps the layout mounted between navigations (preserves state):
+Assign a persistent layout so it stays mounted between navigations:
 
 ```jsx
 // resources/js/layouts/AppLayout.jsx
@@ -509,138 +286,31 @@ export default function AppLayout({ children }) {
         <div>
             <nav>...</nav>
             <main>{children}</main>
-            <footer>...</footer>
         </div>
     );
 }
-```
 
-```jsx
 // resources/js/pages/Dashboard.jsx
-import AppLayout from '@/layouts/AppLayout';
-
-export default function Dashboard({ stats }) {
-    return (
-        <div>
-            <h1>Dashboard</h1>
-        </div>
-    );
-}
-
-// Attach layout to page
 Dashboard.layout = (page) => <AppLayout>{page}</AppLayout>;
 ```
 
-**Default layout for all pages** (in `app.jsx`):
+**Default layout for all pages** (set in `app.jsx`):
 
 ```jsx
-import AppLayout from './layouts/AppLayout';
-
-createInertiaApp({
-    resolve: (name) => {
-        const pages = import.meta.glob('./pages/**/*.jsx', { eager: true });
-        const page  = pages[`./pages/${name}.jsx`];
-        page.default.layout ??= (page) => <AppLayout>{page}</AppLayout>;
-        return page;
-    },
-    setup({ el, App, props }) {
-        createRoot(el).render(<App {...props} />);
-    },
-});
+page.default.layout ??= (page) => <AppLayout>{page}</AppLayout>;
 ```
 
 ---
 
-## 13. useForm Hook
+## 9. Inertia vs Next.js
 
-The `useForm` hook manages form state, submission, validation errors, and loading state:
+| | Inertia.js | Next.js |
+|---|---|---|
+| Backend | Laravel | Node.js / any API |
+| Routing | Laravel routes | File-based |
+| Data fetching | Controller props | `getServerSideProps`, `fetch` |
+| SSR / SEO | Optional plugin | Built-in, excellent |
+| Auth | Laravel session | NextAuth / custom |
+| Best for | Admin panels, CRUD, internal tools | Public sites, SEO |
 
-```jsx
-const {
-    data,        // Current form values
-    setData,     // Update a field: setData('name', 'Anwar')
-    errors,      // Validation errors from Laravel
-    post,        // Submit POST request
-    put,         // Submit PUT request
-    patch,       // Submit PATCH request
-    delete: destroy, // Submit DELETE request
-    processing,  // true while request is in-flight
-    progress,    // Upload progress (file uploads)
-    reset,       // Reset form to initial values
-    clearErrors, // Clear validation errors
-    transform,   // Transform data before sending
-} = useForm({ name: '', email: '' });
-
-// Transform data before submitting (e.g., add extra fields)
-post('/users', {
-    transform: (data) => ({
-        ...data,
-        role: 'user',
-    }),
-});
-```
-
----
-
-## 14. Flash Messages
-
-**Laravel controller:**
-
-```php
-return redirect()->route('posts.index')
-    ->with('success', 'Post created successfully!');
-```
-
-**Shared in middleware:**
-
-```php
-'flash' => [
-    'success' => $request->session()->get('success'),
-    'error'   => $request->session()->get('error'),
-],
-```
-
-**React component:**
-
-```jsx
-import { usePage } from '@inertiajs/react';
-import { useEffect, useState } from 'react';
-
-export default function FlashMessage() {
-    const { flash } = usePage().props;
-    const [visible, setVisible] = useState(true);
-
-    useEffect(() => {
-        if (flash.success) {
-            setVisible(true);
-            const timer = setTimeout(() => setVisible(false), 3000);
-            return () => clearTimeout(timer);
-        }
-    }, [flash]);
-
-    if (!visible || !flash.success) return null;
-
-    return (
-        <div className="alert alert-success">
-            {flash.success}
-        </div>
-    );
-}
-```
-
----
-
-## 15. Inertia vs Next.js
-
-- **Backend** — Inertia.js: Laravel (full). Next.js: Node.js / any API
-- **Routing** — Inertia.js: Laravel routes. Next.js: File-based routing
-- **Data fetching** — Inertia.js: Controller props. Next.js: `getServerSideProps`, `fetch`
-- **SSR** — Inertia.js: Optional plugin. Next.js: Built-in
-- **SEO** — Inertia.js: Needs SSR setup. Next.js: Excellent built-in SSR
-- **Auth** — Inertia.js: Laravel session. Next.js: Custom (NextAuth, etc.)
-- **API layer** — Inertia.js: Not needed. Next.js: Required
-- **Learning curve** — Inertia.js: Low (Laravel devs). Next.js: Medium
-- **Best for** — Inertia.js: Admin panels, CRUD, internal tools. Next.js: Public sites, SEO, complex frontends
-- **Real-time** — Inertia.js: Laravel Reverb + Echo. Next.js: Pusher / custom
-
-Use **Inertia** for Laravel-centric apps (admin panels, CRUD, internal tools) where you don't need SSR/SEO. Use **Next.js** for public-facing sites needing SSR, edge functions, or multi-backend frontends.
+Use **Inertia** for Laravel-centric apps without SSR needs. Use **Next.js** for public-facing sites needing SSR or a decoupled frontend.

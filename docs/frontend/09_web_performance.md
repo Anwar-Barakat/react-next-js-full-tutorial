@@ -1,1546 +1,353 @@
-# Web Performance - Complete Guide
+# Web Performance Guide
 
-A comprehensive guide to web performance optimization and Core Web Vitals.
+## 1. Core Web Vitals
 
-## Table of Contents
+Google's key performance metrics that affect SEO ranking.
 
-1. [What is Web Performance?](#1-what-is-web-performance)
-2. [Core Web Vitals](#2-core-web-vitals)
-3. [LCP (Largest Contentful Paint)](#3-lcp-largest-contentful-paint)
-4. [FID/INP (First Input Delay / Interaction to Next Paint)](#4-fidinp-first-input-delay--interaction-to-next-paint)
-5. [CLS (Cumulative Layout Shift)](#5-cls-cumulative-layout-shift)
-6. [Other Important Performance Metrics](#6-other-important-performance-metrics)
-7. [Measuring Web Performance](#7-measuring-web-performance)
-8. [Image Optimization](#8-image-optimization)
-9. [Lazy Loading](#9-lazy-loading)
-10. [Code Splitting](#10-code-splitting)
-11. [Tree Shaking](#11-tree-shaking)
-12. [Minification](#12-minification)
-13. [Compression (gzip/brotli)](#13-compression-gzipbrotli)
-14. [Caching](#14-caching)
-15. [CDN (Content Delivery Network)](#15-cdn-content-delivery-network)
-16. [Prefetching and Preloading](#16-prefetching-and-preloading)
-17. [Critical CSS](#17-critical-css)
-18. [Render-blocking Resources](#18-render-blocking-resources)
-19. [Bundle Analysis](#19-bundle-analysis)
-20. [Debouncing and Throttling](#20-debouncing-and-throttling)
-21. [Resource Prioritization](#21-resource-prioritization)
-22. [HTTP/2 and HTTP/3](#22-http2-and-http3)
-23. [Third-party Script Optimization](#23-third-party-script-optimization)
-24. [Font Optimization](#24-font-optimization)
-25. [Web Performance Best Practices](#25-web-performance-best-practices)
+| Metric | Measures | Good | Poor |
+|---|---|---|---|
+| **LCP** | Largest content visible | < 2.5s | > 4.0s |
+| **INP** | Interaction responsiveness | < 200ms | > 500ms |
+| **CLS** | Visual stability | < 0.1 | > 0.25 |
+
+Other: **TTFB** (< 600ms), **FCP** (< 1.8s), **TBT** (< 200ms).
 
 ---
 
-## 1. What is Web Performance?
+## 2. LCP (Largest Contentful Paint)
 
-How fast a website loads and responds to user interactions, measured across loading, interactivity, and visual stability.
-
-- **SEO** - Google ranks faster sites higher
-- **Conversions** - Every 100ms delay can decrease conversions by 1%
-- **Bounce Rate** - 53% of mobile users leave if page takes > 3 seconds
-- **1 second delay** — 11% fewer page views
-- **5 seconds delay** — 90% of users abandon
-
----
-
-## 2. Core Web Vitals
-
-**Core Web Vitals** are Google's key performance metrics that affect SEO ranking and user experience.
-
-**Three Main Metrics:**
-
-1. **LCP (Largest Contentful Paint)** - Loading performance
-2. **FID/INP (First Input Delay / Interaction to Next Paint)** - Interactivity
-3. **CLS (Cumulative Layout Shift)** - Visual stability
-
-**Core Web Vitals Thresholds:**
-
-- **LCP** — Good: < 2.5s. Needs Improvement: 2.5s - 4.0s. Poor: > 4.0s
-- **FID** — Good: < 100ms. Needs Improvement: 100ms - 300ms. Poor: > 300ms
-- **INP** — Good: < 200ms. Needs Improvement: 200ms - 500ms. Poor: > 500ms
-- **CLS** — Good: < 0.1. Needs Improvement: 0.1 - 0.25. Poor: > 0.25
-
----
-
-## 3. LCP (Largest Contentful Paint)
-
-**LCP** measures when the largest content element becomes visible in the viewport.
-
-**What counts as LCP:**
-- Large images
-- Video poster images
-- Background images (CSS)
-- Block-level text elements
-
-**Target**: < 2.5 seconds
-
-### Causes of Slow LCP
-
-- Large, unoptimized images
-- Slow server response time (TTFB)
-- Render-blocking CSS and JavaScript
-- Slow resource load times
-- Client-side rendering
-
-### How to Improve LCP
+Measures when the largest visible element (hero image, heading) renders.
 
 ```html
-<!-- ✅ 1. Optimize images -->
-<img
-  src="hero.jpg"
-  alt="Hero"
-  loading="eager"        <!-- Don't lazy load above-fold -->
-  fetchpriority="high"   <!-- Prioritize loading -->
-  width="1200"
-  height="600"
-/>
-```
+<!-- Prioritize the LCP element -->
+<img src="hero.jpg" alt="Hero" width="1200" height="600"
+     loading="eager" fetchpriority="high">
 
-```html
-<!-- ✅ 2. Preload critical resources -->
+<!-- Preload critical resources -->
 <link rel="preload" href="hero.jpg" as="image">
-<link rel="preload" href="critical.css" as="style">
-```
+<link rel="preload" href="font.woff2" as="font" type="font/woff2" crossorigin>
 
-```html
-<!-- ✅ 3. Optimize fonts -->
-<link
-  rel="preload"
-  href="font.woff2"
-  as="font"
-  type="font/woff2"
-  crossorigin
->
-```
-
-```html
-<!-- ✅ 4. Defer non-critical JavaScript -->
+<!-- Defer non-critical JavaScript -->
 <script src="app.js" defer></script>
 ```
 
-**LCP Optimization Strategies:**
-
-- **Use CDN** — Impact: High. Difficulty: Easy
-- **Optimize images** — Impact: High. Difficulty: Easy
-- **Reduce server response time** — Impact: High. Difficulty: Medium
-- **Preload critical resources** — Impact: Medium. Difficulty: Easy
-- **Remove render-blocking resources** — Impact: High. Difficulty: Medium
-- **Implement critical CSS** — Impact: Medium. Difficulty: Hard
+**Key improvements:** use a CDN, optimize images, reduce TTFB, inline critical CSS.
 
 ---
 
-## 4. FID/INP (First Input Delay / Interaction to Next Paint)
+## 3. INP (Interactivity)
 
-**FID** measures the time from when a user first interacts with a page to when the browser responds.
-
-**INP** is more comprehensive, measuring the latency of all interactions throughout the page lifecycle.
-
-**Target**:
-- FID < 100ms
-- INP < 200ms
-
-### Causes of Poor FID/INP
-
-- Heavy JavaScript execution blocking main thread
-- Long tasks (> 50ms) blocking interactivity
-- Large JavaScript bundles
-- Unoptimized event handlers
-
-### How to Improve FID/INP
+Degrades when the main thread is blocked by long JS tasks (> 50ms).
 
 ```javascript
-// ❌ Bad - blocks main thread for long time
-function processData(data) {
-  data.forEach(item => {
-    // Heavy processing synchronously
-    processItem(item);
-  });
-}
-
-// ✅ Good - yields to browser
+// Yield to the browser during heavy processing
 async function processData(data) {
   for (let i = 0; i < data.length; i++) {
     processItem(data[i]);
-
-    // Yield to browser every 100 items
-    if (i % 100 === 0) {
-      await new Promise(resolve => setTimeout(resolve, 0));
-    }
+    if (i % 100 === 0) await new Promise(r => setTimeout(r, 0));
   }
 }
-```
 
-```javascript
-// ✅ Code splitting - load only what's needed
-import { lazy } from 'react';
+// Use web workers for CPU-heavy work
+const worker = new Worker('compute.js');
+worker.postMessage(data);
+worker.onmessage = (e) => console.log('Result:', e.data);
 
+// Code-split heavy components
 const HeavyComponent = lazy(() => import('./HeavyComponent'));
 ```
 
-```javascript
-// ❌ Bad - expensive calculation on every scroll
-window.addEventListener('scroll', () => {
-  const position = calculateComplexPosition();
-  updateUI(position);
-});
-
-// ✅ Good - debounced
-const debouncedScroll = debounce(() => {
-  const position = calculateComplexPosition();
-  updateUI(position);
-}, 100);
-
-window.addEventListener('scroll', debouncedScroll);
-```
-
-```javascript
-// ✅ Use web workers for heavy computation
-const worker = new Worker('compute.js');
-worker.postMessage(data);
-worker.onmessage = (e) => {
-  console.log('Result:', e.data);
-};
-```
-
-**FID/INP Optimization Strategies:**
-
-- **Code splitting** — Impact: High. Difficulty: Medium
-- **Debounce/throttle events** — Impact: High. Difficulty: Easy
-- **Use web workers** — Impact: High. Difficulty: Hard
-- **Break up long tasks** — Impact: High. Difficulty: Medium
-- **Reduce JavaScript execution time** — Impact: High. Difficulty: Medium
-
 ---
 
-## 5. CLS (Cumulative Layout Shift)
+## 4. CLS (Cumulative Layout Shift)
 
-**CLS** measures visual stability during page load - how much content unexpectedly shifts.
-
-**Target**: < 0.1
-
-### Causes of CLS
-
-- Images without dimensions
-- Ads, embeds, iframes without reserved space
-- Dynamically injected content
-- Web fonts causing FOIT/FOUT (Flash of Invisible/Unstyled Text)
-- Animations that push content
-
-### How to Improve CLS
+Measures unexpected visual shifts. Target: < 0.1.
 
 ```html
-<!-- ❌ Bad - no dimensions -->
-<img src="photo.jpg" alt="Photo">
-
-<!-- ✅ Good - explicit dimensions -->
-<img
-  src="photo.jpg"
-  alt="Photo"
-  width="800"
-  height="600"
->
+<!-- Always set image dimensions -->
+<img src="photo.jpg" alt="Photo" width="800" height="600">
 ```
 
 ```css
-/* ✅ CSS aspect ratio for responsive images */
-.image-container {
-  aspect-ratio: 16 / 9;
-}
-```
+/* Aspect ratio for responsive containers */
+.image-container { aspect-ratio: 16 / 9; }
 
-```css
-/* ✅ Reserve space for ads/embeds */
-.ad-slot {
-  min-height: 250px;
-  background: #f0f0f0;
-}
-```
+/* Font display to avoid FOIT */
+@font-face { font-family: 'MyFont'; src: url('font.woff2'); font-display: swap; }
 
-```css
-/* ✅ Font display strategy */
-@font-face {
-  font-family: 'MyFont';
-  src: url('font.woff2');
-  font-display: swap; /* Show fallback, swap when ready */
-}
-```
-
-```css
-/* ❌ Bad - causes layout shift */
-.box {
-  animation: slideDown 0.3s;
-}
-@keyframes slideDown {
-  from { top: -100px; }
-  to { top: 0; }
-}
-
-/* ✅ Good - no layout shift */
-.box {
-  animation: slideDown 0.3s;
-}
+/* Animate with transform, not layout properties */
 @keyframes slideDown {
   from { transform: translateY(-100px); }
-  to { transform: translateY(0); }
+  to   { transform: translateY(0); }
 }
 ```
 
-**CLS Prevention Checklist:**
-
-- **Images** — Set width and height attributes
-- **Ads/Embeds** — Reserve space with min-height
-- **Fonts** — Use font-display: swap
-- **Dynamic content** — Reserve space or use placeholders
-- **Animations** — Use transform instead of top/left
-
 ---
 
-## 6. Other Important Performance Metrics
-
-Beyond Core Web Vitals, several other metrics help measure performance.
-
-### Performance Metrics Timeline
-
-```
-Request → TTFB → FCP → LCP → TTI
-   |       |      |      |      |
-   |       |      |      |      └─ Fully interactive
-   |       |      |      └─ Largest content visible
-   |       |      └─ First content visible
-   |       └─ Server responds
-   └─ Request sent
-```
-
-**Metrics Comparison:**
-
-- **TTFB** — Measures server response time. Good: < 600ms. Importance: Server performance
-- **FCP** — Measures first content visible. Good: < 1.8s. Importance: Perceived loading
-- **LCP** — Measures largest content visible. Good: < 2.5s. Importance: Loading performance
-- **TTI** — Measures page fully interactive. Good: < 3.8s. Importance: Usability
-- **TBT** — Measures main thread blocking. Good: < 200ms. Importance: Responsiveness
-- **Speed Index** — Measures visual progress. Good: < 3.4s. Importance: User experience
-
----
-
-## 7. Measuring Web Performance
-
-Multiple tools and methods to measure web performance.
-
-### Method 1: Chrome DevTools Lighthouse
-
-```bash
-1. Open Chrome DevTools (F12)
-2. Go to Lighthouse tab
-3. Select categories (Performance)
-4. Click "Analyze page load"
-```
-
-### Method 2: Web Vitals Library
+## 5. Measuring Performance
 
 ```javascript
-import { getCLS, getFID, getFCP, getLCP, getTTFB } from 'web-vitals';
+// Web Vitals library — send real-user data to analytics
+import { getCLS, getINP, getLCP, getTTFB } from 'web-vitals';
 
-// Log to console
-getCLS(console.log);
-getFID(console.log);
-getFCP(console.log);
-getLCP(console.log);
-getTTFB(console.log);
-
-// Send to analytics
 function sendToAnalytics(metric) {
-  const body = JSON.stringify(metric);
-  fetch('/analytics', { method: 'POST', body });
+  fetch('/analytics', { method: 'POST', body: JSON.stringify(metric) });
 }
 
 getCLS(sendToAnalytics);
+getINP(sendToAnalytics);
 getLCP(sendToAnalytics);
+getTTFB(sendToAnalytics);
 ```
 
-### Method 3: Performance API
-
-```javascript
-const perfData = performance.getEntriesByType('navigation')[0];
-console.log('TTFB:', perfData.responseStart - perfData.requestStart);
-console.log('DOM Load:', perfData.domContentLoadedEventEnd);
-console.log('Page Load:', perfData.loadEventEnd);
-```
-
-### Method 4: PerformanceObserver
-
-```javascript
-const observer = new PerformanceObserver((list) => {
-  for (const entry of list.getEntries()) {
-    console.log('LCP:', entry.renderTime || entry.loadTime);
-  }
-});
-
-observer.observe({ entryTypes: ['largest-contentful-paint'] });
-```
-
-**Performance Measurement Tools:**
-
-- **Lighthouse** — Type: Lab. Use case: Development testing
-- **WebPageTest** — Type: Lab. Use case: Detailed waterfall analysis
-- **PageSpeed Insights** — Type: Lab + Field. Use case: Google's official tool
-- **Chrome UX Report** — Type: Field. Use case: Real user data
-- **Web Vitals Library** — Type: Field. Use case: Production monitoring
+**Lab tools:** Lighthouse (Chrome DevTools), WebPageTest, PageSpeed Insights.
+**Field tools:** Chrome UX Report, Web Vitals library.
 
 ---
 
-## 8. Image Optimization
+## 6. Image Optimization
 
-Images are often the largest assets on a page. Optimization significantly improves LCP.
+Images are usually the heaviest assets and the primary LCP bottleneck.
 
-### Choose the Right Format
-
-- **JPEG** — Best for photos. Pros: Good compression. Cons: No transparency
-- **PNG** — Best for graphics with transparency. Pros: Lossless. Cons: Large file size
-- **WebP** — Best as modern format. Pros: Smaller, good quality. Cons: Limited old browser support
-- **AVIF** — Best as newest format. Pros: Best compression. Cons: Very limited support
-- **SVG** — Best for icons, logos. Pros: Scalable, tiny. Cons: Only for vector graphics
-
-### Responsive Images
+**Format guide:** WebP/AVIF for photos, SVG for icons/logos, PNG only when lossless transparency is required.
 
 ```html
+<!-- Responsive images with WebP + fallback -->
 <picture>
-  <source
-    srcset="image-small.webp 400w,
-            image-medium.webp 800w,
-            image-large.webp 1200w"
-    type="image/webp"
-  >
-  <img
-    src="image-medium.jpg"
-    alt="Description"
-    width="800"
-    height="600"
-    loading="lazy"
-  >
+  <source srcset="img-400.webp 400w, img-800.webp 800w" type="image/webp">
+  <img src="img-800.jpg" alt="Description" width="800" height="600" loading="lazy">
 </picture>
 ```
 
-### Lazy Loading
-
-```html
-<img
-  src="image.jpg"
-  loading="lazy"
-  alt="Description"
-  width="800"
-  height="600"
->
-```
-
-### Next.js Image Component
-
 ```jsx
+// Next.js — handles format conversion, sizing, and lazy loading automatically
 import Image from 'next/image';
-
-<Image
-  src="/photo.jpg"
-  alt="Photo"
-  width={800}
-  height={600}
-  priority // For above-fold images
-/>
+<Image src="/photo.jpg" alt="Photo" width={800} height={600} priority />
 ```
-
-**Image Optimization Checklist:**
-
-- Choose appropriate format (WebP/AVIF when possible)
-- Compress images (tools: ImageOptim, Squoosh, TinyPNG)
-- Use responsive images with srcset
-- Lazy load below-fold images
-- Set width/height to prevent CLS
-- Use CDN for image delivery
-- Consider image CDNs (Cloudinary, imgix, Cloudflare Images)
 
 ---
 
-## 9. Lazy Loading
-
-**Lazy loading** defers loading of non-critical resources until they're needed, reducing initial load time and saving bandwidth.
-
-### Native Lazy Loading
+## 7. Lazy Loading
 
 ```html
-<!-- Images -->
-<img
-  src="photo.jpg"
-  loading="lazy"
-  alt="Photo"
-  width="800"
-  height="600"
->
-
-<!-- iframes -->
-<iframe
-  src="https://example.com/embed"
-  loading="lazy"
-  width="560"
-  height="315"
-></iframe>
+<!-- Native lazy loading -->
+<img src="photo.jpg" loading="lazy" alt="Photo" width="800" height="600">
+<iframe src="https://example.com/embed" loading="lazy" width="560" height="315"></iframe>
 ```
-
-### JavaScript Lazy Loading with Intersection Observer
-
-```javascript
-const images = document.querySelectorAll('img[data-src]');
-
-const imageObserver = new IntersectionObserver((entries, observer) => {
-  entries.forEach(entry => {
-    if (entry.isIntersecting) {
-      const img = entry.target;
-      img.src = img.dataset.src;
-      img.removeAttribute('data-src');
-      observer.unobserve(img);
-    }
-  });
-});
-
-images.forEach(img => imageObserver.observe(img));
-```
-
-### React Lazy Loading Components
 
 ```jsx
-import { lazy, Suspense } from 'react';
-
+// React component lazy loading
 const HeavyComponent = lazy(() => import('./HeavyComponent'));
 
-function App() {
-  return (
-    <Suspense fallback={<div>Loading...</div>}>
-      <HeavyComponent />
-    </Suspense>
-  );
-}
+<Suspense fallback={<div>Loading...</div>}>
+  <HeavyComponent />
+</Suspense>
 ```
 
-**When NOT to Lazy Load:**
-- Above-the-fold content
-- Critical resources
-- First few images
-- Hero images
-
-**Lazy Loading Comparison:**
-
-- **Native `loading="lazy"`** — Browser support: Modern browsers. Ease of use: Very easy. Control: Limited
-- **Intersection Observer** — Browser support: All modern browsers. Ease of use: Medium. Control: High
-- **React `lazy()`** — Browser support: All (with polyfill). Ease of use: Easy. Control: Medium
+Do not lazy-load above-fold content, hero images, or other critical resources.
 
 ---
 
-## 10. Code Splitting
+## 8. Code Splitting & Tree Shaking
 
-**Code splitting** breaks JavaScript into smaller chunks, loading only necessary code for each page to reduce bundle size and improve FID/INP.
-
-### Route-based Code Splitting
+**Code splitting** loads only the JS needed per route. **Tree shaking** removes unused exports at build time.
 
 ```jsx
-import { lazy, Suspense } from 'react';
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
-
-const Home = lazy(() => import('./pages/Home'));
-const About = lazy(() => import('./pages/About'));
+// Route-based splitting
+const Home      = lazy(() => import('./pages/Home'));
 const Dashboard = lazy(() => import('./pages/Dashboard'));
 
-function App() {
-  return (
-    <BrowserRouter>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Routes>
-          <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/dashboard" element={<Dashboard />} />
-        </Routes>
-      </Suspense>
-    </BrowserRouter>
-  );
-}
-```
-
-### Component-based Code Splitting
-
-```jsx
-import { lazy, Suspense, useState } from 'react';
-
-const Modal = lazy(() => import('./components/Modal'));
-
-function Page() {
-  const [showModal, setShowModal] = useState(false);
-
-  return (
-    <div>
-      <button onClick={() => setShowModal(true)}>
-        Open Modal
-      </button>
-
-      {showModal && (
-        <Suspense fallback={<div>Loading modal...</div>}>
-          <Modal onClose={() => setShowModal(false)} />
-        </Suspense>
-      )}
-    </div>
-  );
-}
-```
-
-### Dynamic Import
-
-```javascript
+// Load on interaction
 button.addEventListener('click', async () => {
-  const module = await import('./heavy-module.js');
-  module.doSomething();
+  const { doSomething } = await import('./heavy-module.js');
+  doSomething();
 });
 ```
 
-**Next.js Automatic Code Splitting:**
-- Each page is automatically code split
-- `pages/home.js` → `home.chunk.js`
-- `pages/about.js` → `about.chunk.js`
-
-**Code Splitting Strategies:**
-
-- **Route-based** — When to use: Different pages/routes. Impact: High
-- **Component-based** — When to use: Heavy modals, charts. Impact: Medium
-- **Library splitting** — When to use: Large dependencies. Impact: High
-- **Vendor splitting** — When to use: Third-party libraries. Impact: Medium
-
----
-
-## 11. Tree Shaking
-
-**Tree shaking** removes unused code from bundles through static analysis.
-
-**Requirements:**
-- ES6 modules (import/export)
-- Production build mode
-- Proper bundler configuration
-
 ```javascript
-// utils.js - Library file
-export function add(a, b) {
-  return a + b;
-}
+// Named imports enable tree shaking
+import { add } from './utils.js';  // subtract/multiply excluded from bundle
 
-export function subtract(a, b) {
-  return a - b;
-}
-
-export function multiply(a, b) {
-  return a * b;
-}
-```
-
-```javascript
-// ❌ Bad - imports everything
+// Wildcard imports defeat tree shaking
 import * as utils from './utils.js';
-utils.add(2, 3);
-// All functions included in bundle
-
-// ✅ Good - imports only what's needed
-import { add } from './utils.js';
-add(2, 3);
-// Only add() included, subtract() and multiply() removed
 ```
 
-### Package.json Configuration
-
-```json
-{
-  "sideEffects": false
-}
-```
-
-Or specify files with side effects:
-
-```json
-{
-  "sideEffects": ["*.css", "*.scss"]
-}
-```
-
-**Tree Shaking Comparison:**
-
-- **Import all** — Bundle size: Large. Works with: CommonJS, ES6
-- **Named imports** — Bundle size: Small (with tree shaking). Works with: ES6 only
-- **Default imports** — Bundle size: Medium. Works with: Both
+Next.js automatically code-splits by page.
 
 ---
 
-## 12. Minification
+## 9. Minification & Compression
 
-**Minification** removes unnecessary characters from code without changing functionality.
+- React dev build: 1.3 MB → minified: 42 KB → gzipped: 13 KB
+- Brotli compresses ~20% better than gzip
 
-**What it removes:**
-- Whitespace
-- Comments
-- Line breaks
-- Shortens variable names
-- Removes unused code
-
-```javascript
-// Original JavaScript (400 bytes)
-function calculateTotal(price, quantity, discount) {
-  const subtotal = price * quantity;
-  const discountAmount = subtotal * (discount / 100);
-  const total = subtotal - discountAmount;
-  return total;
-}
-
-// Minified JavaScript (100 bytes)
-function calculateTotal(e,t,n){const a=e*t,l=a*(n/100);return a-l}
-```
-
-**File Size Comparison:**
-
-- **React (development)** — 1.3 MB
-- **React (production minified)** — 42 KB
-- **React (minified + gzipped)** — 13 KB
-
-**Tools:**
-- **Terser** - JavaScript minification
-- **cssnano** - CSS minification
-- **HTMLMinifier** - HTML minification
-
-**Build tools handle this automatically:**
-- Webpack: `mode: 'production'`
-- Vite: `vite build`
-- Next.js: `next build`
+Build tools apply minification automatically: `webpack mode: 'production'`, `vite build`, `next build`.
 
 ---
 
-## 13. Compression (gzip/brotli)
-
-**Compression** reduces file size for transfer over the network.
-
-**Comparison:**
-
-- **None** — Reduction: 0%. Browser support: All
-- **gzip** — Reduction: ~70%. Browser support: All. Speed: Fast
-- **Brotli** — Reduction: ~20% better than gzip. Browser support: Modern. Speed: Slower encode, faster decode
-
-### Nginx Configuration
-
-```nginx
-# Enable gzip
-gzip on;
-gzip_types text/plain text/css application/json application/javascript;
-gzip_min_length 1000;
-
-# Enable Brotli
-brotli on;
-brotli_types text/plain text/css application/json application/javascript;
-```
-
-### Express.js
-
-```javascript
-const compression = require('compression');
-app.use(compression());
-```
-
-### Next.js
-
-```javascript
-// next.config.js
-module.exports = {
-  compress: true // Automatic in production
-};
-```
-
-**File Size Comparison:**
-
-- **Original** — 1000 KB
-- **Minified** — 400 KB (60% reduction)
-- **Gzipped** — 120 KB (70% reduction from minified)
-- **Brotli** — 95 KB (76% reduction from minified)
-
-**What to Compress:**
-- ✅ Text files (JS, CSS, HTML, JSON, XML)
-- ❌ Images, videos (already compressed)
-
----
-
-## 14. Caching
-
-**Caching** stores resources to avoid re-downloading on repeat visits.
-
-### Cache-Control Headers
+## 10. Caching
 
 ```http
-# No caching
-Cache-Control: no-store
-
-# Cache but always revalidate
-Cache-Control: no-cache
-
-# Cache for 1 hour
-Cache-Control: max-age=3600
-
-# Cache for 1 year (immutable assets with hash)
-Cache-Control: max-age=31536000, immutable
+Cache-Control: no-cache                       # HTML — always revalidate
+Cache-Control: max-age=31536000, immutable    # Hashed assets — cache 1 year
+Cache-Control: max-age=60                     # API responses — short cache
+Cache-Control: no-store, private              # User-specific content
 ```
 
-### Caching Strategies
-
-- **HTML** — Strategy: No cache (always fresh). Header: `no-cache`
-- **Hashed assets** — Strategy: Long-term cache. Header: `max-age=31536000, immutable`
-- **API responses** — Strategy: Short cache. Header: `max-age=60`
-- **User-specific content** — Strategy: No cache. Header: `no-store, private`
-
-### Service Worker Caching
-
 ```javascript
-self.addEventListener('fetch', (event) => {
+// Service Worker — cache-first strategy
+self.addEventListener('fetch', event => {
   event.respondWith(
-    caches.match(event.request).then((response) => {
-      return response || fetch(event.request);
-    })
+    caches.match(event.request).then(cached => cached || fetch(event.request))
   );
 });
 ```
 
-**Caching Layers:**
-
-```
-Browser Cache
-     ↓
-CDN Cache
-     ↓
-Server Cache
-     ↓
-Database
-```
-
 ---
 
-## 15. CDN (Content Delivery Network)
+## 11. CDN, Prefetching & Preloading
 
-**CDN** is a network of servers distributed globally that serves content from the server closest to the user.
-
-### Without CDN
-
-```
-User in Tokyo → Origin Server in New York
-Latency: ~200ms
-```
-
-### With CDN
-
-```
-User in Tokyo → CDN Edge Server in Tokyo
-Latency: ~10ms
-```
-
-**Popular CDNs:**
-- Cloudflare
-- AWS CloudFront
-- Fastly
-- Akamai
-- Vercel Edge Network
-- Cloudinary (images)
-
-### Using CDN
+A **CDN** serves assets from an edge server near the user, reducing latency from ~200ms to ~10ms.
 
 ```html
-<!-- CDN for libraries -->
-<script src="https://cdn.jsdelivr.net/npm/react@18/umd/react.production.min.js"></script>
-
-<!-- CDN for images -->
-<img src="https://cdn.example.com/images/photo.jpg" alt="Photo">
-```
-
-**CDN Benefits:**
-
-- **Faster load times** — Impact: High
-- **Reduced server load** — Impact: High
-- **Better availability** — Impact: High
-- **DDoS protection** — Impact: Medium
-- **Automatic compression** — Impact: Medium
-- **Image optimization** — Impact: High
-
----
-
-## 16. Prefetching and Preloading
-
-Resource hints to optimize loading.
-
-**Comparison:**
-
-- **preload** — Priority: High. When to use: Critical resources for current page. Example: Fonts, hero images, critical CSS
-- **prefetch** — Priority: Low. When to use: Resources for next page. Example: Next route in SPA
-- **preconnect** — Priority: Medium. When to use: External domains. Example: APIs, font providers
-- **dns-prefetch** — Priority: Low. When to use: DNS resolution only. Example: Analytics, ads
-
-### Preload (Critical Resources)
-
-```html
-<link rel="preload" href="critical.css" as="style">
+<!-- preload: critical resources for the current page -->
+<link rel="preload" href="hero.jpg" as="image" fetchpriority="high">
 <link rel="preload" href="font.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="hero.jpg" as="image">
-```
 
-### Prefetch (Likely Next Page)
-
-```html
-<link rel="prefetch" href="/about">
-<link rel="prefetch" href="next-page.js">
-```
-
-### Preconnect (External Domains)
-
-```html
-<link rel="preconnect" href="https://api.example.com">
+<!-- preconnect: warm up connections to external domains -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
+
+<!-- prefetch: load resources for the likely next navigation -->
+<link rel="prefetch" href="/about">
 ```
 
-### DNS-prefetch (DNS Resolution)
-
-```html
-<link rel="dns-prefetch" href="https://analytics.example.com">
-```
-
-### React Prefetch on Hover
-
-```jsx
-<Link
-  to="/about"
-  onMouseEnter={() => import('./pages/About')}
->
-  About
-</Link>
-```
-
-### Next.js Automatic Prefetching
-
-```jsx
-<Link href="/about">About</Link>
-<!-- Automatically prefetches when link is in viewport -->
-```
+Next.js `<Link>` prefetches pages automatically when the link enters the viewport.
 
 ---
 
-## 17. Critical CSS
+## 12. Critical CSS & Script Loading
 
-**Critical CSS** is the minimum CSS needed for above-the-fold content. Inlining it improves FCP and LCP by eliminating render-blocking.
-
-### Implementation
+**Critical CSS** — inline minimum CSS for above-fold content to eliminate the render-blocking request:
 
 ```html
-<!DOCTYPE html>
-<html>
 <head>
-  <!-- Inline critical CSS -->
-  <style>
-    /* Only styles for above-fold content */
-    body { margin: 0; font-family: sans-serif; }
-    .header { height: 60px; background: white; }
-    .hero { height: 500px; background: blue; }
-  </style>
-
-  <!-- Load non-critical CSS async -->
-  <link
-    rel="preload"
-    href="styles.css"
-    as="style"
-    onload="this.onload=null;this.rel='stylesheet'"
-  >
-  <noscript>
-    <link rel="stylesheet" href="styles.css">
-  </noscript>
+  <style>/* Inline critical CSS */</style>
+  <link rel="preload" href="styles.css" as="style" onload="this.rel='stylesheet'">
+  <noscript><link rel="stylesheet" href="styles.css"></noscript>
 </head>
-<body>
-  <header class="header">...</header>
-  <section class="hero">...</section>
-  <!-- Rest of page -->
-</body>
-</html>
 ```
 
-**Tools to Extract Critical CSS:**
-- Critical
-- Critters (used by Angular)
-- PurgeCSS
-- Webpack CriticalCssPlugin
-
----
-
-## 18. Render-blocking Resources
-
-Resources that prevent page from rendering until loaded.
-
-### Render-blocking Comparison
-
-- **CSS in `<head>`** — Blocks rendering: Yes. Solution: Inline critical CSS, defer non-critical
-- **Synchronous `<script>`** — Blocks rendering: Yes. Solution: Use `defer` or `async`
-- **JavaScript in `<head>`** — Blocks rendering: Yes. Solution: Move to end of `<body>` or use `defer`
-- **Images** — Blocks rendering: No
+**Script loading attributes:**
 
 ```html
-<!-- ❌ Render-blocking CSS -->
-<link rel="stylesheet" href="styles.css">
-
-<!-- ✅ Non-blocking CSS (for non-critical) -->
-<link
-  rel="preload"
-  href="styles.css"
-  as="style"
-  onload="this.rel='stylesheet'"
->
-
-<!-- ❌ Render-blocking JavaScript -->
-<script src="app.js"></script>
-
-<!-- ✅ Deferred JavaScript -->
-<script src="app.js" defer></script>
-
-<!-- ✅ Async JavaScript -->
-<script src="analytics.js" async></script>
+<script src="app.js" defer></script>       <!-- parallel download, runs after parse, ordered -->
+<script src="analytics.js" async></script> <!-- parallel download, runs immediately, unordered -->
 ```
 
-**defer vs async:**
-
-- **None** — Download: Blocks. Execution: Blocks. Order: Sequential. Use case: Avoid
-- **`defer`** — Download: Parallel. Execution: After HTML parse. Order: Sequential. Use case: App scripts
-- **`async`** — Download: Parallel. Execution: When ready. Order: Random. Use case: Analytics, ads
+Never place a plain `<script>` in `<head>` without defer or async — it blocks HTML parsing.
 
 ---
 
-## 19. Bundle Analysis
-
-Visualize and analyze what's in your JavaScript bundles.
-
-### Webpack Bundle Analyzer
+## 13. Bundle Analysis
 
 ```javascript
-const BundleAnalyzerPlugin =
-  require('webpack-bundle-analyzer').BundleAnalyzerPlugin;
-
-module.exports = {
-  plugins: [
-    new BundleAnalyzerPlugin()
-  ]
-};
-```
-
-### Next.js Bundle Analyzer
-
-```javascript
-// next.config.js
+// Next.js
 const withBundleAnalyzer = require('@next/bundle-analyzer')({
   enabled: process.env.ANALYZE === 'true'
 });
-
-module.exports = withBundleAnalyzer({
-  // config
-});
+module.exports = withBundleAnalyzer({});
+// Run: ANALYZE=true npm run build
 ```
-
-Run: `ANALYZE=true npm run build`
-
-### Vite Bundle Analyzer
-
-```javascript
-// vite.config.js
-import { visualizer } from 'rollup-plugin-visualizer';
-
-export default {
-  plugins: [
-    visualizer({ open: true })
-  ]
-};
-```
-
-**What to Look For:**
-- Large dependencies (can you replace with lighter alternatives?)
-- Duplicate code (need better code splitting?)
-- Unused code (is tree shaking working?)
-- Source maps in production (should be removed!)
 
 ---
 
-## 20. Debouncing and Throttling
+## 14. Debouncing & Throttling
 
-Techniques to reduce function call frequency and improve performance.
-
-**Comparison:**
-
-- **Debouncing** — Wait until action stops, then execute once. Use case: Search input, window resize
-- **Throttling** — Execute at most once per interval. Use case: Scroll events, mouse movement
-
-### Debouncing
+- **Debounce** — waits until action stops, then fires once. Use for: search input, window resize.
+- **Throttle** — fires at most once per interval. Use for: scroll, mouse move.
 
 ```javascript
-function debounce(func, delay) {
-  let timeoutId;
-  return function(...args) {
-    clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => func.apply(this, args), delay);
-  };
+function debounce(fn, delay) {
+  let id;
+  return (...args) => { clearTimeout(id); id = setTimeout(() => fn(...args), delay); };
 }
 
-// Usage - search input
-const searchInput = document.querySelector('#search');
-const debouncedSearch = debounce((query) => {
-  fetch(`/api/search?q=${query}`);
-}, 300);
-
-searchInput.addEventListener('input', (e) => {
-  debouncedSearch(e.target.value);
-});
-
-// Without debounce: API call on every keystroke
-// With debounce: API call 300ms after user stops typing
-```
-
-### Throttling
-
-```javascript
-function throttle(func, limit) {
-  let inThrottle;
-  return function(...args) {
-    if (!inThrottle) {
-      func.apply(this, args);
-      inThrottle = true;
-      setTimeout(() => inThrottle = false, limit);
+function throttle(fn, limit) {
+  let active;
+  return (...args) => {
+    if (!active) {
+      fn(...args);
+      active = true;
+      setTimeout(() => active = false, limit);
     }
   };
 }
-
-// Usage - scroll event
-const throttledScroll = throttle(() => {
-  console.log('Scroll position:', window.scrollY);
-}, 100);
-
-window.addEventListener('scroll', throttledScroll);
-
-// Without throttle: Fires 100+ times per second
-// With throttle: Fires at most once per 100ms
-```
-
-### React Hook
-
-```jsx
-import { useCallback } from 'react';
-import { debounce } from 'lodash';
-
-function SearchComponent() {
-  const handleSearch = useCallback(
-    debounce((query) => {
-      fetch(`/api/search?q=${query}`);
-    }, 300),
-    []
-  );
-
-  return (
-    <input
-      type="text"
-      onChange={(e) => handleSearch(e.target.value)}
-    />
-  );
-}
 ```
 
 ---
 
-## 21. Resource Prioritization
-
-Control which resources load first using `fetchpriority` attribute.
-
-**Default Browser Priorities:**
-
-- **CSS** — Priority: High
-- **Fonts** — Priority: High
-- **Images in viewport** — Priority: High
-- **Scripts** — Priority: Medium
-- **Out-of-viewport images** — Priority: Low
-- **Prefetch resources** — Priority: Lowest
-
-### Increase Priority
+## 15. Font Optimization
 
 ```html
-<!-- Hero image -->
-<img
-  src="hero.jpg"
-  fetchpriority="high"
-  alt="Hero"
->
-
-<!-- Critical script -->
-<script src="critical.js" fetchpriority="high"></script>
+<link rel="preload" href="/fonts/roboto.woff2" as="font" type="font/woff2" crossorigin>
 ```
-
-### Decrease Priority
-
-```html
-<!-- Below-fold image -->
-<img
-  src="footer-logo.jpg"
-  fetchpriority="low"
-  loading="lazy"
-  alt="Logo"
->
-
-<!-- Analytics script -->
-<script src="analytics.js" fetchpriority="low" async></script>
-```
-
-### Next.js Image Priority
-
-```jsx
-import Image from 'next/image';
-
-<Image
-  src="/hero.jpg"
-  priority  // High priority, no lazy loading
-  alt="Hero"
-  width={1200}
-  height={600}
-/>
-```
-
-**Best Practices:**
-- High priority: LCP element, critical CSS, critical fonts
-- Low priority: Below-fold images, analytics, social widgets
-- Don't mark everything as high (defeats the purpose)
-
----
-
-## 22. HTTP/2 and HTTP/3
-
-Modern HTTP protocols that improve performance.
-
-**Protocol Comparison:**
-
-- **Transport** — HTTP/1.1: TCP. HTTP/2: TCP. HTTP/3: QUIC (UDP)
-- **Multiplexing** — HTTP/1.1: No. HTTP/2: Yes. HTTP/3: Yes
-- **Header compression** — HTTP/1.1: No. HTTP/2: Yes. HTTP/3: Yes
-- **Server push** — HTTP/1.1: No. HTTP/2: Yes. HTTP/3: Yes
-- **Connection setup** — HTTP/1.1: Slow. HTTP/2: Medium. HTTP/3: Fast
-- **Packet loss handling** — HTTP/1.1: Poor. HTTP/2: Poor. HTTP/3: Good
-
-### HTTP/2 Benefits
-
-- **Multiplexing** - Multiple requests on one connection
-- **Header compression** - Smaller headers (HPACK)
-- **Server push** - Server sends resources before requested
-- **Stream prioritization** - Important resources first
-
-### HTTP/2 Workarounds (Not Needed)
-
-These optimizations from HTTP/1.1 era are unnecessary:
-- Domain sharding
-- CSS sprites
-- Inline resources
-- Concatenated files
-
-### Enable HTTP/2 (Nginx)
-
-```nginx
-server {
-  listen 443 ssl http2;
-  server_name example.com;
-  # ... SSL config
-}
-```
-
-### HTTP/3 (QUIC) Benefits
-
-- Faster connection establishment
-- Better packet loss handling
-- Connection migration (WiFi ↔ mobile)
-- Built-in encryption
-
-**Performance Impact:**
-- HTTP/1.1 → HTTP/2: 20-30% faster
-- HTTP/2 → HTTP/3: 10-15% faster
-
----
-
-## 23. Third-party Script Optimization
-
-Third-party scripts (analytics, ads, chat widgets) often slow down sites.
-
-```html
-<!-- ❌ Bad - blocking script -->
-<script src="https://analytics.com/script.js"></script>
-
-<!-- ✅ Good - async script -->
-<script src="https://analytics.com/script.js" async></script>
-
-<!-- ✅ Better - defer script -->
-<script src="https://analytics.com/script.js" defer></script>
-```
-
-### Load on Interaction
-
-```html
-<button onclick="loadAnalytics()">Accept Cookies</button>
-
-<script>
-function loadAnalytics() {
-  const script = document.createElement('script');
-  script.src = 'https://analytics.com/script.js';
-  script.async = true;
-  document.head.appendChild(script);
-}
-</script>
-```
-
-### Lazy Load on Idle
-
-```javascript
-if ('requestIdleCallback' in window) {
-  requestIdleCallback(() => {
-    loadAnalytics();
-  });
-} else {
-  setTimeout(loadAnalytics, 2000);
-}
-```
-
-### Partytown (Web Worker)
-
-```jsx
-import { Partytown } from '@builder.io/partytown/react';
-
-<Partytown forward={['dataLayer.push']} />
-
-<script
-  type="text/partytown"
-  src="https://www.googletagmanager.com/gtag/js"
-></script>
-```
-
-**Common Performance Culprits:**
-- Google Analytics / Tag Manager
-- Facebook Pixel
-- Ad networks
-- Live chat widgets
-- Social media embeds
-
-**Best Practices:**
-- Load async or defer
-- Delay non-critical scripts
-- Use facades for embeds (YouTube, etc.)
-- Monitor impact with Lighthouse
-- Consider self-hosting
-- Don't load everything on page load
-
----
-
-## 24. Font Optimization
-
-Web fonts can significantly impact rendering performance.
-
-### font-display Strategies
 
 ```css
 @font-face {
   font-family: 'MyFont';
-  src: url('font.woff2');
-
-  /* Display strategies */
-  font-display: auto;      /* Browser default */
-  font-display: block;     /* FOIT - hide text, wait for font */
-  font-display: swap;      /* FOUT - show fallback, swap when ready */
-  font-display: fallback;  /* Brief hide, then fallback */
-  font-display: optional;  /* Use only if already cached */
+  src: url('font.woff2') format('woff2');
+  font-display: swap; /* show fallback immediately, swap when font loads */
 }
 ```
-
-**font-display Comparison:**
-
-- **`auto`** — Browser decides. Use case: Default
-- **`block`** — FOIT, hide up to 3s. Use case: Branding fonts
-- **`swap`** — FOUT, always swap. Use case: Body text (Recommended)
-- **`fallback`** — Brief hide, then fallback. Use case: Compromise
-- **`optional`** — Use if cached. Use case: Decorative fonts
-
-### Preload Critical Fonts
-
-```html
-<link
-  rel="preload"
-  href="/fonts/roboto.woff2"
-  as="font"
-  type="font/woff2"
-  crossorigin
->
-```
-
-### Google Fonts Optimization
-
-```html
-<!-- ❌ Bad - loads all weights and characters -->
-<link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap">
-
-<!-- ✅ Good - subset and specify display -->
-<link
-  href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap&text=HelloWorld"
-  rel="stylesheet"
->
-```
-
-### Next.js Font Optimization
 
 ```jsx
+// Next.js — automatic subsetting, preloading, and zero layout shift
 import { Inter } from 'next/font/google';
-
-const inter = Inter({
-  subsets: ['latin'],
-  display: 'swap',
-  preload: true
-});
-
-export default function Layout({ children }) {
-  return (
-    <html className={inter.className}>
-      <body>{children}</body>
-    </html>
-  );
-}
+const inter = Inter({ subsets: ['latin'], display: 'swap' });
 ```
-
-### Variable Fonts
-
-```css
-@font-face {
-  font-family: 'Roboto';
-  src: url('roboto-variable.woff2');
-  font-weight: 100 900;  /* Supports all weights in one file */
-}
-```
-
-**Font Optimization Checklist:**
-- Use `font-display: swap`
-- Preload critical fonts
-- Use WOFF2 format (best compression)
-- Subset fonts (include only needed characters)
-- Limit number of fonts and weights
-- Consider system fonts for body text
 
 ---
 
-## 25. Web Performance Best Practices
+## 16. Third-party Script Optimization
 
-### Performance Checklist
-
-**Images:**
-- Use WebP/AVIF format when possible
-- Set width and height attributes
-- Lazy load below-fold images
-- Use responsive images (srcset)
-- Compress images appropriately
-- Serve from CDN
-
-**JavaScript:**
-- Minify and compress
-- Code split by route
-- Tree shake unused code
-- Defer non-critical scripts
-- Use dynamic imports
-- Analyze bundle size regularly
-
-**CSS:**
-- Inline critical CSS
-- Minify and compress
-- Remove unused CSS
-- Load non-critical CSS async
-- Avoid `@import` (use `<link>` instead)
-
-**Fonts:**
-- Use `font-display: swap`
-- Preload critical fonts
-- Use WOFF2 format
-- Subset fonts
-- Limit font variations
-
-**Network:**
-- Enable HTTP/2 or HTTP/3
-- Use CDN for static assets
-- Enable gzip/brotli compression
-- Implement proper caching headers
-- Preconnect to external domains
-
-**Rendering:**
-- Avoid layout shifts (set dimensions)
-- Minimize reflows/repaints
-- Use CSS containment
-- Optimize animations (use `transform`/`opacity`)
-- Debounce/throttle expensive operations
-
-**Third-Party:**
-- Load async/defer
-- Delay non-critical scripts
-- Use facades for embeds
-- Self-host when possible
-- Monitor impact on performance
-
-**Monitoring:**
-- Track Core Web Vitals
-- Set performance budgets
-- Monitor in production
-- Run Lighthouse regularly
-- Use Real User Monitoring (RUM)
-
-### Optimized Page Structure
-
-```html
-<!DOCTYPE html>
-<html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
-  <!-- Critical CSS inlined -->
-  <style>
-    /* Inline critical above-fold styles */
-  </style>
-
-  <!-- Preconnect to external domains -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://api.example.com">
-
-  <!-- Preload critical resources -->
-  <link rel="preload" href="hero.jpg" as="image" fetchpriority="high">
-  <link rel="preload" href="font.woff2" as="font" type="font/woff2" crossorigin>
-
-  <!-- Non-critical CSS loaded async -->
-  <link
-    rel="preload"
-    href="styles.css"
-    as="style"
-    onload="this.rel='stylesheet'"
-  >
-</head>
-<body>
-  <!-- Above-fold content with dimensions -->
-  <img
-    src="hero.jpg"
-    width="1200"
-    height="600"
-    alt="Hero"
-    fetchpriority="high"
-  >
-
-  <!-- Below-fold content lazy loaded -->
-  <img
-    src="footer.jpg"
-    loading="lazy"
-    width="800"
-    height="400"
-    alt="Footer"
-  >
-
-  <!-- Scripts deferred to end -->
-  <script src="app.js" defer></script>
-  <script src="analytics.js" async></script>
-</body>
-</html>
+```javascript
+// Load only during idle time
+requestIdleCallback
+  ? requestIdleCallback(loadAnalytics)
+  : setTimeout(loadAnalytics, 2000);
 ```
 
+```jsx
+// Partytown — run third-party scripts in a web worker
+import { Partytown } from '@builder.io/partytown/react';
+
+<Partytown forward={['dataLayer.push']} />
+<script type="text/partytown" src="https://www.googletagmanager.com/gtag/js"></script>
+```
+
+---
+
+## 17. `fetchpriority`
+
+Fine-tunes browser resource scheduling:
+
+```html
+<img src="hero.jpg" fetchpriority="high" alt="Hero">
+<img src="footer-logo.jpg" fetchpriority="low" loading="lazy" alt="Logo">
+<script src="analytics.js" fetchpriority="low" async></script>
+```
+
+Mark only genuinely critical resources as high priority.
+
+---
+
+## 18. Performance Checklist
+
+- **Images** — WebP/AVIF, set dimensions, lazy-load below fold, serve via CDN
+- **JavaScript** — code-split by route, tree-shake, defer non-critical, analyze bundle
+- **CSS** — inline critical, minify, remove unused, load rest async
+- **Fonts** — WOFF2, `font-display: swap`, preload, subset
+- **Network** — HTTP/2+, CDN, gzip/brotli, proper `Cache-Control` headers, `preconnect`
+- **Rendering** — set image/embed dimensions, use `transform` for animations, debounce/throttle events
+- **Third-party** — async/defer, defer until idle or interaction, use facades
+- **Monitoring** — track Core Web Vitals, run Lighthouse in CI, use Real User Monitoring (RUM)
